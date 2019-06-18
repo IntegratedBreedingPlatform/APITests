@@ -14565,6 +14565,269 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "POST /ontology/{cropname}/methods",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Store returned variable",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.unset(\"new_method_id\");",
+									"    pm.environment.set(\"new_method_id\", jsonData.id);",
+									"    ",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{masterToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"New Method\",\r\n  \"description\": \"This is a test method\",\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": true,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/methods",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"methods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /ontology/{cropname}/methods/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"New Methodx\",\r\n  \"description\": \"This is a test methodx\",\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": true,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/methods/{{new_method_id}}",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"methods",
+								"{{new_method_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /ontology/{cropname}/methods{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									"",
+									"// Note: Checked details of first, middle and last method only for all methods are too many.",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/methods/{{new_method_id}}",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"methods",
+								"{{new_method_id}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
