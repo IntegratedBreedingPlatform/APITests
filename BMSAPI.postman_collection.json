@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "da675960-d814-44b8-ade4-7ece75259d72",
+		"_postman_id": "99dfbb03-d732-491a-b25d-bb23a84e4fbd",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11448,98 +11448,6 @@
 			]
 		},
 		{
-			"name": "ontology-method-service",
-			"item": [
-				{
-					"name": "GET /ontology/{cropname}/methods",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"/*pm.test(\"Checkname\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    var i;",
-									"    for(i=0;i<jsonData.length;i++){",
-									"        pm.expect(jsonData).to.have.property(jsonData[i].name,\"Test Method\");",
-									"        ",
-									"    }",
-									"});",
-									"*/"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
-								"exec": [
-									"pm.sendRequest({",
-									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
-									"    method: 'POST',",
-									"    header: {",
-									"        'Content-Type': 'application/json'",
-									"    },",
-									"    body: {",
-									"        mode: 'raw',",
-									"        raw: JSON.stringify(",
-									"            { ",
-									"                \"username\": \"admin\",",
-									"                \"password\": \"@dm1N\",",
-									"                \"grant_type\": \"\",",
-									"                \"client_id\": \"\"",
-									"            ",
-									"        })",
-									"    }",
-									"}, function (err, res) {",
-									"    var jsonData = res.json();",
-									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
-									"",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"value": "{{masterToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/methods",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"methods"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "brapi-sample-services",
 			"item": [
 				{
@@ -14182,6 +14090,243 @@
 									"key": "format",
 									"value": "tsv"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ontology-data-type-service",
+			"item": [
+				{
+					"name": "GET /ontology/datatypes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Check categorical data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].id).to.eql(\"1130\");",
+									"    pm.expect(jsonData[0].name).to.eql(\"Categorical\");",
+									"    pm.expect(jsonData[0].systemDataType).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"Check numeric data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[1].id).to.eql(\"1110\");",
+									"    pm.expect(jsonData[1].name).to.eql(\"Numeric\");",
+									"    pm.expect(jsonData[1].systemDataType).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"Check date data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[2].id).to.eql(\"1117\");",
+									"    pm.expect(jsonData[2].name).to.eql(\"Date\");",
+									"    pm.expect(jsonData[2].systemDataType).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"Check character data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[3].id).to.eql(\"1120\");",
+									"    pm.expect(jsonData[3].name).to.eql(\"Character\");",
+									"    pm.expect(jsonData[3].systemDataType).to.eql(false);",
+									"});",
+									"pm.test(\"Check person data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[4].id).to.eql(\"1131\");",
+									"    pm.expect(jsonData[4].name).to.eql(\"Person\");",
+									"    pm.expect(jsonData[4].systemDataType).to.eql(true);",
+									"});",
+									"pm.test(\"Check location data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[5].id).to.eql(\"1132\");",
+									"    pm.expect(jsonData[5].name).to.eql(\"Location\");",
+									"    pm.expect(jsonData[5].systemDataType).to.eql(true);",
+									"});",
+									"pm.test(\"Check study data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[6].id).to.eql(\"1133\");",
+									"    pm.expect(jsonData[6].name).to.eql(\"Study\");",
+									"    pm.expect(jsonData[6].systemDataType).to.eql(true);",
+									"});",
+									"pm.test(\"Check dataset data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[7].id).to.eql(\"1134\");",
+									"    pm.expect(jsonData[7].name).to.eql(\"Dataset\");",
+									"    pm.expect(jsonData[7].systemDataType).to.eql(true);",
+									"});",
+									"pm.test(\"Check germplasm list data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[8].id).to.eql(\"1135\");",
+									"    pm.expect(jsonData[8].name).to.eql(\"Germplasm List\");",
+									"    pm.expect(jsonData[8].systemDataType).to.eql(true);",
+									"});",
+									"pm.test(\"Check breeding method data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[9].id).to.eql(\"1136\");",
+									"    pm.expect(jsonData[9].name).to.eql(\"Breeding Method\");",
+									"    pm.expect(jsonData[9].systemDataType).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{masterToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/datatypes",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"datatypes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ontology-method-service",
+			"item": [
+				{
+					"name": "GET /ontology/{cropname}/methods",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"/*pm.test(\"Checkname\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var i;",
+									"    for(i=0;i<jsonData.length;i++){",
+									"        pm.expect(jsonData).to.have.property(jsonData[i].name,\"Test Method\");",
+									"        ",
+									"    }",
+									"});",
+									"*/"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{masterToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/methods",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"methods"
 							]
 						}
 					},
