@@ -15740,6 +15740,158 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "ontology-variable-type-service",
+			"item": [
+				{
+					"name": "GET /ontology/variableTypes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check analysis variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0].id).to.eql(\"1801\");\r",
+									"    pm.expect(jsonData[0].name).to.eql(\"Analysis\");\r",
+									"    pm.expect(jsonData[0].description).to.eql(\"Variable to be used only in analysis (for example derived variables).\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check analysis summary variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1].id).to.eql(\"1811\");\r",
+									"    pm.expect(jsonData[1].name).to.eql(\"Analysis Summary\");\r",
+									"    pm.expect(jsonData[1].description).to.eql(\"Analysis Summary Variables\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check environment detail variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[2].id).to.eql(\"1806\");\r",
+									"    pm.expect(jsonData[2].name).to.eql(\"Environment Detail\");\r",
+									"    pm.expect(jsonData[2].description).to.eql(\"Administrative details to be tracked per environment.\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check experimental design variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[3].id).to.eql(\"1810\");\r",
+									"    pm.expect(jsonData[3].name).to.eql(\"Experimental Design\");\r",
+									"    pm.expect(jsonData[3].description).to.eql(\"Experimental Design Variables\");\r",
+									"});\r",
+									"pm.test(\"Check germplasm descriptor variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[4].id).to.eql(\"1804\");\r",
+									"    pm.expect(jsonData[4].name).to.eql(\"Germplasm Descriptor\");\r",
+									"    pm.expect(jsonData[4].description).to.eql(\"Information to be recorded about each germplasm in a study.\");\r",
+									"});\r",
+									"pm.test(\"Check observation unit variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[5].id).to.eql(\"1812\");\r",
+									"    pm.expect(jsonData[5].name).to.eql(\"Observation Unit\");\r",
+									"    pm.expect(jsonData[5].description).to.eql(\"Observation Unit Variables\");\r",
+									"});\r",
+									"pm.test(\"Check selection method variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[6].id).to.eql(\"1807\");\r",
+									"    pm.expect(jsonData[6].name).to.eql(\"Selection Method\");\r",
+									"    pm.expect(jsonData[6].description).to.eql(\"How material is chosen for advancing to the next generation.\");\r",
+									"});\r",
+									"pm.test(\"Check study condition variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[7].id).to.eql(\"1802\");\r",
+									"    pm.expect(jsonData[7].name).to.eql(\"Study Condition\");\r",
+									"    pm.expect(jsonData[7].description).to.eql(\"Observations made of conditions in an individual environment involved in a study.\");\r",
+									"});\r",
+									"pm.test(\"Check study detail variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[8].id).to.eql(\"1805\");\r",
+									"    pm.expect(jsonData[8].name).to.eql(\"Study Detail\");\r",
+									"    pm.expect(jsonData[8].description).to.eql(\"Administrative details to be tracked per study.\");\r",
+									"});\r",
+									"pm.test(\"Check trait variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[9].id).to.eql(\"1808\");\r",
+									"    pm.expect(jsonData[9].name).to.eql(\"Trait\");\r",
+									"    pm.expect(jsonData[9].description).to.eql(\"Characteristics of a germplasm to be recorded during a study.\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check treatment factor variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[10].id).to.eql(\"1809\");\r",
+									"    pm.expect(jsonData[10].name).to.eql(\"Treatment Factor\");\r",
+									"    pm.expect(jsonData[10].description).to.eql(\"Treatments to be applied to members of a trial.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{masterToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/variableTypes",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"variableTypes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
