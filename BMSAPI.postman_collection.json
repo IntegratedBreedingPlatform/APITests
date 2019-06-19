@@ -16323,6 +16323,982 @@
 			]
 		},
 		{
+			"name": "ontology-variable-filter-service",
+			"item": [
+				{
+					"name": "Verify response when filtered by required parameters only",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Note: Checked details of first, middle and last property only for all properties are too many.\r",
+									"pm.test(\"Check ACCNO variable\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0].id).to.eql(\"8310\");\r",
+									"    pm.expect(jsonData[0].name).to.eql(\"ACCNO\");\r",
+									"    pm.expect(jsonData[0].description).to.eql(\"Germplasm ID - Assigned (Accession name)\");\r",
+									"    //Check properties\r",
+									"    pm.expect(jsonData[0].property.id).to.eql(\"2205\");\r",
+									"    pm.expect(jsonData[0].property.name).to.eql(\"Germplasm id\");\r",
+									"    pm.expect(jsonData[0].property.description).to.eql(\"Germplasm identifier\");\r",
+									"    \r",
+									"    //Check method\r",
+									"    pm.expect(jsonData[0].method.id).to.eql(\"4030\");\r",
+									"    pm.expect(jsonData[0].method.name).to.eql(\"Assigned\");\r",
+									"    pm.expect(jsonData[0].method.description).to.eql(\"Term, name or id assigned\");    \r",
+									"    \r",
+									"   //Check scale\r",
+									"    pm.expect(jsonData[0].scale.id).to.eql(\"6110\");\r",
+									"    pm.expect(jsonData[0].scale.name).to.eql(\"Accession name\");\r",
+									"    pm.expect(jsonData[0].scale.description).to.eql(\"Unique accession number or name in a genebank or germplasm collection\");    \r",
+									"    \r",
+									"    \r",
+									"   //Check variableTypes\r",
+									"    pm.expect(jsonData[0].variableTypes[0].id).to.eql(\"1804\");\r",
+									"    pm.expect(jsonData[0].variableTypes[0].name).to.eql(\"Germplasm Descriptor\");\r",
+									"    pm.expect(jsonData[0].variableTypes[0].description).to.eql(\"Information to be recorded about each germplasm in a study.\"); \r",
+									"    \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check NOTES variable\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[80].id).to.eql(\"8390\");\r",
+									"    pm.expect(jsonData[80].name).to.eql(\"NOTES\");\r",
+									"    pm.expect(jsonData[80].description).to.eql(\"Field notes - observed (text)\");\r",
+									"    //Check properties\r",
+									"    pm.expect(jsonData[80].property.id).to.eql(\"2065\");\r",
+									"    pm.expect(jsonData[80].property.name).to.eql(\"Comment\");\r",
+									"    pm.expect(jsonData[80].property.description).to.eql(\"Comment\");\r",
+									"    \r",
+									"    //Check method\r",
+									"    pm.expect(jsonData[80].method.id).to.eql(\"4110\");\r",
+									"    pm.expect(jsonData[80].method.name).to.eql(\"Observed\");\r",
+									"    pm.expect(jsonData[80].method.description).to.eql(\"Value recorded after observation\");    \r",
+									"    \r",
+									"   //Check scale\r",
+									"    pm.expect(jsonData[80].scale.id).to.eql(\"6020\");\r",
+									"    pm.expect(jsonData[80].scale.name).to.eql(\"Text\");\r",
+									"    pm.expect(jsonData[80].scale.description).to.eql(\"Text\");    \r",
+									"    \r",
+									"    \r",
+									"   //Check variableTypes\r",
+									"    pm.expect(jsonData[80].variableTypes[0].id).to.eql(\"1808\");\r",
+									"    pm.expect(jsonData[80].variableTypes[0].name).to.eql(\"Trait\");\r",
+									"    pm.expect(jsonData[80].variableTypes[0].description).to.eql(\"Characteristics of a germplasm to be recorded during a study.\");   \r",
+									"    \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check TranspltD_date variable\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[161].id).to.eql(\"8384\");\r",
+									"    pm.expect(jsonData[161].name).to.eql(\"TranspltD_date\");\r",
+									"    pm.expect(jsonData[161].description).to.eql(\"Date Transplanted -applied (yyyymmdd)\");\r",
+									"    //Check properties\r",
+									"    pm.expect(jsonData[161].property.id).to.eql(\"2056\");\r",
+									"    pm.expect(jsonData[161].property.name).to.eql(\"Transplanting date\");\r",
+									"    pm.expect(jsonData[161].property.description).to.eql(\"Transplanting date\");\r",
+									"    \r",
+									"    //Check method\r",
+									"    pm.expect(jsonData[161].method.id).to.eql(\"4020\");\r",
+									"    pm.expect(jsonData[161].method.name).to.eql(\"Applied\");\r",
+									"    pm.expect(jsonData[161].method.description).to.eql(\"Factor applied\");    \r",
+									"    \r",
+									"    \r",
+									"   //Check scale\r",
+									"    pm.expect(jsonData[161].scale.id).to.eql(\"17275\");\r",
+									"    pm.expect(jsonData[161].scale.name).to.eql(\"Date (yyyymmdd) of TranspltD_date\");\r",
+									"    pm.expect(jsonData[161].scale.description).to.eql(\"Date (yyyymmdd) ofTranspltD_date_generated\");    \r",
+									"    \r",
+									"    \r",
+									"   //Check variableTypes\r",
+									"    pm.expect(jsonData[161].variableTypes[0].id).to.eql(\"1806\");\r",
+									"    pm.expect(jsonData[161].variableTypes[0].name).to.eql(\"Environment Detail\");\r",
+									"    pm.expect(jsonData[161].variableTypes[0].description).to.eql(\"Administrative details to be tracked per environment.\");   \r",
+									"    \r",
+									"    pm.expect(jsonData[161].variableTypes[1].id).to.eql(\"1805\");\r",
+									"    pm.expect(jsonData[161].variableTypes[1].name).to.eql(\"Study Detail\");\r",
+									"    pm.expect(jsonData[161].variableTypes[1].description).to.eql(\"Administrative details to be tracked per study.\");   \r",
+									"    \r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{masterToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds&methodIds&scaleIds&variableIds&exclusionVariableIds&dataTypeIds&variableTypeIds&propertyClasses",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"filtervariables"
+							],
+							"query": [
+								{
+									"key": "programId",
+									"value": "{{api_program_id}}"
+								},
+								{
+									"key": "propertyIds",
+									"value": null
+								},
+								{
+									"key": "methodIds",
+									"value": null
+								},
+								{
+									"key": "scaleIds",
+									"value": null
+								},
+								{
+									"key": "variableIds",
+									"value": null
+								},
+								{
+									"key": "exclusionVariableIds",
+									"value": null
+								},
+								{
+									"key": "dataTypeIds",
+									"value": null
+								},
+								{
+									"key": "variableTypeIds",
+									"value": null
+								},
+								{
+									"key": "propertyClasses",
+									"value": null
+								}
+							]
+						},
+						"description": "GET /ontology/{cropname}/filtervariables"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify response when filtered by propertyId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check all property ids are equal to input parameter\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var i;\r",
+									"    for (i = 0; i < jsonData.length; i++) { \r",
+									"    pm.expect(jsonData[i].property.id).to.eql(pm.environment.get(\"trial_instance_property_id\"));\r",
+									"    }\r",
+									"});    \r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{masterToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds={{trial_instance_property_id}}&methodIds&scaleIds&variableIds&exclusionVariableIds&dataTypeIds&variableTypeIds=&propertyClasses",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"filtervariables"
+							],
+							"query": [
+								{
+									"key": "programId",
+									"value": "{{api_program_id}}"
+								},
+								{
+									"key": "propertyIds",
+									"value": "{{trial_instance_property_id}}"
+								},
+								{
+									"key": "methodIds",
+									"value": null
+								},
+								{
+									"key": "scaleIds",
+									"value": null
+								},
+								{
+									"key": "variableIds",
+									"value": null
+								},
+								{
+									"key": "exclusionVariableIds",
+									"value": null
+								},
+								{
+									"key": "dataTypeIds",
+									"value": null
+								},
+								{
+									"key": "variableTypeIds",
+									"value": ""
+								},
+								{
+									"key": "propertyClasses",
+									"value": null
+								}
+							]
+						},
+						"description": "GET /ontology/{cropname}/filtervariables"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify response when filtered by methodId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check all method ids are equal to input parameter\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var i;\r",
+									"    for (i = 0; i < jsonData.length; i++) { \r",
+									"    pm.expect(jsonData[i].method.id).to.eql(pm.environment.get(\"weighed_method_id\"));\r",
+									"    }\r",
+									"});    \r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{masterToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds={{weighed_method_id}}&scaleIds&variableIds&exclusionVariableIds&dataTypeIds&variableTypeIds=&propertyClasses",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"filtervariables"
+							],
+							"query": [
+								{
+									"key": "programId",
+									"value": "{{api_program_id}}"
+								},
+								{
+									"key": "propertyIds",
+									"value": ""
+								},
+								{
+									"key": "methodIds",
+									"value": "{{weighed_method_id}}"
+								},
+								{
+									"key": "scaleIds",
+									"value": null
+								},
+								{
+									"key": "variableIds",
+									"value": null
+								},
+								{
+									"key": "exclusionVariableIds",
+									"value": null
+								},
+								{
+									"key": "dataTypeIds",
+									"value": null
+								},
+								{
+									"key": "variableTypeIds",
+									"value": ""
+								},
+								{
+									"key": "propertyClasses",
+									"value": null
+								}
+							]
+						},
+						"description": "GET /ontology/{cropname}/filtervariables"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify response when filtered by scaleId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check all scale ids are equal to input parameter\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var i;\r",
+									"    for (i = 0; i < jsonData.length; i++) { \r",
+									"    pm.expect(jsonData[i].scale.id).to.eql(pm.environment.get(\"number_scale_id\"));\r",
+									"    }\r",
+									"});    \r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds={{number_scale_id}}&variableIds&exclusionVariableIds&dataTypeIds&variableTypeIds=&propertyClasses",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"filtervariables"
+							],
+							"query": [
+								{
+									"key": "programId",
+									"value": "{{api_program_id}}"
+								},
+								{
+									"key": "propertyIds",
+									"value": ""
+								},
+								{
+									"key": "methodIds",
+									"value": ""
+								},
+								{
+									"key": "scaleIds",
+									"value": "{{number_scale_id}}"
+								},
+								{
+									"key": "variableIds",
+									"value": null
+								},
+								{
+									"key": "exclusionVariableIds",
+									"value": null
+								},
+								{
+									"key": "dataTypeIds",
+									"value": null
+								},
+								{
+									"key": "variableTypeIds",
+									"value": ""
+								},
+								{
+									"key": "propertyClasses",
+									"value": null
+								}
+							]
+						},
+						"description": "GET /ontology/{cropname}/filtervariables"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify response when filtered by variableId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check all variableIds are equal to input parameter\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var i;\r",
+									"    for (i = 0; i < jsonData.length ; i++) { \r",
+									"    pm.expect(jsonData[i].id).to.eql(pm.environment.get(\"study_biomass_cvterm_id\"));\r",
+									"    }\r",
+									"});    \r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds=&variableIds={{study_biomass_cvterm_id}}&exclusionVariableIds&dataTypeIds&variableTypeIds=&propertyClasses",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"filtervariables"
+							],
+							"query": [
+								{
+									"key": "programId",
+									"value": "{{api_program_id}}"
+								},
+								{
+									"key": "propertyIds",
+									"value": ""
+								},
+								{
+									"key": "methodIds",
+									"value": ""
+								},
+								{
+									"key": "scaleIds",
+									"value": ""
+								},
+								{
+									"key": "variableIds",
+									"value": "{{study_biomass_cvterm_id}}"
+								},
+								{
+									"key": "exclusionVariableIds",
+									"value": null
+								},
+								{
+									"key": "dataTypeIds",
+									"value": null
+								},
+								{
+									"key": "variableTypeIds",
+									"value": ""
+								},
+								{
+									"key": "propertyClasses",
+									"value": null
+								}
+							]
+						},
+						"description": "GET /ontology/{cropname}/filtervariables"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify response when filtered by exclusionVariableIds",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check input variableId is not included in the result\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var i;\r",
+									"    for (i = 0; i < jsonData.length ; i++) { \r",
+									"    pm.expect(jsonData[i].id).to.not.eql(pm.environment.get(\"study_biomass_cvterm_id\"));\r",
+									"    }\r",
+									"});    \r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds=&variableIds=&exclusionVariableIds={{study_biomass_cvterm_id}}&dataTypeIds&variableTypeIds=&propertyClasses",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"filtervariables"
+							],
+							"query": [
+								{
+									"key": "programId",
+									"value": "{{api_program_id}}"
+								},
+								{
+									"key": "propertyIds",
+									"value": ""
+								},
+								{
+									"key": "methodIds",
+									"value": ""
+								},
+								{
+									"key": "scaleIds",
+									"value": ""
+								},
+								{
+									"key": "variableIds",
+									"value": ""
+								},
+								{
+									"key": "exclusionVariableIds",
+									"value": "{{study_biomass_cvterm_id}}"
+								},
+								{
+									"key": "dataTypeIds",
+									"value": null
+								},
+								{
+									"key": "variableTypeIds",
+									"value": ""
+								},
+								{
+									"key": "propertyClasses",
+									"value": null
+								}
+							]
+						},
+						"description": "GET /ontology/{cropname}/filtervariables"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify response when filtered by dataTypeIds",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check all dataTypeIds are equal to the input parameter\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var i;\r",
+									"    for (i = 0; i < jsonData.length ; i++) { \r",
+									"    pm.expect(jsonData[i].scale.dataType.id).to.eql(pm.environment.get(\"numeric_dataTypeId\"));\r",
+									"    }\r",
+									"});    \r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds=&variableIds=&exclusionVariableIds=&dataTypeIds={{numeric_dataTypeId}}&variableTypeIds=&propertyClasses",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"filtervariables"
+							],
+							"query": [
+								{
+									"key": "programId",
+									"value": "{{api_program_id}}"
+								},
+								{
+									"key": "propertyIds",
+									"value": ""
+								},
+								{
+									"key": "methodIds",
+									"value": ""
+								},
+								{
+									"key": "scaleIds",
+									"value": ""
+								},
+								{
+									"key": "variableIds",
+									"value": ""
+								},
+								{
+									"key": "exclusionVariableIds",
+									"value": ""
+								},
+								{
+									"key": "dataTypeIds",
+									"value": "{{numeric_dataTypeId}}"
+								},
+								{
+									"key": "variableTypeIds",
+									"value": ""
+								},
+								{
+									"key": "propertyClasses",
+									"value": null
+								}
+							]
+						},
+						"description": "GET /ontology/{cropname}/filtervariables"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "ontology-variable-type-service",
 			"item": [
 				{
