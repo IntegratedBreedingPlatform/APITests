@@ -16046,7 +16046,7 @@
 					"response": []
 				},
 				{
-					"name": "POST /ontology/{cropname}/properties",
+					"name": "POST /ontology/{cropname}/variables",
 					"event": [
 						{
 							"listen": "test",
@@ -16059,8 +16059,8 @@
 									"",
 									"// Store returned variable",
 									"    var jsonData = pm.response.json();",
-									"    pm.environment.unset(\"new_property_id\");",
-									"    pm.environment.set(\"new_property_id\", jsonData.id);",
+									"    pm.environment.unset(\"new_variable_id\");",
+									"    pm.environment.set(\"new_variable_id\", jsonData.id);",
 									"    ",
 									""
 								],
@@ -16107,36 +16107,42 @@
 						"header": [
 							{
 								"key": "X-Auth-Token",
-								"value": "{{masterToken}}",
-								"type": "text"
+								"type": "text",
+								"value": "{{masterToken}}"
 							},
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"New property\",\r\n  \"description\": \"This is a test property\",\r\n  \"cropOntologyId\": \"\",\r\n  \"classes\": [\r\n    \"Morphological\"\r\n  ],\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": false,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
+							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"NewVariable\",\r\n  \"description\": \"This is a test variable\",\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": true,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  },\r\n  \"programUuid\": \"c9e335d2-3057-4958-a43e-e38cf61d09ca\",\r\n  \"alias\": \"\",\r\n  \"method\": {\r\n        \"id\": \"4090\",\r\n        \"name\": \"Weighed\",\r\n        \"description\": \"Weighing method\",\r\n    \"metadata\": {\r\n      \"dateCreated\": \"\",\r\n      \"dateLastModified\": \"\",\r\n      \"editableFields\": [\r\n        \"\"\r\n      ],\r\n      \"deletable\": false,\r\n      \"editable\": false,\r\n      \"usage\": {\r\n        \"variables\": [\r\n          {\r\n            \"id\": \"\",\r\n            \"name\": \"\",\r\n            \"description\": \"\"\r\n          }\r\n        ],\r\n        \"observations\": 0,\r\n        \"studies\": 0,\r\n        \"datasets\": 0\r\n      },\r\n      \"datasets\": 0\r\n    }\r\n  },\r\n  \"property\": {\r\n        \"id\": \"15010\",\r\n        \"name\": \"Biomass\",\r\n        \"description\": \"Biomass\",\r\n    \"cropOntologyId\": \"\",\r\n    \"classes\": [\r\n      \"\"\r\n    ],\r\n    \"metadata\": {\r\n      \"dateCreated\": \"\",\r\n      \"dateLastModified\": \"\",\r\n      \"editableFields\": [\r\n        \"\"\r\n      ],\r\n      \"deletable\": false,\r\n      \"editable\": false,\r\n      \"usage\": {\r\n        \"variables\": [\r\n          {\r\n            \"id\": \"\",\r\n            \"name\": \"\",\r\n            \"description\": \"\"\r\n          }\r\n        ],\r\n        \"observations\": 0,\r\n        \"studies\": 0,\r\n        \"datasets\": 0\r\n      },\r\n      \"datasets\": 0\r\n    }\r\n  },\r\n  \"scale\": {\r\n    \"id\": \"6040\",\r\n    \"name\": \"Number\",\r\n    \"description\": \"Number\",\r\n    \"dataType\": {\r\n      \"id\": \"\",\r\n      \"name\": \"\",\r\n      \"systemDataType\": false\r\n    },\r\n    \"validValues\": {\r\n      \"min\": \"\",\r\n      \"max\": \"\",\r\n      \"categories\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\",\r\n          \"editable\": false\r\n        }\r\n      ]\r\n    },\r\n    \"metadata\": {\r\n      \"dateCreated\": \"\",\r\n      \"dateLastModified\": \"\",\r\n      \"editableFields\": [\r\n        \"\"\r\n      ],\r\n      \"deletable\": false,\r\n      \"editable\": false,\r\n      \"usage\": {\r\n        \"variables\": [\r\n          {\r\n            \"id\": \"\",\r\n            \"name\": \"\",\r\n            \"description\": \"\"\r\n          }\r\n        ],\r\n        \"observations\": 0,\r\n        \"studies\": 0,\r\n        \"datasets\": 0\r\n      },\r\n      \"datasets\": 0\r\n    }\r\n  },\r\n  \"variableTypes\": [\r\n    {\r\n        \"id\": \"1808\",\r\n        \"name\": \"Trait\",\r\n        \"description\": \"Characteristics of a germplasm to be recorded during a study.\"\r\n    }\r\n  ],\r\n  \"favourite\": false,\r\n  \"expectedRange\": {\r\n    \"min\": \"\",\r\n    \"max\": \"\"\r\n  },\r\n  \"formula\": {\r\n    \"formulaId\": 0,\r\n    \"target\": {\r\n      \"id\": 0,\r\n      \"vocabularyId\": 0,\r\n      \"name\": \"\",\r\n      \"definition\": \"\",\r\n      \"obsolete\": false,\r\n      \"dateCreated\": \"\",\r\n      \"dateLastModified\": \"\",\r\n      \"targetTermId\": 0\r\n    },\r\n    \"inputs\": [\r\n      {\r\n        \"id\": 0,\r\n        \"vocabularyId\": 0,\r\n        \"name\": \"\",\r\n        \"definition\": \"\",\r\n        \"obsolete\": false,\r\n        \"dateCreated\": \"\",\r\n        \"dateLastModified\": \"\",\r\n        \"targetTermId\": 0\r\n      }\r\n    ],\r\n    \"definition\": \"\",\r\n    \"active\": false,\r\n    \"name\": \"\",\r\n    \"description\": \"\"\r\n  },\r\n  \"allowsFormula\": false\r\n}"
 						},
 						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/properties",
+							"raw": "{{BMSurl}}/ontology/{{crop}}/variables?programId={{api_program_id}}",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
 								"ontology",
 								"{{crop}}",
-								"properties"
+								"variables"
+							],
+							"query": [
+								{
+									"key": "programId",
+									"value": "{{api_program_id}}"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "PUT /ontology/{cropname}/properties/{id}",
+					"name": "PUT /ontology/{cropname}/variables/{id}",
 					"event": [
 						{
 							"listen": "test",
@@ -16204,25 +16210,31 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"New propertyx\",\r\n  \"description\": \"This is a test propertyx\",\r\n  \"cropOntologyId\": \"\",\r\n  \"classes\": [\r\n    \"Morphological\"\r\n  ],\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": false,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
+							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"NewVariablex\",\r\n  \"description\": \"This is a test variablex\",\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": true,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  },\r\n  \"programUuid\": \"c9e335d2-3057-4958-a43e-e38cf61d09ca\",\r\n  \"alias\": \"newvarAlias\",\r\n  \"method\": {\r\n        \"id\": \"4090\",\r\n        \"name\": \"Weighed\",\r\n        \"description\": \"Weighing method\",\r\n    \"metadata\": {\r\n      \"dateCreated\": \"\",\r\n      \"dateLastModified\": \"\",\r\n      \"editableFields\": [\r\n        \"\"\r\n      ],\r\n      \"deletable\": false,\r\n      \"editable\": false,\r\n      \"usage\": {\r\n        \"variables\": [\r\n          {\r\n            \"id\": \"\",\r\n            \"name\": \"\",\r\n            \"description\": \"\"\r\n          }\r\n        ],\r\n        \"observations\": 0,\r\n        \"studies\": 0,\r\n        \"datasets\": 0\r\n      },\r\n      \"datasets\": 0\r\n    }\r\n  },\r\n  \"property\": {\r\n        \"id\": \"15010\",\r\n        \"name\": \"Biomass\",\r\n        \"description\": \"Biomass\",\r\n    \"cropOntologyId\": \"\",\r\n    \"classes\": [\r\n      \"\"\r\n    ],\r\n    \"metadata\": {\r\n      \"dateCreated\": \"\",\r\n      \"dateLastModified\": \"\",\r\n      \"editableFields\": [\r\n        \"\"\r\n      ],\r\n      \"deletable\": false,\r\n      \"editable\": false,\r\n      \"usage\": {\r\n        \"variables\": [\r\n          {\r\n            \"id\": \"\",\r\n            \"name\": \"\",\r\n            \"description\": \"\"\r\n          }\r\n        ],\r\n        \"observations\": 0,\r\n        \"studies\": 0,\r\n        \"datasets\": 0\r\n      },\r\n      \"datasets\": 0\r\n    }\r\n  },\r\n  \"scale\": {\r\n    \"id\": \"6040\",\r\n    \"name\": \"Number\",\r\n    \"description\": \"Number\",\r\n    \"dataType\": {\r\n      \"id\": \"\",\r\n      \"name\": \"\",\r\n      \"systemDataType\": false\r\n    },\r\n    \"validValues\": {\r\n      \"min\": \"\",\r\n      \"max\": \"\",\r\n      \"categories\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\",\r\n          \"editable\": false\r\n        }\r\n      ]\r\n    },\r\n    \"metadata\": {\r\n      \"dateCreated\": \"\",\r\n      \"dateLastModified\": \"\",\r\n      \"editableFields\": [\r\n        \"\"\r\n      ],\r\n      \"deletable\": false,\r\n      \"editable\": false,\r\n      \"usage\": {\r\n        \"variables\": [\r\n          {\r\n            \"id\": \"\",\r\n            \"name\": \"\",\r\n            \"description\": \"\"\r\n          }\r\n        ],\r\n        \"observations\": 0,\r\n        \"studies\": 0,\r\n        \"datasets\": 0\r\n      },\r\n      \"datasets\": 0\r\n    }\r\n  },\r\n  \"variableTypes\": [\r\n    {\r\n        \"id\": \"1808\",\r\n        \"name\": \"Trait\",\r\n        \"description\": \"Characteristics of a germplasm to be recorded during a study.\"\r\n    }\r\n  ],\r\n  \"favourite\": false,\r\n  \"expectedRange\": {\r\n    \"min\": \"\",\r\n    \"max\": \"\"\r\n  },\r\n  \"formula\": {\r\n    \"formulaId\": 0,\r\n    \"target\": {\r\n      \"id\": 0,\r\n      \"vocabularyId\": 0,\r\n      \"name\": \"\",\r\n      \"definition\": \"\",\r\n      \"obsolete\": false,\r\n      \"dateCreated\": \"\",\r\n      \"dateLastModified\": \"\",\r\n      \"targetTermId\": 0\r\n    },\r\n    \"inputs\": [\r\n      {\r\n        \"id\": 0,\r\n        \"vocabularyId\": 0,\r\n        \"name\": \"\",\r\n        \"definition\": \"\",\r\n        \"obsolete\": false,\r\n        \"dateCreated\": \"\",\r\n        \"dateLastModified\": \"\",\r\n        \"targetTermId\": 0\r\n      }\r\n    ],\r\n    \"definition\": \"\",\r\n    \"active\": false,\r\n    \"name\": \"\",\r\n    \"description\": \"\"\r\n  },\r\n  \"allowsFormula\": false\r\n}"
 						},
 						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/properties/{{new_property_id}}",
+							"raw": "{{BMSurl}}/ontology/{{crop}}/variables/{{new_variable_id}}?programId={{api_program_id}}",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
 								"ontology",
 								"{{crop}}",
-								"properties",
-								"{{new_property_id}}"
+								"variables",
+								"{{new_variable_id}}"
+							],
+							"query": [
+								{
+									"key": "programId",
+									"value": "{{api_program_id}}"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "DELETE /ontology/{cropname}/properties/{id}",
+					"name": "DELETE /ontology/{cropname}/variables/{id}",
 					"event": [
 						{
 							"listen": "test",
@@ -16294,15 +16306,15 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/properties/{{new_property_id}}",
+							"raw": "{{BMSurl}}/ontology/{{crop}}/variables/{{new_variable_id}}",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
 								"ontology",
 								"{{crop}}",
-								"properties",
-								"{{new_property_id}}"
+								"variables",
+								"{{new_variable_id}}"
 							]
 						}
 					},
