@@ -17295,6 +17295,284 @@
 						"description": "GET /ontology/{cropname}/filtervariables"
 					},
 					"response": []
+				},
+				{
+					"name": "Verify response when filtered by variableTypeIds",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if input variableType is present in all variables\", function () {\r",
+									"  var jsonData = pm.response.json();\r",
+									"  var i,j;\r",
+									"  for (i = 0; i < jsonData.length ; i++) {\r",
+									"      var variableTypes = jsonData[i].variableTypes;\r",
+									"      console.log(\"variable:\"+jsonData[i].id);\r",
+									"      console.log(\"variableTypeLength:\"+variableTypes.length)\r",
+									"      \r",
+									"      for (j=0; j < variableTypes.length; j++) {\r",
+									"          if(variableTypes[j].id==\"1808\"){\r",
+									"              pm.expect(variableTypes[j].id).to.eql(pm.environment.get(\"variableTypeId_trait\"));\r",
+									"              console.log(\"index:\"+j+ \"Found! \"+ \"variableTypeId:\"+ variableTypes[j].id);\r",
+									"          }else{\r",
+									"              console.log(\"index:\"+j+ \"Not Found! \"+ \"variableTypeId:\"+ variableTypes[j].id);\r",
+									"          }\r",
+									"          \r",
+									"      }\r",
+									"  }\r",
+									" \r",
+									"});    \r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds=&variableIds=&exclusionVariableIds=&dataTypeIds=&variableTypeIds={{variableTypeId_trait}}&propertyClasses",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"filtervariables"
+							],
+							"query": [
+								{
+									"key": "programId",
+									"value": "{{api_program_id}}"
+								},
+								{
+									"key": "propertyIds",
+									"value": ""
+								},
+								{
+									"key": "methodIds",
+									"value": ""
+								},
+								{
+									"key": "scaleIds",
+									"value": ""
+								},
+								{
+									"key": "variableIds",
+									"value": ""
+								},
+								{
+									"key": "exclusionVariableIds",
+									"value": ""
+								},
+								{
+									"key": "dataTypeIds",
+									"value": ""
+								},
+								{
+									"key": "variableTypeIds",
+									"value": "{{variableTypeId_trait}}"
+								},
+								{
+									"key": "propertyClasses",
+									"value": null
+								}
+							]
+						},
+						"description": "GET /ontology/{cropname}/filtervariables"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify response when filtered by property classes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if input property class is present in all variables\", function () {\r",
+									"  var jsonData = pm.response.json();\r",
+									"  var i,j;\r",
+									"  for (i = 0; i < jsonData.length ; i++) {\r",
+									"      var propertyClasses = jsonData[i].property.classes;\r",
+									"      console.log(\"variable:\"+jsonData[i].id);\r",
+									"      console.log(\"propertyClassLength:\"+ propertyClasses.length)\r",
+									"      \r",
+									"      for (j=0; j < propertyClasses.length; j++) {\r",
+									"          if(propertyClasses[j]==\"Agronomic\"){\r",
+									"              pm.expect(propertyClasses[j]).to.eql(\"Agronomic\");\r",
+									"              console.log(\"index:\"+j+ \"Found! \"+ \"propertyClassId:\"+ propertyClasses[j]);\r",
+									"          }else{\r",
+									"              console.log(\"index:\"+j+ \"Not Found! \"+ \"propertyClassId:\"+ propertyClasses[j]);\r",
+									"          }\r",
+									"          \r",
+									"      }\r",
+									"  }\r",
+									" \r",
+									"});    \r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(",
+									"            { ",
+									"                \"username\": \"admin\",",
+									"                \"password\": \"@dm1N\",",
+									"                \"grant_type\": \"\",",
+									"                \"client_id\": \"\"",
+									"            ",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    pm.environment.set(\"masterToken\",jsonData.access_token);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds=&variableIds=&exclusionVariableIds=&dataTypeIds=&variableTypeIds=&propertyClasses=Agronomic",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"filtervariables"
+							],
+							"query": [
+								{
+									"key": "programId",
+									"value": "{{api_program_id}}"
+								},
+								{
+									"key": "propertyIds",
+									"value": ""
+								},
+								{
+									"key": "methodIds",
+									"value": ""
+								},
+								{
+									"key": "scaleIds",
+									"value": ""
+								},
+								{
+									"key": "variableIds",
+									"value": ""
+								},
+								{
+									"key": "exclusionVariableIds",
+									"value": ""
+								},
+								{
+									"key": "dataTypeIds",
+									"value": ""
+								},
+								{
+									"key": "variableTypeIds",
+									"value": ""
+								},
+								{
+									"key": "propertyClasses",
+									"value": "Agronomic"
+								}
+							]
+						},
+						"description": "GET /ontology/{cropname}/filtervariables"
+					},
+					"response": []
 				}
 			]
 		},
