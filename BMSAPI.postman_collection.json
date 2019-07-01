@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "99dfbb03-d732-491a-b25d-bb23a84e4fbd",
+		"_postman_id": "9b399b7c-83ed-4301-b637-45644fd2856e",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -4469,89 +4469,6 @@
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered datasetId that is not a subobservation dataset",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "2cd5dcc0-620e-4b86-80d7-dc76cb0b9673",
-										"exec": [
-											"pm.test(\"Status code is 501\", function () {",
-											"    pm.response.to.have.status(501);",
-											"});",
-											"pm.test(\"Verify error message\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Dataset is not a subobservation dataset.\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "8645689c-d65f-44c6-ac61-29679d7cdd95",
-										"exec": [
-											"pm.sendRequest({",
-											"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
-											"    method: 'POST',",
-											"    header: {",
-											"        'Content-Type': 'application/json'",
-											"    },",
-											"    body: {",
-											"        mode: 'raw',",
-											"        raw: JSON.stringify(",
-											"            { ",
-											"                \"username\": \"admin\",",
-											"                \"password\": \"@dm1N\",",
-											"                \"grant_type\": \"\",",
-											"                \"client_id\": \"\"",
-											"            ",
-											"        })",
-											"    }",
-											"}, function (err, res) {",
-											"    var jsonData = res.json();",
-											"    pm.environment.set(\"masterToken\",jsonData.access_token);",
-											"",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "X-Auth-Token",
-										"type": "text",
-										"value": "{{masterToken}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"instances"
-									]
-								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
-							},
-							"response": []
-						},
-						{
 							"name": "Verify response code and body when entered string input to studyId",
 							"event": [
 								{
@@ -6004,91 +5921,6 @@
 										"{{studyId}}",
 										"datasets",
 										"{{locked_study_subobs_datasetId}}",
-										"observationUnits",
-										"table",
-										"columns"
-									]
-								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
-							},
-							"response": []
-						},
-						{
-							"name": "Verify response code and body when entered datasetId that is not a subobservation dataset",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "2cd5dcc0-620e-4b86-80d7-dc76cb0b9673",
-										"exec": [
-											"pm.test(\"Status code is 501\", function () {",
-											"    pm.response.to.have.status(501);",
-											"});",
-											"pm.test(\"Verify error message\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Dataset is not a subobservation dataset.\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "7b18e5fe-bc72-48e4-b8f0-9c54b35fdc72",
-										"exec": [
-											"pm.sendRequest({",
-											"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
-											"    method: 'POST',",
-											"    header: {",
-											"        'Content-Type': 'application/json'",
-											"    },",
-											"    body: {",
-											"        mode: 'raw',",
-											"        raw: JSON.stringify(",
-											"            { ",
-											"                \"username\": \"admin\",",
-											"                \"password\": \"@dm1N\",",
-											"                \"grant_type\": \"\",",
-											"                \"client_id\": \"\"",
-											"            ",
-											"        })",
-											"    }",
-											"}, function (err, res) {",
-											"    var jsonData = res.json();",
-											"    pm.environment.set(\"masterToken\",jsonData.access_token);",
-											"",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "X-Auth-Token",
-										"type": "text",
-										"value": "{{masterToken}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table/columns",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"table",
 										"columns"
@@ -8255,95 +8087,6 @@
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered datasetId that is not a subobservation dataset",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "86d3d0b2-bf51-4f59-b89f-19400928ae64",
-										"exec": [
-											"pm.test(\"Status code is 501\", function () {",
-											"    pm.response.to.have.status(501);",
-											"});",
-											"pm.test(\"Verify error message\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.equal(\"Dataset is not a subobservation dataset.\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "ebf54983-3cbe-43ec-8c8a-310361e140c6",
-										"exec": [
-											"pm.sendRequest({",
-											"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
-											"    method: 'POST',",
-											"    header: {",
-											"        'Content-Type': 'application/json'",
-											"    },",
-											"    body: {",
-											"        mode: 'raw',",
-											"        raw: JSON.stringify(",
-											"            { ",
-											"                \"username\": \"admin\",",
-											"                \"password\": \"@dm1N\",",
-											"                \"grant_type\": \"\",",
-											"                \"client_id\": \"\"",
-											"            ",
-											"        })",
-											"    }",
-											"}, function (err, res) {",
-											"    var jsonData = res.json();",
-											"    pm.environment.set(\"masterToken\",jsonData.access_token);",
-											"",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "X-Auth-Token",
-										"type": "text",
-										"value": "{{masterToken}}"
-									},
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"variables"
-									]
-								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
-							},
-							"response": []
-						},
-						{
 							"name": "Verify response code and body when entered non-existing studyId",
 							"event": [
 								{
@@ -9073,7 +8816,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9085,7 +8828,8 @@
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"observationUnits",
-										"{{study_observationUnitId}}"
+										"{{study_observationUnitId}}",
+										"observations"
 									]
 								},
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
@@ -9163,7 +8907,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9175,7 +8919,8 @@
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"observationUnits",
-										"{{study_observationUnitId}}"
+										"{{study_observationUnitId}}",
+										"observations"
 									]
 								},
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
@@ -9253,7 +8998,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/{{study_observationUnitId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/{{study_observationUnitId}}/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9265,7 +9010,8 @@
 										"datasets",
 										"{{non_existing_dataset_id}}",
 										"observationUnits",
-										"{{study_observationUnitId}}"
+										"{{study_observationUnitId}}",
+										"observations"
 									]
 								},
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
@@ -9343,7 +9089,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_observationUnitId}}/observationUnits/{{study_observationUnitId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_observationUnitId}}/observationUnits/{{study_observationUnitId}}/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9355,7 +9101,8 @@
 										"datasets",
 										"{{study_observationUnitId}}",
 										"observationUnits",
-										"{{study_observationUnitId}}"
+										"{{study_observationUnitId}}",
+										"observations"
 									]
 								},
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
@@ -9433,7 +9180,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/observationUnits/{{study_observationUnitId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/observationUnits/{{study_observationUnitId}}/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9445,7 +9192,8 @@
 										"datasets",
 										"{{string_input}}",
 										"observationUnits",
-										"{{study_observationUnitId}}"
+										"{{study_observationUnitId}}",
+										"observations"
 									]
 								},
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
@@ -9523,7 +9271,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{string_input}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{string_input}}/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9535,97 +9283,8 @@
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"observationUnits",
-										"{{string_input}}"
-									]
-								},
-								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
-							},
-							"response": []
-						},
-						{
-							"name": "Verify response code and body when entered datasetId that is not a subobs dataset",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "1abccc7b-cf55-4065-b182-061588ec1222",
-										"exec": [
-											"pm.test(\"Status code is 501\", function () {",
-											"    pm.response.to.have.status(501);",
-											"});",
-											"pm.test(\"Verify error message\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Dataset is not a subobservation dataset.\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "61a5b2b1-3d96-40e3-aa1e-5ed0a61a8af5",
-										"exec": [
-											"pm.sendRequest({",
-											"    url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",",
-											"    method: 'POST',",
-											"    header: {",
-											"        'Content-Type': 'application/json'",
-											"    },",
-											"    body: {",
-											"        mode: 'raw',",
-											"        raw: JSON.stringify(",
-											"            { ",
-											"                \"username\": \"admin\",",
-											"                \"password\": \"@dm1N\",",
-											"                \"grant_type\": \"\",",
-											"                \"client_id\": \"\"",
-											"            ",
-											"        })",
-											"    }",
-											"}, function (err, res) {",
-											"    var jsonData = res.json();",
-											"    pm.environment.set(\"masterToken\",jsonData.access_token);",
-											"",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "X-Auth-Token",
-										"value": "{{masterToken}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{study_observationUnitId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"observationUnits",
-										"{{study_observationUnitId}}"
+										"{{string_input}}",
+										"observations"
 									]
 								},
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
@@ -9703,7 +9362,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{trialStudyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{trialStudyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9715,7 +9374,8 @@
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"observationUnits",
-										"{{study_observationUnitId}}"
+										"{{study_observationUnitId}}",
+										"observations"
 									]
 								},
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
@@ -9793,7 +9453,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/500",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/500/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9805,7 +9465,8 @@
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"observationUnits",
-										"500"
+										"500",
+										"observations"
 									]
 								},
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
