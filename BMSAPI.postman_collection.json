@@ -7212,7 +7212,7 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset 3022 does not belong to the study 3009\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+ pm.environment.get(\"locked_study_subobs_datasetId\")+ \" does not belong to the study \"+ pm.environment.get(\"studyId\"));",
 											"});"
 										],
 										"type": "text/javascript"
