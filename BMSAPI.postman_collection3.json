@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8422198e-2931-4aff-abef-0f1771f3b36e",
+		"_postman_id": "3b1126a4-75a6-4655-91ad-fc26a322ff77",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -4166,7 +4166,7 @@
 			"name": "study-services",
 			"item": [
 				{
-					"name": "GET /study/{cropname}/{studyId}/observations",
+					"name": "GET /study/{cropname}/{studyId3}/observations",
 					"event": [
 						{
 							"listen": "test",
@@ -4255,7 +4255,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{BMSurl}}/bmsapi/study/{{crop}}/{{studyId}}/observations?instanceId=623",
+							"raw": "{{BMSurl}}/bmsapi/study/{{crop}}/{{studyId3}}/observations?instanceId=623",
 							"host": [
 								"{{BMSurl}}"
 							],
@@ -4263,7 +4263,7 @@
 								"bmsapi",
 								"study",
 								"{{crop}}",
-								"{{studyId}}",
+								"{{studyId3}}",
 								"observations"
 							],
 							"query": [
@@ -4282,7 +4282,7 @@
 			"name": "dataset-services",
 			"item": [
 				{
-					"name": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances",
+					"name": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/instances",
 					"item": [
 						{
 							"name": "Verify response code and body when entered valid parameters",
@@ -4384,7 +4384,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/instances",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/instances",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -4392,18 +4392,18 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"instances"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/instances"
 							},
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered non-existing studyId",
+							"name": "Verify response code and body when entered non-existing studyId3",
 							"event": [
 								{
 									"listen": "test",
@@ -4502,7 +4502,7 @@
 										"instances"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/instances"
 							},
 							"response": []
 						},
@@ -4592,7 +4592,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/instances",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{non_existing_dataset_id}}/instances",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -4600,18 +4600,18 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
 										"instances"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/instances"
 							},
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered datasetId that is not associated to the studyId",
+							"name": "Verify response code and body when entered datasetId that is not associated to the studyId3",
 							"event": [
 								{
 									"listen": "test",
@@ -4623,7 +4623,7 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+ pm.environment.get(\"locked_study_subobs_datasetId\")+\" does not belong to the study \"+pm.environment.get(\"studyId\"));",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+ pm.environment.get(\"locked_study_subobs_datasetId\")+\" does not belong to the study \"+pm.environment.get(\"studyId3\"));",
 											"});"
 										],
 										"type": "text/javascript"
@@ -4696,7 +4696,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{locked_study_subobs_datasetId}}/instances",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{locked_study_subobs_datasetId}}/instances",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -4704,18 +4704,18 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{locked_study_subobs_datasetId}}",
 										"instances"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/instances"
 							},
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered string input to studyId",
+							"name": "Verify response code and body when entered string input to studyId3",
 							"event": [
 								{
 									"listen": "test",
@@ -4814,7 +4814,7 @@
 										"instances"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/instances"
 							},
 							"response": []
 						},
@@ -4904,7 +4904,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/instances",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{string_input}}/instances",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -4912,13 +4912,13 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{string_input}}",
 										"instances"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/instances"
 							},
 							"response": []
 						}
@@ -4926,10 +4926,10 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "GET /crops/{crop}/studies/{studyId}/datasets",
+					"name": "GET /crops/{crop}/studies/{studyId3}/datasets",
 					"item": [
 						{
-							"name": "Verify response code and body when entered crop and studyId only",
+							"name": "Verify response code and body when entered crop and studyId3 only",
 							"event": [
 								{
 									"listen": "test",
@@ -5022,7 +5022,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -5030,11 +5030,11 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets\n"
 							},
 							"response": []
 						},
@@ -5132,7 +5132,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{env_datasetTypeId}}, {{plot_datasetTypeId}},{{plant_subobs_datasetTypeId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets?datasetTypeIds={{env_datasetTypeId}}, {{plot_datasetTypeId}},{{plant_subobs_datasetTypeId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -5140,7 +5140,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets"
 									],
 									"query": [
@@ -5150,7 +5150,7 @@
 										}
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets\n"
 							},
 							"response": []
 						},
@@ -5240,7 +5240,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{env_datasetTypeId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets?datasetTypeIds={{env_datasetTypeId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -5248,7 +5248,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets"
 									],
 									"query": [
@@ -5258,7 +5258,7 @@
 										}
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets\n"
 							},
 							"response": []
 						},
@@ -5348,7 +5348,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{plot_datasetTypeId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets?datasetTypeIds={{plot_datasetTypeId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -5356,7 +5356,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets"
 									],
 									"query": [
@@ -5366,7 +5366,7 @@
 										}
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets\n"
 							},
 							"response": []
 						},
@@ -5474,7 +5474,7 @@
 										}
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets\n"
 							},
 							"response": []
 						},
@@ -5564,7 +5564,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{plant_subobs_datasetTypeId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets?datasetTypeIds={{plant_subobs_datasetTypeId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -5572,7 +5572,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets"
 									],
 									"query": [
@@ -5582,7 +5582,7 @@
 										}
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets\n"
 							},
 							"response": []
 						},
@@ -5684,7 +5684,7 @@
 										"datasets"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets\n"
 							},
 							"response": []
 						},
@@ -5774,7 +5774,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{string_input}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets?datasetTypeIds={{string_input}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -5782,7 +5782,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets"
 									],
 									"query": [
@@ -5792,7 +5792,7 @@
 										}
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets\n"
 							},
 							"response": []
 						},
@@ -5883,7 +5883,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{non_existing_datasetTypeId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets?datasetTypeIds={{non_existing_datasetTypeId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -5891,7 +5891,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets"
 									],
 									"query": [
@@ -5901,7 +5901,7 @@
 										}
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets\n"
 							},
 							"response": []
 						}
@@ -5909,7 +5909,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "GET/{crop}/studies/{studyId}/datasets/{datasetId}",
+					"name": "GET/{crop}/studies/{studyId3}/datasets/{datasetId}",
 					"item": [
 						{
 							"name": "Verify response code and body when entered of environment datasetId",
@@ -5922,9 +5922,9 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
-											"pm.test(\"Verify returned studyId\", function () {",
+											"pm.test(\"Verify returned studyId3\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    var studyId = Number(pm.environment.get(\"studyId\"));",
+											"    var studyId = Number(pm.environment.get(\"studyId3\"));",
 											"    pm.expect(jsonData.studyId).to.eql(studyId);",
 											"});",
 											"pm.test(\"Verify returned datasetId\", function () {",
@@ -6003,7 +6003,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_env_id}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_env_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -6011,12 +6011,12 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_env_id}}"
 									]
 								},
-								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
+								"description": "GET/{crop}/studies/{studyId3}/datasets/{datasetId}"
 							},
 							"response": []
 						},
@@ -6033,7 +6033,7 @@
 											"});",
 											"pm.test(\"Verify returned studyId\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    var studyId = Number(pm.environment.get(\"studyId\"));",
+											"    var studyId = Number(pm.environment.get(\"studyId3\"));",
 											"    pm.expect(jsonData.studyId).to.eql(studyId);",
 											"});",
 											"pm.test(\"Verify returned datasetId\", function () {",
@@ -6114,7 +6114,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -6122,12 +6122,12 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}"
 									]
 								},
-								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
+								"description": "GET/{crop}/studies/{studyId3}/datasets/{datasetId}"
 							},
 							"response": []
 						},
@@ -6144,7 +6144,7 @@
 											"});",
 											"pm.test(\"Verify returned studyId\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    var studyId = Number(pm.environment.get(\"studyId\"));",
+											"    var studyId = Number(pm.environment.get(\"studyId3\"));",
 											"    pm.expect(jsonData.studyId).to.eql(studyId);",
 											"});",
 											"pm.test(\"Verify returned datasetId\", function () {",
@@ -6225,7 +6225,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -6233,12 +6233,12 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}"
 									]
 								},
-								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
+								"description": "GET/{crop}/studies/{studyId3}/datasets/{datasetId}"
 							},
 							"response": []
 						},
@@ -6338,12 +6338,12 @@
 										"{{trialMeansDatasetId}}"
 									]
 								},
-								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
+								"description": "GET/{crop}/studies/{studyId3}/datasets/{datasetId}"
 							},
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered non-existing studyId",
+							"name": "Verify response code and body when entered non-existing studyId3",
 							"event": [
 								{
 									"listen": "test",
@@ -6441,7 +6441,7 @@
 										"{{study_plot_datasetId}}"
 									]
 								},
-								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
+								"description": "GET/{crop}/studies/{studyId3}/datasets/{datasetId}"
 							},
 							"response": []
 						},
@@ -6458,7 +6458,7 @@
 											"});",
 											"pm.test(\"Verify returned studyId\", function () {",
 											"    var jsonData = pm.response.json();",
-											"//    var studyId = Number(pm.environment.get(\"studyId\"));",
+											"//    var studyId = Number(pm.environment.get(\"studyId3\"));",
 											"    pm.expect(jsonData.errors[0].message).to.eql(\"Dataset does not exist\");",
 											"});"
 										],
@@ -6532,7 +6532,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{non_existing_dataset_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -6540,12 +6540,12 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{non_existing_dataset_id}}"
 									]
 								},
-								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
+								"description": "GET/{crop}/studies/{studyId3}/datasets/{datasetId}"
 							},
 							"response": []
 						},
@@ -6562,7 +6562,7 @@
 											"});",
 											"pm.test(\"Verify returned studyId\", function () {",
 											"    var jsonData = pm.response.json();",
-											"//    var studyId = Number(pm.environment.get(\"studyId\"));",
+											"//    var studyId = Number(pm.environment.get(\"studyId3\"));",
 											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
 											"});"
 										],
@@ -6649,7 +6649,7 @@
 										"{{study_subobs_datasetId}}"
 									]
 								},
-								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
+								"description": "GET/{crop}/studies/{studyId3}/datasets/{datasetId}"
 							},
 							"response": []
 						},
@@ -6666,7 +6666,7 @@
 											"});",
 											"pm.test(\"Verify returned studyId\", function () {",
 											"    var jsonData = pm.response.json();",
-											"//    var studyId = Number(pm.environment.get(\"studyId\"));",
+											"//    var studyId = Number(pm.environment.get(\"studyId3\"));",
 											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
 											"});"
 										],
@@ -6740,7 +6740,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{string_input}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -6748,12 +6748,12 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{string_input}}"
 									]
 								},
-								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
+								"description": "GET/{crop}/studies/{studyId3}/datasets/{datasetId}"
 							},
 							"response": []
 						}
@@ -6761,7 +6761,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}",
+					"name": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}",
 					"item": [
 						{
 							"name": "Retrieve phenotype counts for a plot dataset",
@@ -6849,7 +6849,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{study_instanceId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}/observationUnits/{{study_instanceId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -6857,14 +6857,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"{{study_instanceId}}"
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						},
@@ -6954,7 +6954,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observationUnits/{{study_instanceId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs2_datasetId}}/observationUnits/{{study_instanceId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -6962,14 +6962,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs2_datasetId}}",
 										"observationUnits",
 										"{{study_instanceId}}"
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						},
@@ -7074,7 +7074,7 @@
 										"{{study_noPheno_instandId}}"
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						},
@@ -7176,7 +7176,7 @@
 										"{{study_instanceId}}"
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						},
@@ -7263,7 +7263,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/{{study_instanceId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{non_existing_dataset_id}}/observationUnits/{{study_instanceId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -7271,14 +7271,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
 										"observationUnits",
 										"{{study_instanceId}}"
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						},
@@ -7359,7 +7359,7 @@
 										"{{study_instanceId}}"
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						},
@@ -7446,7 +7446,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{studyId}}/observationUnits/{{study_instanceId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{studyId3}}/observationUnits/{{study_instanceId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -7454,14 +7454,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"observationUnits",
 										"{{study_instanceId}}"
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						},
@@ -7548,7 +7548,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{studyId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}/observationUnits/{{studyId3}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -7556,19 +7556,19 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
 										"observationUnits",
-										"{{studyId}}"
+										"{{studyId3}}"
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						},
 						{
-							"name": "Verify response code when entered string input to studyId",
+							"name": "Verify response code when entered string input to studyId3",
 							"event": [
 								{
 									"listen": "test",
@@ -7665,7 +7665,7 @@
 										"{{study_instanceId}}"
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						},
@@ -7752,7 +7752,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/observationUnits/{{study_instanceId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{string_input}}/observationUnits/{{study_instanceId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -7760,14 +7760,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{string_input}}",
 										"observationUnits",
 										"{{study_instanceId}}"
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						},
@@ -7854,7 +7854,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{string_input}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}/observationUnits/{{string_input}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -7862,14 +7862,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"{{string_input}}"
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						}
@@ -7877,7 +7877,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns",
+					"name": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/table/columns",
 					"item": [
 						{
 							"name": "Verify response code and body when entered valid parameters",
@@ -8009,7 +8009,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/table/columns",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/observationUnits/table/columns",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -8017,7 +8017,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"observationUnits",
@@ -8025,7 +8025,7 @@
 										"columns"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
 						},
@@ -8131,7 +8131,7 @@
 										"columns"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
 						},
@@ -8221,7 +8221,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/table/columns",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{non_existing_dataset_id}}/observationUnits/table/columns",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -8229,7 +8229,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
 										"observationUnits",
@@ -8237,7 +8237,7 @@
 										"columns"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
 						},
@@ -8254,7 +8254,7 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+ pm.environment.get(\"locked_study_subobs_datasetId\")+ \" does not belong to the study \"+ pm.environment.get(\"studyId\"));",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+ pm.environment.get(\"locked_study_subobs_datasetId\")+ \" does not belong to the study \"+ pm.environment.get(\"studyId3\"));",
 											"});"
 										],
 										"type": "text/javascript"
@@ -8327,7 +8327,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{locked_study_subobs_datasetId}}/observationUnits/table/columns",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{locked_study_subobs_datasetId}}/observationUnits/table/columns",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -8335,7 +8335,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{locked_study_subobs_datasetId}}",
 										"observationUnits",
@@ -8343,7 +8343,7 @@
 										"columns"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
 						},
@@ -8449,7 +8449,7 @@
 										"columns"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
 						},
@@ -8539,7 +8539,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/observationUnits/table/columns",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{string_input}}/observationUnits/table/columns",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -8547,7 +8547,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{string_input}}",
 										"observationUnits",
@@ -8555,7 +8555,7 @@
 										"columns"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
 						}
@@ -8563,7 +8563,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}",
+					"name": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/{variableTypeId}",
 					"item": [
 						{
 							"name": "Verify response code and body when entered valid inputs and trait variableTypeId",
@@ -8661,7 +8661,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{Trait_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}/variables/{{Trait_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -8669,14 +8669,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
 										"variables",
 										"{{Trait_cvtermId}}"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
 						},
@@ -8772,7 +8772,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_env_detail}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_env_detail}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -8780,14 +8780,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
 										"variables",
 										"{{variableTypeId_env_detail}}"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
 						},
@@ -8883,7 +8883,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_exp_design}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_exp_design}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -8891,14 +8891,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
 										"variables",
 										"{{variableTypeId_exp_design}}"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
 						},
@@ -9002,7 +9002,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_germ_desc}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_germ_desc}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9010,14 +9010,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
 										"variables",
 										"{{variableTypeId_germ_desc}}"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
 						},
@@ -9113,7 +9113,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables/{{variableTypeId_obs_unit}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables/{{variableTypeId_obs_unit}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9121,14 +9121,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables",
 										"{{variableTypeId_obs_unit}}"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
 						},
@@ -9233,7 +9233,7 @@
 										"{{Trait_cvtermId}}"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
 						},
@@ -9323,7 +9323,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/variables/{{Trait_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{non_existing_dataset_id}}/variables/{{Trait_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9331,14 +9331,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
 										"variables",
 										"{{Trait_cvtermId}}"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
 						},
@@ -9443,7 +9443,7 @@
 										"{{Trait_cvtermId}}"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
 						},
@@ -9533,7 +9533,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/variables/{{Trait_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{string_input}}/variables/{{Trait_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9541,14 +9541,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{string_input}}",
 										"variables",
 										"{{Trait_cvtermId}}"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
 						},
@@ -9638,7 +9638,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{string_input}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}/variables/{{string_input}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9646,14 +9646,14 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
 										"variables",
 										"{{string_input}}"
 									]
 								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
+								"description": "GET /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
 						}
@@ -9661,7 +9661,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "HEAD /crops/{crop}/{studyId}/datasets/{datasetId}/variables/observations",
+					"name": "HEAD /crops/{crop}/{studyId3}/datasets/{datasetId}/variables/observations",
 					"item": [
 						{
 							"name": "Verify response code and body when entered valid inputs and one variableId only",
@@ -9749,7 +9749,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/observations?variableIds={{study_biomass_cvterm_id}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}/variables/observations?variableIds={{study_biomass_cvterm_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9757,7 +9757,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
 										"variables",
@@ -9770,7 +9770,7 @@
 										}
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/observations"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/observations"
 							},
 							"response": []
 						},
@@ -9881,7 +9881,7 @@
 										}
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/observations"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/observations"
 							},
 							"response": []
 						},
@@ -9974,7 +9974,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/observations?variableIds={{study_biomass_cvterm_id}},{{study_weedPressure_cvterm_id}},{{study_grainYield_cvterm_id}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}/variables/observations?variableIds={{study_biomass_cvterm_id}},{{study_weedPressure_cvterm_id}},{{study_grainYield_cvterm_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9982,7 +9982,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
 										"variables",
@@ -9995,7 +9995,7 @@
 										}
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/observations"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/observations"
 							},
 							"response": []
 						},
@@ -10105,7 +10105,7 @@
 										}
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/observations"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/observations"
 							},
 							"response": []
 						},
@@ -10215,7 +10215,7 @@
 										}
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/observations"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/observations"
 							},
 							"response": []
 						},
@@ -10325,7 +10325,7 @@
 										}
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/observations"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/observations"
 							},
 							"response": []
 						},
@@ -10414,7 +10414,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/variables/observations?variableIds={{study_biomass_cvterm_id}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{string_input}}/variables/observations?variableIds={{study_biomass_cvterm_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -10422,7 +10422,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{string_input}}",
 										"variables",
@@ -10435,7 +10435,7 @@
 										}
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/observations"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/observations"
 							},
 							"response": []
 						},
@@ -10522,7 +10522,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/observations?variableIds={{string_input}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_plot_datasetId}}/variables/observations?variableIds={{string_input}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -10530,7 +10530,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
 										"variables",
@@ -10543,7 +10543,7 @@
 										}
 									]
 								},
-								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/observations"
+								"description": "HEAD /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables/observations"
 							},
 							"response": []
 						}
@@ -10551,7 +10551,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables",
+					"name": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables",
 					"item": [
 						{
 							"name": "Verify adding variable to a sub obs dataset with a numeric scale",
@@ -10647,7 +10647,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"studyAlias\": \"Biomas_yield\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -10655,13 +10655,13 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
 									]
 								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -10759,7 +10759,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_pestpressure_cvtermId}}\",\r\n  \"studyAlias\": \"PestPressure_0_9\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableId={{study_pestpressure_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables?variableId={{study_pestpressure_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -10767,7 +10767,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
@@ -10779,7 +10779,7 @@
 										}
 									]
 								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -10877,7 +10877,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -10885,13 +10885,13 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
 									]
 								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -10989,7 +10989,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{germitest_date_cvtermId}}\",\r\n  \"studyAlias\": \"GermiTest_date\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -10997,13 +10997,13 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
 									]
 								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -11113,7 +11113,7 @@
 										"variables"
 									]
 								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -11209,7 +11209,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{non_existing_dataset_id}}/variables",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -11217,13 +11217,13 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
 										"variables"
 									]
 								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -11319,7 +11319,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"studyAlias\": \"Biomas_yield\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -11327,13 +11327,13 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
 									]
 								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -11429,7 +11429,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{site_soil_ph_cvtermId}}\",\r\n  \"studyAlias\": \"SITE_SOIL_PH\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -11437,13 +11437,13 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
 									]
 								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -11543,7 +11543,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{selection_method_cvtermId}}\",\r\n  \"variableId\": \"{{npsel_cvtermId}}\",\r\n  \"studyAlias\": \"NPSEL\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -11551,13 +11551,13 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
 									]
 								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -11653,7 +11653,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{study_condition_cvtermId}}\",\r\n  \"variableId\": \"{{site_soil_ph_cvtermId}}\",\r\n  \"studyAlias\": \"SITE_SOIL_PH\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -11661,13 +11661,13 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
 									]
 								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -11778,7 +11778,7 @@
 										"variables"
 									]
 								},
-								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "PUT /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						}
@@ -11786,7 +11786,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}",
+					"name": "POST /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{observationUnitId}",
 					"item": [
 						{
 							"name": "Verify if user can add accepted observation",
@@ -11905,7 +11905,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}/observations",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -11913,7 +11913,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"observationUnits",
@@ -11921,7 +11921,7 @@
 										"observations"
 									]
 								},
-								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
+								"description": "POST /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
 						},
@@ -12033,7 +12033,7 @@
 										"observations"
 									]
 								},
-								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
+								"description": "POST /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
 						},
@@ -12129,7 +12129,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/{{study_observationUnitId}}/observations",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{non_existing_dataset_id}}/observationUnits/{{study_observationUnitId}}/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -12137,7 +12137,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
 										"observationUnits",
@@ -12145,7 +12145,7 @@
 										"observations"
 									]
 								},
-								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
+								"description": "POST /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
 						},
@@ -12257,7 +12257,7 @@
 										"observations"
 									]
 								},
-								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
+								"description": "POST /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
 						},
@@ -12353,7 +12353,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/observationUnits/{{study_observationUnitId}}/observations",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{string_input}}/observationUnits/{{study_observationUnitId}}/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -12361,7 +12361,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{string_input}}",
 										"observationUnits",
@@ -12369,7 +12369,7 @@
 										"observations"
 									]
 								},
-								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
+								"description": "POST /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
 						},
@@ -12465,7 +12465,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{string_input}}/observations",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{string_input}}/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -12473,7 +12473,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"observationUnits",
@@ -12481,7 +12481,7 @@
 										"observations"
 									]
 								},
-								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
+								"description": "POST /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
 						},
@@ -12593,7 +12593,7 @@
 										"observations"
 									]
 								},
-								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
+								"description": "POST /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
 						},
@@ -12689,7 +12689,7 @@
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/500/observations",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/observationUnits/500/observations",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -12697,7 +12697,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"observationUnits",
@@ -12705,7 +12705,7 @@
 										"observations"
 									]
 								},
-								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
+								"description": "POST /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
 						}
@@ -12713,7 +12713,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables",
+					"name": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables",
 					"item": [
 						{
 							"name": "Delete an existing numeric trait from subobservation dataset",
@@ -12797,7 +12797,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_biomass_cvterm_id}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_biomass_cvterm_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -12805,7 +12805,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
@@ -12817,7 +12817,7 @@
 										}
 									]
 								},
-								"description": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -12903,7 +12903,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_pestpressure_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_pestpressure_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -12911,7 +12911,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
@@ -12923,7 +12923,7 @@
 										}
 									]
 								},
-								"description": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -13009,7 +13009,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -13017,7 +13017,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
@@ -13029,7 +13029,7 @@
 										}
 									]
 								},
-								"description": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -13115,7 +13115,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{germitest_date_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{germitest_date_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -13123,7 +13123,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
@@ -13135,7 +13135,7 @@
 										}
 									]
 								},
-								"description": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -13221,7 +13221,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{npsel_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{npsel_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -13229,7 +13229,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
@@ -13241,7 +13241,7 @@
 										}
 									]
 								},
-								"description": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -13331,7 +13331,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -13339,7 +13339,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
@@ -13351,7 +13351,7 @@
 										}
 									]
 								},
-								"description": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -13461,7 +13461,7 @@
 										}
 									]
 								},
-								"description": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -13551,7 +13551,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{non_existing_dataset_id}}/variables?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -13559,7 +13559,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
 										"variables"
@@ -13571,7 +13571,7 @@
 										}
 									]
 								},
-								"description": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -13681,7 +13681,7 @@
 										}
 									]
 								},
-								"description": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -13771,7 +13771,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{string_input}}/variables?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -13779,7 +13779,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{string_input}}",
 										"variables"
@@ -13791,7 +13791,7 @@
 										}
 									]
 								},
-								"description": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						},
@@ -13881,7 +13881,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{string_input}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId3}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{string_input}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -13889,7 +13889,7 @@
 										"crops",
 										"{{crop}}",
 										"studies",
-										"{{studyId}}",
+										"{{studyId3}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
 										"variables"
@@ -13901,7 +13901,7 @@
 										}
 									]
 								},
-								"description": "DELETE /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
+								"description": "DELETE /crops/{crop}/studies/{studyId3}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						}
@@ -16351,7 +16351,7 @@
 									"",
 									"pm.test(\"Check trialDbId is correct\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.trialDbId).to.eql(JSON.parse(pm.environment.get(\"studyId\")));",
+									"    pm.expect(jsonData.result.trialDbId).to.eql(JSON.parse(pm.environment.get(\"studyId3\")));",
 									"});",
 									"",
 									"pm.test(\"Check header rows are correct\", function () {",
@@ -16476,7 +16476,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials/{{studyId}}/table",
+							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials/{{studyId3}}/table",
 							"host": [
 								"{{BMSurl}}"
 							],
@@ -16485,7 +16485,7 @@
 								"brapi",
 								"v1",
 								"trials",
-								"{{studyId}}",
+								"{{studyId3}}",
 								"table"
 							]
 						}
