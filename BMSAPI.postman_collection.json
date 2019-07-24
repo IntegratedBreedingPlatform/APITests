@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bea2cdd5-0b77-4583-8541-0829ae3533f4",
+		"_postman_id": "8422198e-2931-4aff-abef-0f1771f3b36e",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17892,320 +17892,6 @@
 			]
 		},
 		{
-			"name": "ontology-class-service",
-			"item": [
-				{
-					"name": "Verify response code and returned classes when entered valid crop",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "1dafa5cf-8e49-4ae1-9358-61b32e79fa54",
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "04134399-afdb-48fb-87e8-2d7ce707468e",
-								"exec": [
-									"pm.test(\"Status code is 200\", function() {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Check returned classes\", function() {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[0]).to.equal(\"Abiotic condition\");",
-									"    pm.expect(jsonData[1]).to.equal(\"Abiotic stress\");",
-									"    pm.expect(jsonData[2]).to.equal(\"Agronomic\");",
-									"    pm.expect(jsonData[3]).to.equal(\"Biochemical trait\");",
-									"    pm.expect(jsonData[4]).to.equal(\"Biotic condition\");",
-									"    pm.expect(jsonData[5]).to.equal(\"Biotic stress\");",
-									"    pm.expect(jsonData[6]).to.equal(\"Breeding methods\");",
-									"    pm.expect(jsonData[7]).to.equal(\"Breedingprocess\");",
-									"    pm.expect(jsonData[8]).to.equal(\"Bulking breeding methods\");",
-									"    pm.expect(jsonData[9]).to.equal(\"Climatic condition\");",
-									"    pm.expect(jsonData[10]).to.equal(\"Crop research ontology\");",
-									"    pm.expect(jsonData[11]).to.equal(\"Crop trait ontology\");",
-									"    pm.expect(jsonData[12]).to.equal(\"Crossing methods\");",
-									"    pm.expect(jsonData[13]).to.equal(\"Cultivar formation methods\");",
-									"    pm.expect(jsonData[14]).to.equal(\"Cytogenetic manipulation\");",
-									"    pm.expect(jsonData[15]).to.equal(\"Dataset Condition\");",
-									"    pm.expect(jsonData[16]).to.equal(\"Derivative breeding methods\");",
-									"    pm.expect(jsonData[17]).to.equal(\"Disease resistance\");",
-									"    pm.expect(jsonData[18]).to.equal(\"General\");",
-									"    pm.expect(jsonData[19]).to.equal(\"Generative breeding methods\");",
-									"    pm.expect(jsonData[20]).to.equal(\"Genetic Modification\");",
-									"    pm.expect(jsonData[21]).to.equal(\"Germplasm\");",
-									"    pm.expect(jsonData[22]).to.equal(\"Insect and pest resistance\");",
-									"    pm.expect(jsonData[23]).to.equal(\"Maintenance methods\");",
-									"    pm.expect(jsonData[24]).to.equal(\"Molecular property\");",
-									"    pm.expect(jsonData[25]).to.equal(\"Morphological\");",
-									"    pm.expect(jsonData[26]).to.equal(\"Mutation methods\");",
-									"    pm.expect(jsonData[27]).to.equal(\"Non-bulking breedingmethods\");",
-									"    pm.expect(jsonData[28]).to.equal(\"Passport\");",
-									"    pm.expect(jsonData[29]).to.equal(\"Phenology\");",
-									"    pm.expect(jsonData[30]).to.equal(\"Physiological\");",
-									"    pm.expect(jsonData[31]).to.equal(\"Post harvest\");",
-									"    pm.expect(jsonData[32]).to.equal(\"Quality\");",
-									"    pm.expect(jsonData[33]).to.equal(\"Seed acquisation methods\");",
-									"    pm.expect(jsonData[34]).to.equal(\"Seed increase methods\");",
-									"    pm.expect(jsonData[35]).to.equal(\"Seed storage\");",
-									"    pm.expect(jsonData[36]).to.equal(\"Site condition\");",
-									"    pm.expect(jsonData[37]).to.equal(\"Soil condition\");",
-									"    pm.expect(jsonData[38]).to.equal(\"Study condition\");",
-									"    pm.expect(jsonData[39]).to.equal(\"Trial Design\");",
-									"    pm.expect(jsonData[40]).to.equal(\"Trial environment\");",
-									"    pm.expect(jsonData[41]).to.equal(\"Trial management\");",
-									"    pm.expect(jsonData[42]).to.equal(\"Variate condition\");",
-									"    pm.expect(jsonData[43]).to.equal(\"Yield component\");",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"value": "{{masterToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/classes",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"classes"
-							]
-						},
-						"description": "GET /ontology/{cropname}/classes"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "ontology-data-type-service",
-			"item": [
-				{
-					"name": "GET /ontology/datatypes",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Check categorical data type\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[0].id).to.eql(\"1130\");",
-									"    pm.expect(jsonData[0].name).to.eql(\"Categorical\");",
-									"    pm.expect(jsonData[0].systemDataType).to.eql(false);",
-									"});",
-									"",
-									"pm.test(\"Check numeric data type\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[1].id).to.eql(\"1110\");",
-									"    pm.expect(jsonData[1].name).to.eql(\"Numeric\");",
-									"    pm.expect(jsonData[1].systemDataType).to.eql(false);",
-									"});",
-									"",
-									"pm.test(\"Check date data type\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[2].id).to.eql(\"1117\");",
-									"    pm.expect(jsonData[2].name).to.eql(\"Date\");",
-									"    pm.expect(jsonData[2].systemDataType).to.eql(false);",
-									"});",
-									"",
-									"pm.test(\"Check character data type\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[3].id).to.eql(\"1120\");",
-									"    pm.expect(jsonData[3].name).to.eql(\"Character\");",
-									"    pm.expect(jsonData[3].systemDataType).to.eql(false);",
-									"});",
-									"pm.test(\"Check person data type\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[4].id).to.eql(\"1131\");",
-									"    pm.expect(jsonData[4].name).to.eql(\"Person\");",
-									"    pm.expect(jsonData[4].systemDataType).to.eql(true);",
-									"});",
-									"pm.test(\"Check location data type\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[5].id).to.eql(\"1132\");",
-									"    pm.expect(jsonData[5].name).to.eql(\"Location\");",
-									"    pm.expect(jsonData[5].systemDataType).to.eql(true);",
-									"});",
-									"pm.test(\"Check study data type\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[6].id).to.eql(\"1133\");",
-									"    pm.expect(jsonData[6].name).to.eql(\"Study\");",
-									"    pm.expect(jsonData[6].systemDataType).to.eql(true);",
-									"});",
-									"pm.test(\"Check dataset data type\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[7].id).to.eql(\"1134\");",
-									"    pm.expect(jsonData[7].name).to.eql(\"Dataset\");",
-									"    pm.expect(jsonData[7].systemDataType).to.eql(true);",
-									"});",
-									"pm.test(\"Check germplasm list data type\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[8].id).to.eql(\"1135\");",
-									"    pm.expect(jsonData[8].name).to.eql(\"Germplasm List\");",
-									"    pm.expect(jsonData[8].systemDataType).to.eql(true);",
-									"});",
-									"pm.test(\"Check breeding method data type\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[9].id).to.eql(\"1136\");",
-									"    pm.expect(jsonData[9].name).to.eql(\"Breeding Method\");",
-									"    pm.expect(jsonData[9].systemDataType).to.eql(true);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"value": "{{masterToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/datatypes",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"datatypes"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "ontology-variable-filter-service",
 			"item": [
 				{
@@ -18251,62 +17937,62 @@
 									"\r",
 									"pm.test(\"Check NOTES variable\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[82].id).to.eql(\"8390\");\r",
-									"    pm.expect(jsonData[82].name).to.eql(\"NOTES\");\r",
-									"    pm.expect(jsonData[82].description).to.eql(\"Field notes - observed (text)\");\r",
+									"    pm.expect(jsonData[81].id).to.eql(\"8390\");\r",
+									"    pm.expect(jsonData[81].name).to.eql(\"NOTES\");\r",
+									"    pm.expect(jsonData[81].description).to.eql(\"Field notes - observed (text)\");\r",
 									"    //Check properties\r",
-									"    pm.expect(jsonData[82].property.id).to.eql(\"2065\");\r",
-									"    pm.expect(jsonData[82].property.name).to.eql(\"Comment\");\r",
-									"    pm.expect(jsonData[82].property.description).to.eql(\"Comment\");\r",
+									"    pm.expect(jsonData[81].property.id).to.eql(\"2065\");\r",
+									"    pm.expect(jsonData[81].property.name).to.eql(\"Comment\");\r",
+									"    pm.expect(jsonData[81].property.description).to.eql(\"Comment\");\r",
 									"    \r",
 									"    //Check method\r",
-									"    pm.expect(jsonData[82].method.id).to.eql(\"4110\");\r",
-									"    pm.expect(jsonData[82].method.name).to.eql(\"Observed\");\r",
-									"    pm.expect(jsonData[82].method.description).to.eql(\"Value recorded after observation\");    \r",
+									"    pm.expect(jsonData[81].method.id).to.eql(\"4110\");\r",
+									"    pm.expect(jsonData[81].method.name).to.eql(\"Observed\");\r",
+									"    pm.expect(jsonData[81].method.description).to.eql(\"Value recorded after observation\");    \r",
 									"    \r",
 									"   //Check scale\r",
-									"    pm.expect(jsonData[82].scale.id).to.eql(\"6020\");\r",
-									"    pm.expect(jsonData[82].scale.name).to.eql(\"Text\");\r",
-									"    pm.expect(jsonData[82].scale.description).to.eql(\"Text\");    \r",
+									"    pm.expect(jsonData[81].scale.id).to.eql(\"6020\");\r",
+									"    pm.expect(jsonData[81].scale.name).to.eql(\"Text\");\r",
+									"    pm.expect(jsonData[81].scale.description).to.eql(\"Text\");    \r",
 									"    \r",
 									"    \r",
 									"   //Check variableTypes\r",
-									"    pm.expect(jsonData[82].variableTypes[0].id).to.eql(\"1808\");\r",
-									"    pm.expect(jsonData[82].variableTypes[0].name).to.eql(\"Trait\");\r",
-									"    pm.expect(jsonData[82].variableTypes[0].description).to.eql(\"Characteristics of a germplasm to be recorded during a study.\");   \r",
+									"    pm.expect(jsonData[81].variableTypes[0].id).to.eql(\"1808\");\r",
+									"    pm.expect(jsonData[81].variableTypes[0].name).to.eql(\"Trait\");\r",
+									"    pm.expect(jsonData[81].variableTypes[0].description).to.eql(\"Characteristics of a germplasm to be recorded during a study.\");   \r",
 									"    \r",
 									"});\r",
 									"\r",
 									"pm.test(\"Check TranspltD_date variable\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[167].id).to.eql(\"8384\");\r",
-									"    pm.expect(jsonData[167].name).to.eql(\"TranspltD_date\");\r",
-									"    pm.expect(jsonData[167].description).to.eql(\"Date Transplanted -applied (yyyymmdd)\");\r",
+									"    pm.expect(jsonData[166].id).to.eql(\"8384\");\r",
+									"    pm.expect(jsonData[166].name).to.eql(\"TranspltD_date\");\r",
+									"    pm.expect(jsonData[166].description).to.eql(\"Date Transplanted -applied (yyyymmdd)\");\r",
 									"    //Check properties\r",
-									"    pm.expect(jsonData[167].property.id).to.eql(\"2056\");\r",
-									"    pm.expect(jsonData[167].property.name).to.eql(\"Transplanting date\");\r",
-									"    pm.expect(jsonData[167].property.description).to.eql(\"Transplanting date\");\r",
+									"    pm.expect(jsonData[166].property.id).to.eql(\"2056\");\r",
+									"    pm.expect(jsonData[166].property.name).to.eql(\"Transplanting date\");\r",
+									"    pm.expect(jsonData[166].property.description).to.eql(\"Transplanting date\");\r",
 									"    \r",
 									"    //Check method\r",
-									"    pm.expect(jsonData[167].method.id).to.eql(\"4020\");\r",
-									"    pm.expect(jsonData[167].method.name).to.eql(\"Applied\");\r",
-									"    pm.expect(jsonData[167].method.description).to.eql(\"Factor applied\");    \r",
+									"    pm.expect(jsonData[166].method.id).to.eql(\"4020\");\r",
+									"    pm.expect(jsonData[166].method.name).to.eql(\"Applied\");\r",
+									"    pm.expect(jsonData[166].method.description).to.eql(\"Factor applied\");    \r",
 									"    \r",
 									"    \r",
 									"   //Check scale\r",
-									"    pm.expect(jsonData[167].scale.id).to.eql(\"17275\");\r",
-									"    pm.expect(jsonData[167].scale.name).to.eql(\"Date (yyyymmdd) of TranspltD_date\");\r",
-									"    pm.expect(jsonData[167].scale.description).to.eql(\"Date (yyyymmdd) ofTranspltD_date_generated\");    \r",
+									"    pm.expect(jsonData[166].scale.id).to.eql(\"17275\");\r",
+									"    pm.expect(jsonData[166].scale.name).to.eql(\"Date (yyyymmdd) of TranspltD_date\");\r",
+									"    pm.expect(jsonData[166].scale.description).to.eql(\"Date (yyyymmdd) ofTranspltD_date_generated\");    \r",
 									"    \r",
 									"    \r",
 									"   //Check variableTypes\r",
-									"    pm.expect(jsonData[167].variableTypes[0].id).to.eql(\"1806\");\r",
-									"    pm.expect(jsonData[167].variableTypes[0].name).to.eql(\"Environment Detail\");\r",
-									"    pm.expect(jsonData[167].variableTypes[0].description).to.eql(\"Administrative details to be tracked per environment.\");   \r",
+									"    pm.expect(jsonData[166].variableTypes[0].id).to.eql(\"1806\");\r",
+									"    pm.expect(jsonData[166].variableTypes[0].name).to.eql(\"Environment Detail\");\r",
+									"    pm.expect(jsonData[166].variableTypes[0].description).to.eql(\"Administrative details to be tracked per environment.\");   \r",
 									"    \r",
-									"    pm.expect(jsonData[167].variableTypes[1].id).to.eql(\"1805\");\r",
-									"    pm.expect(jsonData[167].variableTypes[1].name).to.eql(\"Study Detail\");\r",
-									"    pm.expect(jsonData[167].variableTypes[1].description).to.eql(\"Administrative details to be tracked per study.\");   \r",
+									"    pm.expect(jsonData[166].variableTypes[1].id).to.eql(\"1805\");\r",
+									"    pm.expect(jsonData[166].variableTypes[1].name).to.eql(\"Study Detail\");\r",
+									"    pm.expect(jsonData[166].variableTypes[1].description).to.eql(\"Administrative details to be tracked per study.\");   \r",
 									"    \r",
 									"});\r",
 									"\r",
@@ -19639,6 +19325,320 @@
 							]
 						},
 						"description": "GET /ontology/{cropname}/filtervariables"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ontology-class-service",
+			"item": [
+				{
+					"name": "Verify response code and returned classes when entered valid crop",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1dafa5cf-8e49-4ae1-9358-61b32e79fa54",
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "04134399-afdb-48fb-87e8-2d7ce707468e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Check returned classes\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0]).to.equal(\"Abiotic condition\");",
+									"    pm.expect(jsonData[1]).to.equal(\"Abiotic stress\");",
+									"    pm.expect(jsonData[2]).to.equal(\"Agronomic\");",
+									"    pm.expect(jsonData[3]).to.equal(\"Biochemical trait\");",
+									"    pm.expect(jsonData[4]).to.equal(\"Biotic condition\");",
+									"    pm.expect(jsonData[5]).to.equal(\"Biotic stress\");",
+									"    pm.expect(jsonData[6]).to.equal(\"Breeding methods\");",
+									"    pm.expect(jsonData[7]).to.equal(\"Breedingprocess\");",
+									"    pm.expect(jsonData[8]).to.equal(\"Bulking breeding methods\");",
+									"    pm.expect(jsonData[9]).to.equal(\"Climatic condition\");",
+									"    pm.expect(jsonData[10]).to.equal(\"Crop research ontology\");",
+									"    pm.expect(jsonData[11]).to.equal(\"Crop trait ontology\");",
+									"    pm.expect(jsonData[12]).to.equal(\"Crossing methods\");",
+									"    pm.expect(jsonData[13]).to.equal(\"Cultivar formation methods\");",
+									"    pm.expect(jsonData[14]).to.equal(\"Cytogenetic manipulation\");",
+									"    pm.expect(jsonData[15]).to.equal(\"Dataset Condition\");",
+									"    pm.expect(jsonData[16]).to.equal(\"Derivative breeding methods\");",
+									"    pm.expect(jsonData[17]).to.equal(\"Disease resistance\");",
+									"    pm.expect(jsonData[18]).to.equal(\"General\");",
+									"    pm.expect(jsonData[19]).to.equal(\"Generative breeding methods\");",
+									"    pm.expect(jsonData[20]).to.equal(\"Genetic Modification\");",
+									"    pm.expect(jsonData[21]).to.equal(\"Germplasm\");",
+									"    pm.expect(jsonData[22]).to.equal(\"Insect and pest resistance\");",
+									"    pm.expect(jsonData[23]).to.equal(\"Maintenance methods\");",
+									"    pm.expect(jsonData[24]).to.equal(\"Molecular property\");",
+									"    pm.expect(jsonData[25]).to.equal(\"Morphological\");",
+									"    pm.expect(jsonData[26]).to.equal(\"Mutation methods\");",
+									"    pm.expect(jsonData[27]).to.equal(\"Non-bulking breedingmethods\");",
+									"    pm.expect(jsonData[28]).to.equal(\"Passport\");",
+									"    pm.expect(jsonData[29]).to.equal(\"Phenology\");",
+									"    pm.expect(jsonData[30]).to.equal(\"Physiological\");",
+									"    pm.expect(jsonData[31]).to.equal(\"Post harvest\");",
+									"    pm.expect(jsonData[32]).to.equal(\"Quality\");",
+									"    pm.expect(jsonData[33]).to.equal(\"Seed acquisation methods\");",
+									"    pm.expect(jsonData[34]).to.equal(\"Seed increase methods\");",
+									"    pm.expect(jsonData[35]).to.equal(\"Seed storage\");",
+									"    pm.expect(jsonData[36]).to.equal(\"Site condition\");",
+									"    pm.expect(jsonData[37]).to.equal(\"Soil condition\");",
+									"    pm.expect(jsonData[38]).to.equal(\"Study condition\");",
+									"    pm.expect(jsonData[39]).to.equal(\"Trial Design\");",
+									"    pm.expect(jsonData[40]).to.equal(\"Trial environment\");",
+									"    pm.expect(jsonData[41]).to.equal(\"Trial management\");",
+									"    pm.expect(jsonData[42]).to.equal(\"Variate condition\");",
+									"    pm.expect(jsonData[43]).to.equal(\"Yield component\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{masterToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/{{crop}}/classes",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"{{crop}}",
+								"classes"
+							]
+						},
+						"description": "GET /ontology/{cropname}/classes"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ontology-data-type-service",
+			"item": [
+				{
+					"name": "GET /ontology/datatypes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Check categorical data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].id).to.eql(\"1130\");",
+									"    pm.expect(jsonData[0].name).to.eql(\"Categorical\");",
+									"    pm.expect(jsonData[0].systemDataType).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"Check numeric data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[1].id).to.eql(\"1110\");",
+									"    pm.expect(jsonData[1].name).to.eql(\"Numeric\");",
+									"    pm.expect(jsonData[1].systemDataType).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"Check date data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[2].id).to.eql(\"1117\");",
+									"    pm.expect(jsonData[2].name).to.eql(\"Date\");",
+									"    pm.expect(jsonData[2].systemDataType).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"Check character data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[3].id).to.eql(\"1120\");",
+									"    pm.expect(jsonData[3].name).to.eql(\"Character\");",
+									"    pm.expect(jsonData[3].systemDataType).to.eql(false);",
+									"});",
+									"pm.test(\"Check person data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[4].id).to.eql(\"1131\");",
+									"    pm.expect(jsonData[4].name).to.eql(\"Person\");",
+									"    pm.expect(jsonData[4].systemDataType).to.eql(true);",
+									"});",
+									"pm.test(\"Check location data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[5].id).to.eql(\"1132\");",
+									"    pm.expect(jsonData[5].name).to.eql(\"Location\");",
+									"    pm.expect(jsonData[5].systemDataType).to.eql(true);",
+									"});",
+									"pm.test(\"Check study data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[6].id).to.eql(\"1133\");",
+									"    pm.expect(jsonData[6].name).to.eql(\"Study\");",
+									"    pm.expect(jsonData[6].systemDataType).to.eql(true);",
+									"});",
+									"pm.test(\"Check dataset data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[7].id).to.eql(\"1134\");",
+									"    pm.expect(jsonData[7].name).to.eql(\"Dataset\");",
+									"    pm.expect(jsonData[7].systemDataType).to.eql(true);",
+									"});",
+									"pm.test(\"Check germplasm list data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[8].id).to.eql(\"1135\");",
+									"    pm.expect(jsonData[8].name).to.eql(\"Germplasm List\");",
+									"    pm.expect(jsonData[8].systemDataType).to.eql(true);",
+									"});",
+									"pm.test(\"Check breeding method data type\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[9].id).to.eql(\"1136\");",
+									"    pm.expect(jsonData[9].name).to.eql(\"Breeding Method\");",
+									"    pm.expect(jsonData[9].systemDataType).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{masterToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/ontology/datatypes",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"ontology",
+								"datatypes"
+							]
+						}
 					},
 					"response": []
 				}
