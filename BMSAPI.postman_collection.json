@@ -24518,6 +24518,247 @@
 						}
 					],
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "GET /sampleLists/{crop}/search",
+					"item": [
+						{
+							"name": "Verify response code and body when entered valid searchString and exactMatch is false",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e503308a-5465-4daa-9b4f-47740952b91c",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "472e49e6-682a-472c-b787-b4d7a5f39a83",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verify returned sample details\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData[0].listName).to.eql(\"Sample List 002\");",
+											"    pm.expect(jsonData[1].listName).to.eql(\"Sample List 003\");",
+											"    pm.expect(jsonData[2].listName).to.eql(\"Sample List 004\");",
+											"    pm.expect(jsonData[3].listName).to.eql(\"Sample List 005\");",
+											"    pm.expect(jsonData[4].listName).to.eql(\"Sample List 006\");",
+											"    pm.expect(jsonData[5].listName).to.eql(\"Sample List 007\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"value": "{{masterToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{BMSurl}}/sampleLists/{{crop}}/search?searchString={{search_string_not_exact}}&exactMatch=false&sort=id,asc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"sampleLists",
+										"{{crop}}",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchString",
+											"value": "{{search_string_not_exact}}"
+										},
+										{
+											"key": "exactMatch",
+											"value": "false"
+										},
+										{
+											"key": "sort",
+											"value": "id,asc"
+										}
+									]
+								},
+								"description": "GET /sampleLists/{crop}/search"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered valid searchString and exactMatch is true",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e503308a-5465-4daa-9b4f-47740952b91c",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "472e49e6-682a-472c-b787-b4d7a5f39a83",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verify returned sample details\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData[0].listName).to.eql(\"Sample List 002\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{BMSurl}}/sampleLists/{{crop}}/search?searchString={{search_string_exact}}&exactMatch=false&sort=id,asc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"sampleLists",
+										"{{crop}}",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchString",
+											"value": "{{search_string_exact}}"
+										},
+										{
+											"key": "exactMatch",
+											"value": "false"
+										},
+										{
+											"key": "sort",
+											"value": "id,asc"
+										}
+									]
+								},
+								"description": "GET /sampleLists/{crop}/search"
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		},
