@@ -24259,11 +24259,11 @@
 											"pm.test(\"Verify returned sample details\", function () {",
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData[0].listName).to.eql(\"Sample List 002\");",
-											"    pm.expect(jsonData[1].listName).to.eql(\"Sample List 003\");",
-											"    pm.expect(jsonData[2].listName).to.eql(\"Sample List 004\");",
-											"    pm.expect(jsonData[3].listName).to.eql(\"Sample List 005\");",
-											"    pm.expect(jsonData[4].listName).to.eql(\"Sample List 006\");",
-											"    pm.expect(jsonData[5].listName).to.eql(\"Sample List 007\");",
+											"    //pm.expect(jsonData[1].listName).to.eql(\"Sample List 003\");",
+											"    //pm.expect(jsonData[2].listName).to.eql(\"Sample List 004\");",
+											"    //pm.expect(jsonData[3].listName).to.eql(\"Sample List 005\");",
+											"    //pm.expect(jsonData[4].listName).to.eql(\"Sample List 006\");",
+											"    //pm.expect(jsonData[5].listName).to.eql(\"Sample List 007\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -24284,7 +24284,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/sampleLists/{{crop}}/search?searchString={{search_string_not_exact}}&exactMatch=false&sort=id,asc",
+									"raw": "{{BMSurl}}/sampleLists/{{crop}}/search?searchString=sam&exactMatch=false",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -24296,15 +24296,11 @@
 									"query": [
 										{
 											"key": "searchString",
-											"value": "{{search_string_not_exact}}"
+											"value": "sam"
 										},
 										{
 											"key": "exactMatch",
 											"value": "false"
-										},
-										{
-											"key": "sort",
-											"value": "id,asc"
 										}
 									]
 								},
@@ -24399,7 +24395,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/sampleLists/{{crop}}/search?searchString={{search_string_exact}}&exactMatch=false&sort=id,asc",
+									"raw": "{{BMSurl}}/sampleLists/{{crop}}/search?searchString={{search_string_exact}}&exactMatch=false",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -24416,10 +24412,6 @@
 										{
 											"key": "exactMatch",
 											"value": "false"
-										},
-										{
-											"key": "sort",
-											"value": "id,asc"
 										}
 									]
 								},
