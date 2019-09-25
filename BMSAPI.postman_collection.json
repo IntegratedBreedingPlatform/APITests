@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "6a08c336-77d1-4f1b-aca6-20af4ba59817",
+		"_postman_id": "63272a1d-3f2c-401d-a9fa-5ce83b7ce737",
 		"name": "BMSAPI",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -30,13 +30,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -51,17 +47,7 @@
 							"mode": "raw",
 							"raw": "{\r\n  \"username\": \"{{bms_user}}\",\r\n  \"password\": \"{{bms_password}}\",\r\n  \"grant_type\": \"\",\r\n  \"client_id\": \"\"\r\n}"
 						},
-						"url": {
-							"raw": "{{BMSurl}}/brapi/v1/token",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"brapi",
-								"v1",
-								"token"
-							]
-						}
+						"url": "{{BMSurl}}/brapi/v1/token"
 					},
 					"response": []
 				},
@@ -84,13 +70,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -105,21 +87,12 @@
 							"mode": "raw",
 							"raw": "{\r\n  \"username\": \"apitestuser\",\r\n  \"password\": \"apitestuser\",\r\n  \"grant_type\": \"\",\r\n  \"client_id\": \"\"\r\n}"
 						},
-						"url": {
-							"raw": "{{BMSurl}}/brapi/v1/token",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"brapi",
-								"v1",
-								"token"
-							]
-						}
+						"url": "{{BMSurl}}/brapi/v1/token"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "brapi-call-services",
@@ -223,31 +196,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/brapi/v1/calls",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"brapi",
-								"v1",
-								"calls"
-							]
-						}
+						"url": "{{BMSurl}}/brapi/v1/calls"
 					},
 					"response": []
 				},
@@ -330,20 +285,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/brapi/v1/calls?dataType=csv",
 							"host": [
@@ -447,20 +394,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/brapi/v1/calls?dataType=tsv",
 							"host": [
@@ -566,20 +505,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/brapi/v1/calls?dataType=json",
 							"host": [
@@ -683,20 +614,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/brapi/v1/calls?dataType=text/csv",
 							"host": [
@@ -800,20 +723,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/brapi/v1/calls?dataType=text/tsv",
 							"host": [
@@ -997,20 +912,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/brapi/v1/calls?dataType=application/json",
 							"host": [
@@ -1108,20 +1015,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/brapi/v1/calls?dataType=application/flapjack",
 							"host": [
@@ -1142,7 +1041,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "brapi-crop-services",
@@ -1155,57 +1055,87 @@
 							"script": {
 								"id": "44b811fa-c481-4363-a9fb-d3c085b6154f",
 								"exec": [
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Check brachiaria crop \", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[0]).to.eql(\"brachiaria\");",
-									"});",
-									"",
-									"pm.test(\"Check chickpea crop \", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[1]).to.eql(\"chickpea\");",
-									"});",
-									"",
-									"pm.test(\"Check cowpea crop \", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[2]).to.eql(\"cowpea\");",
-									"});",
-									"pm.test(\"Check groundnut crop \", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[3]).to.eql(\"groundnut\");",
-									"});",
-									"pm.test(\"Check maize crop \", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[4]).to.eql(\"maize\");",
-									"});",
-									"pm.test(\"Check rapeseed crop \", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[5]).to.eql(\"rapeseed\");",
-									"});",
-									"pm.test(\"Check rice crop \", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[6]).to.eql(\"rice\");",
-									"});",
-									"pm.test(\"Check sorghum crop \", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[7]).to.eql(\"sorghum\");",
-									"});",
-									"pm.test(\"Check sorghum crop \", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[8]).to.eql(\"testdata\");",
-									"});",
-									"pm.test(\"Check tomato crop \", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[9]).to.eql(\"tomato\");",
-									"});",
-									"pm.test(\"Check wheat crop \", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[10]).to.eql(\"wheat\");",
-									"});",
-									""
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Check brachiaria crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[0]).to.eql(\"brachiaria\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check chia crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[1]).to.eql(\"chia\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check chickpea crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[2]).to.eql(\"chickpea\");\r",
+									"});\r",
+									"pm.test(\"Check cowpea crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[3]).to.eql(\"cowpea\");\r",
+									"});\r",
+									"pm.test(\"Check flax crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[4]).to.eql(\"flax\");\r",
+									"});\r",
+									"pm.test(\"Check groundnut crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[5]).to.eql(\"groundnut\");\r",
+									"});\r",
+									"pm.test(\"Check maize crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[6]).to.eql(\"maize\");\r",
+									"});\r",
+									"pm.test(\"Check monggo crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[7]).to.eql(\"monggo\");\r",
+									"});\r",
+									"pm.test(\"Check mustard crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[8]).to.eql(\"mustard\");\r",
+									"});\r",
+									"pm.test(\"Check peanut crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[9]).to.eql(\"peanut\");\r",
+									"});\r",
+									"pm.test(\"Check rapeseed crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[10]).to.eql(\"rapeseed\");\r",
+									"});\r",
+									"pm.test(\"Check rice crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[11]).to.eql(\"rice\");\r",
+									"});\r",
+									"pm.test(\"Check safflower crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[12]).to.eql(\"safflower\");\r",
+									"});\r",
+									"pm.test(\"Check sorghum crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[13]).to.eql(\"sorghum\");\r",
+									"});\r",
+									"pm.test(\"Check soybean crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[14]).to.eql(\"soybean\");\r",
+									"});\r",
+									"pm.test(\"Check sunflower crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[15]).to.eql(\"sunflower\");\r",
+									"});\r",
+									"pm.test(\"Check testdata crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[16]).to.eql(\"testdata\");\r",
+									"});\r",
+									"pm.test(\"Check tomato crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[17]).to.eql(\"tomato\");\r",
+									"});\r",
+									"pm.test(\"Check wheat crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[18]).to.eql(\"wheat\");\r",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1266,35 +1196,18 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/brapi/v1/crops",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"brapi",
-								"v1",
-								"crops"
-							]
-						}
+						"url": "{{BMSurl}}/brapi/v1/crops"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "ontology-get-services",
@@ -1330,11 +1243,10 @@
 									"",
 									"pm.test(\"Check weighed method\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[85].id).to.eql(pm.environment.get(\"weighed_method_id\"));",
-									"    pm.expect(jsonData[85].name).to.eql(\"Weighed\");",
-									"    pm.expect(jsonData[85].description).to.eql(\"Weighing method\");",
-									"});",
-									""
+									"    pm.expect(jsonData[80].id).to.eql(pm.environment.get(\"weighed_method_id\"));",
+									"    pm.expect(jsonData[80].name).to.eql(\"Weighed\");",
+									"    pm.expect(jsonData[80].description).to.eql(\"Weighing method\");",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1404,21 +1316,7 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/methods",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"methods"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/methods"
 					},
 					"response": []
 				},
@@ -1516,22 +1414,7 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/methods/{{weighed_method_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"methods",
-								"{{weighed_method_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/methods/{{weighed_method_id}}"
 					},
 					"response": []
 				},
@@ -1566,9 +1449,9 @@
 									"",
 									"pm.test(\"Check trial instance property\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[162].id).to.eql(\"2100\");",
-									"    pm.expect(jsonData[162].name).to.eql(\"Trial instance\");",
-									"    pm.expect(jsonData[162].description).to.eql(\"Identifier for an individual experiment ina multi environemt trial\");",
+									"    pm.expect(jsonData[156].id).to.eql(\"2100\");",
+									"    pm.expect(jsonData[156].name).to.eql(\"Trial instance\");",
+									"    pm.expect(jsonData[156].description).to.eql(\"Identifier for an individual experiment ina multi environemt trial\");",
 									"});",
 									""
 								],
@@ -1640,21 +1523,7 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/properties",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"properties"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/properties"
 					},
 					"response": []
 				},
@@ -1745,22 +1614,7 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/properties/{{trial_instance_property_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"properties",
-								"{{trial_instance_property_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/properties/{{trial_instance_property_id}}"
 					},
 					"response": []
 				},
@@ -1869,21 +1723,7 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/scales",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"scales"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/scales"
 					},
 					"response": []
 				},
@@ -1974,22 +1814,7 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/scales/{{number_scale_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"scales",
-								"{{number_scale_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/scales/{{number_scale_id}}"
 					},
 					"response": []
 				},
@@ -2174,10 +1999,6 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/ontology/{{crop}}/variables?property={{trial_instance_property_id}}&favourite=false&programId={{api_program_id}}",
 							"host": [
@@ -2311,10 +2132,6 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/ontology/{{crop}}/variables/{{study_biomass_cvterm_id}}?programId={{api_program_id}}",
 							"host": [
@@ -2336,7 +2153,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "brapi-germplasm-services",
@@ -2468,20 +2286,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm-search?germplasmDbId=21",
 							"host": [
@@ -2654,20 +2464,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm-search?germplasmName=CML1",
 							"host": [
@@ -2840,33 +2642,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasmDbId}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"germplasm",
-								"{{germplasmDbId}}"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasmDbId}}"
 					},
 					"response": []
 				},
@@ -2946,33 +2728,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{nonExistingGID}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"germplasm",
-								"{{nonExistingGID}}"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{nonExistingGID}}"
 					},
 					"response": []
 				},
@@ -3099,34 +2861,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{crossGID}}/pedigree",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"germplasm",
-								"{{crossGID}}",
-								"pedigree"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{crossGID}}/pedigree"
 					},
 					"response": []
 				},
@@ -3215,34 +2956,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasmDbId}}/progeny",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"germplasm",
-								"{{germplasmDbId}}",
-								"progeny"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasmDbId}}/progeny"
 					},
 					"response": []
 				},
@@ -3322,38 +3042,18 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{nonExistingGID}}/pedigree",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"germplasm",
-								"{{nonExistingGID}}",
-								"pedigree"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{nonExistingGID}}/pedigree"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "brapi-location-services",
@@ -3441,32 +3141,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/locations",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"locations"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/locations"
 					},
 					"response": []
 				},
@@ -3564,20 +3245,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/locations?page=0&pageSize=100",
 							"host": [
@@ -3682,20 +3355,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/locations?locationType=breeding location",
 							"host": [
@@ -3717,7 +3382,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "brapi-program-services",
@@ -3802,32 +3468,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/programs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"programs"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/programs"
 					},
 					"response": []
 				},
@@ -3911,32 +3558,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/programs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"programs"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/programs"
 					},
 					"response": []
 				},
@@ -4020,32 +3648,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/programs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"programs"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/programs"
 					},
 					"response": []
 				},
@@ -4131,36 +3740,18 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/programs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"programs"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/programs"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "study-services",
@@ -4266,22 +3857,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/study/{{crop}}/{{studyId}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"study",
-										"{{crop}}",
-										"{{studyId}}",
-										"instances"
-									]
-								},
+								"url": "{{BMSurl}}/study/{{crop}}/{{studyId}}/instances",
 								"description": "GET /study/{cropname}/{studyId}/instances"
 							},
 							"response": []
@@ -4371,22 +3947,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/study/{{crop}}/{{non_existing_study_id}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"study",
-										"{{crop}}",
-										"{{non_existing_study_id}}",
-										"instances"
-									]
-								},
+								"url": "{{BMSurl}}/study/{{crop}}/{{non_existing_study_id}}/instances",
 								"description": "GET /study/{cropname}/{studyId}/instances"
 							},
 							"response": []
@@ -4475,27 +4036,13 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/study/{{crop}}/{{string_input}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"study",
-										"{{crop}}",
-										"{{string_input}}",
-										"instances"
-									]
-								},
+								"url": "{{BMSurl}}/study/{{crop}}/{{string_input}}/instances",
 								"description": "GET /study/{cropname}/{studyId}/instances"
 							},
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -4585,22 +4132,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/study/{{crop}}/{{studyId}}/sampled",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"study",
-										"{{crop}}",
-										"{{studyId}}",
-										"sampled"
-									]
-								},
+								"url": "{{BMSurl}}/study/{{crop}}/{{studyId}}/sampled",
 								"description": "GET /study/{cropName}/{studyId}/sampled"
 							},
 							"response": []
@@ -4689,22 +4221,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/study/{{crop}}/{{locked_studyId}}/sampled",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"study",
-										"{{crop}}",
-										"{{locked_studyId}}",
-										"sampled"
-									]
-								},
+								"url": "{{BMSurl}}/study/{{crop}}/{{locked_studyId}}/sampled",
 								"description": "GET /study/{cropName}/{studyId}/sampled"
 							},
 							"response": []
@@ -4794,22 +4311,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/study/{{crop}}/{{non_existing_study_id}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"study",
-										"{{crop}}",
-										"{{non_existing_study_id}}",
-										"instances"
-									]
-								},
+								"url": "{{BMSurl}}/study/{{crop}}/{{non_existing_study_id}}/instances",
 								"description": "GET /study/{cropName}/{studyId}/sampled"
 							},
 							"response": []
@@ -4898,30 +4400,17 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/study/{{crop}}/{{string_input}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"study",
-										"{{crop}}",
-										"{{string_input}}",
-										"instances"
-									]
-								},
+								"url": "{{BMSurl}}/study/{{crop}}/{{string_input}}/instances",
 								"description": "GET /study/{cropName}/{studyId}/sampled"
 							},
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "dataset-services",
@@ -5024,25 +4513,7 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"instances"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/instances",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
 							},
 							"response": []
@@ -5128,25 +4599,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{non_existing_study_id}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"instances"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/instances",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
 							},
 							"response": []
@@ -5232,25 +4685,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{non_existing_dataset_id}}",
-										"instances"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/instances",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
 							},
 							"response": []
@@ -5336,25 +4771,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{locked_study_subobs_datasetId}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{locked_study_subobs_datasetId}}",
-										"instances"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{locked_study_subobs_datasetId}}/instances",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
 							},
 							"response": []
@@ -5440,25 +4857,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_subobs_datasetId}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{string_input}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"instances"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_subobs_datasetId}}/instances",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
 							},
 							"response": []
@@ -5544,30 +4943,13 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/instances",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{string_input}}",
-										"instances"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/instances",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
 							},
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -5662,23 +5044,7 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
 							},
 							"response": []
@@ -5772,10 +5138,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{env_datasetTypeId}}, {{plot_datasetTypeId}},{{plant_subobs_datasetTypeId}}",
 									"host": [
@@ -5880,10 +5242,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{env_datasetTypeId}}",
 									"host": [
@@ -5988,10 +5346,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{plot_datasetTypeId}}",
 									"host": [
@@ -6096,10 +5450,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{trialStudyId}}/datasets?datasetTypeIds={{means_datasetTypeId}}",
 									"host": [
@@ -6204,10 +5554,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{plant_subobs_datasetTypeId}}",
 									"host": [
@@ -6312,23 +5658,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{string_input}}",
-										"datasets"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
 							},
 							"response": []
@@ -6414,10 +5744,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{string_input}}",
 									"host": [
@@ -6523,10 +5849,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets?datasetTypeIds={{non_existing_datasetTypeId}}",
 									"host": [
@@ -6551,6 +5873,7 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -6643,24 +5966,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_env_id}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_env_id}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_env_id}}",
 								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
 							},
 							"response": []
@@ -6754,24 +6060,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}",
 								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
 							},
 							"response": []
@@ -6865,24 +6154,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}",
 								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
 							},
 							"response": []
@@ -6965,24 +6237,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{trialStudyId}}/datasets/{{trialMeansDatasetId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{trialStudyId}}",
-										"datasets",
-										"{{trialMeansDatasetId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{trialStudyId}}/datasets/{{trialMeansDatasetId}}",
 								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
 							},
 							"response": []
@@ -7068,24 +6323,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_plot_datasetId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{non_existing_study_id}}",
-										"datasets",
-										"{{study_plot_datasetId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_plot_datasetId}}",
 								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
 							},
 							"response": []
@@ -7172,24 +6410,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{non_existing_dataset_id}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}",
 								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
 							},
 							"response": []
@@ -7276,24 +6497,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_subobs_datasetId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{string_input}}",
-										"datasets",
-										"{{study_subobs_datasetId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_subobs_datasetId}}",
 								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
 							},
 							"response": []
@@ -7380,29 +6584,13 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{string_input}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}",
 								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
 							},
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -7489,26 +6677,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{study_instanceId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"observationUnits",
-										"{{study_instanceId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{study_instanceId}}",
 								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
@@ -7594,26 +6763,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observationUnits/{{study_instanceId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs2_datasetId}}",
-										"observationUnits",
-										"{{study_instanceId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observationUnits/{{study_instanceId}}",
 								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
@@ -7699,26 +6849,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId_noPhenoCount}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/observationUnits/{{study_noPheno_instandId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId_noPhenoCount}}",
-										"datasets",
-										"{{study_plot_dataset_id_noPhenoCount}}",
-										"observationUnits",
-										"{{study_noPheno_instandId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId_noPhenoCount}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/observationUnits/{{study_noPheno_instandId}}",
 								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
@@ -7801,26 +6932,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_plot_datasetId}}/observationUnits/{{study_instanceId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{non_existing_study_id}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"observationUnits",
-										"{{study_instanceId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_plot_datasetId}}/observationUnits/{{study_instanceId}}",
 								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
@@ -7903,26 +7015,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/{{study_instanceId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{non_existing_dataset_id}}",
-										"observationUnits",
-										"{{study_instanceId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/{{study_instanceId}}",
 								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
@@ -7984,26 +7077,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{invalid_studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{study_instanceId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{invalid_studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"observationUnits",
-										"{{study_instanceId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{invalid_studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{study_instanceId}}",
 								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
@@ -8086,26 +7160,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{studyId}}/observationUnits/{{study_instanceId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{studyId}}",
-										"observationUnits",
-										"{{study_instanceId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{studyId}}/observationUnits/{{study_instanceId}}",
 								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
@@ -8188,26 +7243,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{studyId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"observationUnits",
-										"{{studyId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{studyId}}",
 								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
@@ -8290,26 +7326,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_plot_datasetId}}/observationUnits/{{study_instanceId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{string_input}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"observationUnits",
-										"{{study_instanceId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_plot_datasetId}}/observationUnits/{{study_instanceId}}",
 								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
@@ -8392,26 +7409,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/observationUnits/{{study_instanceId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{string_input}}",
-										"observationUnits",
-										"{{study_instanceId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/observationUnits/{{study_instanceId}}",
 								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
@@ -8494,31 +7492,13 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{string_input}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"observationUnits",
-										"{{string_input}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/{{string_input}}",
 								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
 							},
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -8649,27 +7629,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/table/columns",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"observationUnits",
-										"table",
-										"columns"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/table/columns",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
@@ -8755,27 +7715,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/observationUnits/table/columns",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{non_existing_study_id}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"observationUnits",
-										"table",
-										"columns"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/observationUnits/table/columns",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
@@ -8861,27 +7801,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/table/columns",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{non_existing_dataset_id}}",
-										"observationUnits",
-										"table",
-										"columns"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/table/columns",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
@@ -8967,27 +7887,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{locked_study_subobs_datasetId}}/observationUnits/table/columns",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{locked_study_subobs_datasetId}}",
-										"observationUnits",
-										"table",
-										"columns"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{locked_study_subobs_datasetId}}/observationUnits/table/columns",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
@@ -9073,27 +7973,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_subobs_datasetId}}/observationUnits/table/columns",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{string_input}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"observationUnits",
-										"table",
-										"columns"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_subobs_datasetId}}/observationUnits/table/columns",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
@@ -9179,32 +8059,13 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/observationUnits/table/columns",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{string_input}}",
-										"observationUnits",
-										"table",
-										"columns"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/observationUnits/table/columns",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/table/columns"
 							},
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -9301,26 +8162,7 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{Trait_cvtermId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"variables",
-										"{{Trait_cvtermId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{Trait_cvtermId}}",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
@@ -9412,26 +8254,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_env_detail}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"variables",
-										"{{variableTypeId_env_detail}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_env_detail}}",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
@@ -9523,26 +8346,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_exp_design}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"variables",
-										"{{variableTypeId_exp_design}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_exp_design}}",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
@@ -9642,26 +8446,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_germ_desc}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"variables",
-										"{{variableTypeId_germ_desc}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{variableTypeId_germ_desc}}",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
@@ -9753,26 +8538,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables/{{variableTypeId_obs_unit}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"variables",
-										"{{variableTypeId_obs_unit}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables/{{variableTypeId_obs_unit}}",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
@@ -9858,26 +8624,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_plot_datasetId}}/variables/{{Trait_cvtermId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{non_existing_study_id}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"variables",
-										"{{Trait_cvtermId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_plot_datasetId}}/variables/{{Trait_cvtermId}}",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
@@ -9963,26 +8710,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/variables/{{Trait_cvtermId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{non_existing_dataset_id}}",
-										"variables",
-										"{{Trait_cvtermId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/variables/{{Trait_cvtermId}}",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
@@ -10068,26 +8796,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_plot_datasetId}}/variables/{{Trait_cvtermId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{string_input}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"variables",
-										"{{Trait_cvtermId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_plot_datasetId}}/variables/{{Trait_cvtermId}}",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
@@ -10173,26 +8882,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/variables/{{Trait_cvtermId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{string_input}}",
-										"variables",
-										"{{Trait_cvtermId}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/variables/{{Trait_cvtermId}}",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
@@ -10278,31 +8968,13 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{string_input}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_plot_datasetId}}",
-										"variables",
-										"{{string_input}}"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/{{string_input}}",
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
 							},
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -10389,10 +9061,6 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/observations?variableIds={{study_biomass_cvterm_id}}",
 									"host": [
@@ -10500,10 +9168,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId_noPhenoCount}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/variables/observations?variableIds={{study_biomass_cvterm_id}}",
 									"host": [
@@ -10614,10 +9278,6 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/observations?variableIds={{study_biomass_cvterm_id}},{{study_weedPressure_cvterm_id}},{{study_grainYield_cvterm_id}}",
 									"host": [
@@ -10724,10 +9384,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{nonExistingGID}}/datasets/{{study_plot_datasetId}}/variables/observations?variableIds={{study_biomass_cvterm_id}}",
 									"host": [
@@ -10834,10 +9490,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{non_existing_dataset_id}}/variables/observations?variableIds={{study_biomass_cvterm_id}}",
 									"host": [
@@ -10944,10 +9596,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_plot_dataset_id}}/variables/observations?variableIds={{study_biomass_cvterm_id}}",
 									"host": [
@@ -11054,10 +9702,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/variables/observations?variableIds={{study_biomass_cvterm_id}}",
 									"host": [
@@ -11162,10 +9806,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/variables/observations?variableIds={{string_input}}",
 									"host": [
@@ -11193,6 +9833,7 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -11291,21 +9932,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"studyAlias\": \"Biomas_yield\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"variables"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
 								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
 							},
 							"response": []
@@ -11521,21 +10148,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"variables"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
 								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
 							},
 							"response": []
@@ -11633,21 +10246,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{germitest_date_cvtermId}}\",\r\n  \"studyAlias\": \"GermiTest_date\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"variables"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
 								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
 							},
 							"response": []
@@ -11743,21 +10342,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{non_existing_study_id}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"variables"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/variables",
 								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
 							},
 							"response": []
@@ -11853,21 +10438,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{non_existing_dataset_id}}",
-										"variables"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/variables",
 								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
 							},
 							"response": []
@@ -11963,21 +10534,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"studyAlias\": \"Biomas_yield\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"variables"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
 								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
 							},
 							"response": []
@@ -12073,21 +10630,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{site_soil_ph_cvtermId}}\",\r\n  \"studyAlias\": \"SITE_SOIL_PH\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"variables"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
 								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
 							},
 							"response": []
@@ -12187,21 +10730,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"variableTypeId\": \"{{selection_method_cvtermId}}\",\r\n  \"variableId\": \"{{npsel_cvtermId}}\",\r\n  \"studyAlias\": \"NPSEL\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"variables"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
 								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
 							},
 							"response": []
@@ -12297,21 +10826,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"variableTypeId\": \"{{study_condition_cvtermId}}\",\r\n  \"variableId\": \"{{site_soil_ph_cvtermId}}\",\r\n  \"studyAlias\": \"SITE_SOIL_PH\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"variables"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
 								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
 							},
 							"response": []
@@ -12408,26 +10923,13 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"studyAlias\": \"Biomas_yield\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{locked_studyId}}/datasets/{{locked_study_subobs_datasetId}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{locked_studyId}}",
-										"datasets",
-										"{{locked_study_subobs_datasetId}}",
-										"variables"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{locked_studyId}}/datasets/{{locked_study_subobs_datasetId}}/variables",
 								"description": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables"
 							},
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -12549,23 +11051,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}/observations",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"observationUnits",
-										"{{study_observationUnitId}}",
-										"observations"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}/observations",
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
@@ -12661,23 +11147,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}/observations",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{non_existing_study_id}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"observationUnits",
-										"{{study_observationUnitId}}",
-										"observations"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}/observations",
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
@@ -12773,23 +11243,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/{{study_observationUnitId}}/observations",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{non_existing_dataset_id}}",
-										"observationUnits",
-										"{{study_observationUnitId}}",
-										"observations"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/{{study_observationUnitId}}/observations",
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
@@ -12885,23 +11339,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_observationUnitId}}/observationUnits/{{study_observationUnitId}}/observations",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{string_input}}",
-										"datasets",
-										"{{study_observationUnitId}}",
-										"observationUnits",
-										"{{study_observationUnitId}}",
-										"observations"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{string_input}}/datasets/{{study_observationUnitId}}/observationUnits/{{study_observationUnitId}}/observations",
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
@@ -12997,23 +11435,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/observationUnits/{{study_observationUnitId}}/observations",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{string_input}}",
-										"observationUnits",
-										"{{study_observationUnitId}}",
-										"observations"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{string_input}}/observationUnits/{{study_observationUnitId}}/observations",
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
@@ -13109,23 +11531,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{string_input}}/observations",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"observationUnits",
-										"{{string_input}}",
-										"observations"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{string_input}}/observations",
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
@@ -13221,23 +11627,7 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{trialStudyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}/observations",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{trialStudyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"observationUnits",
-										"{{study_observationUnitId}}",
-										"observations"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{trialStudyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/{{study_observationUnitId}}/observations",
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
@@ -13333,28 +11723,13 @@
 									"mode": "raw",
 									"raw": "{\r\n  \"categoricalValueId\": null,\r\n  \"variableId\": \"{{study_biomass_cvterm_id}}\",\r\n  \"value\": \"5\",\r\n  \"observationUnitId\": \"{{study_observationUnitId}}\"\r\n}"
 								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/500/observations",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"observationUnits",
-										"500",
-										"observations"
-									]
-								},
+								"url": "{{BMSurl}}/crops/{{crop}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/observationUnits/500/observations",
 								"description": "POST /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{observationUnitId}"
 							},
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -14551,9 +12926,11 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "crop-resource",
@@ -14678,24 +13055,12 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/crop/list",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crop",
-								"list"
-							]
-						}
+						"url": "{{BMSurl}}/crop/list"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "germplasm-list-services",
@@ -14810,10 +13175,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/germplasmList/{{crop}}/{{listId}}?",
 							"host": [
@@ -14942,10 +13303,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/germplasmList/{{crop}}/list?",
 							"host": [
@@ -15074,10 +13431,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/germplasmList/{{crop}}/search?q=germplasm",
 							"host": [
@@ -15098,7 +13451,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "role-resource",
@@ -15210,19 +13564,7 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/roles",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"roles"
-							]
-						}
+						"url": "{{BMSurl}}/roles"
 					},
 					"response": []
 				},
@@ -15327,24 +13669,12 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/roles/assignable",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"roles",
-								"assignable"
-							]
-						}
+						"url": "{{BMSurl}}/roles/assignable"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "brapi-sample-services",
@@ -15424,33 +13754,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/samples/{{study_sampleId}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"samples",
-								"{{study_sampleId}}"
-							]
-						},
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/samples/{{study_sampleId}}",
 						"description": "GET /{crop}/brapi/v1/samples/{sampleId}"
 					},
 					"response": []
@@ -15530,38 +13840,19 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/samples/{{string_not_found}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"samples",
-								"{{string_not_found}}"
-							]
-						},
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/samples/{{string_not_found}}",
 						"description": "GET /{crop}/brapi/v1/samples/{sampleId}"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "brapi-trial-services",
@@ -15658,32 +13949,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"trials"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/trials"
 					},
 					"response": []
 				},
@@ -15758,32 +14030,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{invalidcrop}}/brapi/v1/trials",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{invalidcrop}}",
-								"brapi",
-								"v1",
-								"trials"
-							]
-						}
+						"url": "{{BMSurl}}/{{invalidcrop}}/brapi/v1/trials"
 					},
 					"response": []
 				},
@@ -15879,20 +14132,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?programDbId={{programDbId}}",
 							"host": [
@@ -15986,20 +14231,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?locationDbId=9001",
 							"host": [
@@ -16113,20 +14350,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?page=0&pageSize=2",
 							"host": [
@@ -16244,20 +14473,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?status=true",
 							"host": [
@@ -16356,20 +14577,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?active=false",
 							"host": [
@@ -16483,20 +14696,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?sortedBy=trialDbId",
 							"host": [
@@ -16596,20 +14801,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?sortBy=studyId",
 							"host": [
@@ -16717,20 +14914,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?sortOrder=asc",
 							"host": [
@@ -16834,20 +15023,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?sortOrder=desc",
 							"host": [
@@ -16947,20 +15128,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?sortOrder=invalidorder",
 							"host": [
@@ -17106,34 +15279,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials/{{studyId}}/table",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"trials",
-								"{{studyId}}",
-								"table"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/trials/{{studyId}}/table"
 					},
 					"response": []
 				},
@@ -17208,38 +15360,18 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials/100222/table",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"trials",
-								"100222",
-								"table"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/trials/100222/table"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "location-service",
@@ -17353,10 +15485,6 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/location/{{crop}}?locationTypeId=410",
 									"host": [
@@ -17378,6 +15506,7 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -17474,10 +15603,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/location/{{crop}}/search?q=test",
 									"host": [
@@ -17500,9 +15625,11 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "brapi-study-services",
@@ -17578,33 +15705,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"studies",
-								""
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/studies/"
 					},
 					"response": []
 				},
@@ -17679,33 +15786,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{invalidcrop}}/brapi/v1/studies/{{studyDbId}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{invalidcrop}}",
-								"brapi",
-								"v1",
-								"studies",
-								"{{studyDbId}}"
-							]
-						}
+						"url": "{{BMSurl}}/{{invalidcrop}}/brapi/v1/studies/{{studyDbId}}"
 					},
 					"response": []
 				},
@@ -17786,33 +15873,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{non_existing_study_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"studies",
-								"{{non_existing_study_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{non_existing_study_id}}"
 					},
 					"response": []
 				},
@@ -17887,34 +15954,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{invalidcrop}}/brapi/v1/studies/{{studyDbId}}/table",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{invalidcrop}}",
-								"brapi",
-								"v1",
-								"studies",
-								"{{studyDbId}}",
-								"table"
-							]
-						}
+						"url": "{{BMSurl}}/{{invalidcrop}}/brapi/v1/studies/{{studyDbId}}/table"
 					},
 					"response": []
 				},
@@ -18056,34 +16102,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{studyDbId}}/table",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"studies",
-								"{{studyDbId}}",
-								"table"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{studyDbId}}/table"
 					},
 					"response": []
 				},
@@ -18163,20 +16188,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{studyDbId}}/table?format=csv",
 							"host": [
@@ -18277,34 +16294,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{non_existing_study_id}}/table",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v1",
-								"studies",
-								"{{non_existing_study_id}}",
-								"table"
-							]
-						}
+						"url": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{non_existing_study_id}}/table"
 					},
 					"response": []
 				},
@@ -18384,20 +16380,12 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{masterToken}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{studyDbId}}/table?format=tsv",
 							"host": [
@@ -18421,7 +16409,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "ontology-variable-filter-service",
@@ -18512,9 +16501,9 @@
 									"    \r",
 									"    \r",
 									"   //Check scale\r",
-									"    pm.expect(jsonData[166].scale.id).to.eql(\"17275\");\r",
-									"    pm.expect(jsonData[166].scale.name).to.eql(\"Date (yyyymmdd) of TranspltD_date\");\r",
-									"    pm.expect(jsonData[166].scale.description).to.eql(\"Date (yyyymmdd) ofTranspltD_date_generated\");    \r",
+									"    pm.expect(jsonData[163].scale.id).to.eql(\"17275\");\r",
+									"    pm.expect(jsonData[163].scale.name).to.eql(\"Date (yyyymmdd) of TranspltD_date\");\r",
+									"    pm.expect(jsonData[163].scale.description).to.eql(\"Date (yyyymmdd) ofTranspltD_date_generated\");    \r",
 									"    \r",
 									"    \r",
 									"   //Check variableTypes\r",
@@ -18599,10 +16588,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&methodIds&scaleIds&variableIds&exclusionVariableIds&dataTypeIds&variableTypeIds&propertyClasses",
 							"host": [
@@ -18743,10 +16728,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds={{trial_instance_property_id}}&methodIds&scaleIds&variableIds&exclusionVariableIds&dataTypeIds&variableTypeIds=&propertyClasses",
 							"host": [
@@ -18891,10 +16872,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds={{weighed_method_id}}&scaleIds&variableIds&exclusionVariableIds&dataTypeIds&variableTypeIds=&propertyClasses",
 							"host": [
@@ -19039,10 +17016,6 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds={{number_scale_id}}&variableIds&exclusionVariableIds&dataTypeIds&variableTypeIds=&propertyClasses",
 							"host": [
@@ -19187,10 +17160,6 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds=&variableIds={{study_biomass_cvterm_id}}&exclusionVariableIds&dataTypeIds&variableTypeIds=&propertyClasses",
 							"host": [
@@ -19335,10 +17304,6 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds=&variableIds=&exclusionVariableIds={{study_biomass_cvterm_id}}&dataTypeIds&variableTypeIds=&propertyClasses",
 							"host": [
@@ -19483,10 +17448,6 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds=&variableIds=&exclusionVariableIds=&dataTypeIds={{numeric_dataTypeId}}&variableTypeIds=&propertyClasses",
 							"host": [
@@ -19643,10 +17604,6 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds=&variableIds=&exclusionVariableIds=&dataTypeIds=&variableTypeIds={{variableTypeId_trait}}&propertyClasses",
 							"host": [
@@ -19803,10 +17760,6 @@
 								"value": "{{masterToken}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{BMSurl}}/ontology/{{crop}}/filtervariables?programId={{api_program_id}}&propertyIds=&methodIds=&scaleIds=&variableIds=&exclusionVariableIds=&dataTypeIds=&variableTypeIds=&propertyClasses=Agronomic",
 							"host": [
@@ -19860,7 +17813,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "ontology-class-service",
@@ -19989,26 +17943,13 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/classes",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"classes"
-							]
-						},
+						"url": "{{BMSurl}}/ontology/{{crop}}/classes",
 						"description": "GET /ontology/{cropname}/classes"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "ontology-data-type-service",
@@ -20157,24 +18098,12 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/datatypes",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"datatypes"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/datatypes"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "ontology-formula-service",
@@ -20276,17 +18205,7 @@
 							"mode": "raw",
 							"raw": "{\r\n  \"formulaId\": 0,\r\n  \"inputs\": [\r\n    {\r\n      \"targetTermId\": 0,\r\n      \"dateCreated\": \"\",\r\n      \"dateLastModified\": \"\",\r\n      \"vocabularyId\": 0,\r\n      \"name\": \"\",\r\n      \"obsolete\": false,\r\n      \"definition\": \"\",\r\n      \"id\": 100020\r\n    }\r\n  ],\r\n  \"name\": \"\",\r\n  \"active\": true,\r\n  \"description\": \"\",\r\n  \"definition\": \"{{formula_definition}}\",\r\n  \"target\": {\r\n    \"targetTermId\": 0,\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"vocabularyId\": 0,\r\n    \"name\": \"\",\r\n    \"obsolete\": false,\r\n    \"definition\": \"\",\r\n    \"id\": 100019\r\n  }\r\n}"
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/formula",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"formula"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/formula"
 					},
 					"response": []
 				},
@@ -20382,18 +18301,7 @@
 							"mode": "raw",
 							"raw": "{\r\n  \"formulaId\": \"{{new_formula_id}}\",\r\n  \"inputs\": [\r\n    {\r\n      \"targetTermId\": 0,\r\n      \"dateCreated\": \"\",\r\n      \"dateLastModified\": \"\",\r\n      \"vocabularyId\": 0,\r\n      \"name\": \"\",\r\n      \"obsolete\": false,\r\n      \"definition\": \"\",\r\n      \"id\": 100020\r\n    }\r\n  ],\r\n  \"name\": \"\",\r\n  \"active\": true,\r\n  \"description\": \"\",\r\n  \"definition\": \"{{updated_formula_definition}}\",\r\n  \"target\": {\r\n    \"targetTermId\": 0,\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"vocabularyId\": 0,\r\n    \"name\": \"\",\r\n    \"obsolete\": false,\r\n    \"definition\": \"\",\r\n    \"id\": 100019\r\n  }\r\n}"
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/formula/{{new_formula_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"formula",
-								"{{new_formula_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/formula/{{new_formula_id}}"
 					},
 					"response": []
 				},
@@ -20489,22 +18397,12 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/formula/{{new_formula_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"formula",
-								"{{new_formula_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/formula/{{new_formula_id}}"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "ontology-method-service",
@@ -20606,17 +18504,7 @@
 							"mode": "raw",
 							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"{{new_method_name}}\",\r\n  \"description\": \"This is a test method\",\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": true,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/methods",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"methods"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/methods"
 					},
 					"response": []
 				},
@@ -20712,18 +18600,7 @@
 							"mode": "raw",
 							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"{{updated_method_name}}\",\r\n  \"description\": \"This is a test methodx\",\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": true,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/methods/{{new_method_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"methods",
-								"{{new_method_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/methods/{{new_method_id}}"
 					},
 					"response": []
 				},
@@ -20820,22 +18697,12 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/methods/{{new_method_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"methods",
-								"{{new_method_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/methods/{{new_method_id}}"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "ontology-property-service",
@@ -20937,17 +18804,7 @@
 							"mode": "raw",
 							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"{{new_property_name}}\",\r\n  \"description\": \"This is a test property\",\r\n  \"cropOntologyId\": \"\",\r\n  \"classes\": [\r\n    \"Morphological\"\r\n  ],\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": false,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/properties",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"properties"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/properties"
 					},
 					"response": []
 				},
@@ -21043,18 +18900,7 @@
 							"mode": "raw",
 							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"{{updated_property_name}}\",\r\n  \"description\": \"This is a test propertyx\",\r\n  \"cropOntologyId\": \"\",\r\n  \"classes\": [\r\n    \"Morphological\"\r\n  ],\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": false,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/properties/{{new_property_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"properties",
-								"{{new_property_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/properties/{{new_property_id}}"
 					},
 					"response": []
 				},
@@ -21151,22 +18997,12 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/properties/{{new_property_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"properties",
-								"{{new_property_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/properties/{{new_property_id}}"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "ontology-scale-service",
@@ -21268,17 +19104,7 @@
 							"mode": "raw",
 							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"{{new_scale_name}}\",\r\n  \"description\": \"This is a test scale\",\r\n  \"dataType\": {\r\n    \"id\": \"1110\",\r\n    \"name\": \"Numeric\",\r\n    \"systemDataType\": false\r\n  },\r\n  \"validValues\": {\r\n    \"min\": \"\",\r\n    \"max\": \"\",\r\n    \"categories\": [\r\n      {\r\n        \"id\": \"\",\r\n        \"name\": \"\",\r\n        \"description\": \"\",\r\n        \"editable\": false\r\n      }\r\n    ]\r\n  },\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": false,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/scales",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"scales"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/scales"
 					},
 					"response": []
 				},
@@ -21374,18 +19200,7 @@
 							"mode": "raw",
 							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"{{updated_scale_name}}\",\r\n  \"description\": \"This is a test scalex\",\r\n  \"dataType\": {\r\n    \"id\": \"1110\",\r\n    \"name\": \"Numeric\",\r\n    \"systemDataType\": false\r\n  },\r\n  \"validValues\": {\r\n    \"min\": \"\",\r\n    \"max\": \"\",\r\n    \"categories\": [\r\n      {\r\n        \"id\": \"\",\r\n        \"name\": \"\",\r\n        \"description\": \"\",\r\n        \"editable\": false\r\n      }\r\n    ]\r\n  },\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": false,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/scales/{{new_scale_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"scales",
-								"{{new_scale_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/scales/{{new_scale_id}}"
 					},
 					"response": []
 				},
@@ -21482,22 +19297,12 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/scales/{{new_scale_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"scales",
-								"{{new_scale_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/scales/{{new_scale_id}}"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "ontology-variable-service",
@@ -21825,22 +19630,12 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/variables/{{new_variable_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"{{crop}}",
-								"variables",
-								"{{new_variable_id}}"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/{{crop}}/variables/{{new_variable_id}}"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "ontology-variable-type-service",
@@ -21996,24 +19791,12 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{BMSurl}}/ontology/variableTypes",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"ontology",
-								"variableTypes"
-							]
-						}
+						"url": "{{BMSurl}}/ontology/variableTypes"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "sample-services",
@@ -22117,10 +19900,6 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/sample/{{crop}}/samples?obsUnitId={{study_obs_unit_id}}&listId={{sample_listId}}",
 									"host": [
@@ -22242,21 +20021,7 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/sample/{{crop}}/samples",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"sample",
-										"{{crop}}",
-										"samples"
-									]
-								},
+								"url": "{{BMSurl}}/sample/{{crop}}/samples",
 								"description": "GET /sample/{crop}/samples"
 							},
 							"response": []
@@ -22357,10 +20122,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/sample/{{crop}}/samples?obsUnitId={{study_obs_unit_id}}",
 									"host": [
@@ -22478,10 +20239,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/sample/{{crop}}/samples?obsUnitId=PKWDPtLOzD8Szx",
 									"host": [
@@ -22584,10 +20341,6 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/sample/{{crop}}/samples?listId={{string_input}}",
 									"host": [
@@ -22610,6 +20363,7 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -23072,6 +20826,7 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -23613,6 +21368,7 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -24199,6 +21955,7 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -24286,18 +22043,7 @@
 									"mode": "raw",
 									"raw": ""
 								},
-								"url": {
-									"raw": "{{BMSurl}}/sampleLists/{{crop}}/sampleListFolder/{{new_sample_folder_id}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"sampleLists",
-										"{{crop}}",
-										"sampleListFolder",
-										"{{new_sample_folder_id}}"
-									]
-								},
+								"url": "{{BMSurl}}/sampleLists/{{crop}}/sampleListFolder/{{new_sample_folder_id}}",
 								"description": "DELETE /sampleLists/{crop}/sampleListFolder/{folderId}"
 							},
 							"response": []
@@ -24387,23 +22133,13 @@
 									"mode": "raw",
 									"raw": ""
 								},
-								"url": {
-									"raw": "{{BMSurl}}/sampleLists/{{crop}}/sampleListFolder/{{sample_folder_id_with_content}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"sampleLists",
-										"{{crop}}",
-										"sampleListFolder",
-										"{{sample_folder_id_with_content}}"
-									]
-								},
+								"url": "{{BMSurl}}/sampleLists/{{crop}}/sampleListFolder/{{sample_folder_id_with_content}}",
 								"description": "DELETE /sampleLists/{crop}/sampleListFolder/{folderId}"
 							},
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
@@ -24496,10 +22232,6 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/sampleLists/{{crop}}/search?searchString={{search_string_not_exact}}&exactMatch=false&sort=id,asc",
 									"host": [
@@ -24611,10 +22343,6 @@
 										"value": "{{masterToken}}"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/sampleLists/{{crop}}/search?searchString={{search_string_exact}}&exactMatch=false&sort=id,asc",
 									"host": [
@@ -24645,9 +22373,11 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "brapi-observation-services",
@@ -24737,32 +22467,13 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
+									"bearer": {
+										"token": "{{masterToken}}"
+									}
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/observationLevels",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"{{crop}}",
-										"brapi",
-										"v1",
-										"observationLevels"
-									]
-								},
+								"url": "{{BMSurl}}/{{crop}}/brapi/v1/observationLevels",
 								"description": "GET /{crop}/brapi/v1/observationLevels"
 							},
 							"response": []
@@ -24852,20 +22563,12 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
+									"bearer": {
+										"token": "{{masterToken}}"
+									}
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/observationLevels?page=0&pageSize=3",
 									"host": [
@@ -24980,20 +22683,12 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
+									"bearer": {
+										"token": "{{masterToken}}"
+									}
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/observationLevels?page=0&pageSize=10000",
 									"host": [
@@ -25096,20 +22791,12 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
+									"bearer": {
+										"token": "{{masterToken}}"
+									}
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/observationLevels?page=0&pageSize=10001",
 									"host": [
@@ -25211,20 +22898,12 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
+									"bearer": {
+										"token": "{{masterToken}}"
+									}
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/observationLevels?page={{string_input}}&pageSize=3",
 									"host": [
@@ -25326,20 +23005,12 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
+									"bearer": {
+										"token": "{{masterToken}}"
+									}
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/observationLevels?page=0&pageSize={{string_input}}",
 									"host": [
@@ -25367,9 +23038,11 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [
@@ -25393,5 +23066,6 @@
 				]
 			}
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
