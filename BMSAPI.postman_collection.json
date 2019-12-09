@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e8832a3e-fa20-4432-848c-0eb86209e5dc",
+		"_postman_id": "ee7adb1c-1610-4d11-817b-ce3e9c40a10c",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15742,6 +15742,146 @@
 								"v1",
 								"studies",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /{crop}/brapi/v1/studies/{studyDbId}  studyDbId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify returned studyDbId\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.result.studyDbId).to.eql(JSON.parse(pm.environment.get(\"studyDbId\")));",
+									"});",
+									"pm.test(\"Verify returned studyName\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.result.studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
+									"});",
+									"",
+									"pm.test(\"Verify returned studyType\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.result.studyType).to.eql(\"6\");",
+									"});",
+									"pm.test(\"Verify returned trialDbId\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.result.trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
+									"});",
+									"",
+									"pm.test(\"Verify returned startDate\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.result.startDate).to.eql(\"20180912\");",
+									"});",
+									"pm.test(\"Verify returned active\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.result.active).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"Verify returned location details\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.result.location.locationDbId).to.eql(9001);",
+									" pm.expect(jsonData.result.location.locationType).to.eql(\"International Agricultural Research Center\");     ",
+									" pm.expect(jsonData.result.location.name).to.eql(\"Africa Rice Centre\");",
+									" pm.expect(jsonData.result.location.abbreviation).to.eql(\"WARDA\"); ",
+									" pm.expect(jsonData.result.location.countryCode).to.eql(\"CIV\"); ",
+									" pm.expect(jsonData.result.location.countryName).to.eql(\"Côte D'Ivoire\"); ",
+									" pm.expect(jsonData.result.location.latitude).to.eql(7.68); ",
+									" pm.expect(jsonData.result.location.longitude).to.eql(-5.03);     ",
+									" pm.expect(jsonData.result.location.altitude).to.eql(375.0);     ",
+									" pm.expect(jsonData.result.location.additionalInfo.province).to.eql(\"Bouaké\");  ",
+									"            ",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{masterToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{studyDbId}}",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"{{crop}}",
+								"brapi",
+								"v1",
+								"studies",
+								"{{studyDbId}}"
 							]
 						}
 					},
