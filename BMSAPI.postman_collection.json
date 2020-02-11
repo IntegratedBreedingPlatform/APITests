@@ -1297,7 +1297,7 @@
 			"name": "ontology-get-services",
 			"item": [
 				{
-					"name": "GET /ontology/{cropname}/methods",
+					"name": "GET /crops/{cropname}/methods",
 					"event": [
 						{
 							"listen": "test",
@@ -1396,26 +1396,32 @@
 						"header": [
 							{
 								"key": "X-Auth-Token",
-								"value": "{{masterToken}}",
-								"type": "text"
+								"type": "text",
+								"value": "{{masterToken}}"
 							}
 						],
 						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/methods",
+							"raw": "{{BMSurl}}/crops/{{crop}}/methods?programUUID={{api_program_id}}",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
-								"ontology",
+								"crops",
 								"{{crop}}",
 								"methods"
+							],
+							"query": [
+								{
+									"key": "programUUID",
+									"value": "{{api_program_id}}"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET /ontology/{cropname}/methods/{id}",
+					"name": "GET /crop/{cropname}/methods/{id}",
 					"event": [
 						{
 							"listen": "test",
@@ -1509,22 +1515,28 @@
 							}
 						],
 						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/methods/{{weighed_method_id}}",
+							"raw": "{{BMSurl}}/crops/{{crop}}/methods/{{weighed_method_id}}?programUUID={{api_program_id}}",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
-								"ontology",
+								"crops",
 								"{{crop}}",
 								"methods",
 								"{{weighed_method_id}}"
+							],
+							"query": [
+								{
+									"key": "programUUID",
+									"value": "{{api_program_id}}"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET /ontology/{cropname}/properties",
+					"name": "GET /crops/{cropname}/properties",
 					"event": [
 						{
 							"listen": "test",
@@ -1629,21 +1641,27 @@
 							}
 						],
 						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/properties",
+							"raw": "{{BMSurl}}/crops/{{crop}}/properties?programUUID={{api_program_id}}",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
-								"ontology",
+								"crops",
 								"{{crop}}",
 								"properties"
+							],
+							"query": [
+								{
+									"key": "programUUID",
+									"value": "{{api_program_id}}"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET /ontology/{cropname}/properties/{id}",
+					"name": "GET /crops/{cropname}/properties/{id}",
 					"event": [
 						{
 							"listen": "test",
@@ -1730,22 +1748,28 @@
 							}
 						],
 						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/properties/{{trial_instance_property_id}}",
+							"raw": "{{BMSurl}}/crops/{{crop}}/properties/{{trial_instance_property_id}}?programUUID={{api_program_id}}",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
-								"ontology",
+								"crops",
 								"{{crop}}",
 								"properties",
 								"{{trial_instance_property_id}}"
+							],
+							"query": [
+								{
+									"key": "programUUID",
+									"value": "{{api_program_id}}"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET /ontology/{cropname}/scales",
+					"name": "GET /crops/{cropname}/scales",
 					"event": [
 						{
 							"listen": "test",
@@ -1850,21 +1874,27 @@
 							}
 						],
 						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/scales",
+							"raw": "{{BMSurl}}/crops/{{crop}}/scales?programUUID={{api_program_id}}",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
-								"ontology",
+								"crops",
 								"{{crop}}",
 								"scales"
+							],
+							"query": [
+								{
+									"key": "programUUID",
+									"value": "{{api_program_id}}"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET /ontology/{cropname}/scales/{id}",
+					"name": "GET /crops/{cropname}/scales/{id}",
 					"event": [
 						{
 							"listen": "test",
@@ -1951,22 +1981,28 @@
 							}
 						],
 						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/scales/{{number_scale_id}}",
+							"raw": "{{BMSurl}}/crops/{{crop}}/scales/{{number_scale_id}}?programUUID={{api_program_id}}",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
-								"ontology",
+								"crops",
 								"{{crop}}",
 								"scales",
 								"{{number_scale_id}}"
+							],
+							"query": [
+								{
+									"key": "programUUID",
+									"value": "{{api_program_id}}"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET /ontology/{cropname}/variables",
+					"name": "GET /crops/{cropname}/variables",
 					"event": [
 						{
 							"listen": "test",
@@ -2147,12 +2183,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/variables?property={{trial_instance_property_id}}&favourite=false&programId={{api_program_id}}",
+							"raw": "{{BMSurl}}/crops/{{crop}}/variables?property={{trial_instance_property_id}}&favourite=false&programUUID={{api_program_id}}",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
-								"ontology",
+								"crops",
 								"{{crop}}",
 								"variables"
 							],
@@ -2166,7 +2202,7 @@
 									"value": "false"
 								},
 								{
-									"key": "programId",
+									"key": "programUUID",
 									"value": "{{api_program_id}}"
 								}
 							]
@@ -2280,19 +2316,19 @@
 							}
 						],
 						"url": {
-							"raw": "{{BMSurl}}/ontology/{{crop}}/variables/{{study_biomass_cvterm_id}}?programId={{api_program_id}}",
+							"raw": "{{BMSurl}}/crops/{{crop}}/variables/{{study_biomass_cvterm_id}}?programUUID={{api_program_id}}",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
-								"ontology",
+								"crops",
 								"{{crop}}",
 								"variables",
 								"{{study_biomass_cvterm_id}}"
 							],
 							"query": [
 								{
-									"key": "programId",
+									"key": "programUUID",
 									"value": "{{api_program_id}}"
 								}
 							]
