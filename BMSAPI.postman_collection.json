@@ -10471,7 +10471,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "PUT /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables",
+					"name": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables",
 					"item": [
 						{
 							"name": "Verify adding variable to a sub obs dataset with a numeric scale",
@@ -11651,19 +11651,7 @@
 											"  }\r",
 											"};\r",
 											"\r",
-											"var getToken = true;\r",
 											"\r",
-											"if (!pm.environment.get('testUserTokenExpiry') || \r",
-											"    !pm.environment.get('testUserToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('testUserTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
 											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
 											"    console.log(err ? err : res.json());\r",
 											"        if (err === null) {\r",
@@ -11678,7 +11666,7 @@
 											"            pm.environment.set('testUserTokenExpiry', expiryDate.getTime());\r",
 											"        }\r",
 											"    });\r",
-											"}"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -14374,10 +14362,7 @@
 									"pm.test(\"Status code is 500\", function () {",
 									"    pm.response.to.have.status(500);",
 									"});",
-									"",
-									"pm.test(\"Body matches string\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"Invalid crop \"+ pm.environment.get('invalidCrop'));",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -16399,12 +16384,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BMSurl}}/{{invalidcrop}}/brapi/v1/studies/{{studyDbId}}/table",
+							"raw": "{{BMSurl}}/{{invalidCrop}}/brapi/v1/studies/{{studyDbId}}/table",
 							"host": [
 								"{{BMSurl}}"
 							],
 							"path": [
-								"{{invalidcrop}}",
+								"{{invalidCrop}}",
 								"brapi",
 								"v1",
 								"studies",
