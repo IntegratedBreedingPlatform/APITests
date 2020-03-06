@@ -17587,7 +17587,7 @@
 					"name": "GET ​/{crop}​/brapi​/v1​/studies​/{studyDbId}",
 					"item": [
 						{
-							"name": "GET /{crop}/brapi/v1/studies/{studyDbId}  studyDbId",
+							"name": "Verify response code and body when entered valid studyDbId",
 							"event": [
 								{
 									"listen": "test",
@@ -17738,12 +17738,13 @@
 										"studies",
 										"{{studyDbId}}"
 									]
-								}
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
 							},
 							"response": []
 						},
 						{
-							"name": "GET /{crop}/brapi/v1/studies/{studyDbId} invalid studyDbId",
+							"name": "Verify response code and body when entered valid studyDbId",
 							"event": [
 								{
 									"listen": "test",
@@ -17837,7 +17838,8 @@
 										"studies",
 										"{{non_existing_study_id}}"
 									]
-								}
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
 							},
 							"response": []
 						}
@@ -17849,7 +17851,7 @@
 					"name": "GET ​/{crop}​/brapi​/v1​/studies​/{studyDbId}​/table",
 					"item": [
 						{
-							"name": "GET /{crop}/brapi/v1/studies/{studyDbId}/table valid studyDbId no format",
+							"name": "Verify response code and body when entered valid inputs with no format",
 							"event": [
 								{
 									"listen": "test",
@@ -18009,12 +18011,13 @@
 										"{{studyDbId}}",
 										"table"
 									]
-								}
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}/table"
 							},
 							"response": []
 						},
 						{
-							"name": "GET /{crop}/brapi/v1/studies/{studyDbId}/table valid studyDbId csv format",
+							"name": "Verify response code and body when entered valid inputs with csv format",
 							"event": [
 								{
 									"listen": "test",
@@ -18118,116 +18121,13 @@
 											"value": "csv"
 										}
 									]
-								}
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}/table"
 							},
 							"response": []
 						},
 						{
-							"name": "GET /{crop}/brapi/v1/studies/{studyDbId}/table invalid studyDbId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
-										"exec": [
-											"pm.test(\"Status code is 500\", function () {",
-											"    pm.response.to.have.status(500);",
-											"});",
-											"",
-											"pm.test(\"Error message is correct\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"studyDbId 9999 does not exist\");",
-											"});",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "dcf51180-af34-4860-807d-2df33ae0748e",
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{non_existing_study_id}}/table",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"{{crop}}",
-										"brapi",
-										"v1",
-										"studies",
-										"{{non_existing_study_id}}",
-										"table"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET /{crop}/brapi/v1/studies/{studyDbId}/table valid studyDbId tsv format",
+							"name": "Verify response code and body when entered valid inputs with tsv format",
 							"event": [
 								{
 									"listen": "test",
@@ -18331,7 +18231,113 @@
 											"value": "tsv"
 										}
 									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}/table"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered non-existing studyDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 500\", function () {",
+											"    pm.response.to.have.status(500);",
+											"});",
+											"",
+											"pm.test(\"Error message is correct\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"studyDbId 9999 does not exist\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dcf51180-af34-4860-807d-2df33ae0748e",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
 								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{non_existing_study_id}}/table",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies",
+										"{{non_existing_study_id}}",
+										"table"
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}/table"
 							},
 							"response": []
 						}
