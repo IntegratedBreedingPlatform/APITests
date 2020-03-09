@@ -28989,6 +28989,504 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "variable-resource-brapi",
+			"item": [
+				{
+					"name": "Verify response code and body when entered valid crop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify returned metadata\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+									" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+									" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(25);",
+									" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+									" pm.expect(jsonData.metadata.status).to.eql([]);",
+									" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+									"});",
+									"",
+									"pm.test(\"Verify returned variable (NOTES)\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.data[0].crop).to.eql(\"testdata\");",
+									"    pm.expect(jsonData.result.data[0].date).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].defaultValue).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].documentationURL).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].growthStage).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].institution).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].language).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].name).to.eql(\"NOTES\");",
+									"    pm.expect(jsonData.result.data[0].observationVariableDbId).to.eql(pm.environment.get(\"study_notes_cvtermId\"));",
+									"    pm.expect(jsonData.result.data[0].observationVariableName).to.eql(\"NOTES\");",
+									"    pm.expect(jsonData.result.data[0].ontologyDbId).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].ontologyName).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].scientist).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].status).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].submissionTimestamp).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].synonyms).to.eql([]);",
+									"    pm.expect(jsonData.result.data[0].xref).to.eql(null);",
+									"    ",
+									"    //Verify scale details",
+									"    pm.expect(jsonData.result.data[0].scale.dataType).to.eql(\"Ordinal\");",
+									"    pm.expect(jsonData.result.data[0].scale.decimalPlaces).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].scale.name).to.eql(\"Text\");",
+									"    pm.expect(jsonData.result.data[0].scale.scaleDbId).to.eql(\"6020\");",
+									"    pm.expect(jsonData.result.data[0].scale.scaleName).to.eql(\"Text\");",
+									"    pm.expect(jsonData.result.data[0].scale.xref).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].scale.validValues.categories).to.eql([]);",
+									"    pm.expect(jsonData.result.data[0].scale.validValues.max).to.eql(0.0);",
+									"    pm.expect(jsonData.result.data[0].scale.validValues.min).to.eql(0.0);",
+									"    pm.expect(jsonData.result.data[0].scale.ontologyReference.documentationLinks[0].type).to.eql(\"WEBPAGE\");",
+									"    pm.expect(jsonData.result.data[0].scale.ontologyReference.documentationLinks[0].url).to.eql(\"https://cropontology.org\");",
+									"    pm.expect(jsonData.result.data[0].scale.ontologyReference.ontologyDbId).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].scale.ontologyReference.ontologyName).to.eql(\"Text\");",
+									"    pm.expect(jsonData.result.data[0].scale.ontologyReference.version).to.eql(null);",
+									"    ",
+									"    //Verify trait details",
+									"        pm.expect(jsonData.result.data[0].trait.attribute).to.eql(null);",
+									"        pm.expect(jsonData.result.data[0].trait.traitClass).to.eql(\"General\");",
+									"        pm.expect(jsonData.result.data[0].trait.description).to.eql(\"Comment\");",
+									"        pm.expect(jsonData.result.data[0].trait.entity).to.eql(null);",
+									"        pm.expect(jsonData.result.data[0].trait.mainAbbreviation).to.eql(null);",
+									"        pm.expect(jsonData.result.data[0].trait.name).to.eql(\"Comment\");",
+									"        pm.expect(jsonData.result.data[0].trait.status).to.eql(\"Active\");",
+									"        pm.expect(jsonData.result.data[0].trait.synonyms).to.eql([]);",
+									"        pm.expect(jsonData.result.data[0].trait.traitDbId).to.eql(\"2065\");",
+									"        pm.expect(jsonData.result.data[0].trait.traitName).to.eql(\"Comment\");",
+									"        pm.expect(jsonData.result.data[0].trait.xref).to.eql(\"null\");",
+									"        pm.expect(jsonData.result.data[0].trait.ontologyReference.documentationLinks[0].type).to.eql(\"WEBPAGE\");",
+									"        pm.expect(jsonData.result.data[0].trait.ontologyReference.documentationLinks[0].url).to.eql(\"https://cropontology.org\");",
+									"        pm.expect(jsonData.result.data[0].trait.ontologyReference.ontologyDbId).to.eql(\"null\");",
+									"        pm.expect(jsonData.result.data[0].trait.ontologyReference.ontologyName).to.eql(\"Comment\");",
+									"        pm.expect(jsonData.result.data[0].trait.ontologyReference.version).to.eql(null);",
+									" ",
+									"    //Verify method details",
+									"    pm.expect(jsonData.result.data[0].method.methodClass).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].method.description).to.eql(\"Value recorded after observation\");",
+									"    pm.expect(jsonData.result.data[0].method.formula).to.eql(\"null\");",
+									"    pm.expect(jsonData.result.data[0].method.methodDbId).to.eql(\"4110\");",
+									"    pm.expect(jsonData.result.data[0].method.methodName).to.eql(\"Observed\");",
+									"    pm.expect(jsonData.result.data[0].method.name).to.eql(\"Observed\");",
+									"    pm.expect(jsonData.result.data[0].method.reference).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].method.ontologyReference.documentationLinks[0].type).to.eql(\"WEBPAGE\");",
+									"    pm.expect(jsonData.result.data[0].method.ontologyReference.documentationLinks[0].url).to.eql(\"https://cropontology.org\");",
+									"    pm.expect(jsonData.result.data[0].method.ontologyReference.ontologyDbId).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].method.ontologyReference.ontologyName).to.eql(\"Observed\");pm.expect(jsonData.result.data[0].method.ontologyReference.version).to.eql(null);",
+									"});",
+									"   "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{masterToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/variables",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"{{crop}}",
+								"brapi",
+								"v1",
+								"variables"
+							]
+						},
+						"description": "GET ​/{crop}​/brapi​/v1​/variables"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify response code and body when entered pagination details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify returned metadata\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+									" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
+									" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(25);",
+									" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+									" pm.expect(jsonData.metadata.status).to.eql([]);",
+									" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+									"});",
+									"",
+									"pm.test(\"Verify returned variable (NOTES)\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result.data[0].crop).to.eql(\"testdata\");",
+									"    pm.expect(jsonData.result.data[0].date).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].defaultValue).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].documentationURL).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].growthStage).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].institution).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].language).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].name).to.eql(\"NOTES\");",
+									"    pm.expect(jsonData.result.data[0].observationVariableDbId).to.eql(pm.environment.get(\"study_notes_cvtermId\"));",
+									"    pm.expect(jsonData.result.data[0].observationVariableName).to.eql(\"NOTES\");",
+									"    pm.expect(jsonData.result.data[0].ontologyDbId).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].ontologyName).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].scientist).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].status).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].submissionTimestamp).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].synonyms).to.eql([]);",
+									"    pm.expect(jsonData.result.data[0].xref).to.eql(null);",
+									"    ",
+									"    //Verify scale details",
+									"    pm.expect(jsonData.result.data[0].scale.dataType).to.eql(\"Ordinal\");",
+									"    pm.expect(jsonData.result.data[0].scale.decimalPlaces).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].scale.name).to.eql(\"Text\");",
+									"    pm.expect(jsonData.result.data[0].scale.scaleDbId).to.eql(\"6020\");",
+									"    pm.expect(jsonData.result.data[0].scale.scaleName).to.eql(\"Text\");",
+									"    pm.expect(jsonData.result.data[0].scale.xref).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].scale.validValues.categories).to.eql([]);",
+									"    pm.expect(jsonData.result.data[0].scale.validValues.max).to.eql(0.0);",
+									"    pm.expect(jsonData.result.data[0].scale.validValues.min).to.eql(0.0);",
+									"    pm.expect(jsonData.result.data[0].scale.ontologyReference.documentationLinks[0].type).to.eql(\"WEBPAGE\");",
+									"    pm.expect(jsonData.result.data[0].scale.ontologyReference.documentationLinks[0].url).to.eql(\"https://cropontology.org\");",
+									"    pm.expect(jsonData.result.data[0].scale.ontologyReference.ontologyDbId).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].scale.ontologyReference.ontologyName).to.eql(\"Text\");",
+									"    pm.expect(jsonData.result.data[0].scale.ontologyReference.version).to.eql(null);",
+									"    ",
+									"    //Verify trait details",
+									"        pm.expect(jsonData.result.data[0].trait.attribute).to.eql(null);",
+									"        pm.expect(jsonData.result.data[0].trait.traitClass).to.eql(\"General\");",
+									"        pm.expect(jsonData.result.data[0].trait.description).to.eql(\"Comment\");",
+									"        pm.expect(jsonData.result.data[0].trait.entity).to.eql(null);",
+									"        pm.expect(jsonData.result.data[0].trait.mainAbbreviation).to.eql(null);",
+									"        pm.expect(jsonData.result.data[0].trait.name).to.eql(\"Comment\");",
+									"        pm.expect(jsonData.result.data[0].trait.status).to.eql(\"Active\");",
+									"        pm.expect(jsonData.result.data[0].trait.synonyms).to.eql([]);",
+									"        pm.expect(jsonData.result.data[0].trait.traitDbId).to.eql(\"2065\");",
+									"        pm.expect(jsonData.result.data[0].trait.traitName).to.eql(\"Comment\");",
+									"        pm.expect(jsonData.result.data[0].trait.xref).to.eql(\"null\");",
+									"        pm.expect(jsonData.result.data[0].trait.ontologyReference.documentationLinks[0].type).to.eql(\"WEBPAGE\");",
+									"        pm.expect(jsonData.result.data[0].trait.ontologyReference.documentationLinks[0].url).to.eql(\"https://cropontology.org\");",
+									"        pm.expect(jsonData.result.data[0].trait.ontologyReference.ontologyDbId).to.eql(\"null\");",
+									"        pm.expect(jsonData.result.data[0].trait.ontologyReference.ontologyName).to.eql(\"Comment\");",
+									"        pm.expect(jsonData.result.data[0].trait.ontologyReference.version).to.eql(null);",
+									" ",
+									"    //Verify method details",
+									"    pm.expect(jsonData.result.data[0].method.methodClass).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].method.description).to.eql(\"Value recorded after observation\");",
+									"    pm.expect(jsonData.result.data[0].method.formula).to.eql(\"null\");",
+									"    pm.expect(jsonData.result.data[0].method.methodDbId).to.eql(\"4110\");",
+									"    pm.expect(jsonData.result.data[0].method.methodName).to.eql(\"Observed\");",
+									"    pm.expect(jsonData.result.data[0].method.name).to.eql(\"Observed\");",
+									"    pm.expect(jsonData.result.data[0].method.reference).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].method.ontologyReference.documentationLinks[0].type).to.eql(\"WEBPAGE\");",
+									"    pm.expect(jsonData.result.data[0].method.ontologyReference.documentationLinks[0].url).to.eql(\"https://cropontology.org\");",
+									"    pm.expect(jsonData.result.data[0].method.ontologyReference.ontologyDbId).to.eql(null);",
+									"    pm.expect(jsonData.result.data[0].method.ontologyReference.ontologyName).to.eql(\"Observed\");pm.expect(jsonData.result.data[0].method.ontologyReference.version).to.eql(null);",
+									"});",
+									"   "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{masterToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/variables?page=0&pageSize=10000",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"{{crop}}",
+								"brapi",
+								"v1",
+								"variables"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "10000"
+								}
+							]
+						},
+						"description": "GET ​/{crop}​/brapi​/v1​/variables"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify response code and body when entered pageSize greater than max",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5026143-f343-4c3e-9680-4f30fab8cc32",
+								"exec": [
+									"pm.test(\"Status code is 500\", function () {",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"",
+									"pm.test(\"Verify returned error message\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.errors[0].message).to.eql(\"Page size must between 1 and 10000.\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f77c50b9-234f-4a05-ae92-dfdbf74bc7f9",
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{masterToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/variables?page=0&pageSize=10001",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"{{crop}}",
+								"brapi",
+								"v1",
+								"variables"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "10001"
+								}
+							]
+						},
+						"description": "GET ​/{crop}​/brapi​/v1​/variables"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [
