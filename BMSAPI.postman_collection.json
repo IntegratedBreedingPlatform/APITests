@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8cefad1b-7a1f-4342-8a24-aec0dc17eaa4",
+		"_postman_id": "ab964b23-5da7-4599-8a77-21f807df02d8",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -19384,6 +19384,1265 @@
 		{
 			"name": "study-resource-brapi",
 			"item": [
+				{
+					"name": "GET ​/{crop}​/brapi​/v1​/studies",
+					"item": [
+						{
+							"name": "Verify response code and body when entered crop only",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(14);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											" pm.expect(jsonData.metadata.status).to.eql([]);",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned data\", function () {",
+											" var jsonData = pm.response.json();",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
+											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
+											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Nursery\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].season).to.eql(\"Dry season\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].seasonDbId).to.eql(\"10290\");",
+											" pm.expect(jsonData.result.data[0].locationDbId).to.eql(\"9001\");",
+											" pm.expect(jsonData.result.data[0].locationName).to.eql(\"Africa Rice Centre\");",
+											" pm.expect(jsonData.result.data[0].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											" pm.expect(jsonData.result.data[0].programName).to.eql(\"API Program\");",
+											" pm.expect(jsonData.result.data[0].trialName).to.eql(\"Study with Imported Cross Nursery 2018002\");",
+											" pm.expect(jsonData.result.data[0].trialDbId).to.eql(\"3009\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies"
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when filtered by studyTypeDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(6);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											" pm.expect(jsonData.metadata.status).to.eql([]);",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned data\", function () {",
+											" var jsonData = pm.response.json();",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
+											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
+											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Nursery\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].season).to.eql(\"Dry season\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].seasonDbId).to.eql(\"10290\");",
+											" pm.expect(jsonData.result.data[0].locationDbId).to.eql(\"9001\");",
+											" pm.expect(jsonData.result.data[0].locationName).to.eql(\"Africa Rice Centre\");",
+											" pm.expect(jsonData.result.data[0].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											" pm.expect(jsonData.result.data[0].programName).to.eql(\"API Program\");",
+											" pm.expect(jsonData.result.data[0].trialName).to.eql(\"Study with Imported Cross Nursery 2018002\");",
+											" pm.expect(jsonData.result.data[0].trialDbId).to.eql(\"3009\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check all studyDbIds are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var i;",
+											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
+											"        pm.expect(jsonData.result.data[i].studyTypeDbId).to.eql(\"1\");",
+											"    }",
+											"});    ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies?studyTypeDbId=1",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "studyTypeDbId",
+											"value": "1"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when filtered by programDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(14);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											" pm.expect(jsonData.metadata.status).to.eql([]);",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned data\", function () {",
+											" var jsonData = pm.response.json();",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
+											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
+											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Nursery\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].season).to.eql(\"Dry season\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].seasonDbId).to.eql(\"10290\");",
+											" pm.expect(jsonData.result.data[0].locationDbId).to.eql(\"9001\");",
+											" pm.expect(jsonData.result.data[0].locationName).to.eql(\"Africa Rice Centre\");",
+											" pm.expect(jsonData.result.data[0].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											" pm.expect(jsonData.result.data[0].programName).to.eql(\"API Program\");",
+											" pm.expect(jsonData.result.data[0].trialName).to.eql(\"Study with Imported Cross Nursery 2018002\");",
+											" pm.expect(jsonData.result.data[0].trialDbId).to.eql(\"3009\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check all programDbId are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var i;",
+											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
+											"    pm.expect(jsonData.result.data[i].programDbId).to.eql(pm.environment.get(\"api_program_id\"));",
+											"    }",
+											"});    ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies?programDbId={{api_program_id}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "programDbId",
+											"value": "{{api_program_id}}"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when filtered by locationDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(8);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											" pm.expect(jsonData.metadata.status).to.eql([]);",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned data\", function () {",
+											" var jsonData = pm.response.json();",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
+											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
+											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Nursery\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].season).to.eql(\"Dry season\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].seasonDbId).to.eql(\"10290\");",
+											" pm.expect(jsonData.result.data[0].locationDbId).to.eql(\"9001\");",
+											" pm.expect(jsonData.result.data[0].locationName).to.eql(\"Africa Rice Centre\");",
+											" pm.expect(jsonData.result.data[0].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											" pm.expect(jsonData.result.data[0].programName).to.eql(\"API Program\");",
+											" pm.expect(jsonData.result.data[0].trialName).to.eql(\"Study with Imported Cross Nursery 2018002\");",
+											" pm.expect(jsonData.result.data[0].trialDbId).to.eql(\"3009\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check all locationDbId are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var i;",
+											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
+											"    pm.expect(jsonData.result.data[i].locationDbId).to.eql(\"9001\");",
+											"    }",
+											"});    ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies?locationDbId=9001",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "locationDbId",
+											"value": "9001"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when filtered by seasonDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											" pm.expect(jsonData.metadata.status).to.eql([]);",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned data\", function () {",
+											" var jsonData = pm.response.json();",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
+											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
+											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Nursery\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].season).to.eql(\"Dry season\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].seasonDbId).to.eql(\"10290\");",
+											" pm.expect(jsonData.result.data[0].locationDbId).to.eql(\"9001\");",
+											" pm.expect(jsonData.result.data[0].locationName).to.eql(\"Africa Rice Centre\");",
+											" pm.expect(jsonData.result.data[0].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											" pm.expect(jsonData.result.data[0].programName).to.eql(\"API Program\");",
+											" pm.expect(jsonData.result.data[0].trialName).to.eql(\"Study with Imported Cross Nursery 2018002\");",
+											" pm.expect(jsonData.result.data[0].trialDbId).to.eql(\"3009\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check all seasonDbId are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var i;",
+											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
+											"    pm.expect(jsonData.result.data[i].seasons[0].seasonDbId).to.eql(\"10290\");",
+											"    }",
+											"});    ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies?seasonDbId=10290",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "seasonDbId",
+											"value": "10290"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when filtered by trialDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											" pm.expect(jsonData.metadata.status).to.eql([]);",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned data\", function () {",
+											" var jsonData = pm.response.json();",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-09-12\");",
+											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"studyDbId\"));",
+											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"6\");",
+											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Trial\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].season).to.eql(\"Dry season\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].seasonDbId).to.eql(\"10290\");",
+											" pm.expect(jsonData.result.data[0].locationDbId).to.eql(\"9001\");",
+											" pm.expect(jsonData.result.data[0].locationName).to.eql(\"Africa Rice Centre\");",
+											" pm.expect(jsonData.result.data[0].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											" pm.expect(jsonData.result.data[0].programName).to.eql(\"API Program\");",
+											" pm.expect(jsonData.result.data[0].trialName).to.eql(\"Randomized Trial 20180003\");",
+											" pm.expect(jsonData.result.data[0].trialDbId).to.eql(\"3013\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check all trialDbId are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var i;",
+											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
+											"    pm.expect(jsonData.result.data[i].trialDbId).to.eql(\"3013\");",
+											"    }",
+											"});    ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies?trialDbId=3013",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "trialDbId",
+											"value": "3013"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when filtered by studyDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											" pm.expect(jsonData.metadata.status).to.eql([]);",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned data\", function () {",
+											" var jsonData = pm.response.json();",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
+											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
+											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Nursery\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].season).to.eql(\"Dry season\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].seasonDbId).to.eql(\"10290\");",
+											" pm.expect(jsonData.result.data[0].locationDbId).to.eql(\"9001\");",
+											" pm.expect(jsonData.result.data[0].locationName).to.eql(\"Africa Rice Centre\");",
+											" pm.expect(jsonData.result.data[0].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											" pm.expect(jsonData.result.data[0].programName).to.eql(\"API Program\");",
+											" pm.expect(jsonData.result.data[0].trialName).to.eql(\"Study with Imported Cross Nursery 2018002\");",
+											" pm.expect(jsonData.result.data[0].trialDbId).to.eql(\"3009\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check all studyDbId are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var i;",
+											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
+											"    pm.expect(jsonData.result.data[i].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
+											"    }",
+											"});    ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies?studyDbId={{nursery1StudyDbId}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "studyDbId",
+											"value": "{{nursery1StudyDbId}}"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when filtered by active set to true",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(12);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											" pm.expect(jsonData.metadata.status).to.eql([]);",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned data\", function () {",
+											" var jsonData = pm.response.json();",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
+											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
+											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Nursery\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].season).to.eql(\"Dry season\");",
+											" pm.expect(jsonData.result.data[0].seasons[0].seasonDbId).to.eql(\"10290\");",
+											" pm.expect(jsonData.result.data[0].locationDbId).to.eql(\"9001\");",
+											" pm.expect(jsonData.result.data[0].locationName).to.eql(\"Africa Rice Centre\");",
+											" pm.expect(jsonData.result.data[0].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											" pm.expect(jsonData.result.data[0].programName).to.eql(\"API Program\");",
+											" pm.expect(jsonData.result.data[0].trialName).to.eql(\"Study with Imported Cross Nursery 2018002\");",
+											" pm.expect(jsonData.result.data[0].trialDbId).to.eql(\"3009\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check all actvie are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var i;",
+											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(\"true\");",
+											"    }",
+											"});    ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies?active=true",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "active",
+											"value": "true"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when filtered by active set to false",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											" pm.expect(jsonData.metadata.status).to.eql([]);",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned data\", function () {",
+											" var jsonData = pm.response.json();",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"false\");",
+											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2019-04-02\");",
+											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(\"7\");",
+											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Trial for Subobs Creation#20190402142056988 Environment Number 1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"6\");",
+											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Trial\");",
+											" pm.expect(jsonData.result.data[0].seasons).to.eql([]);",
+											" pm.expect(jsonData.result.data[0].locationDbId).to.eql(\"9016\");",
+											" pm.expect(jsonData.result.data[0].locationName).to.eql(\"Unspecified Location\");",
+											" pm.expect(jsonData.result.data[0].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											" pm.expect(jsonData.result.data[0].programName).to.eql(\"API Program\");",
+											" pm.expect(jsonData.result.data[0].trialName).to.eql(\"Trial for Subobs Creation#20190402142056988\");",
+											" pm.expect(jsonData.result.data[0].trialDbId).to.eql(\"3032\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check all active are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var i;",
+											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(\"false\");",
+											"    }",
+											"});    ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies?active=false",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "active",
+											"value": "false"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
 				{
 					"name": "GET ​/{crop}​/brapi​/v1​/studies​/{studyDbId}",
 					"item": [
