@@ -138,7 +138,7 @@
 									"});",
 									"pm.test(\"Check total call count\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(24);",
+									"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(25);",
 									"});",
 									"",
 									"",
@@ -151,17 +151,17 @@
 									"",
 									"pm.test(\"Check a call with tsv or text/tsv\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[7].call).to.eql(\"studies/{studyDbId}/table\");",
-									"    pm.expect(jsonData.result.data[7].dataTypes[1]).to.eql(\"text/tsv\");",
-									"    pm.expect(jsonData.result.data[7].datatypes[1]).to.eql(\"tsv\");",
+									"    pm.expect(jsonData.result.data[8].call).to.eql(\"studies/{studyDbId}/table\");",
+									"    pm.expect(jsonData.result.data[8].dataTypes[1]).to.eql(\"text/tsv\");",
+									"    pm.expect(jsonData.result.data[8].datatypes[1]).to.eql(\"tsv\");",
 									"    ",
 									"});",
 									"",
 									"pm.test(\"Check if format of study table call is csv\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[7].call).to.eql(\"studies/{studyDbId}/table\");",
-									"    pm.expect(jsonData.result.data[7].dataTypes[2]).to.eql(\"text/csv\");",
-									"    pm.expect(jsonData.result.data[7].datatypes[2]).to.eql(\"csv\");",
+									"    pm.expect(jsonData.result.data[8].call).to.eql(\"studies/{studyDbId}/table\");",
+									"    pm.expect(jsonData.result.data[8].dataTypes[2]).to.eql(\"text/csv\");",
+									"    pm.expect(jsonData.result.data[8].datatypes[2]).to.eql(\"csv\");",
 									"});",
 									""
 								],
@@ -485,13 +485,13 @@
 									"",
 									"pm.test(\"Check a study table call\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[7].call).to.eql(\"studies/{studyDbId}/table\");",
+									"    pm.expect(jsonData.result.data[8].call).to.eql(\"studies/{studyDbId}/table\");",
 									"});",
 									"",
 									"",
 									"pm.test(\"Check if format of samples call is tsv\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[7].datatypes[0]).to.eql(\"json\");",
+									"    pm.expect(jsonData.result.data[8].datatypes[0]).to.eql(\"json\");",
 									"});",
 									"",
 									""
@@ -824,7 +824,7 @@
 									"});",
 									"pm.test(\"Check total call count\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(24);",
+									"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(25);",
 									"});",
 									"",
 									"",
@@ -865,54 +865,54 @@
 									"//});",
 									"pm.test(\"Check studies/{studyDbId} call\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[6].call).to.eql(\"studies/{studyDbId}\");",
-									"    pm.expect(jsonData.result.data[6].dataTypes[0]).to.eql(\"application/json\");",
+									"    pm.expect(jsonData.result.data[7].call).to.eql(\"studies/{studyDbId}\");",
+									"    pm.expect(jsonData.result.data[7].dataTypes[0]).to.eql(\"application/json\");",
 									"});",
 									"pm.test(\"Check studies/{studyDbId}/table call\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[7].call).to.eql(\"studies/{studyDbId}/table\");",
-									"    pm.expect(jsonData.result.data[7].dataTypes[0]).to.eql(\"application/json\");",
+									"    pm.expect(jsonData.result.data[8].call).to.eql(\"studies/{studyDbId}/table\");",
+									"    pm.expect(jsonData.result.data[8].dataTypes[0]).to.eql(\"application/json\");",
 									"});",
 									"pm.test(\"Check trials call\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[8].call).to.eql(\"trials\");",
-									"    pm.expect(jsonData.result.data[8].dataTypes[0]).to.eql(\"application/json\");",
+									"    pm.expect(jsonData.result.data[9].call).to.eql(\"trials\");",
+									"    pm.expect(jsonData.result.data[9].dataTypes[0]).to.eql(\"application/json\");",
 									"});",
 									"pm.test(\"Check calls call\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[10].call).to.eql(\"calls\");",
-									"    pm.expect(jsonData.result.data[10].dataTypes[0]).to.eql(\"application/json\");",
+									"    pm.expect(jsonData.result.data[11].call).to.eql(\"calls\");",
+									"    pm.expect(jsonData.result.data[11].dataTypes[0]).to.eql(\"application/json\");",
 									"});",
 									"pm.test(\"Check germplasm-search call\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[11].call).to.eql(\"germplasm-search\");",
-									"    pm.expect(jsonData.result.data[11].dataTypes[0]).to.eql(\"application/json\");",
+									"    pm.expect(jsonData.result.data[12].call).to.eql(\"germplasm-search\");",
+									"    pm.expect(jsonData.result.data[12].dataTypes[0]).to.eql(\"application/json\");",
 									"});",
 									"pm.test(\"Check germplasm/{germplasmDbId} call\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[12].call).to.eql(\"germplasm/{germplasmDbId}\");",
-									"    pm.expect(jsonData.result.data[12].dataTypes[0]).to.eql(\"application/json\");",
+									"    pm.expect(jsonData.result.data[13].call).to.eql(\"germplasm/{germplasmDbId}\");",
+									"    pm.expect(jsonData.result.data[13].dataTypes[0]).to.eql(\"application/json\");",
 									"});",
 									"pm.test(\"Check germplasm/{germplasmDbId}/pedigree call\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[13].call).to.eql(\"germplasm/{germplasmDbId}/pedigree\");",
-									"    pm.expect(jsonData.result.data[13].dataTypes[0]).to.eql(\"application/json\");",
+									"    pm.expect(jsonData.result.data[14].call).to.eql(\"germplasm/{germplasmDbId}/pedigree\");",
+									"    pm.expect(jsonData.result.data[14].dataTypes[0]).to.eql(\"application/json\");",
 									"});",
 									"pm.test(\"Check germplasm/{germplasmDbId}/progeny call\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[14].call).to.eql(\"germplasm/{germplasmDbId}/progeny\");",
-									"    pm.expect(jsonData.result.data[14].dataTypes[0]).to.eql(\"application/json\");",
+									"    pm.expect(jsonData.result.data[15].call).to.eql(\"germplasm/{germplasmDbId}/progeny\");",
+									"    pm.expect(jsonData.result.data[15].dataTypes[0]).to.eql(\"application/json\");",
 									"});",
 									"pm.test(\"Check search/germplasm call\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[15].call).to.eql(\"search/germplasm\");",
-									"    pm.expect(jsonData.result.data[15].dataTypes[0]).to.eql(\"application/json\");",
+									"    pm.expect(jsonData.result.data[16].call).to.eql(\"search/germplasm\");",
+									"    pm.expect(jsonData.result.data[16].dataTypes[0]).to.eql(\"application/json\");",
 									"});",
 									"",
 									"pm.test(\"Check search/germplasm/{searchResultsDbid} call\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.result.data[16].call).to.eql(\"search/germplasm/{searchResultsDbid}\");",
-									"    pm.expect(jsonData.result.data[16].dataTypes[0]).to.eql(\"application/json\");",
+									"    pm.expect(jsonData.result.data[17].call).to.eql(\"search/germplasm/{searchResultsDbid}\");",
+									"    pm.expect(jsonData.result.data[17].dataTypes[0]).to.eql(\"application/json\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -3511,7 +3511,7 @@
 					"name": "POST /{crop}/brapi/v1/search/germplasm",
 					"item": [
 						{
-							"name": "Verify response code and body when searched by germplasmDbIds",
+							"name": "Post search by germplasmDbIds",
 							"event": [
 								{
 									"listen": "test",
@@ -19429,7 +19429,7 @@
 											"",
 											"pm.test(\"Verify returned startDate\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.result.startDate).to.eql(\"20180912\");",
+											" pm.expect(jsonData.result.startDate).to.eql(\"2018-09-12\");",
 											"});",
 											"pm.test(\"Verify returned active\", function () {",
 											"    var jsonData = pm.response.json();",
@@ -20210,7 +20210,7 @@
 											"",
 											"pm.test(\"Verify returned startDate\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.result.startDate).to.eql(\"20180912\");",
+											" pm.expect(jsonData.result.startDate).to.eql(\"2018-09-12\");",
 											"});",
 											"pm.test(\"Verify returned active\", function () {",
 											"    var jsonData = pm.response.json();",
@@ -31121,6 +31121,124 @@
 							]
 						},
 						"description": "GET ​/{crop}​/brapi​/v1​/variables"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "observation-unit-resource-brapi",
+			"item": [
+				{
+					"name": "Verify response code and body when searched by germplasmDbIds",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1557d76c-0003-4e32-9d01-574c8015dac1",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.unset(\"searchResultDbId_germplasmDbIds\");",
+									"    pm.environment.set(\"searchResultDbId_germplasmDbIds\", jsonData.result.searchResultDbId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4909865d-1d3c-4af7-a525-ac9d7826a961",
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{masterToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"germplasmDbIds\": [\r\n    \"21\"\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"{{crop}}",
+								"brapi",
+								"v1",
+								"search",
+								"germplasm"
+							]
+						},
+						"description": "POST /{crop}/brapi/v1/search/germplasm"
 					},
 					"response": []
 				}
