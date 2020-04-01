@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ab964b23-5da7-4599-8a77-21f807df02d8",
+		"_postman_id": "f664862d-300a-4018-8fcc-0e01d2e10490",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -20,8 +20,7 @@
 									"pm.environment.unset(\"masterToken\");",
 									"pm.environment.set(\"masterToken\", jsonData.access_token);",
 									"pm.environment.unset(\"masterTokenExpiry\");",
-									"pm.environment.set(\"masterTokenExpiry\", jsonData.expires_in);",
-									""
+									"pm.environment.set(\"masterTokenExpiry\", jsonData.expires_in);"
 								],
 								"type": "text/javascript"
 							}
@@ -2652,9 +2651,9 @@
 											"pm.test(\"Check defaultDisplayName \", function () {",
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.result.defaultDisplayName).to.eql(\"IB1\");",
-											"    pm.expect(jsonData.result.pedigree).to.eql(\"IB1\");",
+											"    pm.expect(jsonData.result.pedigree).to.eql(\"CML1/CML6\");",
 											"    pm.expect(jsonData.result.crossingPlan).to.eql(\"C2W|Single cross|GEN\");",
-											"    pm.expect(jsonData.result.crossingYear).to.eql(null);",
+											"    pm.expect(jsonData.result.crossingYear).to.eql(2018);",
 											"    pm.expect(jsonData.result.familyCode).to.equal(null);",
 											"    pm.expect(jsonData.result.parent1DbId).to.eql(21);",
 											"    pm.expect(jsonData.result.parent1Name).to.eql(\"CML1\");",
@@ -2788,9 +2787,9 @@
 											"pm.test(\"Check defaultDisplayName \", function () {",
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.result.defaultDisplayName).to.eql(\"IB1\");",
-											"    pm.expect(jsonData.result.pedigree).to.eql(\"IB1\");",
+											"    pm.expect(jsonData.result.pedigree).to.eql(\"CML1/CML6\");",
 											"    pm.expect(jsonData.result.crossingPlan).to.eql(\"C2W|Single cross|GEN\");",
-											"    pm.expect(jsonData.result.crossingYear).to.eql(null);",
+											"    pm.expect(jsonData.result.crossingYear).to.eql(2018);",
 											"    pm.expect(jsonData.result.familyCode).to.equal(null);",
 											"    pm.expect(jsonData.result.parent1DbId).to.eql(21);",
 											"    pm.expect(jsonData.result.parent1Name).to.eql(\"CML1\");",
@@ -2925,7 +2924,7 @@
 											"    pm.expect(jsonData.result.defaultDisplayName).to.eql(\"CML1\");",
 											"    pm.expect(jsonData.result.pedigree).to.eql(\"CML1\");",
 											"    pm.expect(jsonData.result.crossingPlan).to.eql(\"AGB1|Accession into genebank|MAN\");",
-											"    pm.expect(jsonData.result.crossingYear).to.eql(null);",
+											"    pm.expect(jsonData.result.crossingYear).to.eql(2020);",
 											"    pm.expect(jsonData.result.familyCode).to.equal(null);",
 											"    pm.expect(jsonData.result.parent1DbId).to.eql(21);",
 											"    pm.expect(jsonData.result.parent1Name).to.eql(\"CML1\");",
