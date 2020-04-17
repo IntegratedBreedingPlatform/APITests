@@ -33378,248 +33378,255 @@
 			"name": "observation-unit-resource-brapi",
 			"item": [
 				{
-					"name": "Verify response code and body when entered valid inputs",
-					"event": [
+					"name": "PATCH /{crop}​/brapi​/v2​/observationunits​/{observationUnitDbId}",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"id": "1557d76c-0003-4e32-9d01-574c8015dac1",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"var jsonData = pm.response.json();",
-									"",
-									"pm.test(\"Verify returned metadata\", function () {",
-									" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
-									" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(0);",
-									" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
-									" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
-									" pm.expect(jsonData.metadata.status).to.eql([]);",
-									" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
-									"});",
-									"pm.test(\"Verify geoCoordinates type\", function () {",
-									"    pm.expect(jsonData.result.observationUnitPosition.geoCoordinates.type).to.eql(\"Feature\");",
-									"});",
-									"",
-									"pm.test(\"Verify geometry coordinates\", function () {",
-									"    pm.expect(jsonData.result.observationUnitPosition.geoCoordinates.geometry.coordinates[0]).to.eql(-76.506042);",
-									"    pm.expect(jsonData.result.observationUnitPosition.geoCoordinates.geometry.coordinates[1]).to.eql(42.417373);",
-									"});",
-									"",
-									"pm.test(\"Verify geometry type\", function () {",
-									"    pm.expect(jsonData.result.observationUnitPosition.geoCoordinates.geometry.type).to.eql(\"Point\");",
-									"});"
+							"name": "Verify response code and body when entered valid inputs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1557d76c-0003-4e32-9d01-574c8015dac1",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"",
+											"pm.test(\"Verify returned metadata\", function () {",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											" pm.expect(jsonData.metadata.status).to.eql([]);",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"pm.test(\"Verify geoCoordinates type\", function () {",
+											"    pm.expect(jsonData.result.observationUnitPosition.geoCoordinates.type).to.eql(\"Feature\");",
+											"});",
+											"",
+											"pm.test(\"Verify geometry coordinates\", function () {",
+											"    pm.expect(jsonData.result.observationUnitPosition.geoCoordinates.geometry.coordinates[0]).to.eql(-76.506042);",
+											"    pm.expect(jsonData.result.observationUnitPosition.geoCoordinates.geometry.coordinates[1]).to.eql(42.417373);",
+											"});",
+											"",
+											"pm.test(\"Verify geometry type\", function () {",
+											"    pm.expect(jsonData.result.observationUnitPosition.geoCoordinates.geometry.type).to.eql(\"Point\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4909865d-1d3c-4af7-a525-ac9d7826a961",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
 								],
-								"type": "text/javascript"
-							}
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"observationUnitPosition\": {\r\n    \"geoCoordinates\":  {\r\n        \"geometry\": {\r\n            \"coordinates\": [\r\n                -76.506042,\r\n                42.417373\r\n            ],\r\n            \"type\": \"Point\"\r\n        },\r\n        \"type\": \"Feature\"\r\n    }\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observationunits/{{study6_obs_unit_id}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"observationunits",
+										"{{study6_obs_unit_id}}"
+									]
+								},
+								"description": "PATCH /{crop}​/brapi​/v2​/observationunits​/{observationUnitDbId}"
+							},
+							"response": []
 						},
 						{
-							"listen": "prerequest",
-							"script": {
-								"id": "4909865d-1d3c-4af7-a525-ac9d7826a961",
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
+							"name": "Verify response code and body when entered non-existing observationUnitDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1557d76c-0003-4e32-9d01-574c8015dac1",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Verify error message\", function () {",
+											"    var error = pm.response.json().errors[0].message;",
+											"    pm.expect(error).to.eql(\"Invalid observation unit id.\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4909865d-1d3c-4af7-a525-ac9d7826a961",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
 								],
-								"type": "text/javascript"
-							}
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"observationUnitPosition\": {\r\n    \"geoCoordinates\":  {\r\n        \"geometry\": {\r\n            \"coordinates\": [\r\n                -76.506042,\r\n                42.417373\r\n            ],\r\n            \"type\": \"Point\"\r\n        },\r\n        \"type\": \"Feature\"\r\n    }\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observationunits/nonExistingId",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"observationunits",
+										"nonExistingId"
+									]
+								},
+								"description": "PATCH /{crop}​/brapi​/v2​/observationunits​/{observationUnitDbId}"
+							},
+							"response": []
 						}
 					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"observationUnitPosition\": {\r\n    \"geoCoordinates\":  {\r\n        \"geometry\": {\r\n            \"coordinates\": [\r\n                -76.506042,\r\n                42.417373\r\n            ],\r\n            \"type\": \"Point\"\r\n        },\r\n        \"type\": \"Feature\"\r\n    }\r\n  }\r\n}"
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observationunits/{{study6_obs_unit_id}}",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v2",
-								"observationunits",
-								"{{study6_obs_unit_id}}"
-							]
-						},
-						"description": "PATCH /{crop}​/brapi​/v2​/observationunits​/{observationUnitDbId}"
-					},
-					"response": []
-				},
-				{
-					"name": "Verify response code and body when entered non-existing observationUnitDbId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "1557d76c-0003-4e32-9d01-574c8015dac1",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(400);",
-									"});",
-									"pm.test(\"Verify error message\", function () {",
-									"    var error = pm.response.json().errors[0].message;",
-									"    pm.expect(error).to.eql(\"Invalid observation unit id.\");",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "4909865d-1d3c-4af7-a525-ac9d7826a961",
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{masterToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"observationUnitPosition\": {\r\n    \"geoCoordinates\":  {\r\n        \"geometry\": {\r\n            \"coordinates\": [\r\n                -76.506042,\r\n                42.417373\r\n            ],\r\n            \"type\": \"Point\"\r\n        },\r\n        \"type\": \"Feature\"\r\n    }\r\n  }\r\n}"
-						},
-						"url": {
-							"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observationunits/nonExistingId",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"{{crop}}",
-								"brapi",
-								"v2",
-								"observationunits",
-								"nonExistingId"
-							]
-						},
-						"description": "PATCH /{crop}​/brapi​/v2​/observationunits​/{observationUnitDbId}"
-					},
-					"response": []
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
