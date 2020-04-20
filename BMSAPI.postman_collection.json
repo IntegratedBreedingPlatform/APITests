@@ -26664,6 +26664,723 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "PUT ​/{crop}​/brapi​/v1​/studies​/{studyDbId}​/observations",
+					"item": [
+						{
+							"name": "Verify response code and body when entered valid inputs for numeric trait",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Verify returned metadata\", function () {",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											" pm.expect(jsonData.metadata.status[0][\"ignored-fields\"]).to.eql(\"collector, observationDbId, observationTimeStamp\");",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned collector\", function () {",
+											" pm.expect(jsonData.result.observations[0].collector).to.eql(\"admin\");",
+											"});",
+											"pm.test(\"Verify returned observationDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationDbId).to.eql(JSON.parse(pm.environment.get(\"study6_observationDbId_weed\")));",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationUnitDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationUnitDbId).to.eql(pm.environment.get(\"study6_obs_unit_id\"));",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationVariableDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationVariableDbId).to.eql(JSON.parse(pm.environment.get(\"study_weedPressure_cvterm_id\")));",
+											"});",
+											"",
+											"pm.test(\"Verify returned value\", function () {",
+											" pm.expect(jsonData.result.observations[0].value).to.eql(\"1000\");",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationTimeStamp\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationTimeStamp).to.eql(\"2020-04-27T07:39:11.000Z\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"observations\": [\r\n    {\r\n      \"collector\": \"admin\",\r\n      \"observationDbId\": {{study6_observationDbId_weed}},\r\n      \"observationTimeStamp\": \"2020-04-27T07:39:11.000Z\",\r\n      \"observationUnitDbId\": \"{{study6_obs_unit_id}}\",\r\n      \"observationVariableDbId\": {{study_weedPressure_cvterm_id}},\r\n      \"value\": \"1000\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{study6_studyDbId}}/observations",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies",
+										"{{study6_studyDbId}}",
+										"observations"
+									]
+								},
+								"description": "PUT /{crop}​/brapi​/v1​/studies​/{studyDbId}​/observations"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered valid inputs for categorical trait",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Verify returned metadata\", function () {",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											" pm.expect(jsonData.metadata.status[0][\"ignored-fields\"]).to.eql(\"collector, observationDbId, observationTimeStamp\");",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned collector\", function () {",
+											" pm.expect(jsonData.result.observations[0].collector).to.eql(\"admin\");",
+											"});",
+											"pm.test(\"Verify returned observationDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationDbId).to.eql(JSON.parse(pm.environment.get(\"study6_observationDbId_dispressure\")));",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationUnitDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationUnitDbId).to.eql(pm.environment.get(\"study6_obs_unit_id\"));",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationVariableDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationVariableDbId).to.eql(JSON.parse(pm.environment.get(\"DisPressure_0_9_cvtermId\")));",
+											"});",
+											"",
+											"pm.test(\"Verify returned value\", function () {",
+											" pm.expect(jsonData.result.observations[0].value).to.eql(\"1\");",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationTimeStamp\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationTimeStamp).to.eql(\"2020-04-27T07:39:11.000Z\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"observations\": [\r\n    {\r\n      \"collector\": \"admin\",\r\n      \"observationDbId\": {{study6_observationDbId_dispressure}},\r\n      \"observationTimeStamp\": \"2020-04-27T07:39:11.000Z\",\r\n      \"observationUnitDbId\": \"{{study6_obs_unit_id}}\",\r\n      \"observationVariableDbId\": {{DisPressure_0_9_cvtermId}},\r\n      \"categoricalValueId\": 19030,\r\n      \"value\": \"1\"\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{study6_studyDbId}}/observations",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies",
+										"{{study6_studyDbId}}",
+										"observations"
+									]
+								},
+								"description": "PUT /{crop}​/brapi​/v1​/studies​/{studyDbId}​/observations"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered valid inputs for date trait",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Verify returned metadata\", function () {",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											" pm.expect(jsonData.metadata.status[0][\"ignored-fields\"]).to.eql(\"collector, observationDbId, observationTimeStamp\");",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned collector\", function () {",
+											" pm.expect(jsonData.result.observations[0].collector).to.eql(\"admin\");",
+											"});",
+											"pm.test(\"Verify returned observationDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationDbId).to.eql(JSON.parse(pm.environment.get(\"study6_observationDbId_germitest\")));",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationUnitDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationUnitDbId).to.eql(pm.environment.get(\"study6_obs_unit_id\"));",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationVariableDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationVariableDbId).to.eql(JSON.parse(pm.environment.get(\"germitest_date__cvtermId\")));",
+											"});",
+											"",
+											"pm.test(\"Verify returned value\", function () {",
+											" pm.expect(jsonData.result.observations[0].value).to.eql(\"2020-04-20\");",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationTimeStamp\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationTimeStamp).to.eql(\"2020-04-27T07:39:11.000Z\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"observations\": [\r\n    {\r\n      \"collector\": \"admin\",\r\n      \"observationDbId\": {{study6_observationDbId_germitest}},\r\n      \"observationTimeStamp\": \"2020-04-27T07:39:11.000Z\",\r\n      \"observationUnitDbId\": \"{{study6_obs_unit_id}}\",\r\n      \"observationVariableDbId\": {{germitest_date__cvtermId}},\r\n      \"value\": \"2020-04-20\"\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{study6_studyDbId}}/observations",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies",
+										"{{study6_studyDbId}}",
+										"observations"
+									]
+								},
+								"description": "PUT /{crop}​/brapi​/v1​/studies​/{studyDbId}​/observations"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered valid inputs for character trait",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Verify returned metadata\", function () {",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											" pm.expect(jsonData.metadata.status[0][\"ignored-fields\"]).to.eql(\"collector, observationDbId, observationTimeStamp\");",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned collector\", function () {",
+											" pm.expect(jsonData.result.observations[0].collector).to.eql(\"admin\");",
+											"});",
+											"pm.test(\"Verify returned observationDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationDbId).to.eql(JSON.parse(pm.environment.get(\"study6_observationDbId_note\")));",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationUnitDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationUnitDbId).to.eql(pm.environment.get(\"study6_obs_unit_id\"));",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationVariableDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationVariableDbId).to.eql(JSON.parse(pm.environment.get(\"notes_cvtermId\")));",
+											"});",
+											"",
+											"pm.test(\"Verify returned value\", function () {",
+											" pm.expect(jsonData.result.observations[0].value).to.eql(\"This is a test note\");",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationTimeStamp\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationTimeStamp).to.eql(\"2020-04-27T07:39:11.000Z\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"observations\": [\r\n    {\r\n      \"collector\": \"admin\",\r\n      \"observationDbId\": {{study6_observationDbId_note}},\r\n      \"observationTimeStamp\": \"2020-04-27T07:39:11.000Z\",\r\n      \"observationUnitDbId\": \"{{study6_obs_unit_id}}\",\r\n      \"observationVariableDbId\": {{notes_cvtermId}},\r\n      \"value\": \"This is a test note\"\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{study6_studyDbId}}/observations",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies",
+										"{{study6_studyDbId}}",
+										"observations"
+									]
+								},
+								"description": "PUT /{crop}​/brapi​/v1​/studies​/{studyDbId}​/observations"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered valid inputs without optional values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4cb2f4a6-f24b-4fd5-83a8-6f5a283f90cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Verify returned metadata\", function () {",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											" pm.expect(jsonData.metadata.status[0][\"ignored-fields\"]).to.eql(\"collector, observationDbId, observationTimeStamp\");",
+											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Verify returned collector\", function () {",
+											" pm.expect(jsonData.result.observations[0].collector).to.eql(null);",
+											"});",
+											"pm.test(\"Verify returned observationDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationDbId).to.eql(JSON.parse(pm.environment.get(\"study6_observationDbId_weed\")));",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationUnitDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationUnitDbId).to.eql(pm.environment.get(\"study6_obs_unit_id\"));",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationVariableDbId\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationVariableDbId).to.eql(JSON.parse(pm.environment.get(\"study_weedPressure_cvterm_id\")));",
+											"});",
+											"",
+											"pm.test(\"Verify returned value\", function () {",
+											" pm.expect(jsonData.result.observations[0].value).to.eql(\"1001\");",
+											"});",
+											"",
+											"pm.test(\"Verify returned observationTimeStamp\", function () {",
+											" pm.expect(jsonData.result.observations[0].observationTimeStamp).to.eql(null);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a8a4e83e-e25c-414c-983d-09d6f63dc8c1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"observations\": [\r\n    {\r\n      \"observationUnitDbId\": \"{{study6_obs_unit_id}}\",\r\n      \"observationVariableDbId\": {{study_weedPressure_cvterm_id}},\r\n      \"value\": \"1001\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{study6_studyDbId}}/observations",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"studies",
+										"{{study6_studyDbId}}",
+										"observations"
+									]
+								},
+								"description": "PUT /{crop}​/brapi​/v1​/studies​/{studyDbId}​/observations"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
