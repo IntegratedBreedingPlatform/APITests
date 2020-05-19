@@ -10813,23 +10813,23 @@
 										"id": "facc1d64-0598-4833-870c-71b61fd80089",
 										"exec": [
 											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
+											"    url: pm.environment.get(\"BMSurl\") + \"/brapi/v1/token\",\r",
+											"    method: 'POST',\r",
+											"    header: 'Content-Type:application/json',\r",
+											"    body: {\r",
+											"        mode: 'application/json',\r",
+											"        raw: JSON.stringify({\r",
+											"            \"username\": pm.environment.get(\"bms_user\"),\r",
+											"            \"password\": pm.environment.get(\"bms_password\"),\r",
+											"            \"grant_type\": \"\",\r",
 											"            \"client_id\": \"\"\r",
 											"        })\r",
-											"  }\r",
+											"    }\r",
 											"};\r",
 											"\r",
 											"var getToken = true;\r",
 											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"if (!pm.environment.get('masterTokenExpiry') ||\r",
 											"    !pm.environment.get('masterToken')) {\r",
 											"    console.log('Token or expiry date are missing')\r",
 											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
@@ -10841,15 +10841,15 @@
 											"\r",
 											"if (getToken === true) {\r",
 											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
+											"        console.log(err ? err : res.json());\r",
 											"        if (err === null) {\r",
 											"            console.log('Saving the token and expiry date')\r",
 											"            var responseJson = res.json();\r",
 											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
+											"\r",
 											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
+											"            pm.globals.get(\"variable_key\");\r",
+											"            pm.globals.get(\"variable_key\");\r",
 											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
 											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
 											"        }\r",
@@ -10865,8 +10865,8 @@
 								"header": [
 									{
 										"key": "X-Auth-Token",
-										"value": "{{masterToken}}",
-										"type": "text"
+										"type": "text",
+										"value": "{{masterToken}}"
 									}
 								],
 								"url": {
@@ -40957,6 +40957,178 @@
 									]
 								},
 								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "experimental-design-type-resource",
+			"item": [
+				{
+					"name": "GET ​/crops​/{crop}​/experimental-design-types",
+					"item": [
+						{
+							"name": "Verify if all experimental design types are returned",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "16c367f6-0c43-4dc3-bc3d-f3bab615c0d6",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"  pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"",
+											"pm.test(\"Check id value for each design\", function () {",
+											"  var id = [0, 1, 2, 4, 3, 5];",
+											"  for (var i = 0; i < jsonData.length-1; i++) {",
+											"    pm.expect(jsonData[i].id).to.eql(id[i]);",
+											"    }",
+											"});",
+											"",
+											"pm.test(\"Check name value for each design\", function () {",
+											"  var name = [\"Randomized Complete Block Design\", \"Resolvable Incomplete Block Design\", \"Row-and-Column\", \"Augmented Randomized Block design\", \"Custom Import Design\", \"Entry list order\", \"P-Rep Design\"];",
+											"  for (var i = 0; i < jsonData.length-1; i++) {",
+											"    pm.expect(jsonData[i].name).to.eql(name[i]);",
+											"    }",
+											"});",
+											"",
+											"pm.test(\"Check termId value for each design\", function () {",
+											"  var termId = [10110,10130,10145,10160,10168,10169,10164];",
+											"  for (var i = 0; i < jsonData.length-1; i++) {",
+											"    pm.expect(jsonData[i].termId).to.eql(termId[i]);",
+											"    }",
+											"});",
+											"",
+											"pm.test(\"Check termIdLatinized value for each design\", function () {",
+											"  var termIdLatinized = [0,10166,10167,0,0,0,0];",
+											"  for (var i = 0; i < jsonData.length-1; i++) {",
+											"    pm.expect(jsonData[i].termIdLatinized).to.eql(termIdLatinized[i]);",
+											"    }",
+											"});",
+											"",
+											"pm.test(\"Check params value for each design\", function () {",
+											"  var params = [\"randomizedCompleteBlockParams.html\",\"incompleteBlockParams.html\",\"rowAndColumnParams.html\",\"augmentedRandomizedBlockParams.html\",null,\"entryListOrderParams.html\",\"pRepParams.html\"];",
+											"  for (var i = 0; i < jsonData.length-1; i++) {",
+											"    pm.expect(jsonData[i].params).to.eql(params[i]);",
+											"    }",
+											"});",
+											"",
+											"pm.test(\"Check repNo value for each design\", function () {",
+											"  for (var i = 0; i < jsonData.length-1; i++) {",
+											"    pm.expect(jsonData[i].repNo).to.eql(0);",
+											"    }",
+											"});",
+											"",
+											"pm.test(\"Check totalNoOfEntries value for each design\", function () {",
+											"  for (var i = 0; i < jsonData.length-1; i++) {",
+											"    pm.expect(jsonData[i].totalNoOfEntries).to.eql(0);",
+											"    }",
+											"});",
+											"pm.test(\"Check templateName value for each design\", function () {",
+											"  var templateName = [\"Randomized Complete Block Design.csv\",\"Resolvable Incomplete Block Design.csv\",\"Row-and-Column.csv\",\"Augmented Randomized Block design.csv\",\"Custom Import Design.csv\",\"Entry list order.csv\",\"P-Rep Design.csv\"];",
+											"  for (var i = 0; i < jsonData.length-1; i++) {",
+											"    pm.expect(jsonData[i].templateName).to.eql(templateName[i]);",
+											"    }",
+											"});",
+											"pm.test(\"Check bvName value for each design\", function () {",
+											"  var bvName = [\"Randomized block design\",\"Resolvable incomplete block design\",\"Resolvable row-column design\",\"Incomplete block design\",\"\",\"\",\"P-rep design\"];",
+											"  for (var i = 0; i < jsonData.length-1; i++) {",
+											"    pm.expect(jsonData[i].bvName).to.eql(bvName[i]);",
+											"    }",
+											"});",
+											"pm.test(\"Check bvDesignName value for each design\", function () {",
+											"  var bvDesignName = [\"RandomizedBlock\",\"ResolvableIncompleteBlock\",\"ResolvableRowColumn\",\"Augmented\",\"\",\"\",\"Prep\"];",
+											"  for (var i = 0; i < jsonData.length-1; i++) {",
+											"    pm.expect(jsonData[i].bvDesignName).to.eql(bvDesignName[i]);",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "6c34739b-f077-49ef-bbe2-d3c49beea0e1",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/experimental-design-types",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"experimental-design-types"
+									]
+								},
+								"description": "GET /crops​/{crop}​/experimental-design-types"
 							},
 							"response": []
 						}
