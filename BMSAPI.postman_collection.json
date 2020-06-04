@@ -22231,7 +22231,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(12);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -22356,7 +22356,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(6);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(7);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -22497,7 +22497,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(12);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -23202,7 +23202,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(12);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -23483,7 +23483,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(12);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -23639,7 +23639,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(12);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -23906,7 +23906,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(12);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -41528,6 +41528,8 @@
 											"pm.environment.set(\"newInstanceDbId\", jsonData.instanceDbId);",
 											"pm.environment.unset(\"newExperimentId\");",
 											"pm.environment.set(\"newExperimentId\", jsonData.experimentId);",
+											"pm.environment.unset(\"newInstanceNumber\");",
+											"pm.environment.set(\"newInstanceNumber\", jsonData.instanceNumber);",
 											"",
 											"pm.test(\"Check locationName\", function () {",
 											"  pm.expect(jsonData.locationName).to.eql(\"Unspecified Location\");   ",
@@ -41539,9 +41541,6 @@
 											"",
 											"pm.test(\"Check customLocationAbbreviation\", function () {",
 											"  pm.expect(jsonData.customLocationAbbreviation).to.eql(null);   ",
-											"});",
-											"pm.test(\"Check instanceNumber\", function () {",
-											"  pm.expect(jsonData.instanceNumber).to.eql(2);   ",
 											"});",
 											"",
 											"pm.test(\"Check hasFieldmap\", function () {",
@@ -41903,7 +41902,7 @@
 											"});",
 											"",
 											"pm.test(\"Check instanceNumber\", function () {",
-											"  pm.expect(jsonData.instanceNumber).to.eql(2);   ",
+											"  pm.expect(jsonData.instanceNumber).to.eql(pm.environment.get(\"newInstanceNumber\"));   ",
 											"});",
 											"",
 											"pm.test(\"Check hasFieldmap\", function () {",
@@ -42526,6 +42525,109 @@
 										"{{studyId}}",
 										"instances",
 										"{{nonExistingInstanceDbId}}"
+									]
+								},
+								"description": "DELETE ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/instances​/{instanceId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when tried instance with restrictions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "67e96fae-6a90-415c-be1f-be4fe06dd9ab",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check error message\", function () {",
+											"  pm.expect(jsonData.errors[0].message).to.eql(\"Instance(s) cannot be deleted due to internal validations (samples, sub-observations associated with the environment or advance/cross list associated with study).\");   ",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a9daa447-d444-4f36-9f05-4e32a8506f98",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/instances/1",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"instances",
+										"1"
 									]
 								},
 								"description": "DELETE ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/instances​/{instanceId}"
