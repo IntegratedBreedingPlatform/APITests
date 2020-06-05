@@ -44237,6 +44237,208 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "inventory-unit-resource",
+			"item": [
+				{
+					"name": "GET ​/crops​/{cropName}​/inventory-units",
+					"item": [
+						{
+							"name": "Verify response code and body when entered valid input",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f164c8b0-7e04-46c7-ad46-16792aef1cca",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"  pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"",
+											"pm.test(\"Check id value for each item\", function () {",
+											"  var id = [\"8264\",\"8267\", \"8266\", \"8268\", \"8710\"];",
+											"  for (var i = 0; i < jsonData.length - 1; i++) {",
+											"    pm.expect(jsonData[i].id).to.eql(id[i]);",
+											"  }",
+											"});",
+											"",
+											"pm.test(\"Check name value for each item\", function () {",
+											"  var name = [\"SEED_AMOUNT_g\", \"SEED_AMOUNT_kg\", \"SEED_AMOUNT_No\", \"SEED_AMOUNT_Packets\", \"SEED_AMOUNT_t\"];",
+											"  for (var i = 0; i < jsonData.length - 1; i++) {",
+											"    pm.expect(jsonData[i].name).to.eql(name[i]);",
+											"  }",
+											"});",
+											"",
+											"pm.test(\"Check alias value for each item\", function () {",
+											"  for (var i = 0; i < jsonData.length - 1; i++) {",
+											"    pm.expect(jsonData[i].alias).to.eql(\"\");",
+											"  }",
+											"});",
+											"",
+											"pm.test(\"Check description value for each design\", function () {",
+											"  var description = [\"Seed inventory amount deposited or withdrawn (g)\", \"Seed inventory amount deposited or withdrawn (kg)\",\"Seed inventoryamount deposited or withdrawn (no)\", \"Seed inventory amountdeposited or withdrawn (packets)\", \"Seed inventory amount deposited or withdrawn (t)\"];",
+											"  for (var i = 0; i < jsonData.length - 1; i++) {",
+											"    pm.expect(jsonData[i].description).to.eql(description[i]);",
+											"  }",
+											"});",
+											"",
+											"pm.test(\"Check property id value for each item\", function () {",
+											"  for (var i = 0; i < jsonData.length - 1; i++) {",
+											"    pm.expect(jsonData[i].property.id).to.eql(\"2620\");",
+											"  }",
+											"});",
+											"",
+											"pm.test(\"Check property name for each item\", function () {",
+											"  for (var i = 0; i < jsonData.length - 1; i++) {",
+											"    pm.expect(jsonData[i].property.name).to.eql(\"Inventory amount\");",
+											"  }",
+											"});",
+											"pm.test(\"Check property description for each item\", function () {",
+											"  for (var i = 0; i < jsonData.length - 1; i++) {",
+											"    pm.expect(jsonData[i].property.description).to.eql(\"Amount of inventory storedor withdrawn\");",
+											"  }",
+											"});",
+											"pm.test(\"Check property cropOntologyId for each item\", function () {",
+											"  for (var i = 0; i < jsonData.length - 1; i++) {",
+											"    pm.expect(jsonData[i].property.cropOntologyId).to.eql(null);",
+											"  }",
+											"});",
+											"pm.test(\"Check property classes for each item\", function () {",
+											"  for (var i = 0; i < jsonData.length - 1; i++) {",
+											"    pm.expect(jsonData[i].property.classes[0]).to.eql(\"Seed storage\");",
+											"    pm.expect(jsonData[i].property.classes[1]).to.eql(\"Seed increase methods\");",
+											"  }",
+											"});",
+											"pm.test(\"Check property metadata for each item\", function () {",
+											"  for (var i = 0; i < jsonData.length - 1; i++) {",
+											"    pm.expect(jsonData[i].property.metadata.dateCreated).to.eql(\"2016-01-28T19:36:53.000Z\");",
+											"     pm.expect(jsonData[i].property.metadata.lastModified).to.eql(null);",
+											"     pm.expect(jsonData[i].property.metadata.editableFields).to.eql([]);",
+											"     pm.expect(jsonData[i].property.metadata.deletable).to.eql(false);",
+											"     pm.expect(jsonData[i].property.metadata.usage.observations).to.eql(0);",
+											"     pm.expect(jsonData[i].property.metadata.usage.studies).to.eql(0);",
+											"  }",
+											"});",
+											"",
+											"pm.test(\"Check method for each item\", function () {",
+											"  var itemsWithWeighedMeth = [0,1,4];",
+											"  var itemsWithCountedMeth = [2,3];",
+											"  for (var i = 0; i < itemsWithWeighedMeth.length - 1; i++) {",
+											"    pm.expect(jsonData[i].method.id).to.eql(\"4090\");",
+											"    pm.expect(jsonData[i].method.name).to.eql(\"Weighed\");",
+											"    pm.expect(jsonData[i].method.description).to.eql(\"Weighing method\");",
+											"    pm.expect(jsonData[i].property.metadata.dateCreated).to.eql(\"2016-01-28T19:36:53.000Z\");",
+											"     pm.expect(jsonData[i].property.metadata.lastModified).to.eql(null);",
+											"     pm.expect(jsonData[i].property.metadata.editableFields).to.eql([]);",
+											"     pm.expect(jsonData[i].property.metadata.deletable).to.eql(false);",
+											"     pm.expect(jsonData[i].property.metadata.usage.observations).to.eql(0);",
+											"     pm.expect(jsonData[i].property.metadata.usage.studies).to.eql(0);",
+											"  }",
+											"    for (var j = 0; i < itemsWithCountedMeth.length - 1; j++) {",
+											"    pm.expect(jsonData[i].method.id).to.eql(\"4080\");",
+											"    pm.expect(jsonData[i].method.name).to.eql(\"Counted\");",
+											"    pm.expect(jsonData[i].method.description).to.eql(\"Counting method\");",
+											"    pm.expect(jsonData[i].property.metadata.dateCreated).to.eql(\"2016-01-28T19:36:53.000Z\");",
+											"     pm.expect(jsonData[i].property.metadata.lastModified).to.eql(null);",
+											"     pm.expect(jsonData[i].property.metadata.editableFields).to.eql([]);",
+											"     pm.expect(jsonData[i].property.metadata.deletable).to.eql(false);",
+											"     pm.expect(jsonData[i].property.metadata.usage.observations).to.eql(0);",
+											"     pm.expect(jsonData[i].property.metadata.usage.studies).to.eql(0);",
+											"  }",
+											"});",
+											"",
+											"",
+											"//Todo assert remaining of the details"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "697dc4ff-2395-4a20-8ec7-7f28cc01030f",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/inventory-units",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"inventory-units"
+									]
+								},
+								"description": "GET ​/crops​/{cropName}​/inventory-units"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [
