@@ -25206,7 +25206,7 @@
 					"name": "GET /crops/{cropName}/lots/search",
 					"item": [
 						{
-							"name": "Verify response code and body when entered valid searchRequestId",
+							"name": "Verify results when entered searchRequestId that filters by GID",
 							"event": [
 								{
 									"listen": "test",
@@ -25217,10 +25217,20 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Check first lot record\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"        pm.expect(jsonData[0].lotId).to.eql(parseInt(pm.environment.get(\"lotid\")));\r",
-											"});\r",
+											"\r",
+											"pm.test(\"Check existing lot record\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  var dataLength = jsonData.length;\r",
+											"\r",
+											"  for (i = 0; i < dataLength ; i++) {\r",
+											"            var lotid =jsonData[i].lotid\r",
+											"          if(lotid==\"60\"){\r",
+											"              pm.expect(gid).to.eql(21);\r",
+											"              console.log(\"index:\"+j+ \"Found! \");\r",
+											"          }\r",
+											"          \r",
+											"      }\r",
+											"  });\r",
 											""
 										],
 										"type": "text/javascript"
@@ -25325,21 +25335,551 @@
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered invalid searchRequestId",
+							"name": "Verify results when entered searchRequestId that filters by createdDate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f53e4ac9-59f8-417c-99ab-ef8fd728f350",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check existing lot record\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  var dataLength = jsonData.length;\r",
+											"\r",
+											"  for (i = 0; i < dataLength ; i++) {\r",
+											"            var lotid =jsonData[i].lotid\r",
+											"          if(lotid==\"60\"){\r",
+											"              pm.expect(gid).to.eql(21);\r",
+											"              console.log(\"index:\"+j+ \"Found! \");\r",
+											"          }\r",
+											"          \r",
+											"      }\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f902dd5f-cbb7-4186-96e6-4ace09fbd230",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId={{createdDate}}&page=0&size=50&sort=lotid,desc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchRequestId",
+											"value": "{{createdDate}}"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "sort",
+											"value": "lotid,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchRequestId that filters by status=Active",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b5bb8dc7-b330-4785-a4fd-d5e8afc247dc",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check existing lot record\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  var dataLength = jsonData.length;\r",
+											"\r",
+											"  for (i = 0; i < dataLength ; i++) {\r",
+											"            var lotid =jsonData[i].lotid\r",
+											"          if(lotid==\"60\"){\r",
+											"              pm.expect(gid).to.eql(21);\r",
+											"              console.log(\"index:\"+j+ \"Found! \");\r",
+											"          }\r",
+											"          \r",
+											"      }\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e1b10566-04b7-4959-a475-4e28235c9bcc",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId={{searchRequestId}}&page=0&size=50&sort=lotid,desc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchRequestId",
+											"value": "{{searchRequestId}}"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "sort",
+											"value": "lotid,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchRequestId that filters by unitId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b2cb3b7b-8fb5-40f6-b0f6-4329ed75d51f",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check existing lot record\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  var dataLength = jsonData.length;\r",
+											"\r",
+											"  for (i = 0; i < dataLength ; i++) {\r",
+											"            var lotid =jsonData[i].lotid\r",
+											"          if(lotid==\"60\"){\r",
+											"              pm.expect(gid).to.eql(21);\r",
+											"              pm.expect(unitId).to.eql(8264);\r",
+											"              pm.expect(unitName).to.eql(\"SEED_AMOUNT_kg\");\r",
+											"              console.log(\"index:\"+j+ \"Found! \");\r",
+											"          }\r",
+											"          \r",
+											"      }\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "70130c1a-3960-47f5-a5ac-18563091f141",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId={{unitId}}&page=0&size=50&sort=lotid,desc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchRequestId",
+											"value": "{{unitId}}"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "sort",
+											"value": "lotid,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchRequestId that filters by germplasmListIds",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d14ed476-ef96-4a62-b83f-d11ea7db2410",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check existing lot record\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  var dataLength = jsonData.length;\r",
+											"\r",
+											"  for (i = 0; i < dataLength ; i++) {\r",
+											"            var lotid =jsonData[i].lotid\r",
+											"          if(lotid==\"60\"){\r",
+											"              pm.expect(gid).to.eql(21);\r",
+											"              console.log(\"index:\"+j+ \"Found! \");\r",
+											"          }\r",
+											"          \r",
+											"      }\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "6d187716-47b5-4cce-96dd-e7e73d0eb112",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId={{germplasmListIds}}&page=0&size=50&sort=lotid,desc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchRequestId",
+											"value": "{{germplasmListIds}}"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "sort",
+											"value": "lotid,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchRequestId that filters by multiple lot ids",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"id": "01bcdd54-b005-4e05-9f66-3e7bec14dc0c",
 										"exec": [
-											"pm.test(\"Status code is 500\", function () {\r",
-											"    pm.response.to.have.status(500);\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Verify error message\", function () {\r",
-											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
-											"});"
+											"\r",
+											"pm.test(\"Check existing lot record\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  var dataLength = jsonData.length;\r",
+											"\r",
+											"  for (i = 0; i < dataLength ; i++) {\r",
+											"            var lotid =jsonData[i].lotid\r",
+											"          if(lotid==\"60\"){\r",
+											"              pm.expect(gid).to.eql(21);\r",
+											"              pm.expect(lotid).to.eql(60);\r",
+											"              console.log(\"index:\"+j+ \"Found! \");\r",
+											"          }\r",
+											"          \r",
+											"      }\r",
+											"  });\r",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -25410,7 +25950,772 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId=0",
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId={{multiplelots}}&page=0&size=50&sort=lotid,desc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchRequestId",
+											"value": "{{multiplelots}}"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "sort",
+											"value": "lotid,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchRequestId that filters by designation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6af22eea-dce0-43ee-834c-3477cd34abce",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check existing lot record\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  var dataLength = jsonData.length;\r",
+											"\r",
+											"  for (i = 0; i < dataLength ; i++) {\r",
+											"            var lotid =jsonData[i].lotid\r",
+											"          if(lotid==\"60\"){\r",
+											"              pm.expect(gid).to.eql(21);\r",
+											"              pm.expor(designation).to.eql(\"CML1\");\r",
+											"              console.log(\"index:\"+j+ \"Found! \");\r",
+											"          }\r",
+											"          \r",
+											"      }\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "640a74c3-f8ef-4e2a-9c47-65b20c670584",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId={{lot_desig}}&page=0&size=50&sort=lotid,desc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchRequestId",
+											"value": "{{lot_desig}}"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "sort",
+											"value": "lotid,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchRequestId that filters by stockId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2c41275f-2b57-4da1-9861-ea102cdfe972",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check existing lot record\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  var dataLength = jsonData.length;\r",
+											"\r",
+											"  for (i = 0; i < dataLength ; i++) {\r",
+											"            var lotid =jsonData[i].lotid\r",
+											"          if(lotid==\"60\"){\r",
+											"              pm.expect(gid).to.eql(21);\r",
+											"              pm.expor(designation).to.eql(\"CML1\");\r",
+											"              console.log(\"index:\"+j+ \"Found! \");\r",
+											"          }\r",
+											"          \r",
+											"      }\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "afc3dbce-63bd-42b4-8673-8117a1d52cfc",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId={{lot_desig}}&page=0&size=50&sort=lotid,desc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchRequestId",
+											"value": "{{lot_desig}}"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "sort",
+											"value": "lotid,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchRequestId that filters by lotUUIDs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b51604e9-a9ea-4d4b-a911-9a431cc9845e",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check existing lot record\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  var dataLength = jsonData.length;\r",
+											"\r",
+											"  for (i = 0; i < dataLength ; i++) {\r",
+											"            var lotid =jsonData[i].lotid\r",
+											"          if(lotid==\"60\"){\r",
+											"              pm.expect(lotUUID).to.eql(\"24745a1f-0871-4531-9ec6-b46da0f1c81f\");\r",
+											"              console.log(\"index:\"+j+ \"Found! \");\r",
+											"          }\r",
+											"          \r",
+											"      }\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9dae2f13-390f-4435-a625-9f6310446fec",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId={{lotUUIDs}}&page=0&size=50&sort=lotid,desc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchRequestId",
+											"value": "{{lotUUIDs}}"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "sort",
+											"value": "lotid,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchRequestId that filters by createdByUsername",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8b23ae61-91ba-4abf-b8db-089f76afa6cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check existing lot record\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  var dataLength = jsonData.length;\r",
+											"\r",
+											"  for (i = 0; i < dataLength ; i++) {\r",
+											"            var lotid =jsonData[i].lotid\r",
+											"          if(lotid==\"60\"){\r",
+											"              pm.expect(createdByUsername).to.eql(\"admin\");\r",
+											"              console.log(\"index:\"+j+ \"Found! \");\r",
+											"          }\r",
+											"          \r",
+											"      }\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4009f74c-7928-41b4-b23c-66b0b807fa84",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId={{createdByUsername}}&page=0&size=50&sort=lotid,desc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchRequestId",
+											"value": "{{createdByUsername}}"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "sort",
+											"value": "lotid,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchRequestId that filters by actualBalance",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "09614e4e-7a39-4d57-a479-31eb42315a14",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check existing lot record\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  var dataLength = jsonData.length;\r",
+											"\r",
+											"  for (i = 0; i < dataLength ; i++) {\r",
+											"            var lotid =jsonData[i].lotid\r",
+											"          if(lotid==\"60\"){\r",
+											"              pm.expect(gid).to.eql(21);\r",
+											"              console.log(\"index:\"+j+ \"Found! \");\r",
+											"          }\r",
+											"          \r",
+											"      }\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "7cab8c8b-7030-452b-b6b9-7f699e1f30a2",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId={{actualBalance}}&page=0&size=50&sort=lotid,desc",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									],
+									"query": [
+										{
+											"key": "searchRequestId",
+											"value": "{{actualBalance}}"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "sort",
+											"value": "lotid,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered invalid searchRequestId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e6ba239a-11e5-4efa-be47-8e4d84ebf0af",
+										"exec": [
+											"pm.test(\"Status code is 500\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Verify error message\", function () {\r",
+											"    var error = pm.response.json().errors[0].message;\r",
+											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "68c68016-eb4c-4b5d-a251-31f33c11c9fb",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search?searchRequestId=0&page=0&size=50&sort=lotid,desc",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -25424,6 +26729,18 @@
 										{
 											"key": "searchRequestId",
 											"value": "0"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "sort",
+											"value": "lotid,desc"
 										}
 									]
 								}
@@ -26523,7 +27840,7 @@
 					"name": "POST /crops/{cropName}/lots/search",
 					"item": [
 						{
-							"name": "Verify response code and body when entered valid GID",
+							"name": "Verify response code and body when entered GID",
 							"event": [
 								{
 									"listen": "test",
@@ -26631,7 +27948,763 @@
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered valid multiple lotids",
+							"name": "Verify response code and body when entered createdDate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0e1e48b9-aee1-446e-a733-c356417f0c23",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.unset(\"createdDate\");\r",
+											"pm.environment.set(\"createdDate\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ddb03968-2852-4dd0-878e-a9b791e6697b",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"createdDate\": \"2020-06-19\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered status = Active",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fe20a9b7-b2d3-4f20-a872-8a6591e5d2fe",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.unset(\"lstatus\");\r",
+											"pm.environment.set(\"lstatus\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "13ec9f3d-f57a-4962-9a4a-0c2a48caba2a",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"status\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered unitId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "33899268-0c6d-428c-8627-ee83c632e231",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.unset(\"unitId\");\r",
+											"pm.environment.set(\"unitId\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "09c62444-ac0c-4176-b270-5723d77ea575",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"unitId\": 8264\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered createdByUsername",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b35792c6-345a-4460-9fd6-ab346b6ec0cf",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.unset(\"createdByUsername\");\r",
+											"pm.environment.set(\"createdByUsername\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2d179874-8785-434a-ad13-9797263da1c2",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"createdByUsername\": \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered germplasmListIds",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ced1ffed-dc86-42b4-b867-a7ef89903ba8",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.unset(\"germplasmListIds\");\r",
+											"pm.environment.set(\"germplasmListIds\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e097b6d1-7ffa-4d44-884c-8a75733133d8",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"germplasmListIds\": [2]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered stockId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "acfb4501-b5df-4607-bea7-4c96d747d854",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.unset(\"stockId\");\r",
+											"pm.environment.set(\"stockId\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5f4a0003-8cf2-4a6c-9e01-0ab8bc7c2449",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"stockId\": \"SID1-1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered lotUUIDs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "54b02b88-a38b-45be-abb3-fbea5485d7c8",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.unset(\"stockId\");\r",
+											"pm.environment.set(\"stockId\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3fccc72c-9757-498b-a770-b70580636e36",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"stockId\": \"SID1-1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered multiple lotids",
 							"event": [
 								{
 									"listen": "test",
@@ -26641,7 +28714,10 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											""
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.unset(\"multiplelots\");\r",
+											"pm.environment.set(\"multiplelots\", jsonData.result.searchResultDbId);"
 										],
 										"type": "text/javascript"
 									}
@@ -26714,6 +28790,222 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n  \"lotIds\": [{{lotid}}, 2,3,4]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered designation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f4bb3099-3948-48d9-9f7d-807883b98952",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.unset(\"lot_desig\");\r",
+											"pm.environment.set(\"lot_desig\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f782b533-b13e-4fc7-8906-63fef64c076f",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"designation\": \"CML1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/lots/search",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"lots",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered actualBalance",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5a68e870-76e5-44b9-bd96-cad793210f6b",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.unset(\"actualBalance\");\r",
+											"pm.environment.set(\"actualBalance\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8c1eaa81-ad57-4429-8ab2-f582ed992c43",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n \"minActualBalance\": 1,\r\n  \"minActualBalance\": 100\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
