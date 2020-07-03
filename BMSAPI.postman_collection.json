@@ -4557,7 +4557,7 @@
 											"});",
 											"",
 											"pm.test(\"X-Total-Count is correct\", function () {",
-											"    pm.response.to.be.header(\"X-Total-Count\", \"80\");",
+											"    pm.response.to.be.header(\"X-Total-Count\", \"110\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -19414,6 +19414,244 @@
 							"response": []
 						},
 						{
+							"name": "Set value for filtered phenotype with invalid crop",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5624fc27-78c2-402c-90a0-1f2546418868",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop \"+pm.environment.get(\"invalidCrop\")+\" for URL:/crops/\"+pm.environment.get(\"invalidCrop\")+\"/programs/\"+pm.environment.get(\"api_program_id\")+\"/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_plot_datasetId\")+\"/observation-units/filter/set-value\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "447ae2f7-7673-43be-a6fe-516ef0c2076b",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"newValue\": \"2\",\r\n\t\"newCategoricalValueId\": null,\r\n\t\"observationUnitsSearchDTO\": {\r\n\t\t\"instanceId\": 1,\r\n\t\t\"draftMode\": false,\r\n\t\t\"filter\": {\r\n\t\t\t\"byOutOfBound\": null,\r\n\t\t\t\"byMissing\": null,\r\n\t\t\t\"byOutOfSync\": null,\r\n\t\t\t\"byOverwritten\": null,\r\n\t\t\t\"variableId\": 100020,\r\n\t\t\t\"filterColumns\": [],\r\n\t\t\t\"filteredValues\": {},\r\n\t\t\t\"filteredTextValues\": {},\r\n\t\t\t\"variableTypeMap\": {\r\n\t\t\t\t\"8170\": null,\r\n\t\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8263\": \"SELECTION_METHOD\",\r\n\t\t\t\t\"18000\": \"TRAIT\",\r\n\t\t\t\t\"18010\": \"TRAIT\",\r\n\t\t\t\t\"18100\": \"TRAIT\",\r\n\t\t\t\t\"100020\": \"TRAIT\",\r\n\t\t\t\t\"-2\": null\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{invalidCrop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observation-units/filter/set-value",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{invalidCrop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_datasetId}}",
+										"observation-units",
+										"filter",
+										"set-value"
+									]
+								},
+								"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observation-units​/observations​ filter​/count"
+							},
+							"response": []
+						},
+						{
+							"name": "Set value for filtered phenotype with invalid program",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e22a504e-b686-47f8-a360-d4e223ee7ec5",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid program: invalid for crop: \"+pm.environment.get(\"crop\")+\" for service with path /crops/testdata/programs/invalid/studies/3009/datasets/3011/observation-units/filter/set-value\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bb85b38b-9c6b-49dd-aa20-b9e6b6cf951a",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"newValue\": \"2\",\r\n\t\"newCategoricalValueId\": null,\r\n\t\"observationUnitsSearchDTO\": {\r\n\t\t\"instanceId\": 1,\r\n\t\t\"draftMode\": false,\r\n\t\t\"filter\": {\r\n\t\t\t\"byOutOfBound\": null,\r\n\t\t\t\"byMissing\": null,\r\n\t\t\t\"byOutOfSync\": null,\r\n\t\t\t\"byOverwritten\": null,\r\n\t\t\t\"variableId\": 100020,\r\n\t\t\t\"filterColumns\": [],\r\n\t\t\t\"filteredValues\": {},\r\n\t\t\t\"filteredTextValues\": {},\r\n\t\t\t\"variableTypeMap\": {\r\n\t\t\t\t\"8170\": null,\r\n\t\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8263\": \"SELECTION_METHOD\",\r\n\t\t\t\t\"18000\": \"TRAIT\",\r\n\t\t\t\t\"18010\": \"TRAIT\",\r\n\t\t\t\t\"18100\": \"TRAIT\",\r\n\t\t\t\t\"100020\": \"TRAIT\",\r\n\t\t\t\t\"-2\": null\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/invalid/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observation-units/filter/set-value",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"invalid",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_datasetId}}",
+										"observation-units",
+										"filter",
+										"set-value"
+									]
+								},
+								"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observation-units​/observations​ filter​/count"
+							},
+							"response": []
+						},
+						{
 							"name": "Set value for filtered phenotype with non-existing studyId",
 							"event": [
 								{
@@ -20033,6 +20271,1774 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_plot_datasetId}}",
+										"observationUnits",
+										"{{observationUnitId}}",
+										"observations",
+										"{{observationId}}"
+									]
+								},
+								"description": "DELETE ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/{observationUnitId}​/observations​/{observationId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve observation units of after updating filtered phenotype Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e97a8a7-46fd-4229-b3fd-35852269f0a7",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check records filtered \", function () {",
+											"    pm.expect(jsonData.recordsFiltered).to.eql(80);",
+											"});",
+											"pm.test(\"Check records total\", function () {",
+											"    pm.expect(jsonData.recordsFiltered).to.eql(80);",
+											"});",
+											"",
+											"//Check data at index 0",
+											"",
+											"var index = 0;",
+											"",
+											"var observationUnitIds = [];",
+											"var observationIds = [];",
+											"",
+											"",
+											"for (var i = 0; i < jsonData.data.length; i++){",
+											"  var selectedData = jsonData.data[i];",
+											"  observationUnitIds[i] = selectedData.observationUnitId;",
+											"  observationIds[i] = selectedData.variables.PestPressure_0_9.observationId",
+											"  console.log(observationIds[i]);",
+											"}",
+											"",
+											"pm.environment.unset(\"observationUnitIds\");",
+											"pm.environment.unset(\"observationIds\");",
+											"pm.environment.set(\"observationUnitIds\", JSON.stringify(observationUnitIds));",
+											"pm.environment.set(\"observationIds\", JSON.stringify(observationIds));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "75f8db5c-a9d7-4f82-bc1c-ac0bb25c44a5",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draw\": 1,\r\n\t\"sortedRequest\": {\r\n\t\t\"pageSize\": 50,\r\n\t\t\"pageNumber\": 1,\r\n\t\t\"sortBy\": 8200,\r\n\t\t\"sortOrder\": \"asc\"\r\n\t},\r\n\t\"instanceId\": 1,\r\n\t\"draftMode\": false,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": null,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8207\": \"OBSERVATION_UNIT\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"18010\": \"TRAIT\",\r\n\t\t\t\"18090\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observationUnits/table",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observationUnits",
+										"table"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete observation of catgorical variable in subobs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6c66658a-3fc2-4986-ad2b-aacbeb852994",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var observationUnitIds = [];",
+											"observationUnitIds = JSON.parse(pm.environment.get(\"observationUnitIds\"));",
+											"var observationIds = [];",
+											"observationIds = JSON.parse(pm.environment.get(\"observationIds\"));",
+											"",
+											"if(observationUnitIds.length && observationIds.length > 0){",
+											"postman.setNextRequest(\"Delete observation of catgorical variable in subobs\");",
+											"}else{",
+											"    postman.setNextRequest(null);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4cd68a3f-620b-4b59-a04d-dbb5ade0659d",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											"\r",
+											"var observationUnitIds = [];\r",
+											"observationUnitIds = JSON.parse(pm.environment.get(\"observationUnitIds\"));\r",
+											"var observationIds = [];\r",
+											"observationIds = JSON.parse(pm.environment.get(\"observationIds\"));\r",
+											"console.log(observationUnitIds.length);\r",
+											"var current_observationUnitId = observationUnitIds.shift();\r",
+											"var current_observationId = observationIds.shift();\r",
+											"pm.environment.set(\"observationUnitId\", current_observationUnitId);\r",
+											"pm.environment.set(\"observationId\", current_observationId);\r",
+											"pm.environment.set(\"observationUnitIds\", JSON.stringify(observationUnitIds));\r",
+											"pm.environment.set(\"observationIds\", JSON.stringify(observationIds));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"processWarnings\": true,\r\n\t\"data\": [\r\n\t\t[\r\n\t\t\t\"TRIAL_INSTANCE\",\r\n\t\t\t\"PI_NAME\",\r\n\t\t\t\"EXPT_DESIGN\",\r\n\t\t\t\"LOCATION_ID\",\r\n\t\t\t\"LOCATION_NAME\",\r\n\t\t\t\"Crop_season_Code\",\r\n\t\t\t\"ENTRY_TYPE\",\r\n\t\t\t\"GID\",\r\n\t\t\t\"DESIGNATION\",\r\n\t\t\t\"ENTRY_NO\",\r\n\t\t\t\"OBS_UNIT_ID\",\r\n\t\t\t\"PLOT_NO\",\r\n\t\t\t\"WeedPressure_number\",\r\n\t\t\t\"Grain_yield\",\r\n\t\t\t\"Biomas_yield\",\r\n\t\t\t\"InputVariable\",\r\n\t\t\t\"NPSEL\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"PKWDPtLOzD8Sz\",\r\n\t\t\t\"1\",\r\n\t\t\t\"21\",\r\n\t\t\t\"23\",\r\n\t\t\t\"40\",\r\n\t\t\t\"338\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"PKWDP6ME6bt1l\",\r\n\t\t\t\"2\",\r\n\t\t\t\"15\",\r\n\t\t\t\"12\",\r\n\t\t\t\"45\",\r\n\t\t\t\"285\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"PKWDPe2za6TM7\",\r\n\t\t\t\"3\",\r\n\t\t\t\"12\",\r\n\t\t\t\"41\",\r\n\t\t\t\"32\",\r\n\t\t\t\"176\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"PKWDPEV6LPs1N\",\r\n\t\t\t\"4\",\r\n\t\t\t\"46\",\r\n\t\t\t\"49\",\r\n\t\t\t\"33\",\r\n\t\t\t\"488\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"PKWDPU27n9e9L\",\r\n\t\t\t\"5\",\r\n\t\t\t\"33\",\r\n\t\t\t\"41\",\r\n\t\t\t\"28\",\r\n\t\t\t\"397\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"PKWDPmpZgUu6S\",\r\n\t\t\t\"6\",\r\n\t\t\t\"48\",\r\n\t\t\t\"17\",\r\n\t\t\t\"35\",\r\n\t\t\t\"463\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"PKWDP0M9lGBzz\",\r\n\t\t\t\"7\",\r\n\t\t\t\"34\",\r\n\t\t\t\"16\",\r\n\t\t\t\"49\",\r\n\t\t\t\"105\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"PKWDPsCKr80ks\",\r\n\t\t\t\"8\",\r\n\t\t\t\"17\",\r\n\t\t\t\"28\",\r\n\t\t\t\"15\",\r\n\t\t\t\"379\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"PKWDPDotBpZ1y\",\r\n\t\t\t\"9\",\r\n\t\t\t\"45\",\r\n\t\t\t\"28\",\r\n\t\t\t\"49\",\r\n\t\t\t\"424\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"PKWDPCYuyqdql\",\r\n\t\t\t\"10\",\r\n\t\t\t\"41\",\r\n\t\t\t\"26\",\r\n\t\t\t\"10\",\r\n\t\t\t\"188\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"PKWDP0fPOkMaC\",\r\n\t\t\t\"11\",\r\n\t\t\t\"39\",\r\n\t\t\t\"20\",\r\n\t\t\t\"31\",\r\n\t\t\t\"471\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"PKWDPGN6nYdv2\",\r\n\t\t\t\"12\",\r\n\t\t\t\"48\",\r\n\t\t\t\"46\",\r\n\t\t\t\"12\",\r\n\t\t\t\"395\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"PKWDPZ19QRNrq\",\r\n\t\t\t\"13\",\r\n\t\t\t\"24\",\r\n\t\t\t\"27\",\r\n\t\t\t\"17\",\r\n\t\t\t\"340\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"PKWDPPh1TNHCh\",\r\n\t\t\t\"14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"36\",\r\n\t\t\t\"13\",\r\n\t\t\t\"299\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"PKWDPH6Q51k29\",\r\n\t\t\t\"15\",\r\n\t\t\t\"37\",\r\n\t\t\t\"20\",\r\n\t\t\t\"15\",\r\n\t\t\t\"408\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"PKWDP2mpwUmS5\",\r\n\t\t\t\"16\",\r\n\t\t\t\"36\",\r\n\t\t\t\"40\",\r\n\t\t\t\"50\",\r\n\t\t\t\"472\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"PKWDP07BrGxf2\",\r\n\t\t\t\"17\",\r\n\t\t\t\"25\",\r\n\t\t\t\"29\",\r\n\t\t\t\"49\",\r\n\t\t\t\"138\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"PKWDPROG6tAJg\",\r\n\t\t\t\"18\",\r\n\t\t\t\"45\",\r\n\t\t\t\"12\",\r\n\t\t\t\"32\",\r\n\t\t\t\"356\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"PKWDPUWYGDKwm\",\r\n\t\t\t\"19\",\r\n\t\t\t\"36\",\r\n\t\t\t\"44\",\r\n\t\t\t\"37\",\r\n\t\t\t\"423\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"PKWDPVGUhe5T1\",\r\n\t\t\t\"20\",\r\n\t\t\t\"49\",\r\n\t\t\t\"49\",\r\n\t\t\t\"50\",\r\n\t\t\t\"193\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"dc6a207b-b4eb-42d5-a5b7-b1262193e961\",\r\n\t\t\t\"1\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"125\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"f425bdec-fdc1-41cb-8d4b-19179d9ed7a9\",\r\n\t\t\t\"2\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"337\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"9fe3ff35-a57f-4dc2-b682-d69881ebd3e8\",\r\n\t\t\t\"3\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"317\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"48851c5a-132f-4df2-8139-1b0f8ba4ea13\",\r\n\t\t\t\"4\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"497\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"97b9bbb8-e390-4c6c-a688-3676c7a322a1\",\r\n\t\t\t\"5\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"496\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"5d53e82d-ea2c-42de-8255-5150462cc9e2\",\r\n\t\t\t\"6\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"114\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"bab7f29e-f1ec-4d0a-91a3-08cc0121fffc\",\r\n\t\t\t\"7\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"102\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"6117a4e4-2d58-4020-a047-7d0f568379df\",\r\n\t\t\t\"8\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"479\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"41c3a00c-c372-442c-b87c-b7329e1457ac\",\r\n\t\t\t\"9\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"140\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"0542e1ee-2535-44f7-bf41-fb4787f2de52\",\r\n\t\t\t\"10\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"280\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"02ccc497-fb94-4dcc-83dd-21f5db43f43e\",\r\n\t\t\t\"11\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"437\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"05883cec-d339-4cd0-b763-67f7d9d543ff\",\r\n\t\t\t\"12\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"354\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"74a8d502-8b17-4d96-8741-b38d294ae601\",\r\n\t\t\t\"13\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"430\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"72476b15-4090-46bc-be2f-e4e86171af50\",\r\n\t\t\t\"14\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"478\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"980a592b-bf45-4cbe-8ede-2c0d1d6302c4\",\r\n\t\t\t\"15\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"462\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"e50aeb0a-42ef-45f6-a247-e426f0cbd39c\",\r\n\t\t\t\"16\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"271\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"b7440ad5-4836-44e8-96ba-687e1c7fb0bb\",\r\n\t\t\t\"17\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"479\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"a0b745fd-d1de-45d0-9e86-42021ce43d43\",\r\n\t\t\t\"18\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"305\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"4fca59a2-84c1-40d2-b5a7-86ab957f00cc\",\r\n\t\t\t\"19\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"372\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"9129d101-c4ac-43cf-a818-079d4365c2d5\",\r\n\t\t\t\"20\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"459\",\r\n\t\t\t\"\"\r\n\t\t]\r\n\t],\r\n\t\"draftMode\": true\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observationUnits/{{observationUnitId}}/observations/{{observationId}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observationUnits",
+										"{{observationUnitId}}",
+										"observations",
+										"{{observationId}}"
+									]
+								},
+								"description": "DELETE ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/{observationUnitId}​/observations​/{observationId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Check existing out of bound values before adding observation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1e080457-e2d3-41d7-9c46-825b5376deb2",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "988cd927-2366-4d35-8b07-e07a47938d86",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observation-units/drafts/out-of-bounds",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observation-units",
+										"drafts",
+										"out-of-bounds"
+									]
+								},
+								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
+							},
+							"response": []
+						},
+						{
+							"name": "Add observation to categorical variable in subobs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8ce13a0c-5bed-4fdb-8f8b-4b913085b2b3",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "48cc0e4d-2966-4f2c-bfbd-7f27fda8df51",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"processWarnings\": true,\r\n\t\"data\": [\r\n\t\t[\r\n\t\t\t\"TRIAL_INSTANCE\",\r\n\t\t\t\"PI_NAME\",\r\n\t\t\t\"EXPT_DESIGN\",\r\n\t\t\t\"LOCATION_ID\",\r\n\t\t\t\"LOCATION_NAME\",\r\n\t\t\t\"Crop_season_Code\",\r\n\t\t\t\"ENTRY_TYPE\",\r\n\t\t\t\"GID\",\r\n\t\t\t\"DESIGNATION\",\r\n\t\t\t\"ENTRY_NO\",\r\n\t\t\t\"OBS_UNIT_ID\",\r\n\t\t\t\"PLOT_NO\",\r\n\t\t\t\"QUADRAT_NO\",\r\n\t\t\t\"Biomas_yield\",\r\n\t\t\t\"PestPressure_0_9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"0b261507-54ce-4713-b3f2-709736761734\",\r\n\t\t\t\"1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"15\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"315fb141-03c0-4182-88f1-7a9c85f72328\",\r\n\t\t\t\"1\",\r\n\t\t\t\"2\",\r\n\t\t\t\"50\",\r\n\t\t\t\"14\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"2d10c00d-4009-4e4e-951e-f7007a313af7\",\r\n\t\t\t\"1\",\r\n\t\t\t\"3\",\r\n\t\t\t\"18\",\r\n\t\t\t\"10\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"899d0d12-e86d-4b17-87ac-e281a94e92ec\",\r\n\t\t\t\"1\",\r\n\t\t\t\"4\",\r\n\t\t\t\"19\",\r\n\t\t\t\"6\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"cfa758b5-9bb8-40dd-9054-0219feca641a\",\r\n\t\t\t\"2\",\r\n\t\t\t\"1\",\r\n\t\t\t\"98\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"69d0f45f-9b50-41e2-8d4a-6d1e819b338e\",\r\n\t\t\t\"2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"69\",\r\n\t\t\t\"4\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"1bfa2437-3b9a-4076-ab76-5a179cc15922\",\r\n\t\t\t\"2\",\r\n\t\t\t\"3\",\r\n\t\t\t\"34\",\r\n\t\t\t\"11\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"2595fc34-8297-4270-a08e-8ccfc7721cb5\",\r\n\t\t\t\"2\",\r\n\t\t\t\"4\",\r\n\t\t\t\"60\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"638ca187-ee3d-4b04-9323-d1445beffe90\",\r\n\t\t\t\"3\",\r\n\t\t\t\"1\",\r\n\t\t\t\"14\",\r\n\t\t\t\"11\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"3cf8a747-33a1-4d67-aa3f-352a00613f00\",\r\n\t\t\t\"3\",\r\n\t\t\t\"2\",\r\n\t\t\t\"61\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"2c1272ee-9c14-46b4-a827-1cdc8f507467\",\r\n\t\t\t\"3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"9\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"1d191e63-4cfa-473a-afbe-40f4be48c64b\",\r\n\t\t\t\"3\",\r\n\t\t\t\"4\",\r\n\t\t\t\"50\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"93580832-f751-453e-a6a2-f95f76b288cf\",\r\n\t\t\t\"4\",\r\n\t\t\t\"1\",\r\n\t\t\t\"63\",\r\n\t\t\t\"10\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"dbb7f2f6-e8cd-4870-a9b5-a3fc00ba12fa\",\r\n\t\t\t\"4\",\r\n\t\t\t\"2\",\r\n\t\t\t\"64\",\r\n\t\t\t\"11\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"1f26c682-785b-4ee6-842f-2f672ba882c9\",\r\n\t\t\t\"4\",\r\n\t\t\t\"3\",\r\n\t\t\t\"58\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"3bbe6c39-a1d6-4652-8bba-7b1723d6ecf5\",\r\n\t\t\t\"4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"43\",\r\n\t\t\t\"14\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"964a445e-bcd2-4482-a1f0-67990a9845cd\",\r\n\t\t\t\"5\",\r\n\t\t\t\"1\",\r\n\t\t\t\"78\",\r\n\t\t\t\"12\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"bd0e959a-cebf-4858-82ed-61433679de02\",\r\n\t\t\t\"5\",\r\n\t\t\t\"2\",\r\n\t\t\t\"49\",\r\n\t\t\t\"10\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"194e49cd-4a72-4337-b207-c0ad03924dc1\",\r\n\t\t\t\"5\",\r\n\t\t\t\"3\",\r\n\t\t\t\"76\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"cfaf837f-508d-4b3c-8eb0-968439a92ad3\",\r\n\t\t\t\"5\",\r\n\t\t\t\"4\",\r\n\t\t\t\"87\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"33f3fd46-745e-40d0-99d4-abb86307c963\",\r\n\t\t\t\"6\",\r\n\t\t\t\"1\",\r\n\t\t\t\"28\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"2ecbc964-212b-4d87-b6d6-8dd86869180c\",\r\n\t\t\t\"6\",\r\n\t\t\t\"2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"19\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"0744db7c-e5f3-44c6-bcde-da6ef23261c6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"3\",\r\n\t\t\t\"21\",\r\n\t\t\t\"5\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"0a864c70-4eb1-4111-9a05-25fc6159dd8a\",\r\n\t\t\t\"6\",\r\n\t\t\t\"4\",\r\n\t\t\t\"36\",\r\n\t\t\t\"4\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"5d7a76f5-407e-45ad-9d3e-caccd110bfe0\",\r\n\t\t\t\"7\",\r\n\t\t\t\"1\",\r\n\t\t\t\"14\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"5909e7a8-e402-4e76-b88d-bd152174fbca\",\r\n\t\t\t\"7\",\r\n\t\t\t\"2\",\r\n\t\t\t\"34\",\r\n\t\t\t\"12\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"524bc770-e069-449b-9973-43efc938f351\",\r\n\t\t\t\"7\",\r\n\t\t\t\"3\",\r\n\t\t\t\"16\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"70cba2b2-df16-42ad-99fd-b43e243cbfdc\",\r\n\t\t\t\"7\",\r\n\t\t\t\"4\",\r\n\t\t\t\"11\",\r\n\t\t\t\"7\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"9456f46a-72a4-4e2f-900e-26a4d056901a\",\r\n\t\t\t\"8\",\r\n\t\t\t\"1\",\r\n\t\t\t\"57\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"ab4c4997-f3ea-4a47-ad22-7c2cc73cd5cc\",\r\n\t\t\t\"8\",\r\n\t\t\t\"2\",\r\n\t\t\t\"77\",\r\n\t\t\t\"18\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"b581068d-e240-4ba0-8df5-228fa2c2f4db\",\r\n\t\t\t\"8\",\r\n\t\t\t\"3\",\r\n\t\t\t\"84\",\r\n\t\t\t\"17\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"6e54de07-9b2e-4f88-9e31-28101efc2c5e\",\r\n\t\t\t\"8\",\r\n\t\t\t\"4\",\r\n\t\t\t\"92\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"8160083f-0c23-4cb6-824d-9b9bd7226437\",\r\n\t\t\t\"9\",\r\n\t\t\t\"1\",\r\n\t\t\t\"73\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"b682d671-e83f-4c90-aa92-e52184e6d72a\",\r\n\t\t\t\"9\",\r\n\t\t\t\"2\",\r\n\t\t\t\"69\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"5bf2357a-b346-41bc-bad2-faba1e35994b\",\r\n\t\t\t\"9\",\r\n\t\t\t\"3\",\r\n\t\t\t\"86\",\r\n\t\t\t\"6\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"7fe198f5-b983-4333-8615-9c801218ad61\",\r\n\t\t\t\"9\",\r\n\t\t\t\"4\",\r\n\t\t\t\"94\",\r\n\t\t\t\"18\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"07126092-8b56-4d5e-8f98-118873f2463d\",\r\n\t\t\t\"10\",\r\n\t\t\t\"1\",\r\n\t\t\t\"46\",\r\n\t\t\t\"14\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"9d1a3fa0-c20b-447b-8b10-bd48a269ff61\",\r\n\t\t\t\"10\",\r\n\t\t\t\"2\",\r\n\t\t\t\"9\",\r\n\t\t\t\"5\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"d6c3a7cf-da8c-41be-8656-0312c86dac10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"3\",\r\n\t\t\t\"56\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"d6f29725-e27b-49ea-b2a4-0e8999189728\",\r\n\t\t\t\"10\",\r\n\t\t\t\"4\",\r\n\t\t\t\"27\",\r\n\t\t\t\"18\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"fac0c26d-0dee-4d30-9a53-82d1d78c741f\",\r\n\t\t\t\"11\",\r\n\t\t\t\"1\",\r\n\t\t\t\"36\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"b634d60f-a7bd-4687-99fe-c92e5b067a90\",\r\n\t\t\t\"11\",\r\n\t\t\t\"2\",\r\n\t\t\t\"33\",\r\n\t\t\t\"7\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"5a08eead-02c6-4146-9114-15d04fd5a9eb\",\r\n\t\t\t\"11\",\r\n\t\t\t\"3\",\r\n\t\t\t\"49\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"080603ca-d4ad-4406-9a70-180bffe645b0\",\r\n\t\t\t\"11\",\r\n\t\t\t\"4\",\r\n\t\t\t\"18\",\r\n\t\t\t\"18\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"e6ce6248-4051-40eb-af4b-ecde2569c82a\",\r\n\t\t\t\"12\",\r\n\t\t\t\"1\",\r\n\t\t\t\"19\",\r\n\t\t\t\"4\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"fbf3a70f-1fd0-414a-ac4e-a0f180d4cbb3\",\r\n\t\t\t\"12\",\r\n\t\t\t\"2\",\r\n\t\t\t\"27\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"48b392cb-3179-42c2-8321-05eb6c57afd4\",\r\n\t\t\t\"12\",\r\n\t\t\t\"3\",\r\n\t\t\t\"18\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"2005942c-616e-4747-8ee8-0ad2f66966b6\",\r\n\t\t\t\"12\",\r\n\t\t\t\"4\",\r\n\t\t\t\"57\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"85d04aea-36cf-4b01-ba39-4ede2e9f5c71\",\r\n\t\t\t\"13\",\r\n\t\t\t\"1\",\r\n\t\t\t\"66\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"314a5e14-0bea-458c-b314-602654b36c21\",\r\n\t\t\t\"13\",\r\n\t\t\t\"2\",\r\n\t\t\t\"84\",\r\n\t\t\t\"6\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"93ffeae1-8695-4b8d-94b7-1f59731b804b\",\r\n\t\t\t\"13\",\r\n\t\t\t\"3\",\r\n\t\t\t\"29\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"d683a7eb-d4d3-46f4-aef1-a9c20ed128ca\",\r\n\t\t\t\"13\",\r\n\t\t\t\"4\",\r\n\t\t\t\"73\",\r\n\t\t\t\"4\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"36f04eb5-63e0-4d60-9a58-9d48e1c01f50\",\r\n\t\t\t\"14\",\r\n\t\t\t\"1\",\r\n\t\t\t\"28\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"3cdd899e-55b0-4eac-ab3f-9f40a2626963\",\r\n\t\t\t\"14\",\r\n\t\t\t\"2\",\r\n\t\t\t\"7\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"af24c30b-e91f-4381-be65-34d7412f73b0\",\r\n\t\t\t\"14\",\r\n\t\t\t\"3\",\r\n\t\t\t\"46\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"f0059745-7bb4-4df0-9363-1a01bc7490d5\",\r\n\t\t\t\"14\",\r\n\t\t\t\"4\",\r\n\t\t\t\"71\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"1243686c-5eea-4d33-b2bf-25b7d34150be\",\r\n\t\t\t\"15\",\r\n\t\t\t\"1\",\r\n\t\t\t\"79\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"e8b6a8ec-90aa-4636-9a7a-563418ca54fc\",\r\n\t\t\t\"15\",\r\n\t\t\t\"2\",\r\n\t\t\t\"98\",\r\n\t\t\t\"18\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"c8f6c6f6-b66f-4a1d-8df2-ced6953e176d\",\r\n\t\t\t\"15\",\r\n\t\t\t\"3\",\r\n\t\t\t\"59\",\r\n\t\t\t\"12\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"bc7b2c2e-1b32-4981-b9b1-713d6df8d43e\",\r\n\t\t\t\"15\",\r\n\t\t\t\"4\",\r\n\t\t\t\"74\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"8d23c31b-cd3b-48b6-978c-32061714cf5e\",\r\n\t\t\t\"16\",\r\n\t\t\t\"1\",\r\n\t\t\t\"33\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"71b7d84a-6b59-4f7b-a2e0-92b2e7799a88\",\r\n\t\t\t\"16\",\r\n\t\t\t\"2\",\r\n\t\t\t\"96\",\r\n\t\t\t\"19\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"2c4940bc-9775-4733-aec3-0599692a00e3\",\r\n\t\t\t\"16\",\r\n\t\t\t\"3\",\r\n\t\t\t\"33\",\r\n\t\t\t\"6\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"66c29362-af06-4280-92cd-65ba393dd025\",\r\n\t\t\t\"16\",\r\n\t\t\t\"4\",\r\n\t\t\t\"9\",\r\n\t\t\t\"7\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"d9771cde-0161-40c8-87ea-0e845d2d7f87\",\r\n\t\t\t\"17\",\r\n\t\t\t\"1\",\r\n\t\t\t\"11\",\r\n\t\t\t\"6\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"59879668-5fa8-4ba7-a930-823c30426ccb\",\r\n\t\t\t\"17\",\r\n\t\t\t\"2\",\r\n\t\t\t\"36\",\r\n\t\t\t\"20\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"5d187628-c118-4f45-aeba-c81328d33f0e\",\r\n\t\t\t\"17\",\r\n\t\t\t\"3\",\r\n\t\t\t\"56\",\r\n\t\t\t\"8\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"86216685-143a-402d-8d52-cccf76c8f949\",\r\n\t\t\t\"17\",\r\n\t\t\t\"4\",\r\n\t\t\t\"62\",\r\n\t\t\t\"8\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"dfc52e00-8a51-4f91-b0b3-a364697da9aa\",\r\n\t\t\t\"18\",\r\n\t\t\t\"1\",\r\n\t\t\t\"68\",\r\n\t\t\t\"5\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"9b745a60-23af-4530-8a10-c002b4cf5061\",\r\n\t\t\t\"18\",\r\n\t\t\t\"2\",\r\n\t\t\t\"33\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"ed32ad4d-711e-4774-b83b-f98aa3e6c4fa\",\r\n\t\t\t\"18\",\r\n\t\t\t\"3\",\r\n\t\t\t\"79\",\r\n\t\t\t\"19\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"d3f269e0-b77e-47e7-906d-554b93060ba6\",\r\n\t\t\t\"18\",\r\n\t\t\t\"4\",\r\n\t\t\t\"78\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"810e5db4-c7ca-466e-a9d7-cb7edde9e531\",\r\n\t\t\t\"19\",\r\n\t\t\t\"1\",\r\n\t\t\t\"60\",\r\n\t\t\t\"4\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"34f406a9-60c6-4957-a644-4a9e16e52382\",\r\n\t\t\t\"19\",\r\n\t\t\t\"2\",\r\n\t\t\t\"17\",\r\n\t\t\t\"14\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"6cf3bc95-85ff-499c-a1f4-84a565f4a4d2\",\r\n\t\t\t\"19\",\r\n\t\t\t\"3\",\r\n\t\t\t\"14\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"a125b0f7-a1b4-4be5-bbcd-50efffa8fbd3\",\r\n\t\t\t\"19\",\r\n\t\t\t\"4\",\r\n\t\t\t\"70\",\r\n\t\t\t\"20\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"0e7688f7-7e7f-435b-bd86-fa541aa4eb13\",\r\n\t\t\t\"20\",\r\n\t\t\t\"1\",\r\n\t\t\t\"77\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"c7cb7363-9d1c-4080-82d7-ef302280baf1\",\r\n\t\t\t\"20\",\r\n\t\t\t\"2\",\r\n\t\t\t\"69\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"7008760c-5e8f-4d6f-9986-c47e8d2a23cb\",\r\n\t\t\t\"20\",\r\n\t\t\t\"3\",\r\n\t\t\t\"46\",\r\n\t\t\t\"7\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"c371cb1e-c0f9-4129-8900-460fff2b58ff\",\r\n\t\t\t\"20\",\r\n\t\t\t\"4\",\r\n\t\t\t\"35\",\r\n\t\t\t\"20\"\r\n\t\t]\r\n\t],\r\n\t\"draftMode\": true\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observationUnits/observations",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observationUnits",
+										"observations"
+									]
+								},
+								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
+							},
+							"response": []
+						},
+						{
+							"name": "Check existing out of bound values after adding observation with out of bound values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c2ea750f-e2aa-498a-97a7-b5fef12580ac",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9de14344-63e3-4c9a-9a12-eb20761c05c6",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observation-units/drafts/out-of-bounds",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observation-units",
+										"drafts",
+										"out-of-bounds"
+									]
+								},
+								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
+							},
+							"response": []
+						},
+						{
+							"name": "Check existing out of bound values with invalid crop",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "088a2035-e1cd-4d7b-8020-2c09afc857be",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop \"+pm.environment.get(\"invalidCrop\")+\" for URL:/crops/\"+pm.environment.get(\"invalidCrop\")+\"/programs/\"+pm.environment.get(\"api_program_id\")+\"/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs2_datasetId\")+\"/observation-units/drafts/out-of-bounds\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "1b884dac-92b6-4aed-a4a5-2866f7ba2c9a",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{invalidCrop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observation-units/drafts/out-of-bounds",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{invalidCrop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observation-units",
+										"drafts",
+										"out-of-bounds"
+									]
+								},
+								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
+							},
+							"response": []
+						},
+						{
+							"name": "Check existing out of bound values with invalid program",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "da3ddca1-78a6-4838-913f-1462c5287d9d",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid program: invalid for crop: \"+pm.environment.get(\"crop\")+\" for service with path /crops/\"+pm.environment.get(\"crop\")+\"/programs/invalid/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs2_datasetId\")+\"/observation-units/drafts/out-of-bounds\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4095112e-ef88-425c-a538-f117155466b2",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/invalid/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observation-units/drafts/out-of-bounds",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"invalid",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observation-units",
+										"drafts",
+										"out-of-bounds"
+									]
+								},
+								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
+							},
+							"response": []
+						},
+						{
+							"name": "Accept filtered pending data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "74513f7e-e0d1-40fb-a272-13dab931fdc3",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "6ae3140b-3c41-400c-ae9a-efdc5d7ae9ba",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draftMode\": true,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": 18090,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8207\": \"OBSERVATION_UNIT\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"18090\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/testdata/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observation-units/drafts/filter/acceptance",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"testdata",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observation-units",
+										"drafts",
+										"filter",
+										"acceptance"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve observation units of after updating filtered phenotype Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2a970247-7ff6-41e0-92e2-fed4454484b3",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check records filtered \", function () {",
+											"    pm.expect(jsonData.recordsFiltered).to.eql(80);",
+											"});",
+											"pm.test(\"Check records total\", function () {",
+											"    pm.expect(jsonData.recordsFiltered).to.eql(80);",
+											"});",
+											"",
+											"//Check data at index 0",
+											"",
+											"var index = 0;",
+											"",
+											"var observationUnitIds = [];",
+											"var observationIds = [];",
+											"",
+											"",
+											"for (var i = 0; i < jsonData.data.length; i++){",
+											"  var selectedData = jsonData.data[i];",
+											"  observationUnitIds[i] = selectedData.observationUnitId;",
+											"  observationIds[i] = selectedData.variables.PestPressure_0_9.observationId",
+											"  console.log(observationIds[i]);",
+											"}",
+											"",
+											"pm.environment.unset(\"observationUnitIds\");",
+											"pm.environment.unset(\"observationIds\");",
+											"pm.environment.set(\"observationUnitIds\", JSON.stringify(observationUnitIds));",
+											"pm.environment.set(\"observationIds\", JSON.stringify(observationIds));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "98670921-0405-4a05-af57-dfcccd9d3417",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draw\": 1,\r\n\t\"sortedRequest\": {\r\n\t\t\"pageSize\": 50,\r\n\t\t\"pageNumber\": 1,\r\n\t\t\"sortBy\": 8200,\r\n\t\t\"sortOrder\": \"asc\"\r\n\t},\r\n\t\"instanceId\": 1,\r\n\t\"draftMode\": false,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": null,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8207\": \"OBSERVATION_UNIT\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"18010\": \"TRAIT\",\r\n\t\t\t\"18090\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observationUnits/table",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observationUnits",
+										"table"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete observation of catgorical variable in subobs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4b09ec3d-668a-44d1-a6ae-bb26ca2cc0fb",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var observationUnitIds = [];",
+											"observationUnitIds = JSON.parse(pm.environment.get(\"observationUnitIds\"));",
+											"var observationIds = [];",
+											"observationIds = JSON.parse(pm.environment.get(\"observationIds\"));",
+											"",
+											"if(observationUnitIds.length && observationIds.length > 0){",
+											"postman.setNextRequest(\"Delete observation of catgorical variable in subobs\");",
+											"}else{",
+											"    postman.setNextRequest(null);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "260f99bf-4d49-4d96-82f4-8a7903d18293",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											"\r",
+											"var observationUnitIds = [];\r",
+											"observationUnitIds = JSON.parse(pm.environment.get(\"observationUnitIds\"));\r",
+											"var observationIds = [];\r",
+											"observationIds = JSON.parse(pm.environment.get(\"observationIds\"));\r",
+											"console.log(observationUnitIds.length);\r",
+											"var current_observationUnitId = observationUnitIds.shift();\r",
+											"var current_observationId = observationIds.shift();\r",
+											"pm.environment.set(\"observationUnitId\", current_observationUnitId);\r",
+											"pm.environment.set(\"observationId\", current_observationId);\r",
+											"pm.environment.set(\"observationUnitIds\", JSON.stringify(observationUnitIds));\r",
+											"pm.environment.set(\"observationIds\", JSON.stringify(observationIds));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"processWarnings\": true,\r\n\t\"data\": [\r\n\t\t[\r\n\t\t\t\"TRIAL_INSTANCE\",\r\n\t\t\t\"PI_NAME\",\r\n\t\t\t\"EXPT_DESIGN\",\r\n\t\t\t\"LOCATION_ID\",\r\n\t\t\t\"LOCATION_NAME\",\r\n\t\t\t\"Crop_season_Code\",\r\n\t\t\t\"ENTRY_TYPE\",\r\n\t\t\t\"GID\",\r\n\t\t\t\"DESIGNATION\",\r\n\t\t\t\"ENTRY_NO\",\r\n\t\t\t\"OBS_UNIT_ID\",\r\n\t\t\t\"PLOT_NO\",\r\n\t\t\t\"WeedPressure_number\",\r\n\t\t\t\"Grain_yield\",\r\n\t\t\t\"Biomas_yield\",\r\n\t\t\t\"InputVariable\",\r\n\t\t\t\"NPSEL\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"PKWDPtLOzD8Sz\",\r\n\t\t\t\"1\",\r\n\t\t\t\"21\",\r\n\t\t\t\"23\",\r\n\t\t\t\"40\",\r\n\t\t\t\"338\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"PKWDP6ME6bt1l\",\r\n\t\t\t\"2\",\r\n\t\t\t\"15\",\r\n\t\t\t\"12\",\r\n\t\t\t\"45\",\r\n\t\t\t\"285\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"PKWDPe2za6TM7\",\r\n\t\t\t\"3\",\r\n\t\t\t\"12\",\r\n\t\t\t\"41\",\r\n\t\t\t\"32\",\r\n\t\t\t\"176\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"PKWDPEV6LPs1N\",\r\n\t\t\t\"4\",\r\n\t\t\t\"46\",\r\n\t\t\t\"49\",\r\n\t\t\t\"33\",\r\n\t\t\t\"488\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"PKWDPU27n9e9L\",\r\n\t\t\t\"5\",\r\n\t\t\t\"33\",\r\n\t\t\t\"41\",\r\n\t\t\t\"28\",\r\n\t\t\t\"397\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"PKWDPmpZgUu6S\",\r\n\t\t\t\"6\",\r\n\t\t\t\"48\",\r\n\t\t\t\"17\",\r\n\t\t\t\"35\",\r\n\t\t\t\"463\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"PKWDP0M9lGBzz\",\r\n\t\t\t\"7\",\r\n\t\t\t\"34\",\r\n\t\t\t\"16\",\r\n\t\t\t\"49\",\r\n\t\t\t\"105\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"PKWDPsCKr80ks\",\r\n\t\t\t\"8\",\r\n\t\t\t\"17\",\r\n\t\t\t\"28\",\r\n\t\t\t\"15\",\r\n\t\t\t\"379\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"PKWDPDotBpZ1y\",\r\n\t\t\t\"9\",\r\n\t\t\t\"45\",\r\n\t\t\t\"28\",\r\n\t\t\t\"49\",\r\n\t\t\t\"424\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"PKWDPCYuyqdql\",\r\n\t\t\t\"10\",\r\n\t\t\t\"41\",\r\n\t\t\t\"26\",\r\n\t\t\t\"10\",\r\n\t\t\t\"188\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"PKWDP0fPOkMaC\",\r\n\t\t\t\"11\",\r\n\t\t\t\"39\",\r\n\t\t\t\"20\",\r\n\t\t\t\"31\",\r\n\t\t\t\"471\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"PKWDPGN6nYdv2\",\r\n\t\t\t\"12\",\r\n\t\t\t\"48\",\r\n\t\t\t\"46\",\r\n\t\t\t\"12\",\r\n\t\t\t\"395\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"PKWDPZ19QRNrq\",\r\n\t\t\t\"13\",\r\n\t\t\t\"24\",\r\n\t\t\t\"27\",\r\n\t\t\t\"17\",\r\n\t\t\t\"340\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"PKWDPPh1TNHCh\",\r\n\t\t\t\"14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"36\",\r\n\t\t\t\"13\",\r\n\t\t\t\"299\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"PKWDPH6Q51k29\",\r\n\t\t\t\"15\",\r\n\t\t\t\"37\",\r\n\t\t\t\"20\",\r\n\t\t\t\"15\",\r\n\t\t\t\"408\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"PKWDP2mpwUmS5\",\r\n\t\t\t\"16\",\r\n\t\t\t\"36\",\r\n\t\t\t\"40\",\r\n\t\t\t\"50\",\r\n\t\t\t\"472\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"PKWDP07BrGxf2\",\r\n\t\t\t\"17\",\r\n\t\t\t\"25\",\r\n\t\t\t\"29\",\r\n\t\t\t\"49\",\r\n\t\t\t\"138\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"PKWDPROG6tAJg\",\r\n\t\t\t\"18\",\r\n\t\t\t\"45\",\r\n\t\t\t\"12\",\r\n\t\t\t\"32\",\r\n\t\t\t\"356\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"PKWDPUWYGDKwm\",\r\n\t\t\t\"19\",\r\n\t\t\t\"36\",\r\n\t\t\t\"44\",\r\n\t\t\t\"37\",\r\n\t\t\t\"423\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"PKWDPVGUhe5T1\",\r\n\t\t\t\"20\",\r\n\t\t\t\"49\",\r\n\t\t\t\"49\",\r\n\t\t\t\"50\",\r\n\t\t\t\"193\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"dc6a207b-b4eb-42d5-a5b7-b1262193e961\",\r\n\t\t\t\"1\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"125\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"f425bdec-fdc1-41cb-8d4b-19179d9ed7a9\",\r\n\t\t\t\"2\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"337\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"9fe3ff35-a57f-4dc2-b682-d69881ebd3e8\",\r\n\t\t\t\"3\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"317\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"48851c5a-132f-4df2-8139-1b0f8ba4ea13\",\r\n\t\t\t\"4\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"497\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"97b9bbb8-e390-4c6c-a688-3676c7a322a1\",\r\n\t\t\t\"5\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"496\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"5d53e82d-ea2c-42de-8255-5150462cc9e2\",\r\n\t\t\t\"6\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"114\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"bab7f29e-f1ec-4d0a-91a3-08cc0121fffc\",\r\n\t\t\t\"7\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"102\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"6117a4e4-2d58-4020-a047-7d0f568379df\",\r\n\t\t\t\"8\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"479\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"41c3a00c-c372-442c-b87c-b7329e1457ac\",\r\n\t\t\t\"9\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"140\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"0542e1ee-2535-44f7-bf41-fb4787f2de52\",\r\n\t\t\t\"10\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"280\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"02ccc497-fb94-4dcc-83dd-21f5db43f43e\",\r\n\t\t\t\"11\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"437\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"05883cec-d339-4cd0-b763-67f7d9d543ff\",\r\n\t\t\t\"12\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"354\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"74a8d502-8b17-4d96-8741-b38d294ae601\",\r\n\t\t\t\"13\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"430\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"72476b15-4090-46bc-be2f-e4e86171af50\",\r\n\t\t\t\"14\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"478\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"980a592b-bf45-4cbe-8ede-2c0d1d6302c4\",\r\n\t\t\t\"15\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"462\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"e50aeb0a-42ef-45f6-a247-e426f0cbd39c\",\r\n\t\t\t\"16\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"271\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"b7440ad5-4836-44e8-96ba-687e1c7fb0bb\",\r\n\t\t\t\"17\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"479\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"a0b745fd-d1de-45d0-9e86-42021ce43d43\",\r\n\t\t\t\"18\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"305\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"4fca59a2-84c1-40d2-b5a7-86ab957f00cc\",\r\n\t\t\t\"19\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"372\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"9129d101-c4ac-43cf-a818-079d4365c2d5\",\r\n\t\t\t\"20\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"459\",\r\n\t\t\t\"\"\r\n\t\t]\r\n\t],\r\n\t\"draftMode\": true\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observationUnits/{{observationUnitId}}/observations/{{observationId}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observationUnits",
+										"{{observationUnitId}}",
+										"observations",
+										"{{observationId}}"
+									]
+								},
+								"description": "DELETE ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/{observationUnitId}​/observations​/{observationId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Add observation to categorical variable in subobs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9fbaf35e-03e7-40f9-b6dd-0e10b5a22963",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "deec2e99-7aa2-41f0-88f4-facb28e8c7fb",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"processWarnings\": true,\r\n\t\"data\": [\r\n\t\t[\r\n\t\t\t\"TRIAL_INSTANCE\",\r\n\t\t\t\"PI_NAME\",\r\n\t\t\t\"EXPT_DESIGN\",\r\n\t\t\t\"LOCATION_ID\",\r\n\t\t\t\"LOCATION_NAME\",\r\n\t\t\t\"Crop_season_Code\",\r\n\t\t\t\"ENTRY_TYPE\",\r\n\t\t\t\"GID\",\r\n\t\t\t\"DESIGNATION\",\r\n\t\t\t\"ENTRY_NO\",\r\n\t\t\t\"OBS_UNIT_ID\",\r\n\t\t\t\"PLOT_NO\",\r\n\t\t\t\"QUADRAT_NO\",\r\n\t\t\t\"Biomas_yield\",\r\n\t\t\t\"PestPressure_0_9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"0b261507-54ce-4713-b3f2-709736761734\",\r\n\t\t\t\"1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"15\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"315fb141-03c0-4182-88f1-7a9c85f72328\",\r\n\t\t\t\"1\",\r\n\t\t\t\"2\",\r\n\t\t\t\"50\",\r\n\t\t\t\"14\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"2d10c00d-4009-4e4e-951e-f7007a313af7\",\r\n\t\t\t\"1\",\r\n\t\t\t\"3\",\r\n\t\t\t\"18\",\r\n\t\t\t\"10\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"899d0d12-e86d-4b17-87ac-e281a94e92ec\",\r\n\t\t\t\"1\",\r\n\t\t\t\"4\",\r\n\t\t\t\"19\",\r\n\t\t\t\"6\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"cfa758b5-9bb8-40dd-9054-0219feca641a\",\r\n\t\t\t\"2\",\r\n\t\t\t\"1\",\r\n\t\t\t\"98\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"69d0f45f-9b50-41e2-8d4a-6d1e819b338e\",\r\n\t\t\t\"2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"69\",\r\n\t\t\t\"4\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"1bfa2437-3b9a-4076-ab76-5a179cc15922\",\r\n\t\t\t\"2\",\r\n\t\t\t\"3\",\r\n\t\t\t\"34\",\r\n\t\t\t\"11\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"2595fc34-8297-4270-a08e-8ccfc7721cb5\",\r\n\t\t\t\"2\",\r\n\t\t\t\"4\",\r\n\t\t\t\"60\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"638ca187-ee3d-4b04-9323-d1445beffe90\",\r\n\t\t\t\"3\",\r\n\t\t\t\"1\",\r\n\t\t\t\"14\",\r\n\t\t\t\"11\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"3cf8a747-33a1-4d67-aa3f-352a00613f00\",\r\n\t\t\t\"3\",\r\n\t\t\t\"2\",\r\n\t\t\t\"61\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"2c1272ee-9c14-46b4-a827-1cdc8f507467\",\r\n\t\t\t\"3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"9\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"1d191e63-4cfa-473a-afbe-40f4be48c64b\",\r\n\t\t\t\"3\",\r\n\t\t\t\"4\",\r\n\t\t\t\"50\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"93580832-f751-453e-a6a2-f95f76b288cf\",\r\n\t\t\t\"4\",\r\n\t\t\t\"1\",\r\n\t\t\t\"63\",\r\n\t\t\t\"10\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"dbb7f2f6-e8cd-4870-a9b5-a3fc00ba12fa\",\r\n\t\t\t\"4\",\r\n\t\t\t\"2\",\r\n\t\t\t\"64\",\r\n\t\t\t\"11\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"1f26c682-785b-4ee6-842f-2f672ba882c9\",\r\n\t\t\t\"4\",\r\n\t\t\t\"3\",\r\n\t\t\t\"58\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"3bbe6c39-a1d6-4652-8bba-7b1723d6ecf5\",\r\n\t\t\t\"4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"43\",\r\n\t\t\t\"14\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"964a445e-bcd2-4482-a1f0-67990a9845cd\",\r\n\t\t\t\"5\",\r\n\t\t\t\"1\",\r\n\t\t\t\"78\",\r\n\t\t\t\"12\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"bd0e959a-cebf-4858-82ed-61433679de02\",\r\n\t\t\t\"5\",\r\n\t\t\t\"2\",\r\n\t\t\t\"49\",\r\n\t\t\t\"10\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"194e49cd-4a72-4337-b207-c0ad03924dc1\",\r\n\t\t\t\"5\",\r\n\t\t\t\"3\",\r\n\t\t\t\"76\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"cfaf837f-508d-4b3c-8eb0-968439a92ad3\",\r\n\t\t\t\"5\",\r\n\t\t\t\"4\",\r\n\t\t\t\"87\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"33f3fd46-745e-40d0-99d4-abb86307c963\",\r\n\t\t\t\"6\",\r\n\t\t\t\"1\",\r\n\t\t\t\"28\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"2ecbc964-212b-4d87-b6d6-8dd86869180c\",\r\n\t\t\t\"6\",\r\n\t\t\t\"2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"19\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"0744db7c-e5f3-44c6-bcde-da6ef23261c6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"3\",\r\n\t\t\t\"21\",\r\n\t\t\t\"5\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"0a864c70-4eb1-4111-9a05-25fc6159dd8a\",\r\n\t\t\t\"6\",\r\n\t\t\t\"4\",\r\n\t\t\t\"36\",\r\n\t\t\t\"4\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"5d7a76f5-407e-45ad-9d3e-caccd110bfe0\",\r\n\t\t\t\"7\",\r\n\t\t\t\"1\",\r\n\t\t\t\"14\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"5909e7a8-e402-4e76-b88d-bd152174fbca\",\r\n\t\t\t\"7\",\r\n\t\t\t\"2\",\r\n\t\t\t\"34\",\r\n\t\t\t\"12\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"524bc770-e069-449b-9973-43efc938f351\",\r\n\t\t\t\"7\",\r\n\t\t\t\"3\",\r\n\t\t\t\"16\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"70cba2b2-df16-42ad-99fd-b43e243cbfdc\",\r\n\t\t\t\"7\",\r\n\t\t\t\"4\",\r\n\t\t\t\"11\",\r\n\t\t\t\"7\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"9456f46a-72a4-4e2f-900e-26a4d056901a\",\r\n\t\t\t\"8\",\r\n\t\t\t\"1\",\r\n\t\t\t\"57\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"ab4c4997-f3ea-4a47-ad22-7c2cc73cd5cc\",\r\n\t\t\t\"8\",\r\n\t\t\t\"2\",\r\n\t\t\t\"77\",\r\n\t\t\t\"18\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"b581068d-e240-4ba0-8df5-228fa2c2f4db\",\r\n\t\t\t\"8\",\r\n\t\t\t\"3\",\r\n\t\t\t\"84\",\r\n\t\t\t\"17\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"6e54de07-9b2e-4f88-9e31-28101efc2c5e\",\r\n\t\t\t\"8\",\r\n\t\t\t\"4\",\r\n\t\t\t\"92\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"8160083f-0c23-4cb6-824d-9b9bd7226437\",\r\n\t\t\t\"9\",\r\n\t\t\t\"1\",\r\n\t\t\t\"73\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"b682d671-e83f-4c90-aa92-e52184e6d72a\",\r\n\t\t\t\"9\",\r\n\t\t\t\"2\",\r\n\t\t\t\"69\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"5bf2357a-b346-41bc-bad2-faba1e35994b\",\r\n\t\t\t\"9\",\r\n\t\t\t\"3\",\r\n\t\t\t\"86\",\r\n\t\t\t\"6\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"7fe198f5-b983-4333-8615-9c801218ad61\",\r\n\t\t\t\"9\",\r\n\t\t\t\"4\",\r\n\t\t\t\"94\",\r\n\t\t\t\"18\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"07126092-8b56-4d5e-8f98-118873f2463d\",\r\n\t\t\t\"10\",\r\n\t\t\t\"1\",\r\n\t\t\t\"46\",\r\n\t\t\t\"14\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"9d1a3fa0-c20b-447b-8b10-bd48a269ff61\",\r\n\t\t\t\"10\",\r\n\t\t\t\"2\",\r\n\t\t\t\"9\",\r\n\t\t\t\"5\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"d6c3a7cf-da8c-41be-8656-0312c86dac10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"3\",\r\n\t\t\t\"56\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"d6f29725-e27b-49ea-b2a4-0e8999189728\",\r\n\t\t\t\"10\",\r\n\t\t\t\"4\",\r\n\t\t\t\"27\",\r\n\t\t\t\"18\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"fac0c26d-0dee-4d30-9a53-82d1d78c741f\",\r\n\t\t\t\"11\",\r\n\t\t\t\"1\",\r\n\t\t\t\"36\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"b634d60f-a7bd-4687-99fe-c92e5b067a90\",\r\n\t\t\t\"11\",\r\n\t\t\t\"2\",\r\n\t\t\t\"33\",\r\n\t\t\t\"7\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"5a08eead-02c6-4146-9114-15d04fd5a9eb\",\r\n\t\t\t\"11\",\r\n\t\t\t\"3\",\r\n\t\t\t\"49\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"080603ca-d4ad-4406-9a70-180bffe645b0\",\r\n\t\t\t\"11\",\r\n\t\t\t\"4\",\r\n\t\t\t\"18\",\r\n\t\t\t\"18\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"e6ce6248-4051-40eb-af4b-ecde2569c82a\",\r\n\t\t\t\"12\",\r\n\t\t\t\"1\",\r\n\t\t\t\"19\",\r\n\t\t\t\"4\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"fbf3a70f-1fd0-414a-ac4e-a0f180d4cbb3\",\r\n\t\t\t\"12\",\r\n\t\t\t\"2\",\r\n\t\t\t\"27\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"48b392cb-3179-42c2-8321-05eb6c57afd4\",\r\n\t\t\t\"12\",\r\n\t\t\t\"3\",\r\n\t\t\t\"18\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"2005942c-616e-4747-8ee8-0ad2f66966b6\",\r\n\t\t\t\"12\",\r\n\t\t\t\"4\",\r\n\t\t\t\"57\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"85d04aea-36cf-4b01-ba39-4ede2e9f5c71\",\r\n\t\t\t\"13\",\r\n\t\t\t\"1\",\r\n\t\t\t\"66\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"314a5e14-0bea-458c-b314-602654b36c21\",\r\n\t\t\t\"13\",\r\n\t\t\t\"2\",\r\n\t\t\t\"84\",\r\n\t\t\t\"6\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"93ffeae1-8695-4b8d-94b7-1f59731b804b\",\r\n\t\t\t\"13\",\r\n\t\t\t\"3\",\r\n\t\t\t\"29\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"d683a7eb-d4d3-46f4-aef1-a9c20ed128ca\",\r\n\t\t\t\"13\",\r\n\t\t\t\"4\",\r\n\t\t\t\"73\",\r\n\t\t\t\"4\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"36f04eb5-63e0-4d60-9a58-9d48e1c01f50\",\r\n\t\t\t\"14\",\r\n\t\t\t\"1\",\r\n\t\t\t\"28\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"3cdd899e-55b0-4eac-ab3f-9f40a2626963\",\r\n\t\t\t\"14\",\r\n\t\t\t\"2\",\r\n\t\t\t\"7\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"af24c30b-e91f-4381-be65-34d7412f73b0\",\r\n\t\t\t\"14\",\r\n\t\t\t\"3\",\r\n\t\t\t\"46\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"f0059745-7bb4-4df0-9363-1a01bc7490d5\",\r\n\t\t\t\"14\",\r\n\t\t\t\"4\",\r\n\t\t\t\"71\",\r\n\t\t\t\"9\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"1243686c-5eea-4d33-b2bf-25b7d34150be\",\r\n\t\t\t\"15\",\r\n\t\t\t\"1\",\r\n\t\t\t\"79\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"e8b6a8ec-90aa-4636-9a7a-563418ca54fc\",\r\n\t\t\t\"15\",\r\n\t\t\t\"2\",\r\n\t\t\t\"98\",\r\n\t\t\t\"18\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"c8f6c6f6-b66f-4a1d-8df2-ced6953e176d\",\r\n\t\t\t\"15\",\r\n\t\t\t\"3\",\r\n\t\t\t\"59\",\r\n\t\t\t\"12\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"bc7b2c2e-1b32-4981-b9b1-713d6df8d43e\",\r\n\t\t\t\"15\",\r\n\t\t\t\"4\",\r\n\t\t\t\"74\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"8d23c31b-cd3b-48b6-978c-32061714cf5e\",\r\n\t\t\t\"16\",\r\n\t\t\t\"1\",\r\n\t\t\t\"33\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"71b7d84a-6b59-4f7b-a2e0-92b2e7799a88\",\r\n\t\t\t\"16\",\r\n\t\t\t\"2\",\r\n\t\t\t\"96\",\r\n\t\t\t\"19\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"2c4940bc-9775-4733-aec3-0599692a00e3\",\r\n\t\t\t\"16\",\r\n\t\t\t\"3\",\r\n\t\t\t\"33\",\r\n\t\t\t\"6\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"66c29362-af06-4280-92cd-65ba393dd025\",\r\n\t\t\t\"16\",\r\n\t\t\t\"4\",\r\n\t\t\t\"9\",\r\n\t\t\t\"7\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"d9771cde-0161-40c8-87ea-0e845d2d7f87\",\r\n\t\t\t\"17\",\r\n\t\t\t\"1\",\r\n\t\t\t\"11\",\r\n\t\t\t\"6\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"59879668-5fa8-4ba7-a930-823c30426ccb\",\r\n\t\t\t\"17\",\r\n\t\t\t\"2\",\r\n\t\t\t\"36\",\r\n\t\t\t\"20\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"5d187628-c118-4f45-aeba-c81328d33f0e\",\r\n\t\t\t\"17\",\r\n\t\t\t\"3\",\r\n\t\t\t\"56\",\r\n\t\t\t\"8\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"86216685-143a-402d-8d52-cccf76c8f949\",\r\n\t\t\t\"17\",\r\n\t\t\t\"4\",\r\n\t\t\t\"62\",\r\n\t\t\t\"8\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"dfc52e00-8a51-4f91-b0b3-a364697da9aa\",\r\n\t\t\t\"18\",\r\n\t\t\t\"1\",\r\n\t\t\t\"68\",\r\n\t\t\t\"5\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"9b745a60-23af-4530-8a10-c002b4cf5061\",\r\n\t\t\t\"18\",\r\n\t\t\t\"2\",\r\n\t\t\t\"33\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"ed32ad4d-711e-4774-b83b-f98aa3e6c4fa\",\r\n\t\t\t\"18\",\r\n\t\t\t\"3\",\r\n\t\t\t\"79\",\r\n\t\t\t\"19\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"d3f269e0-b77e-47e7-906d-554b93060ba6\",\r\n\t\t\t\"18\",\r\n\t\t\t\"4\",\r\n\t\t\t\"78\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"810e5db4-c7ca-466e-a9d7-cb7edde9e531\",\r\n\t\t\t\"19\",\r\n\t\t\t\"1\",\r\n\t\t\t\"60\",\r\n\t\t\t\"4\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"34f406a9-60c6-4957-a644-4a9e16e52382\",\r\n\t\t\t\"19\",\r\n\t\t\t\"2\",\r\n\t\t\t\"17\",\r\n\t\t\t\"14\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"6cf3bc95-85ff-499c-a1f4-84a565f4a4d2\",\r\n\t\t\t\"19\",\r\n\t\t\t\"3\",\r\n\t\t\t\"14\",\r\n\t\t\t\"13\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"a125b0f7-a1b4-4be5-bbcd-50efffa8fbd3\",\r\n\t\t\t\"19\",\r\n\t\t\t\"4\",\r\n\t\t\t\"70\",\r\n\t\t\t\"20\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"0e7688f7-7e7f-435b-bd86-fa541aa4eb13\",\r\n\t\t\t\"20\",\r\n\t\t\t\"1\",\r\n\t\t\t\"77\",\r\n\t\t\t\"16\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"c7cb7363-9d1c-4080-82d7-ef302280baf1\",\r\n\t\t\t\"20\",\r\n\t\t\t\"2\",\r\n\t\t\t\"69\",\r\n\t\t\t\"15\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"7008760c-5e8f-4d6f-9986-c47e8d2a23cb\",\r\n\t\t\t\"20\",\r\n\t\t\t\"3\",\r\n\t\t\t\"46\",\r\n\t\t\t\"7\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"c371cb1e-c0f9-4129-8900-460fff2b58ff\",\r\n\t\t\t\"20\",\r\n\t\t\t\"4\",\r\n\t\t\t\"35\",\r\n\t\t\t\"20\"\r\n\t\t]\r\n\t],\r\n\t\"draftMode\": true\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observationUnits/observations",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observationUnits",
+										"observations"
+									]
+								},
+								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
+							},
+							"response": []
+						},
+						{
+							"name": "Set out of bound observations as missing",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6545157c-8b53-47bd-b7dd-4aa0fac96e81",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "60cb7c71-93f1-459c-b693-d2ff54ca2819",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draftMode\": true,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": 18090,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8207\": \"OBSERVATION_UNIT\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"18090\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observation-units/drafts/set-as-missing",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observation-units",
+										"drafts",
+										"set-as-missing"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve observation units of after updating filtered phenotype Copy Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6ddc31a3-3664-457c-9e92-5001004dc7dd",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check records filtered \", function () {",
+											"    pm.expect(jsonData.recordsFiltered).to.eql(80);",
+											"});",
+											"pm.test(\"Check records total\", function () {",
+											"    pm.expect(jsonData.recordsFiltered).to.eql(80);",
+											"});",
+											"",
+											"//Check data at index 0",
+											"",
+											"var index = 0;",
+											"",
+											"var observationUnitIds = [];",
+											"var observationIds = [];",
+											"",
+											"",
+											"for (var i = 0; i < jsonData.data.length; i++){",
+											"  var selectedData = jsonData.data[i];",
+											"  observationUnitIds[i] = selectedData.observationUnitId;",
+											"  observationIds[i] = selectedData.variables.PestPressure_0_9.observationId",
+											"  console.log(observationIds[i]);",
+											"}",
+											"",
+											"pm.environment.unset(\"observationUnitIds\");",
+											"pm.environment.unset(\"observationIds\");",
+											"pm.environment.set(\"observationUnitIds\", JSON.stringify(observationUnitIds));",
+											"pm.environment.set(\"observationIds\", JSON.stringify(observationIds));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "c8d82410-51b4-4aaa-8bb1-f398e169b432",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draw\": 1,\r\n\t\"sortedRequest\": {\r\n\t\t\"pageSize\": 50,\r\n\t\t\"pageNumber\": 1,\r\n\t\t\"sortBy\": 8200,\r\n\t\t\"sortOrder\": \"asc\"\r\n\t},\r\n\t\"instanceId\": 1,\r\n\t\"draftMode\": false,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": null,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8207\": \"OBSERVATION_UNIT\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"18010\": \"TRAIT\",\r\n\t\t\t\"18090\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observationUnits/table",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observationUnits",
+										"table"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete observation of catgorical variable with missing values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f90cd17d-a1e8-4d4f-96e6-3672e349be6f",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var observationUnitIds = [];",
+											"observationUnitIds = JSON.parse(pm.environment.get(\"observationUnitIds\"));",
+											"var observationIds = [];",
+											"observationIds = JSON.parse(pm.environment.get(\"observationIds\"));",
+											"",
+											"if(observationUnitIds.length && observationIds.length > 0){",
+											"postman.setNextRequest(\"Delete observation of catgorical variable with missing values\");",
+											"}else{",
+											"    postman.setNextRequest(null);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "edb3e7da-6d1e-4fe5-8cea-7f420cdaa82f",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											"\r",
+											"var observationUnitIds = [];\r",
+											"observationUnitIds = JSON.parse(pm.environment.get(\"observationUnitIds\"));\r",
+											"var observationIds = [];\r",
+											"observationIds = JSON.parse(pm.environment.get(\"observationIds\"));\r",
+											"console.log(observationUnitIds.length);\r",
+											"var current_observationUnitId = observationUnitIds.shift();\r",
+											"var current_observationId = observationIds.shift();\r",
+											"pm.environment.set(\"observationUnitId\", current_observationUnitId);\r",
+											"pm.environment.set(\"observationId\", current_observationId);\r",
+											"pm.environment.set(\"observationUnitIds\", JSON.stringify(observationUnitIds));\r",
+											"pm.environment.set(\"observationIds\", JSON.stringify(observationIds));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"processWarnings\": true,\r\n\t\"data\": [\r\n\t\t[\r\n\t\t\t\"TRIAL_INSTANCE\",\r\n\t\t\t\"PI_NAME\",\r\n\t\t\t\"EXPT_DESIGN\",\r\n\t\t\t\"LOCATION_ID\",\r\n\t\t\t\"LOCATION_NAME\",\r\n\t\t\t\"Crop_season_Code\",\r\n\t\t\t\"ENTRY_TYPE\",\r\n\t\t\t\"GID\",\r\n\t\t\t\"DESIGNATION\",\r\n\t\t\t\"ENTRY_NO\",\r\n\t\t\t\"OBS_UNIT_ID\",\r\n\t\t\t\"PLOT_NO\",\r\n\t\t\t\"WeedPressure_number\",\r\n\t\t\t\"Grain_yield\",\r\n\t\t\t\"Biomas_yield\",\r\n\t\t\t\"InputVariable\",\r\n\t\t\t\"NPSEL\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"PKWDPtLOzD8Sz\",\r\n\t\t\t\"1\",\r\n\t\t\t\"21\",\r\n\t\t\t\"23\",\r\n\t\t\t\"40\",\r\n\t\t\t\"338\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"PKWDP6ME6bt1l\",\r\n\t\t\t\"2\",\r\n\t\t\t\"15\",\r\n\t\t\t\"12\",\r\n\t\t\t\"45\",\r\n\t\t\t\"285\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"PKWDPe2za6TM7\",\r\n\t\t\t\"3\",\r\n\t\t\t\"12\",\r\n\t\t\t\"41\",\r\n\t\t\t\"32\",\r\n\t\t\t\"176\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"PKWDPEV6LPs1N\",\r\n\t\t\t\"4\",\r\n\t\t\t\"46\",\r\n\t\t\t\"49\",\r\n\t\t\t\"33\",\r\n\t\t\t\"488\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"PKWDPU27n9e9L\",\r\n\t\t\t\"5\",\r\n\t\t\t\"33\",\r\n\t\t\t\"41\",\r\n\t\t\t\"28\",\r\n\t\t\t\"397\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"PKWDPmpZgUu6S\",\r\n\t\t\t\"6\",\r\n\t\t\t\"48\",\r\n\t\t\t\"17\",\r\n\t\t\t\"35\",\r\n\t\t\t\"463\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"PKWDP0M9lGBzz\",\r\n\t\t\t\"7\",\r\n\t\t\t\"34\",\r\n\t\t\t\"16\",\r\n\t\t\t\"49\",\r\n\t\t\t\"105\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"PKWDPsCKr80ks\",\r\n\t\t\t\"8\",\r\n\t\t\t\"17\",\r\n\t\t\t\"28\",\r\n\t\t\t\"15\",\r\n\t\t\t\"379\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"PKWDPDotBpZ1y\",\r\n\t\t\t\"9\",\r\n\t\t\t\"45\",\r\n\t\t\t\"28\",\r\n\t\t\t\"49\",\r\n\t\t\t\"424\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"PKWDPCYuyqdql\",\r\n\t\t\t\"10\",\r\n\t\t\t\"41\",\r\n\t\t\t\"26\",\r\n\t\t\t\"10\",\r\n\t\t\t\"188\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"PKWDP0fPOkMaC\",\r\n\t\t\t\"11\",\r\n\t\t\t\"39\",\r\n\t\t\t\"20\",\r\n\t\t\t\"31\",\r\n\t\t\t\"471\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"PKWDPGN6nYdv2\",\r\n\t\t\t\"12\",\r\n\t\t\t\"48\",\r\n\t\t\t\"46\",\r\n\t\t\t\"12\",\r\n\t\t\t\"395\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"PKWDPZ19QRNrq\",\r\n\t\t\t\"13\",\r\n\t\t\t\"24\",\r\n\t\t\t\"27\",\r\n\t\t\t\"17\",\r\n\t\t\t\"340\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"PKWDPPh1TNHCh\",\r\n\t\t\t\"14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"36\",\r\n\t\t\t\"13\",\r\n\t\t\t\"299\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"PKWDPH6Q51k29\",\r\n\t\t\t\"15\",\r\n\t\t\t\"37\",\r\n\t\t\t\"20\",\r\n\t\t\t\"15\",\r\n\t\t\t\"408\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"PKWDP2mpwUmS5\",\r\n\t\t\t\"16\",\r\n\t\t\t\"36\",\r\n\t\t\t\"40\",\r\n\t\t\t\"50\",\r\n\t\t\t\"472\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"PKWDP07BrGxf2\",\r\n\t\t\t\"17\",\r\n\t\t\t\"25\",\r\n\t\t\t\"29\",\r\n\t\t\t\"49\",\r\n\t\t\t\"138\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"PKWDPROG6tAJg\",\r\n\t\t\t\"18\",\r\n\t\t\t\"45\",\r\n\t\t\t\"12\",\r\n\t\t\t\"32\",\r\n\t\t\t\"356\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"PKWDPUWYGDKwm\",\r\n\t\t\t\"19\",\r\n\t\t\t\"36\",\r\n\t\t\t\"44\",\r\n\t\t\t\"37\",\r\n\t\t\t\"423\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"PKWDPVGUhe5T1\",\r\n\t\t\t\"20\",\r\n\t\t\t\"49\",\r\n\t\t\t\"49\",\r\n\t\t\t\"50\",\r\n\t\t\t\"193\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"dc6a207b-b4eb-42d5-a5b7-b1262193e961\",\r\n\t\t\t\"1\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"125\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"f425bdec-fdc1-41cb-8d4b-19179d9ed7a9\",\r\n\t\t\t\"2\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"337\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"9fe3ff35-a57f-4dc2-b682-d69881ebd3e8\",\r\n\t\t\t\"3\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"317\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"48851c5a-132f-4df2-8139-1b0f8ba4ea13\",\r\n\t\t\t\"4\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"497\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"97b9bbb8-e390-4c6c-a688-3676c7a322a1\",\r\n\t\t\t\"5\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"496\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"5d53e82d-ea2c-42de-8255-5150462cc9e2\",\r\n\t\t\t\"6\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"114\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"bab7f29e-f1ec-4d0a-91a3-08cc0121fffc\",\r\n\t\t\t\"7\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"102\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"6117a4e4-2d58-4020-a047-7d0f568379df\",\r\n\t\t\t\"8\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"479\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"41c3a00c-c372-442c-b87c-b7329e1457ac\",\r\n\t\t\t\"9\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"140\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"0542e1ee-2535-44f7-bf41-fb4787f2de52\",\r\n\t\t\t\"10\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"280\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"02ccc497-fb94-4dcc-83dd-21f5db43f43e\",\r\n\t\t\t\"11\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"437\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"05883cec-d339-4cd0-b763-67f7d9d543ff\",\r\n\t\t\t\"12\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"354\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"74a8d502-8b17-4d96-8741-b38d294ae601\",\r\n\t\t\t\"13\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"430\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"72476b15-4090-46bc-be2f-e4e86171af50\",\r\n\t\t\t\"14\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"478\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"980a592b-bf45-4cbe-8ede-2c0d1d6302c4\",\r\n\t\t\t\"15\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"462\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"e50aeb0a-42ef-45f6-a247-e426f0cbd39c\",\r\n\t\t\t\"16\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"271\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"b7440ad5-4836-44e8-96ba-687e1c7fb0bb\",\r\n\t\t\t\"17\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"479\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"a0b745fd-d1de-45d0-9e86-42021ce43d43\",\r\n\t\t\t\"18\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"305\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"4fca59a2-84c1-40d2-b5a7-86ab957f00cc\",\r\n\t\t\t\"19\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"372\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"9129d101-c4ac-43cf-a818-079d4365c2d5\",\r\n\t\t\t\"20\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"459\",\r\n\t\t\t\"\"\r\n\t\t]\r\n\t],\r\n\t\"draftMode\": true\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observationUnits/{{observationUnitId}}/observations/{{observationId}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
 										"observationUnits",
 										"{{observationUnitId}}",
 										"observations",
