@@ -1617,7 +1617,7 @@
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered invalid crop Copy",
+							"name": "Verify response code and body when entered invalid program",
 							"event": [
 								{
 									"listen": "test",
@@ -2537,6 +2537,106 @@
 										"invalid",
 										"studies",
 										"{{studyId}}",
+										"datasets"
+									]
+								},
+								"description": "GET /crops/{crop}/studies/{studyId}/datasets\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered non-existing studyId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8bea17fb-21c7-4d6f-9c68-c1646f915575",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"pm.test(\"Your test name\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.equal(\"Study does not exist\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "24c35c15-6b3a-426c-b357-0eb21e79ee0d",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{non_existing_study_id}}",
 										"datasets"
 									]
 								},
@@ -4231,6 +4331,107 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when entered datasetId that does not belong to the study",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0878b7a4-abae-4b03-ac7a-609dbfb76c41",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+pm.environment.get(\"study_plot_dataset_id_noPhenoCount\")+\" does not belong to the study \"+pm.environment.get(\"studyId\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "fcec46e7-58e9-4153-a206-1de0aa38bea2",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_dataset_id_noPhenoCount}}"
+									]
+								},
+								"description": "GET/{crop}/studies/{studyId}/datasets/{datasetId}"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when entered string input to studyId",
 							"event": [
 								{
@@ -4851,7 +5052,7 @@
 							"response": []
 						},
 						{
-							"name": "Retrieve phenotype counts for a plot dataset with invalid crop Copy",
+							"name": "Retrieve phenotype counts for a plot dataset with invalid program",
 							"event": [
 								{
 									"listen": "test",
@@ -5142,6 +5343,105 @@
 										"{{studyId}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
+										"observationUnits",
+										"{{study_instanceId}}"
+									]
+								},
+								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/observationUnits/{instanceId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code when entered datasetId that does not belong to the study",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3b8970ce-68f1-4210-a28a-afe53b866850",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "b53b9543-efd6-43ee-9bb4-66eb03f7578b",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/observationUnits/{{study_instanceId}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_dataset_id_noPhenoCount}}",
 										"observationUnits",
 										"{{study_instanceId}}"
 									]
@@ -7591,6 +7891,109 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when entered datasetId that does not belong to the study",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c319b2bd-95c3-4b37-950b-52e479145f4e",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+pm.environment.get(\"study_plot_dataset_id_noPhenoCount\")+\" does not belong to the study \"+pm.environment.get(\"studyId\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4d901dee-118c-463c-94f9-07c21f390e22",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/variables/{{Trait_cvtermId}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_dataset_id_noPhenoCount}}",
+										"variables",
+										"{{Trait_cvtermId}}"
+									]
+								},
+								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/{variableTypeId}"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when entered string input to studyId",
 							"event": [
 								{
@@ -8648,6 +9051,114 @@
 										"{{non_existing_study_id}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
+										"variables",
+										"observations"
+									],
+									"query": [
+										{
+											"key": "variableIds",
+											"value": "{{study_biomass_cvterm_id}}"
+										}
+									]
+								},
+								"description": "HEAD /crops/{crop}/studies/{studyId}/datasets/{datasetId}/variables/observations"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered datasetId that does not belong to the study",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8130ddb8-733a-43b7-8434-461abab9cd2c",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "761dcd2e-14a5-4e4d-a5c6-541393f5751a",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/variables/observations?variableIds={{study_biomass_cvterm_id}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_dataset_id_noPhenoCount}}",
 										"variables",
 										"observations"
 									],
@@ -10026,6 +10537,121 @@
 										"{{studyId}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
+										"variables"
+									]
+								},
+								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered datasetId that does not belong to the study",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fb5a0732-9678-49de-ba9c-97ae97bf210e",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+pm.environment.get(\"study_plot_dataset_id_noPhenoCount\")+\" does not belong to the study \"+pm.environment.get(\"studyId\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "7b40e02c-e305-409d-97cf-05a662152bca",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/variables",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_dataset_id_noPhenoCount}}",
 										"variables"
 									]
 								},
@@ -13977,6 +14603,238 @@
 							"response": []
 						},
 						{
+							"name": "Retrieve observation units with non-existing studyId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "efa7db4e-9c26-4fbe-8e57-b1403c568e26",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Study does not exist\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "954b3a42-1b4f-47fc-aeb2-eb9ab4fc791c",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"draw\": 2,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8200,\n\t\t\"sortOrder\": \"asc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets/{{study_plot_datasetId}}/observationUnits/table",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{non_existing_study_id}}",
+										"datasets",
+										"{{study_plot_datasetId}}",
+										"observationUnits",
+										"table"
+									]
+								},
+								"description": "POST ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/table"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve observation units with non-existing datasetId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fd4ecf83-ab68-40c5-8b58-740763d8ac10",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Dataset does not exist\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e426430a-40a1-4d79-9ed4-f63cce4d4f1e",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"draw\": 2,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8200,\n\t\t\"sortOrder\": \"asc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observationUnits/table",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{non_existing_dataset_id}}",
+										"observationUnits",
+										"table"
+									]
+								},
+								"description": "POST ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/table"
+							},
+							"response": []
+						},
+						{
 							"name": "Retrieve observation units sorted by trialInstance asc",
 							"event": [
 								{
@@ -17533,6 +18391,123 @@
 							"response": []
 						},
 						{
+							"name": "Accept pending data with datasetId that does not belong to the study",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "051fd496-1d37-45ff-bb38-5f4329001b03",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+pm.environment.get(\"study_plot_dataset_id_noPhenoCount\")+\" does not belong to the study \"+pm.environment.get(\"studyId\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "19fc5fef-eac1-480d-bd46-3d39eeb9199f",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"processWarnings\": true,\r\n\t\"data\": [\r\n\t\t[\r\n\t\t\t\"TRIAL_INSTANCE\",\r\n\t\t\t\"PI_NAME\",\r\n\t\t\t\"EXPT_DESIGN\",\r\n\t\t\t\"LOCATION_ID\",\r\n\t\t\t\"LOCATION_NAME\",\r\n\t\t\t\"Crop_season_Code\",\r\n\t\t\t\"ENTRY_TYPE\",\r\n\t\t\t\"GID\",\r\n\t\t\t\"DESIGNATION\",\r\n\t\t\t\"ENTRY_NO\",\r\n\t\t\t\"OBS_UNIT_ID\",\r\n\t\t\t\"PLOT_NO\",\r\n\t\t\t\"WeedPressure_number\",\r\n\t\t\t\"Grain_yield\",\r\n\t\t\t\"Biomas_yield\",\r\n\t\t\t\"InputVariable\",\r\n\t\t\t\"NPSEL\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"PKWDPtLOzD8Sz\",\r\n\t\t\t\"1\",\r\n\t\t\t\"21\",\r\n\t\t\t\"23\",\r\n\t\t\t\"40\",\r\n\t\t\t\"338\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"PKWDP6ME6bt1l\",\r\n\t\t\t\"2\",\r\n\t\t\t\"15\",\r\n\t\t\t\"12\",\r\n\t\t\t\"45\",\r\n\t\t\t\"285\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"PKWDPe2za6TM7\",\r\n\t\t\t\"3\",\r\n\t\t\t\"12\",\r\n\t\t\t\"41\",\r\n\t\t\t\"32\",\r\n\t\t\t\"176\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"PKWDPEV6LPs1N\",\r\n\t\t\t\"4\",\r\n\t\t\t\"46\",\r\n\t\t\t\"49\",\r\n\t\t\t\"33\",\r\n\t\t\t\"488\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"PKWDPU27n9e9L\",\r\n\t\t\t\"5\",\r\n\t\t\t\"33\",\r\n\t\t\t\"41\",\r\n\t\t\t\"28\",\r\n\t\t\t\"397\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"PKWDPmpZgUu6S\",\r\n\t\t\t\"6\",\r\n\t\t\t\"48\",\r\n\t\t\t\"17\",\r\n\t\t\t\"35\",\r\n\t\t\t\"463\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"PKWDP0M9lGBzz\",\r\n\t\t\t\"7\",\r\n\t\t\t\"34\",\r\n\t\t\t\"16\",\r\n\t\t\t\"49\",\r\n\t\t\t\"105\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"PKWDPsCKr80ks\",\r\n\t\t\t\"8\",\r\n\t\t\t\"17\",\r\n\t\t\t\"28\",\r\n\t\t\t\"15\",\r\n\t\t\t\"379\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"PKWDPDotBpZ1y\",\r\n\t\t\t\"9\",\r\n\t\t\t\"45\",\r\n\t\t\t\"28\",\r\n\t\t\t\"49\",\r\n\t\t\t\"424\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"PKWDPCYuyqdql\",\r\n\t\t\t\"10\",\r\n\t\t\t\"41\",\r\n\t\t\t\"26\",\r\n\t\t\t\"10\",\r\n\t\t\t\"188\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"PKWDP0fPOkMaC\",\r\n\t\t\t\"11\",\r\n\t\t\t\"39\",\r\n\t\t\t\"20\",\r\n\t\t\t\"31\",\r\n\t\t\t\"471\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"PKWDPGN6nYdv2\",\r\n\t\t\t\"12\",\r\n\t\t\t\"48\",\r\n\t\t\t\"46\",\r\n\t\t\t\"12\",\r\n\t\t\t\"395\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"PKWDPZ19QRNrq\",\r\n\t\t\t\"13\",\r\n\t\t\t\"24\",\r\n\t\t\t\"27\",\r\n\t\t\t\"17\",\r\n\t\t\t\"340\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"PKWDPPh1TNHCh\",\r\n\t\t\t\"14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"36\",\r\n\t\t\t\"13\",\r\n\t\t\t\"299\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"PKWDPH6Q51k29\",\r\n\t\t\t\"15\",\r\n\t\t\t\"37\",\r\n\t\t\t\"20\",\r\n\t\t\t\"15\",\r\n\t\t\t\"408\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"PKWDP2mpwUmS5\",\r\n\t\t\t\"16\",\r\n\t\t\t\"36\",\r\n\t\t\t\"40\",\r\n\t\t\t\"50\",\r\n\t\t\t\"472\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"PKWDP07BrGxf2\",\r\n\t\t\t\"17\",\r\n\t\t\t\"25\",\r\n\t\t\t\"29\",\r\n\t\t\t\"49\",\r\n\t\t\t\"138\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"PKWDPROG6tAJg\",\r\n\t\t\t\"18\",\r\n\t\t\t\"45\",\r\n\t\t\t\"12\",\r\n\t\t\t\"32\",\r\n\t\t\t\"356\",\r\n\t\t\t\"2\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"PKWDPUWYGDKwm\",\r\n\t\t\t\"19\",\r\n\t\t\t\"36\",\r\n\t\t\t\"44\",\r\n\t\t\t\"37\",\r\n\t\t\t\"423\",\r\n\t\t\t\"3\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"1\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9001\",\r\n\t\t\t\"Africa Rice Centre\",\r\n\t\t\t\"0\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"PKWDPVGUhe5T1\",\r\n\t\t\t\"20\",\r\n\t\t\t\"49\",\r\n\t\t\t\"49\",\r\n\t\t\t\"50\",\r\n\t\t\t\"193\",\r\n\t\t\t\"1\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"21\",\r\n\t\t\t\"GP1\",\r\n\t\t\t\"1\",\r\n\t\t\t\"dc6a207b-b4eb-42d5-a5b7-b1262193e961\",\r\n\t\t\t\"1\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"125\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"22\",\r\n\t\t\t\"GP2\",\r\n\t\t\t\"2\",\r\n\t\t\t\"f425bdec-fdc1-41cb-8d4b-19179d9ed7a9\",\r\n\t\t\t\"2\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"337\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"23\",\r\n\t\t\t\"GP3\",\r\n\t\t\t\"3\",\r\n\t\t\t\"9fe3ff35-a57f-4dc2-b682-d69881ebd3e8\",\r\n\t\t\t\"3\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"317\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"24\",\r\n\t\t\t\"GP4\",\r\n\t\t\t\"4\",\r\n\t\t\t\"48851c5a-132f-4df2-8139-1b0f8ba4ea13\",\r\n\t\t\t\"4\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"497\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"25\",\r\n\t\t\t\"GP5\",\r\n\t\t\t\"5\",\r\n\t\t\t\"97b9bbb8-e390-4c6c-a688-3676c7a322a1\",\r\n\t\t\t\"5\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"496\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"26\",\r\n\t\t\t\"GP6\",\r\n\t\t\t\"6\",\r\n\t\t\t\"5d53e82d-ea2c-42de-8255-5150462cc9e2\",\r\n\t\t\t\"6\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"114\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"27\",\r\n\t\t\t\"GP7\",\r\n\t\t\t\"7\",\r\n\t\t\t\"bab7f29e-f1ec-4d0a-91a3-08cc0121fffc\",\r\n\t\t\t\"7\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"102\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"28\",\r\n\t\t\t\"GP8\",\r\n\t\t\t\"8\",\r\n\t\t\t\"6117a4e4-2d58-4020-a047-7d0f568379df\",\r\n\t\t\t\"8\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"479\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"29\",\r\n\t\t\t\"GP9\",\r\n\t\t\t\"9\",\r\n\t\t\t\"41c3a00c-c372-442c-b87c-b7329e1457ac\",\r\n\t\t\t\"9\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"140\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"30\",\r\n\t\t\t\"GP10\",\r\n\t\t\t\"10\",\r\n\t\t\t\"0542e1ee-2535-44f7-bf41-fb4787f2de52\",\r\n\t\t\t\"10\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"280\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"31\",\r\n\t\t\t\"GP11\",\r\n\t\t\t\"11\",\r\n\t\t\t\"02ccc497-fb94-4dcc-83dd-21f5db43f43e\",\r\n\t\t\t\"11\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"437\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"32\",\r\n\t\t\t\"GP12\",\r\n\t\t\t\"12\",\r\n\t\t\t\"05883cec-d339-4cd0-b763-67f7d9d543ff\",\r\n\t\t\t\"12\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"354\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"33\",\r\n\t\t\t\"GP13\",\r\n\t\t\t\"13\",\r\n\t\t\t\"74a8d502-8b17-4d96-8741-b38d294ae601\",\r\n\t\t\t\"13\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"430\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"34\",\r\n\t\t\t\"GP14\",\r\n\t\t\t\"14\",\r\n\t\t\t\"72476b15-4090-46bc-be2f-e4e86171af50\",\r\n\t\t\t\"14\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"478\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"35\",\r\n\t\t\t\"GP15\",\r\n\t\t\t\"15\",\r\n\t\t\t\"980a592b-bf45-4cbe-8ede-2c0d1d6302c4\",\r\n\t\t\t\"15\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"462\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"36\",\r\n\t\t\t\"GP16\",\r\n\t\t\t\"16\",\r\n\t\t\t\"e50aeb0a-42ef-45f6-a247-e426f0cbd39c\",\r\n\t\t\t\"16\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"271\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"37\",\r\n\t\t\t\"GP17\",\r\n\t\t\t\"17\",\r\n\t\t\t\"b7440ad5-4836-44e8-96ba-687e1c7fb0bb\",\r\n\t\t\t\"17\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"479\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"38\",\r\n\t\t\t\"GP18\",\r\n\t\t\t\"18\",\r\n\t\t\t\"a0b745fd-d1de-45d0-9e86-42021ce43d43\",\r\n\t\t\t\"18\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"305\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"39\",\r\n\t\t\t\"GP19\",\r\n\t\t\t\"19\",\r\n\t\t\t\"4fca59a2-84c1-40d2-b5a7-86ab957f00cc\",\r\n\t\t\t\"19\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"372\",\r\n\t\t\t\"\"\r\n\t\t],\r\n\t\t[\r\n\t\t\t\"2\",\r\n\t\t\t\"Admin Admin\",\r\n\t\t\t\"ELO\",\r\n\t\t\t\"9008\",\r\n\t\t\t\"INT POTATO CENTER\",\r\n\t\t\t\"1\",\r\n\t\t\t\"T\",\r\n\t\t\t\"40\",\r\n\t\t\t\"GP20\",\r\n\t\t\t\"20\",\r\n\t\t\t\"9129d101-c4ac-43cf-a818-079d4365c2d5\",\r\n\t\t\t\"20\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"\",\r\n\t\t\t\"459\",\r\n\t\t\t\"\"\r\n\t\t]\r\n\t],\r\n\t\"draftMode\": true\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/observation-units/drafts/acceptance",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_dataset_id_noPhenoCount}}",
+										"observation-units",
+										"drafts",
+										"acceptance"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
 							"name": "Accept pending data with non-obs datasetId",
 							"event": [
 								{
@@ -19301,6 +20276,124 @@
 							"response": []
 						},
 						{
+							"name": "Count filtered phenotype with datasetId that does not belong to the study",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a27cf901-1867-45a3-9b40-66c270d70c74",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+pm.environment.get(\"study_plot_dataset_id_noPhenoCount\")+\" does not belong to the study \"+pm.environment.get(\"studyId\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "266529df-e289-4442-9a6e-77c7667aa40f",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draftMode\": false,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": 100020,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8263\": \"SELECTION_METHOD\",\r\n\t\t\t\"18000\": \"TRAIT\",\r\n\t\t\t\"18010\": \"TRAIT\",\r\n\t\t\t\"18100\": \"TRAIT\",\r\n\t\t\t\"100020\": \"TRAIT\",\r\n\t\t\t\"-2\": null\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/testdata/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/observation-units/observations/filter/count",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"testdata",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_dataset_id_noPhenoCount}}",
+										"observation-units",
+										"observations",
+										"filter",
+										"count"
+									]
+								},
+								"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observation-units​/observations​ filter​/count"
+							},
+							"response": []
+						},
+						{
 							"name": "Set value for filtered phenotype",
 							"event": [
 								{
@@ -19876,6 +20969,123 @@
 										"{{studyId}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
+										"observation-units",
+										"filter",
+										"set-value"
+									]
+								},
+								"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observation-units​/observations​ filter​/count"
+							},
+							"response": []
+						},
+						{
+							"name": "Set value for filtered phenotype with datasetId that does not belong to the study",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5f0df4f0-7d36-43e7-9655-0a1705c1bd8f",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+pm.environment.get(\"study_plot_dataset_id_noPhenoCount\")+\" does not belong to the study \"+pm.environment.get(\"studyId\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8da2fe36-db02-4ec6-9450-87cbcaf4a30c",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"newValue\": \"2\",\r\n\t\"newCategoricalValueId\": null,\r\n\t\"observationUnitsSearchDTO\": {\r\n\t\t\"instanceId\": 1,\r\n\t\t\"draftMode\": false,\r\n\t\t\"filter\": {\r\n\t\t\t\"byOutOfBound\": null,\r\n\t\t\t\"byMissing\": null,\r\n\t\t\t\"byOutOfSync\": null,\r\n\t\t\t\"byOverwritten\": null,\r\n\t\t\t\"variableId\": 100020,\r\n\t\t\t\"filterColumns\": [],\r\n\t\t\t\"filteredValues\": {},\r\n\t\t\t\"filteredTextValues\": {},\r\n\t\t\t\"variableTypeMap\": {\r\n\t\t\t\t\"8170\": null,\r\n\t\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\t\"8263\": \"SELECTION_METHOD\",\r\n\t\t\t\t\"18000\": \"TRAIT\",\r\n\t\t\t\t\"18010\": \"TRAIT\",\r\n\t\t\t\t\"18100\": \"TRAIT\",\r\n\t\t\t\t\"100020\": \"TRAIT\",\r\n\t\t\t\t\"-2\": null\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/observation-units/filter/set-value",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_dataset_id_noPhenoCount}}",
 										"observation-units",
 										"filter",
 										"set-value"
@@ -21152,6 +22362,369 @@
 							"response": []
 						},
 						{
+							"name": "Check existing out of bound values with non-existing studyId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "85635bf0-f51f-4ba9-826a-100498bca6a7",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Study does not exist\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ca7647e3-2583-44f9-9eea-f167d7908c3c",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs2_datasetId}}/observation-units/drafts/out-of-bounds",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{non_existing_study_id}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observation-units",
+										"drafts",
+										"out-of-bounds"
+									]
+								},
+								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
+							},
+							"response": []
+						},
+						{
+							"name": "Check existing out of bound values with non-existing datasetId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8e1c7c15-25cb-4507-b312-51a384cab24e",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Dataset does not exist\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "37980f5c-3c41-4d6f-8507-a65fc9d4c72f",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observation-units/drafts/out-of-bounds",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{non_existing_dataset_id}}",
+										"observation-units",
+										"drafts",
+										"out-of-bounds"
+									]
+								},
+								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
+							},
+							"response": []
+						},
+						{
+							"name": "Check existing out of bound values with datasetId that does not belong to the study",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3507184e-5e89-435b-b5c3-d16fae374ccc",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+pm.environment.get(\"study_plot_dataset_id_noPhenoCount\")+\" does not belong to the study \"+pm.environment.get(\"studyId\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3d9b7278-b0dc-40db-9a09-6f8b22553a6f",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/observation-units/drafts/out-of-bounds",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_dataset_id_noPhenoCount}}",
+										"observation-units",
+										"drafts",
+										"out-of-bounds"
+									]
+								},
+								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
+							},
+							"response": []
+						},
+						{
 							"name": "Accept filtered pending data",
 							"event": [
 								{
@@ -21858,6 +23431,124 @@
 							"response": []
 						},
 						{
+							"name": "Accept filtered pending data with datasetId that does not belong to the study",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "eba60af7-186c-4cb8-8775-454032691725",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+pm.environment.get(\"study_plot_dataset_id_noPhenoCount\")+\" does not belong to the study \"+pm.environment.get(\"studyId\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0e35c218-92c1-46af-adfc-f626ca605a16",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draftMode\": true,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": 99999,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8207\": \"OBSERVATION_UNIT\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"18090\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/observation-units/drafts/filter/acceptance",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_dataset_id_noPhenoCount}}",
+										"observation-units",
+										"drafts",
+										"filter",
+										"acceptance"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
 							"name": "Retrieve observation units of after updating filtered phenotype Copy",
 							"event": [
 								{
@@ -22353,6 +24044,591 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs2_datasetId}}",
+										"observation-units",
+										"drafts",
+										"set-as-missing"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
+							"name": "Set out of bound observations as missing with invalid crop",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "739c8209-cb36-42f7-a383-8d6bc0691061",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop \"+pm.environment.get(\"invalidCrop\")+\" for URL:/crops/\"+pm.environment.get(\"invalidCrop\")+\"/programs/\"+pm.environment.get(\"api_program_id\")+\"/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs2_datasetId\")+\"/observation-units/drafts/set-as-missing\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8f0bc6b1-e75c-4178-a46b-d4a96c4a0eb5",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draftMode\": true,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": 18090,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8207\": \"OBSERVATION_UNIT\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"18090\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{invalidCrop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observation-units/drafts/set-as-missing",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{invalidCrop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observation-units",
+										"drafts",
+										"set-as-missing"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
+							"name": "Set out of bound observations as missing with invalid program",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6afc0fc3-0173-4e9a-b334-67315974b9a7",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid program: invalid for crop: \"+pm.environment.get(\"crop\")+\" for service with path /crops/\"+pm.environment.get(\"crop\")+\"/programs/invalid/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs2_datasetId\")+\"/observation-units/drafts/set-as-missing\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f3f0a338-eab6-4ab3-b1c2-9d741808106c",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draftMode\": true,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": 18090,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8207\": \"OBSERVATION_UNIT\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"18090\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/invalid/studies/{{studyId}}/datasets/{{study_subobs2_datasetId}}/observation-units/drafts/set-as-missing",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"invalid",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observation-units",
+										"drafts",
+										"set-as-missing"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
+							"name": "Set out of bound observations as missing with non-existing studyId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "37a5f8e3-3495-4f95-92a9-b3af81c050ea",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Study does not exist\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4f8cd8ee-ebdd-47cb-afe7-38025aacef0b",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draftMode\": true,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": 18090,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8207\": \"OBSERVATION_UNIT\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"18090\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs2_datasetId}}/observation-units/drafts/set-as-missing",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{non_existing_study_id}}",
+										"datasets",
+										"{{study_subobs2_datasetId}}",
+										"observation-units",
+										"drafts",
+										"set-as-missing"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
+							"name": "Set out of bound observations as missing with non-existing datasetId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "724bee2c-d85e-44c5-87cb-e026e617536d",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Dataset does not exist\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "86114c19-05a4-43f8-8b82-56c1cd7be0c8",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draftMode\": true,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": 18090,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8207\": \"OBSERVATION_UNIT\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"18090\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/observation-units/drafts/set-as-missing",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{non_existing_dataset_id}}",
+										"observation-units",
+										"drafts",
+										"set-as-missing"
+									]
+								},
+								"description": "POST /crops/{cropName}/programs​/{programUUID}​/studies/{studyId}/datasets/{datasetId}/observation-units/drafts/acceptance"
+							},
+							"response": []
+						},
+						{
+							"name": "Set out of bound observations as missing with datasetId that does not belong to the study",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "758e4ee1-fdf3-48a4-8ca0-a62e984867dd",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Check error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Specified dataset \"+pm.environment.get(\"study_plot_dataset_id_noPhenoCount\")+\" does not belong to the study \"+pm.environment.get(\"studyId\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "1156e185-db03-4913-9fc9-8aac47556ebc",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"draftMode\": true,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": 18090,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8207\": \"OBSERVATION_UNIT\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"18090\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/observation-units/drafts/set-as-missing",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_plot_dataset_id_noPhenoCount}}",
 										"observation-units",
 										"drafts",
 										"set-as-missing"
