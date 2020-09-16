@@ -14116,13 +14116,13 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"draw\": 1,\r\n\t\"sortedRequest\": {\r\n\t\t\"pageSize\": 50,\r\n\t\t\"pageNumber\": 1,\r\n\t\t\"sortBy\": 8200,\r\n\t\t\"sortOrder\": \"asc\"\r\n\t},\r\n\t\"instanceId\": 1,\r\n\t\"draftMode\": false,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": null,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8263\": \"SELECTION_METHOD\",\r\n\t\t\t\"18000\": \"TRAIT\",\r\n\t\t\t\"18010\": \"TRAIT\",\r\n\t\t\t\"18100\": \"TRAIT\",\r\n\t\t\t\"100020\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
+									"raw": "{\r\n\t\"draw\": 1,\r\n\t\"instanceId\": 1,\r\n\t\"draftMode\": false,\r\n\t\"filter\": {\r\n\t\t\"byOutOfBound\": null,\r\n\t\t\"byMissing\": null,\r\n\t\t\"byOutOfSync\": null,\r\n\t\t\"byOverwritten\": null,\r\n\t\t\"variableId\": null,\r\n\t\t\"filterColumns\": [],\r\n\t\t\"filteredValues\": {},\r\n\t\t\"filteredTextValues\": {},\r\n\t\t\"variableTypeMap\": {\r\n\t\t\t\"8170\": null,\r\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\r\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\r\n\t\t\t\"8263\": \"SELECTION_METHOD\",\r\n\t\t\t\"18000\": \"TRAIT\",\r\n\t\t\t\"18010\": \"TRAIT\",\r\n\t\t\t\"18100\": \"TRAIT\",\r\n\t\t\t\"100020\": \"TRAIT\"\r\n\t\t}\r\n\t}\r\n}",
 									"options": {
 										"raw": {}
 									}
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table?size=50&page=0&sort=8200,asc",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -14137,6 +14137,20 @@
 										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"table"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "sort",
+											"value": "8200,asc"
+										}
 									]
 								},
 								"description": "POST ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/table"
@@ -14341,13 +14355,13 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 2,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8200,\n\t\t\"sortOrder\": \"asc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 2,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table?size=50&page=0&sort=8200,asc",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -14362,6 +14376,20 @@
 										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"table"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "sort",
+											"value": "8200,asc"
+										}
 									]
 								},
 								"description": "POST ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/table"
@@ -14458,7 +14486,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 2,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8200,\n\t\t\"sortOrder\": \"asc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 2,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
@@ -14575,7 +14603,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 2,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8200,\n\t\t\"sortOrder\": \"asc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 2,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
@@ -14691,7 +14719,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 2,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8200,\n\t\t\"sortOrder\": \"asc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 2,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
@@ -14807,7 +14835,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 2,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8200,\n\t\t\"sortOrder\": \"asc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 2,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\"\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
@@ -14946,7 +14974,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 3,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 1,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
@@ -15098,13 +15126,13 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 4,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8170,\n\t\t\"sortOrder\": \"desc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 1,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table?size=50&page=0&sort=8170,desc",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -15119,6 +15147,20 @@
 										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"table"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "sort",
+											"value": "8170,desc"
+										}
 									]
 								},
 								"description": "POST ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/table"
@@ -15236,13 +15278,13 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 5,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8240,\n\t\t\"sortOrder\": \"asc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 5,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table?size=50&page=0&sort=8240,asc",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -15257,6 +15299,20 @@
 										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"table"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "sort",
+											"value": "8240,asc"
+										}
 									]
 								},
 								"description": "POST ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/table"
@@ -15374,13 +15430,13 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 5,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8240,\n\t\t\"sortOrder\": \"desc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 5,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table?size=50&page=0&sort=8240,desc",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -15395,6 +15451,20 @@
 										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"table"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "sort",
+											"value": "8240,desc"
+										}
 									]
 								},
 								"description": "POST ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/table"
@@ -15518,7 +15588,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table?size=50&page=0&sort=8230,asc",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -15533,6 +15603,20 @@
 										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"table"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "sort",
+											"value": "8230,asc"
+										}
 									]
 								},
 								"description": "POST ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/table"
@@ -15650,13 +15734,13 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 6,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8230,\n\t\t\"sortOrder\": \"desc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 6,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table?size=50&page=0&sort=8230,desc",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -15671,6 +15755,20 @@
 										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"table"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "sort",
+											"value": "8230,desc"
+										}
 									]
 								},
 								"description": "POST ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/table"
@@ -15788,13 +15886,13 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 7,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8200,\n\t\t\"sortOrder\": \"asc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 7,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table?size=50&page=0&sort=8200,asc",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -15809,6 +15907,20 @@
 										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"table"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "sort",
+											"value": "8200,asc"
+										}
 									]
 								},
 								"description": "POST ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/table"
@@ -15926,13 +16038,13 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"draw\": 7,\n\t\"sortedRequest\": {\n\t\t\"pageSize\": 50,\n\t\t\"pageNumber\": 1,\n\t\t\"sortBy\": 8200,\n\t\t\"sortOrder\": \"desc\"\n\t},\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
+									"raw": "{\n\t\"draw\": 7,\n\t\"draftMode\": false,\n\t\"filter\": {\n\t\t\"byOutOfBound\": null,\n\t\t\"byMissing\": null,\n\t\t\"byOutOfSync\": null,\n\t\t\"byOverwritten\": null,\n\t\t\"variableId\": null,\n\t\t\"filterColumns\": [],\n\t\t\"filteredValues\": {},\n\t\t\"filteredTextValues\": {},\n\t\t\"variableTypeMap\": {\n\t\t\t\"8170\": null,\n\t\t\t\"8200\": \"EXPERIMENTAL_DESIGN\",\n\t\t\t\"8201\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8230\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8240\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8250\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8255\": \"GERMPLASM_DESCRIPTOR\",\n\t\t\t\"8263\": \"SELECTION_METHOD\",\n\t\t\t\"18000\": \"TRAIT\",\n\t\t\t\"18010\": \"TRAIT\",\n\t\t\t\"18100\": \"TRAIT\",\n\t\t\t\"100020\": \"TRAIT\",\n\t\t\t\"-2\": null\n\t\t}\n\t}\n}",
 									"options": {
 										"raw": {}
 									}
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_datasetId}}/observationUnits/table?size=50&page=0&sort=8200,desc",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -15947,6 +16059,20 @@
 										"{{study_plot_datasetId}}",
 										"observationUnits",
 										"table"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "50"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "sort",
+											"value": "8200,desc"
+										}
 									]
 								},
 								"description": "POST ​/crops​/{cropname}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/observationUnits​/table"
