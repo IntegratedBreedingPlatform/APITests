@@ -22290,6 +22290,1058 @@
 								"description": "GET /{crop}​/brapi​/v2​/seedlots"
 							},
 							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered seedLotDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5ca06be7-e423-4e15-b842-53e10c51f58b",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"var data = jsonData.result.data[0];",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"//Verify data of first lot in the results",
+											"",
+											"pm.test(\"Check amount \", function () {",
+											"    pm.expect(data.amount).to.eql(100);",
+											"});",
+											"",
+											"pm.test(\"Check createdDate \", function () {",
+											"    pm.expect(data.createdDate).to.eql(\"2018-10-25\");",
+											"});",
+											"",
+											"pm.test(\"Check germplasmDbId \", function () {",
+											"    pm.expect(data.germplasmDbId).to.eql(34);",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId \", function () {",
+											"    pm.expect(data.locationDbId).to.eql(6000);",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDescription \", function () {",
+											"    pm.expect(data.seedLotDescription).to.eql(\"From List Import\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotName \", function () {",
+											"    pm.expect(data.seedLotName).to.eql(\"SID2-14\");",
+											"});",
+											"",
+											"pm.test(\"Check storageLocation \", function () {",
+											"    pm.expect(data.storageLocation).to.eql(\"Default Seed Store\");",
+											"});",
+											"",
+											"pm.test(\"Check units \", function () {",
+											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDbId \", function () {",
+											"    pm.expect(data.seedLotDbId).to.eql(\"39725719-09b9-11ea-8631-0242ac110002\");",
+											"});",
+											"",
+											"//Check additional info",
+											"pm.test(\"Check lotInternalId \", function () {",
+											"    pm.expect(data.additionalInfo.lotInternalId).to.eql(21);",
+											"});",
+											"",
+											"pm.test(\"Check actualBalance \", function () {",
+											"    pm.expect(data.additionalInfo.actualBalance).to.eql(100);",
+											"});",
+											"",
+											"pm.test(\"Check totalWithdrawals \", function () {",
+											"    pm.expect(data.additionalInfo.totalWithdrawals).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check pendingDeposits \", function () {",
+											"    pm.expect(data.additionalInfo.pendingDeposits).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check germplasmName \", function () {",
+											"    pm.expect(data.additionalInfo.germplasmName).to.eql(\"CML14\");",
+											"});",
+											"",
+											"pm.test(\"Check lastDepositDate \", function () {",
+											"    pm.expect(data.additionalInfo.lastDepositDate).to.eql(\"2018-10-25\");",
+											"});",
+											"",
+											"pm.test(\"Check totalReserved \", function () {",
+											"    pm.expect(data.additionalInfo.totalReserved).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check username \", function () {",
+											"    pm.expect(data.additionalInfo.username).to.eql(\"admin\");",
+											"});",
+											"",
+											"pm.test(\"Check status \", function () {",
+											"    pm.expect(data.additionalInfo.status).to.eql(\"ACTIVE\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e586aca9-19a5-4e5e-9fba-b085797dfd34",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?seedLotDbId=39725719-09b9-11ea-8631-0242ac110002",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "seedLotDbId",
+											"value": "39725719-09b9-11ea-8631-0242ac110002"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered germplasmDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "78ea1f1a-c31d-4de9-84ec-1c6d0c643df9",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"var data = jsonData.result.data[0];",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"//Verify data of first lot in the results",
+											"",
+											"pm.test(\"Check amount \", function () {",
+											"    pm.expect(data.amount).to.eql(100);",
+											"});",
+											"",
+											"pm.test(\"Check createdDate \", function () {",
+											"    pm.expect(data.createdDate).to.eql(\"2018-10-25\");",
+											"});",
+											"",
+											"pm.test(\"Check germplasmDbId \", function () {",
+											"    pm.expect(data.germplasmDbId).to.eql(34);",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId \", function () {",
+											"    pm.expect(data.locationDbId).to.eql(6000);",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDescription \", function () {",
+											"    pm.expect(data.seedLotDescription).to.eql(\"From List Import\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotName \", function () {",
+											"    pm.expect(data.seedLotName).to.eql(\"SID2-14\");",
+											"});",
+											"",
+											"pm.test(\"Check storageLocation \", function () {",
+											"    pm.expect(data.storageLocation).to.eql(\"Default Seed Store\");",
+											"});",
+											"",
+											"pm.test(\"Check units \", function () {",
+											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDbId \", function () {",
+											"    pm.expect(data.seedLotDbId).to.eql(\"39725719-09b9-11ea-8631-0242ac110002\");",
+											"});",
+											"",
+											"//Check additional info",
+											"pm.test(\"Check lotInternalId \", function () {",
+											"    pm.expect(data.additionalInfo.lotInternalId).to.eql(21);",
+											"});",
+											"",
+											"pm.test(\"Check actualBalance \", function () {",
+											"    pm.expect(data.additionalInfo.actualBalance).to.eql(100);",
+											"});",
+											"",
+											"pm.test(\"Check totalWithdrawals \", function () {",
+											"    pm.expect(data.additionalInfo.totalWithdrawals).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check pendingDeposits \", function () {",
+											"    pm.expect(data.additionalInfo.pendingDeposits).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check germplasmName \", function () {",
+											"    pm.expect(data.additionalInfo.germplasmName).to.eql(\"CML14\");",
+											"});",
+											"",
+											"pm.test(\"Check lastDepositDate \", function () {",
+											"    pm.expect(data.additionalInfo.lastDepositDate).to.eql(\"2018-10-25\");",
+											"});",
+											"",
+											"pm.test(\"Check totalReserved \", function () {",
+											"    pm.expect(data.additionalInfo.totalReserved).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check username \", function () {",
+											"    pm.expect(data.additionalInfo.username).to.eql(\"admin\");",
+											"});",
+											"",
+											"pm.test(\"Check status \", function () {",
+											"    pm.expect(data.additionalInfo.status).to.eql(\"ACTIVE\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "6206ef9a-b144-4eaf-9ac2-4a4eccb27cba",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?germplasmDbId=34",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "germplasmDbId",
+											"value": "34"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered page no and pageSize values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c18ebea3-7954-41c4-b880-e01615032b4e",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"var data = jsonData.result.data[0];",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(2);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(227);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(23);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"//Verify data of first lot in the results",
+											"",
+											"pm.test(\"Check amount \", function () {",
+											"    pm.expect(data.amount).to.eql(0.0);",
+											"});",
+											"",
+											"pm.test(\"Check createdDate \", function () {",
+											"    pm.expect(data.createdDate).to.eql(\"2020-06-16\");",
+											"});",
+											"",
+											"pm.test(\"Check germplasmDbId \", function () {",
+											"    pm.expect(data.germplasmDbId).to.eql(21);",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId \", function () {",
+											"    pm.expect(data.locationDbId).to.eql(6000);",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDescription \", function () {",
+											"    pm.expect(data.seedLotDescription).to.eql(\"new lot record\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotName \", function () {",
+											"    pm.expect(data.seedLotName).to.eql(\"SID3-1\");",
+											"});",
+											"",
+											"pm.test(\"Check storageLocation \", function () {",
+											"    pm.expect(data.storageLocation).to.eql(\"Default Seed Store\");",
+											"});",
+											"",
+											"pm.test(\"Check units \", function () {",
+											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDbId \", function () {",
+											"    pm.expect(data.seedLotDbId).to.eql(\"31a74660-3579-4d74-91a8-3a7f74c2cffe\");",
+											"});",
+											"",
+											"//Check additional info",
+											"pm.test(\"Check lotInternalId \", function () {",
+											"    pm.expect(data.additionalInfo.lotInternalId).to.eql(41);",
+											"});",
+											"",
+											"pm.test(\"Check actualBalance \", function () {",
+											"    pm.expect(data.additionalInfo.actualBalance).to.eql(0.0);",
+											"});",
+											"",
+											"pm.test(\"Check totalWithdrawals \", function () {",
+											"    pm.expect(data.additionalInfo.totalWithdrawals).to.eql(0.0);",
+											"});",
+											"",
+											"pm.test(\"Check pendingDeposits \", function () {",
+											"    pm.expect(data.additionalInfo.pendingDeposits).to.eql(0.0);",
+											"});",
+											"",
+											"pm.test(\"Check germplasmName \", function () {",
+											"    pm.expect(data.additionalInfo.germplasmName).to.eql(\"CML1\");",
+											"});",
+											"",
+											"//pm.test(\"Check lastDepositDate \", function () {",
+											"//    pm.expect(data.additionalInfo.lastDepositDate).to.eql(\"2018-10-25\");",
+											"//});",
+											"",
+											"pm.test(\"Check totalReserved \", function () {",
+											"    pm.expect(data.additionalInfo.totalReserved).to.eql(0.0);",
+											"});",
+											"",
+											"pm.test(\"Check username \", function () {",
+											"    pm.expect(data.additionalInfo.username).to.eql(\"admin\");",
+											"});",
+											"",
+											"pm.test(\"Check status \", function () {",
+											"    pm.expect(data.additionalInfo.status).to.eql(\"ACTIVE\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4b17e961-434d-45b4-bc2f-df02b83ba337",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?page=2&pageSize=10",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "2"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered  page number that does not exist for the given pageSize",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "cab37bbc-39eb-42aa-ba42-1a597c60f7bb",
+										"exec": [
+											"pm.test(\"Status code is 500\", function () {",
+											"    pm.response.to.have.status(500);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check error message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"A total of 23 pages are available, so the page number must between 0 and 23 (exclusive).\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "369d9dd2-df96-4ce0-99d8-e2396c3596f4",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?page=10000&pageSize=10",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "10000"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered pageSize value greater than max pageSize in the system",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3538a191-1927-47d3-a14f-945e61b90f53",
+										"exec": [
+											"pm.test(\"Status code is 500\", function () {",
+											"    pm.response.to.have.status(500);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check error message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Page size must between 1 and 10000.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "538ba30a-feae-42b6-ae05-0778e36ec69e",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?page=0&pageSize=10001",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "10001"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered seedLotDbId of a closed lot",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dfbb50eb-29bc-4fb5-9f4e-6ee89893460a",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"//Verify data of first lot in the results",
+											"",
+											"pm.test(\"Check data \", function () {",
+											"    pm.expect(jsonData.result.data).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Check observations \", function () {",
+											"    pm.expect(jsonData.result.observations).to.eql([]);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "be962e42-5c0f-4f84-98c0-460ad38a32c6",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?seedLotDbId=eb55f552-2b21-451b-9e78-3dcf84f0d256",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "seedLotDbId",
+											"value": "eb55f552-2b21-451b-9e78-3dcf84f0d256"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered combination of parameter values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b41f20c9-4415-4311-bd1e-42aa5385bfa4",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"//Verify data of first lot in the results",
+											"",
+											"pm.test(\"Check data \", function () {",
+											"    pm.expect(jsonData.result.data).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Check observations \", function () {",
+											"    pm.expect(jsonData.result.observations).to.eql([]);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "d07d94b2-736d-485a-8bfd-bedc2c1e82fa",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?seedLotDbId=eb55f552-2b21-451b-9e78-3dcf84f0d256&germplasmDbId=34&page=0&pageSize=10000",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "seedLotDbId",
+											"value": "eb55f552-2b21-451b-9e78-3dcf84f0d256"
+										},
+										{
+											"key": "germplasmDbId",
+											"value": "34"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "10000"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
 						}
 					],
 					"protocolProfileBehavior": {},
