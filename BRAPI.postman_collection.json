@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cf528f7a-91bf-40ac-bb4c-d59d1b528f09",
+		"_postman_id": "696b5b15-312f-4a52-a347-63d7bbd92399",
 		"name": "BRAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e5b322bf-bb95-4138-b403-406ab0660e08",
+								"id": "770338de-a7ae-407b-9239-9cb9a3487af3",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"pm.environment.unset(\"masterToken\");",
@@ -70,7 +70,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f5346824-edbb-444a-8247-3419bb68fe15",
+								"id": "f5dca7e1-0175-4efc-a213-d81d4555fe33",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"pm.environment.unset(\"testuser_token\");",
@@ -133,14 +133,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8d5ef379-ce03-45a4-9867-47ac02f8d98b",
+										"id": "9765d65b-57a3-434b-8acd-1a75d7c64da7",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
 											"pm.test(\"Check total call count\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(26);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(28);",
 											"});",
 											"",
 											"",
@@ -173,7 +173,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "3f2789a3-be8b-4912-a637-3635dfbd0a17",
+										"id": "d771a06d-ffa6-4cf0-9e6b-a3f336f72b28",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -256,7 +256,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a33b7edb-3167-4f9f-8745-a5703a3184a7",
+										"id": "e9310d85-4b6d-43a9-916f-163e0c1f386c",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -276,7 +276,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "cbf5f9f1-d31d-4112-92ef-8a85800677cb",
+										"id": "17354638-f5b8-4a70-a8d3-4be74aa7412d",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -366,7 +366,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6e521f15-f6c5-42a6-8730-060c8e87be3e",
+										"id": "635cd2e2-27c6-476f-b193-30118625a2fa",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -390,7 +390,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "4fa745fc-ba6a-4062-a97e-799bc23f6d8f",
+										"id": "cecfd9e3-4c6b-47d0-9bec-7be5c00d9db7",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -480,7 +480,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "4e0b9b8e-75e7-4fba-b0d2-07a4a24a302f",
+										"id": "ca5234d8-ce48-47d6-930a-673d09256a21",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -506,7 +506,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "88bfc25c-3174-4954-9b3b-4d1980c69c31",
+										"id": "b63196f0-169f-4388-b24c-ba4f5a38addf",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -596,7 +596,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "43a7b0f2-a681-44d9-8eb0-1a0d535de94b",
+										"id": "515df1b1-78f7-4809-a706-fe22cd02abf6",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -620,7 +620,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "37bc9a66-bd57-4ea3-82af-c9d91b4922e7",
+										"id": "65de7c46-d782-4103-82e8-b3313c75dc12",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -710,7 +710,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "34d80f8f-e728-4716-ba44-d959d11919a9",
+										"id": "0da932bb-817d-4c05-a4de-77f905f23c53",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -734,7 +734,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "6475c9ec-1182-4b6f-a615-b091f991b0bc",
+										"id": "bcf6eaa0-a766-4079-936b-3295d550e14f",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -824,14 +824,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "ca460c14-4e2d-4985-8dfa-3e2474bfac78",
+										"id": "8b1d2943-0ed9-4a19-b49b-6dd5df7f44e6",
 										"exec": [
 											"pm.test(\"Status code is 200\", function() {",
 											"    pm.response.to.have.status(200);",
 											"});",
 											"pm.test(\"Check total call count\", function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(26);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(28);",
 											"});",
 											"",
 											"",
@@ -928,7 +928,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "6d64f1c0-fae2-44d5-b95d-6e71a2a51330",
+										"id": "a39c4314-1613-4116-b13c-81dd1b86b5b8",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -1018,7 +1018,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "71df92cc-ead0-4f36-907d-e77a07132ad1",
+										"id": "fc817a69-3988-4741-a5b6-c88285906a76",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -1036,7 +1036,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "38a7a9d5-8c83-42fe-a518-90803bdcd05d",
+										"id": "93bdd062-3f4a-4d40-b382-e65970d3cd65",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -1133,14 +1133,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "1cacff3c-4946-4865-85a2-415310663465",
+										"id": "91c90f61-72cc-4688-8e91-77bc44f29ba2",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
 											"pm.test(\"Check total call count\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(26);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(28);",
 											"});",
 											"",
 											"",
@@ -1173,7 +1173,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b7e44ba3-c3c9-4da5-8601-5c5609a0e8ac",
+										"id": "9db3244f-4f28-47b9-a88f-113c465fb0b5",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -1257,7 +1257,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "d1a6caa2-21c7-46ff-af5e-78289185ac73",
+										"id": "8806ac37-a32d-4dc0-9a8b-8a066a4f1580",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -1277,7 +1277,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "9ea32b07-312a-4ef1-b65f-7a7d369b7ef8",
+										"id": "e7788a9a-3efe-4f94-a927-5e76f734f450",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -1368,7 +1368,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "63c95d8f-3692-4b9f-ab86-47e63d07ec38",
+										"id": "f3155535-b4e1-4cef-8072-b650b5c11867",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -1392,7 +1392,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1ce1625f-3c11-493d-92af-dad5d8bbc56b",
+										"id": "0daa9413-6d46-479d-bd68-9be17be9037a",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -1483,7 +1483,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "c363ea40-3ea2-434b-acf8-6551e6aac6a7",
+										"id": "989cbe59-af7e-4855-a998-e2beebb3a032",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -1509,7 +1509,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "5b210fb3-ccc8-4f98-863e-6284a756db7c",
+										"id": "eb43450e-b30c-4de0-927d-19217b948a91",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -1600,7 +1600,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "117ba20b-8d83-40e9-88fa-01376f5c92fe",
+										"id": "4d402582-da26-48b4-a788-4d1033a9c83c",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -1624,7 +1624,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "948f4213-fd15-42cd-a3cd-979a9064fd80",
+										"id": "59e0b26f-498c-46b3-adb2-e8873575443f",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -1715,7 +1715,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "09a6f35b-a82d-44f4-8579-f49965280f2d",
+										"id": "03114fba-5e32-4427-aa72-0875144e8f99",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -1739,7 +1739,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "850ef89a-6970-4aff-8766-48c19e2dae1a",
+										"id": "3319c239-ae99-494a-99a7-4eb9ee64eb5c",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -1830,14 +1830,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0f4db288-ca2f-4a00-8cb6-465e6982c077",
+										"id": "8c0e7f55-c19b-47ba-8a5e-da93aaaf6cbb",
 										"exec": [
 											"pm.test(\"Status code is 200\", function() {",
 											"    pm.response.to.have.status(200);",
 											"});",
 											"pm.test(\"Check total call count\", function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(26);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(28);",
 											"});",
 											"",
 											"",
@@ -1934,7 +1934,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "fa8bf12b-8c9f-4791-8cd9-d7cb77db1036",
+										"id": "b302ef1c-9445-48cf-bc18-87dee14b233c",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -2025,7 +2025,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a1b33064-2852-4522-9344-137c74e8d41a",
+										"id": "c225cd93-d426-4177-89bf-f6192a7ff54a",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -2043,7 +2043,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "338b473f-6699-47c8-95ec-15c71232c9d2",
+										"id": "2f26f499-4203-4034-b49f-992decc75049",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -2144,7 +2144,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "82c36ab5-3f30-4029-a199-e34b2cb59516",
+								"id": "6206079e-abe3-43cb-8361-1e093619bb4f",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -2153,7 +2153,11 @@
 									"\r",
 									"pm.test(\"Check testdata crop \", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.result.data[0]).to.eql(\"testdata\");\r",
+									"    pm.expect(jsonData.result.data[0]).to.eql(\"maize\");\r",
+									"});\r",
+									"pm.test(\"Check testdata crop \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.result.data[1]).to.eql(\"testdata\");\r",
 									"});\r",
 									"\r",
 									"/**\r",
@@ -2241,7 +2245,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1fbcee86-9ff3-4378-9083-83d1ec194bcc",
+								"id": "6f64bc25-3931-47b0-81ef-5603ea4e64f8",
 								"exec": [
 									"const echoPostRequest = {\r",
 									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -2333,7 +2337,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dd9841ff-cc68-4bbc-9285-b63c0bcaf8ba",
+										"id": "49891dd9-addc-49cb-a380-26b3d4388c11",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -2373,7 +2377,11 @@
 											"});",
 											"",
 											"pm.test(\"Check synonyms\", function () {",
-											"    pm.expect(data.synonyms).to.eql([]);",
+											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
+											"   for (var i = 0; i < data.synonyms.length; i++) {",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);",
+											"    }",
+											"",
 											"});",
 											"",
 											"pm.test(\"Check commonCropName\", function () {",
@@ -2438,7 +2446,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "02f925bb-45a2-45ca-9b5c-55283686d3a6",
+										"id": "fe6f5224-807a-4b6a-94e0-a9270879b933",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -2532,7 +2540,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0a4ad0a0-a950-4711-a481-a85bfb703dc6",
+										"id": "2860c5fb-8f62-4d43-8842-7715b806bcdd",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -2565,7 +2573,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7f432544-541a-4aae-b3a5-29ad24e59db3",
+										"id": "b884aded-69ad-4ec3-810b-51bdfd515ece",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -2663,7 +2671,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9d5da5ec-963f-47e0-8edd-61f6ec4114a8",
+										"id": "d33ab08a-0f5d-4ff6-9f03-bcb328ba116e",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -2695,7 +2703,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "43f330be-929f-4b2e-b7dc-8acc228edbb5",
+										"id": "4f566527-016b-4d87-a585-1d37babb1ac6",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -2793,7 +2801,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7dda04e1-cc37-4d3a-80dc-62076751188b",
+										"id": "c7733353-dbc4-412d-9137-397b424be5e2",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -2825,7 +2833,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "813bacdd-7dfc-491f-b67b-b2449ea3bc80",
+										"id": "45b09eed-62da-4b47-b659-821777d3fd96",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -2923,7 +2931,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "85fc0fe4-8a63-447d-a39d-10eaaf763be4",
+										"id": "0114370d-6e1f-4d0d-a665-e4abe4700259",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -2940,7 +2948,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "5e3e34be-ea77-427b-9f7f-2d317768ad76",
+										"id": "c7af3198-a6be-4998-b575-709a4514de7b",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -3034,7 +3042,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2845d033-202e-4e51-a11b-9c935c4ce7ae",
+										"id": "d1fff5ee-164b-46a7-b14a-72b506eb0e99",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -3051,7 +3059,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "c4ea8861-9f4f-43d6-82da-b6eb0c658fa0",
+										"id": "07547da5-be41-48be-a506-be05ce965756",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -3152,7 +3160,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "93580be5-0c55-4e54-8222-d22f097e999c",
+										"id": "129f211f-168a-44b4-8f74-4c88952ff7ad",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -3237,7 +3245,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "989945f1-a506-4f12-9ea8-7247b198c4d1",
+										"id": "1e2bbc82-e82b-459b-bc7a-b121c9deb3dc",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -3322,7 +3330,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "998da372-3089-4933-90e4-283630654fcc",
+										"id": "b2e2ea32-e5a9-4c48-b9f6-1099d4cd424a",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -3339,7 +3347,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "cb65bd66-6bec-49a1-919b-6cc2845d2b5a",
+										"id": "a29b50a1-c505-4913-a7a1-06ad2fa80df5",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -3431,7 +3439,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "4f63b303-cd2d-42b2-8a4f-d38d51ea96ad",
+										"id": "a564f4bb-2131-4f1b-8718-fedd8b92a10a",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -3474,7 +3482,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8a2748fa-3171-412d-bb22-45c2dc4922f2",
+										"id": "5bb34e24-4096-4252-9479-8b48c1d1bb21",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -3567,7 +3575,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "1b564984-2048-4beb-939e-07bd082954ef",
+										"id": "12ff4c18-1623-40fa-94d1-36e4bda77051",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -3609,7 +3617,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "6c43d92c-6337-4b1a-b8e8-e395dd7b96d8",
+										"id": "39788fb1-84fe-4424-a8c5-2b3bd4b3d416",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -3702,7 +3710,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "bacfbe17-74ea-424b-b029-8fe3cb005b09",
+										"id": "d2398d18-dac2-40cd-aaf2-c39a7040f0e9",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -3744,7 +3752,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "70e3f0ec-78ad-469c-a5d6-08bea5cab9f8",
+										"id": "9844e1ee-d421-4a69-b522-5aabb5c4ff4d",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -3837,7 +3845,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a083527d-49fa-45f7-bc86-7b198e546dd8",
+										"id": "49c626df-b5d0-4a32-a49b-2d343843e0ca",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -3879,7 +3887,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "5f3be2f6-58f7-4aa7-b725-a65458f05d5c",
+										"id": "b08e60a3-af49-4c7f-8cc8-7d549916ee6b",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -3972,7 +3980,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "32feb968-8f8f-4d06-b103-f1f6b069009f",
+										"id": "aee63938-b60c-4033-a0c0-7ca5b16c1931",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -3989,7 +3997,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "d6aef586-0c55-4b0b-a6c9-e302defdfce1",
+										"id": "441ca818-09b4-4189-94ac-690a088bd4ed",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -4076,14 +4084,13 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9e6e6ca0-6713-4b86-99f1-e6742fa9ef38",
+										"id": "bd3ec3d8-c634-403f-ae9e-c2aefc26ca69",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
-											"",
+											"  var jsonData = pm.response.json();",
 											"pm.test(\"Verify returned metadata\", function () {",
-											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
 											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(20);",
@@ -4094,12 +4101,13 @@
 											"",
 											"",
 											"pm.test(\"Verify returned data\", function () {",
-											"    var jsonData = pm.response.json();",
+											"  ",
 											" pm.expect(jsonData.result.data[0].germplasmDbId).to.eql(\"21\");",
 											" pm.expect(jsonData.result.data[0].defaultDisplayName).to.eql(\"CML1\");",
 											" pm.expect(jsonData.result.data[0].germplasmName).to.eql(\"CML1\");",
 											" pm.expect(jsonData.result.data[0].pedigree).to.eql(\"CML1\");",
-											" pm.expect(jsonData.result.data[0].synonyms).to.eql([]);",
+											" //pm.expect(jsonData.result.data[0].synonyms).to.eql([]);",
+											"",
 											" pm.expect(jsonData.result.data[0].commonCropName).to.eql(\"testdata\");",
 											" pm.expect(jsonData.result.data[0].instituteCode).to.eql(\"PROGM1\");",
 											" pm.expect(jsonData.result.data[0].instituteName).to.eql(\"PROGM1\");",
@@ -4128,7 +4136,16 @@
 											"pm.test(\"Verify returned trialName\", function () {",
 											"    var jsonData = pm.response.json();",
 											"    pm.expect(jsonData.result.trialName).to.eql(\"Randomized Trial 20180003\");",
-											"});"
+											"});",
+											"",
+											"pm.test(\"Check synonyms\", function () {",
+											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
+											"   for (var i = 0; i < jsonData.result.data[0].synonyms.length; i++) {",
+											"    pm.expect(jsonData.result.data[0].synonyms[i]).to.eql(names[i]);",
+											"    }",
+											"",
+											"});",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -4136,7 +4153,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "edbe798c-ca8d-4323-b25a-e12e388590e8",
+										"id": "6339da72-bc6c-4b39-a520-d2e406b1bcaa",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -4230,7 +4247,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "96c65b61-5cba-4017-b500-8a17eddc6fe3",
+										"id": "fee2c2ca-f673-415e-968b-e49929108aee",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -4266,7 +4283,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1f779c1c-aae8-4128-90e7-bdfbd1d3b0bf",
+										"id": "b312dcab-5c80-4ebd-bade-7316a6dac059",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -4353,7 +4370,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "3c15c184-517e-4b7e-8347-b199f94484fe",
+										"id": "1e84f7ed-4bef-4f12-92e5-d7c6497571e3",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -4370,7 +4387,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1624ace1-a66d-4702-a11f-5313286373c8",
+										"id": "51f72d53-0ecd-4ad1-a38a-9687e01db62f",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -4464,7 +4481,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "ed6a7dbf-33a2-4571-8565-59a7e847006a",
+										"id": "0865eb15-bb63-42a6-b857-3b09957e4630",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -4479,7 +4496,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b9460412-cfed-49ba-83f9-db222b84eb69",
+										"id": "8d68396d-d3eb-44ca-abb7-6b29aa8af4e4",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -4576,7 +4593,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f2c84aac-caf4-4deb-8310-ea712f2f5420",
+										"id": "26685a62-667a-497d-97b9-de789ec8247d",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -4591,7 +4608,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "4116533b-6bd3-4951-b78a-36ed21ed0383",
+										"id": "4b50bdea-5dbe-42a3-82bf-0e038a1d359d",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -4688,7 +4705,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "31dbab21-5c25-4e76-9817-5d20edbb54f7",
+										"id": "79786ce5-e9f4-4550-a53a-f4c14e6194ef",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -4703,7 +4720,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "3b54fe82-ab20-4f42-a125-52043362cc6d",
+										"id": "1202ecd6-5f84-4a02-9c43-21ec8010ba6e",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -4800,7 +4817,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7d259b19-9389-402a-ae39-41b632735a92",
+										"id": "8a1084db-6ebe-4417-a0ab-6a5cb136b5a6",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -4815,7 +4832,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a7ba515e-1641-45e8-b13c-08dcc5f2f1c9",
+										"id": "23f5b116-adca-4cf3-b17e-d2eb72c30545",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -4912,7 +4929,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "64d8a6b2-876b-4969-9b3e-e8bf90b2578c",
+										"id": "f91d8a0b-a173-4b86-952a-64d1bf2de0ea",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -4927,7 +4944,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2d90fb84-9776-4fc3-b6cf-688fa59b4470",
+										"id": "bf2973be-ea9e-4ffa-9e05-f8625728bf45",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -5024,7 +5041,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "3db2dfe6-a399-4c98-bf8a-0ba7f5c692a3",
+										"id": "ebe408bd-6103-48e0-a054-ec70eead26ca",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -5039,7 +5056,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "970f6e09-0bcb-4444-a270-c64cc35f1a43",
+										"id": "b167a03c-7991-495f-a10b-bfc9f2be9b30",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -5136,7 +5153,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6e99841d-e906-4818-9f63-ed828ac3ca9d",
+										"id": "6097b649-9dd4-4be7-8af0-15629beca64f",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -5151,7 +5168,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "689acea1-f2bd-43b2-9f92-17b49831fa0c",
+										"id": "58f1e6ed-63e6-47fc-af43-57e957240f2b",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -5255,7 +5272,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "37fdb859-46f9-4869-813b-c0889f773c77",
+										"id": "d4409876-ec97-4140-85e9-f6077f70dcb8",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -5285,7 +5302,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "c218a94c-6d8b-41b6-b754-3adc3b1ddb85",
+										"id": "90285fa0-a924-44ea-80c7-25c69e6b1f2d",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -5372,7 +5389,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a6420a5f-12b0-4d7c-ad6d-7510d449569c",
+										"id": "1fa93b71-0c14-4522-92ae-796126c24c0a",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -5407,7 +5424,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "4735b532-a293-44ed-acdf-aac2c53ec430",
+										"id": "b762ce88-adaf-4849-9c4b-cb0e40a23b84",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -5500,7 +5517,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "cd725885-f7fc-4ed6-ba4c-3821631c1caa",
+										"id": "d378d170-dfc8-409a-b552-26fb82499df9",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -5518,7 +5535,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "538ac0a6-f3a0-4458-beec-2202c3c70ff4",
+										"id": "831cda74-e2a8-403d-afa1-ec7b8604b008",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -5611,7 +5628,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0a326613-0355-456c-bd78-e7290d01c84d",
+										"id": "8af7e7ef-95df-4c85-afd3-bc4a93c30cdc",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -5629,7 +5646,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b42413bd-fda2-488d-be02-f4e1f03ebccf",
+										"id": "f1038578-2824-43e9-ad97-8d04e0cbc396",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -5716,7 +5733,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "d25bbc8d-6efb-4ec0-a57f-faf1d201cbbf",
+										"id": "25ded4fe-02f5-40a0-8eac-7bf2c99ca2b3",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -5751,7 +5768,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "23b988c4-a424-46bf-9dc0-f7782dbd68b5",
+										"id": "70da8284-0929-438a-85af-5ee61d55abfe",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -5852,7 +5869,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2c51bb1f-8384-49ab-963e-6d6df4c84b62",
+										"id": "ef3d9de9-0213-420f-a74b-5f906553a966",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -5869,7 +5886,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "02c36e21-b5a9-422a-9eb2-7a59faba6732",
+										"id": "0cb62b09-15b9-407f-9b50-02a0522f687b",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -5977,7 +5994,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e20b3f73-bf1a-464a-8f5a-4a3af6ac719b",
+										"id": "330961aa-1266-4404-9089-8b9859bc9d49",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -6029,7 +6046,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "de102e9c-e007-45d4-811b-b9ccefa8430c",
+										"id": "40f6d5a5-cefd-459d-86b9-e1c28f623bd4",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
@@ -6069,7 +6086,10 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											"    pm.expect(data.synonyms).to.eql([]);\r",
+											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Check commonCropName\", function () {\r",
@@ -6184,7 +6204,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "bd72050f-934c-45f9-abd0-971f864da675",
+										"id": "48a8177b-9e63-45c5-81dd-c6df1e065e5e",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -6236,7 +6256,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9338c399-319c-4ccb-ad4d-8f358dff99c2",
+										"id": "674cc0be-f230-4aa7-8273-00347cdcf583",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
@@ -6276,7 +6296,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											"    pm.expect(data.synonyms).to.eql([]);\r",
+											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Check commonCropName\", function () {\r",
@@ -6391,7 +6415,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "379d95d6-4b22-48d8-8699-4af5cf4a287a",
+										"id": "30af4be3-5845-431a-87bc-94d3e7de28b4",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -6443,7 +6467,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5a1bcc4d-45d8-486e-a1f2-9fd0cdd7f1ea",
+										"id": "1ea3f795-916e-4e38-a0a7-fe75cfbf8815",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
@@ -6483,7 +6507,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											"    pm.expect(data.synonyms).to.eql([]);\r",
+											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Check commonCropName\", function () {\r",
@@ -6598,7 +6626,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "18f58cbd-843e-426a-b6d3-76ec8029382d",
+										"id": "28976a91-2bef-48a5-bcb9-c78002a62a5d",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -6650,7 +6678,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6bc7eaf8-5295-4fd9-819f-51f2cb3b7b98",
+										"id": "704c9935-a92b-4734-90a2-e91dff7d99ce",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
@@ -6689,7 +6717,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											"    pm.expect(data.synonyms).to.eql([]);\r",
+											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Check commonCropName\", function () {\r",
@@ -6804,7 +6836,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "737be90a-9e77-4a5e-8b99-661fbeed2cf9",
+										"id": "1b28252d-826a-4898-9a08-0b27fae7f131",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -6856,7 +6888,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "fd1a8e73-4795-466c-97a2-39b2ce9d954e",
+										"id": "57abdc79-1ed7-44d2-a12b-b1e785cb5023",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
@@ -6896,7 +6928,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											"    pm.expect(data.synonyms).to.eql([]);\r",
+											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Check commonCropName\", function () {\r",
@@ -7011,7 +7047,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "94cf56fb-2ec0-46a9-b32a-b1211171b3d4",
+										"id": "0cfab9ed-7b9e-4e35-9183-815d99285bb0",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -7063,7 +7099,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f344c918-7f99-45da-8866-632363040249",
+										"id": "8e6e0f59-9141-4b27-b8a9-762f68e2ca5d",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
@@ -7103,7 +7139,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											"    pm.expect(data.synonyms).to.eql([]);\r",
+											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Check commonCropName\", function () {\r",
@@ -7218,7 +7258,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "bdeebd7b-32a5-4899-8fd2-4c42378eac93",
+										"id": "10779894-08db-4f14-8fdf-d1dcf70454ba",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -7270,7 +7310,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "ce077dcd-57ff-41c7-b55b-e05a6a8e5388",
+										"id": "3e12dfe7-28a4-44fe-98ad-aa9590228cea",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {\r",
 											"    pm.response.to.have.status(404);\r",
@@ -7331,7 +7371,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a53bd614-9568-47e4-bc54-12ae707fd8d4",
+										"id": "b3dfb3bc-3bf4-4da7-838e-5f7e5433a6ba",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -7383,7 +7423,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "b6f8f38b-b4a2-4427-932d-65020b98a651",
+										"id": "427f66cb-ff0e-426d-ad77-0c2a4bdb51ba",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
@@ -7423,7 +7463,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											"    pm.expect(data.synonyms).to.eql([]);\r",
+											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Check commonCropName\", function () {\r",
@@ -7545,7 +7589,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "99bc8eb4-0c50-4474-bdd2-835682ab4975",
+										"id": "be4c815e-4325-42d3-bfbd-161a67e0abdf",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -7580,7 +7624,11 @@
 											"    pm.expect(data.germplasmSeedSource).to.eql(\"AA001\");",
 											"});",
 											"pm.test(\"Check synonyms\", function () {",
-											"    pm.expect(data.synonyms).to.eql([]);",
+											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
+											"   for (var i = 0; i < data.synonyms.length; i++) {",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);",
+											"    }",
+											"",
 											"});",
 											"pm.test(\"Check commonCropName\", function () {",
 											"    pm.expect(data.commonCropName).to.eql(\"testdata\");",
@@ -7651,7 +7699,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8addffa5-9733-4a96-b477-8985d7f9aa81",
+										"id": "53122ea4-9299-44c8-b523-f1b5cb0ddcae",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -7738,7 +7786,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "fdf28354-1c05-4e70-ba56-23e277a44c6e",
+										"id": "77f832c4-575f-4888-8dcc-c7b5dd8d9255",
 										"exec": [
 											"pm.test(\"Status code is 400\", function () {",
 											"    pm.response.to.have.status(400);",
@@ -7755,7 +7803,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "45528979-13e0-426c-b2fc-d159762d5ca2",
+										"id": "0a4d5442-9c0a-43a9-9513-4eae09bfd2e2",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -7849,7 +7897,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5a68b1f0-00e6-4ba5-92db-a706aeab9043",
+										"id": "b1996463-68ca-4a2d-afd9-10106cb2e15a",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -7933,7 +7981,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e043c3e0-b308-4a0f-81f0-fcf0f81e2f51",
+										"id": "a644d59e-a9a1-4cf1-9191-307ce4edc72b",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -8023,7 +8071,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "40c99225-ac7c-4b5b-a35b-fcf09cd37c03",
+										"id": "25e72ce5-99f6-49d7-bfa6-cfa795763469",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -8083,7 +8131,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f054bf0f-d414-47af-b619-33fdc7e83c2c",
+										"id": "3ca9a807-4738-4b6f-8b1f-d2ff9ec5b670",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -8183,7 +8231,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d5f02a69-acfb-4ff1-8717-1eb1a5ff8ebc",
+								"id": "9fbe800a-fd47-4789-8758-311208147a61",
 								"exec": [
 									"",
 									"pm.test(\"Status code is 200\", function () {",
@@ -8207,7 +8255,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "2f125e3c-2847-48ac-baa3-f39ef7637890",
+								"id": "c607e2e6-0b7d-496f-85e7-378bfe9cc793",
 								"exec": [
 									"const echoPostRequest = {\r",
 									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -8292,7 +8340,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1bd68ac0-206e-41c9-999f-de2b73e61792",
+								"id": "07b4eda5-c9ff-45ef-8bf7-2b965bb076f2",
 								"exec": [
 									"",
 									"pm.test(\"Status code is 200\", function () {",
@@ -8312,7 +8360,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "ea7a48e0-e602-4f81-a4e8-e648cfb320c3",
+								"id": "d3b1f9eb-2a62-4538-a711-7f0cef229da0",
 								"exec": [
 									"const echoPostRequest = {\r",
 									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -8403,7 +8451,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9893b61c-fd19-46d9-a111-4bafa0ce54c5",
+								"id": "bb054217-685f-4216-aff3-4c1170da5000",
 								"exec": [
 									"",
 									"pm.test(\"Status code is 200\", function () {",
@@ -8438,7 +8486,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "7915db9a-2630-4fae-b4f3-9eaa59958ff5",
+								"id": "4ebc1c92-31ae-41b6-bfef-8d491ea041e2",
 								"exec": [
 									"const echoPostRequest = {\r",
 									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -8533,7 +8581,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f08600ea-138d-450f-b90b-6cba499e74f1",
+								"id": "5122d441-0d37-43fd-8be5-621f93119d59",
 								"exec": [
 									"pm.test(\"Status code is 500\", function () {",
 									"    pm.response.to.have.status(500);",
@@ -8550,7 +8598,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "624c7b8c-22c3-431f-8d66-9aec3e47f079",
+								"id": "88de3542-cb6b-4b1c-a686-15a1635104fa",
 								"exec": [
 									"const echoPostRequest = {\r",
 									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -8654,7 +8702,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6a7f2eba-9076-42a3-9c31-c67c835a4aad",
+										"id": "476f7a2e-cc3a-4b66-980c-879c27e66f2b",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -8685,7 +8733,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7bd21d61-5023-41eb-a609-2514fa14f067",
+										"id": "bc64520a-7ce7-44a6-a917-678d51cff7ad",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -8776,7 +8824,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8389f51b-a87e-4197-9a60-f65476c9ea4e",
+										"id": "89f54322-a67a-4c13-a4e0-14b3b6b64ef9",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -8794,7 +8842,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7e93a7e2-f2b6-4578-ac9e-ac423f1ad118",
+										"id": "2037044d-a250-475a-b34e-e8968a41f5a8",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -8885,7 +8933,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "70ab4821-03a1-4e67-b473-763e977d4e1c",
+										"id": "b812ffc0-52b7-4036-bd40-5dc8633790d2",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -8916,7 +8964,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "3a4dd738-9e38-4989-8a38-d185b39e1eb4",
+										"id": "9daa4a5d-26c2-4cc4-a14a-815c0c0d74ea",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -9001,7 +9049,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7f668d9d-c06b-4c02-84b7-b854f1949647",
+										"id": "7499478f-86fe-4bfc-9e3e-db206a011076",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -9032,7 +9080,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "41392f22-e29e-4e72-9356-bd4f2e8b9b9a",
+										"id": "47c08567-4324-4063-8336-b853e8e28d9e",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -9127,7 +9175,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7666274e-2973-452b-8e9e-06a2ab29aa81",
+										"id": "6f379f1b-0f4f-4647-9d3a-8d3a1334797b",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -9145,7 +9193,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "ad3c07e8-d2fd-46b7-9a10-80d4e9a860f1",
+										"id": "31adc852-0e1a-4016-96ca-e587b083deaa",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -9250,7 +9298,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "577fdff4-281c-4145-8fe5-35eef36836ef",
+								"id": "1f09a52f-8b34-4c14-a7f6-e057a20e2217",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -9266,7 +9314,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "195c7229-ad07-4b05-8215-a692404187da",
+								"id": "8b570b1a-9280-4659-8e32-eee90a1e6081",
 								"exec": [
 									"const echoPostRequest = {\r",
 									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -9352,7 +9400,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "362f7c15-0b8d-4ec1-85a7-2a2397cfd9f9",
+								"id": "49112503-aacc-4fc0-a763-3c34a8c37d2f",
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {",
 									"    pm.response.to.have.status(404);",
@@ -9368,7 +9416,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "75d2bedd-4719-443c-ad32-0aac83a7e61d",
+								"id": "ba43b60c-4998-4b05-92bb-635705de4a1a",
 								"exec": [
 									"const echoPostRequest = {\r",
 									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -9463,29 +9511,58 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "c0139f6d-8273-455e-b40b-613513114624",
+										"id": "eebef2ee-3048-4f9a-9a37-fdd2af7762ee",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
+											"var jsonData = pm.response.json();",
+											"var i = 1;",
 											"",
-											"pm.test(\"Check details of a trial in the list are correct\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.data[1].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
-											"    pm.expect(jsonData.result.data[1].trialName).to.eql(\"Randomized Trial 20180003\");",
-											"    pm.expect(jsonData.result.data[1].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
-											"    pm.expect(jsonData.result.data[1].programName).to.eql(\"API Program\");",
-											"    pm.expect(jsonData.result.data[1].startDate).to.eql(\"20180912\");",
-											"    pm.expect(jsonData.result.data[1].endDate).to.eql(\"20190220\");",
-											"    pm.expect(jsonData.result.data[1].active).to.eql(true);",
+											"//Check details of a trial in the list are correct",
+											"pm.test(\"Check trialDbId\", function () {",
+											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
+											"});",
+											"pm.test(\"Check trialName\", function () {",
+											"    pm.expect(jsonData.result.data[i].trialName).to.eql(\"Randomized Trial 20180003\");",
 											"});",
 											"",
-											"pm.test(\"Check details of an associated environment are correct\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.data[1].studies[0].studyDbId).to.eql(2);",
-											"    pm.expect(jsonData.result.data[1].studies[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
-											"    pm.expect(jsonData.result.data[1].studies[0].locationDbId).to.eql(\"9001\");",
-											"    pm.expect(jsonData.result.data[1].studies[0].locationName).to.eql(\"Africa Rice Centre\");",
+											"pm.test(\"Check programDbId\", function () {",
+											"    pm.expect(jsonData.result.data[i].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											"});",
+											"",
+											"pm.test(\"Check programDbId\", function () {",
+											"    pm.expect(jsonData.result.data[i].programName).to.eql(\"API Program\");",
+											"});",
+											"pm.test(\"Check startDate\", function () {",
+											"   ",
+											"});",
+											"pm.test(\"Check startDate\", function () {",
+											"    pm.expect(jsonData.result.data[i].startDate).to.eql(\"2018-09-12\");",
+											"});",
+											"",
+											"pm.test(\"Check endDate\", function () { ",
+											"    pm.expect(jsonData.result.data[1].endDate).to.eql(\"2019-02-20\");",
+											"});",
+											"",
+											"pm.test(\"Check active\", function () {  ",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(true);",
+											"});",
+											"",
+											"//Check details of an associated environment are correct",
+											"pm.test(\"Check studyDbId\", function () {  ",
+											"    pm.expect(jsonData.result.data[i].studies[0].studyDbId).to.eql(2);",
+											"});",
+											"",
+											"pm.test(\"Check studyName\", function () {  ",
+											"       pm.expect(jsonData.result.data[i].studies[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId\", function () { ",
+											"    pm.expect(jsonData.result.data[i].studies[0].locationDbId).to.eql(\"9001\");",
+											"});",
+											"pm.test(\"Check locationName\", function () {",
+											"    pm.expect(jsonData.result.data[i].studies[0].locationName).to.eql(\"Africa Rice Centre\");",
 											"});",
 											"",
 											""
@@ -9496,7 +9573,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "3561f843-b561-4c95-b260-868eced86e50",
+										"id": "a081f48e-f1e3-403e-ac6d-15349d1ac172",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -9581,29 +9658,58 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "51c98a43-3d56-41a4-af0f-6908fda1cb28",
+										"id": "bbf378eb-94ed-4dc6-af47-1beae66068c9",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
+											"var jsonData = pm.response.json();",
+											"var i = 1;",
 											"",
-											"pm.test(\"Check details of a trial in the list are correct\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.data[1].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
-											"    pm.expect(jsonData.result.data[1].trialName).to.eql(\"Randomized Trial 20180003\");",
-											"    pm.expect(jsonData.result.data[1].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
-											"    pm.expect(jsonData.result.data[1].programName).to.eql(\"API Program\");",
-											"    pm.expect(jsonData.result.data[1].startDate).to.eql(\"20180912\");",
-											"    pm.expect(jsonData.result.data[1].endDate).to.eql(\"20190220\");",
-											"    pm.expect(jsonData.result.data[1].active).to.eql(true);",
+											"//Check details of a trial in the list are correct",
+											"pm.test(\"Check trialDbId\", function () {",
+											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
+											"});",
+											"pm.test(\"Check trialName\", function () {",
+											"    pm.expect(jsonData.result.data[i].trialName).to.eql(\"Randomized Trial 20180003\");",
 											"});",
 											"",
-											"pm.test(\"Check details of an associated environment are correct\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.data[1].studies[0].studyDbId).to.eql(2);",
-											"    pm.expect(jsonData.result.data[1].studies[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
-											"    pm.expect(jsonData.result.data[1].studies[0].locationDbId).to.eql(\"9001\");",
-											"    pm.expect(jsonData.result.data[1].studies[0].locationName).to.eql(\"Africa Rice Centre\");",
+											"pm.test(\"Check programDbId\", function () {",
+											"    pm.expect(jsonData.result.data[i].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											"});",
+											"",
+											"pm.test(\"Check programDbId\", function () {",
+											"    pm.expect(jsonData.result.data[i].programName).to.eql(\"API Program\");",
+											"});",
+											"pm.test(\"Check startDate\", function () {",
+											"   ",
+											"});",
+											"pm.test(\"Check startDate\", function () {",
+											"    pm.expect(jsonData.result.data[i].startDate).to.eql(\"2018-09-12\");",
+											"});",
+											"",
+											"pm.test(\"Check endDate\", function () { ",
+											"    pm.expect(jsonData.result.data[1].endDate).to.eql(\"2019-02-20\");",
+											"});",
+											"",
+											"pm.test(\"Check active\", function () {  ",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(true);",
+											"});",
+											"",
+											"//Check details of an associated environment are correct",
+											"pm.test(\"Check studyDbId\", function () {  ",
+											"    pm.expect(jsonData.result.data[i].studies[0].studyDbId).to.eql(2);",
+											"});",
+											"",
+											"pm.test(\"Check studyName\", function () {  ",
+											"       pm.expect(jsonData.result.data[i].studies[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId\", function () { ",
+											"    pm.expect(jsonData.result.data[i].studies[0].locationDbId).to.eql(\"9001\");",
+											"});",
+											"pm.test(\"Check locationName\", function () {",
+											"    pm.expect(jsonData.result.data[i].studies[0].locationName).to.eql(\"Africa Rice Centre\");",
 											"});",
 											"",
 											""
@@ -9614,7 +9720,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2ee1cc6a-ccb8-4c1b-8a86-3d80aa52d827",
+										"id": "4d4aa15c-f880-4766-8971-5956726d7301",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -9705,7 +9811,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7cc793c2-c039-4793-a054-388f54b34354",
+										"id": "995ced9b-482f-4d1c-bf6b-6a06e07e70b2",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -9718,7 +9824,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "889218f5-3d98-4a85-bb19-4c3e519e09ec",
+										"id": "ecf25b20-b2ce-47c2-acac-7e38d0c11f7e",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -9809,29 +9915,58 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "03c6ea6c-63f7-46f9-b6d9-e0330c2d095d",
+										"id": "1c6d4910-5a9d-4c2a-a69a-9f3499cd3a69",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
+											"var jsonData = pm.response.json();",
+											"var i = 1;",
 											"",
-											"pm.test(\"Check details of a trial in the list are correct\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.data[1].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
-											"    pm.expect(jsonData.result.data[1].trialName).to.eql(\"Randomized Trial 20180003\");",
-											"    pm.expect(jsonData.result.data[1].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
-											"    pm.expect(jsonData.result.data[1].programName).to.eql(\"API Program\");",
-											"    pm.expect(jsonData.result.data[1].startDate).to.eql(\"20180912\");",
-											"    pm.expect(jsonData.result.data[1].endDate).to.eql(\"20190220\");",
-											"    pm.expect(jsonData.result.data[1].active).to.eql(true);",
+											"//Check details of a trial in the list are correct",
+											"pm.test(\"Check trialDbId\", function () {",
+											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
+											"});",
+											"pm.test(\"Check trialName\", function () {",
+											"    pm.expect(jsonData.result.data[i].trialName).to.eql(\"Randomized Trial 20180003\");",
 											"});",
 											"",
-											"pm.test(\"Check details of an associated environment are correct\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.data[1].studies[0].studyDbId).to.eql(2);",
-											"    pm.expect(jsonData.result.data[1].studies[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
-											"    pm.expect(jsonData.result.data[1].studies[0].locationDbId).to.eql(\"9001\");",
-											"    pm.expect(jsonData.result.data[1].studies[0].locationName).to.eql(\"Africa Rice Centre\");",
+											"pm.test(\"Check programDbId\", function () {",
+											"    pm.expect(jsonData.result.data[i].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											"});",
+											"",
+											"pm.test(\"Check programDbId\", function () {",
+											"    pm.expect(jsonData.result.data[i].programName).to.eql(\"API Program\");",
+											"});",
+											"pm.test(\"Check startDate\", function () {",
+											"   ",
+											"});",
+											"pm.test(\"Check startDate\", function () {",
+											"    pm.expect(jsonData.result.data[i].startDate).to.eql(\"2018-09-12\");",
+											"});",
+											"",
+											"pm.test(\"Check endDate\", function () { ",
+											"    pm.expect(jsonData.result.data[1].endDate).to.eql(\"2019-02-20\");",
+											"});",
+											"",
+											"pm.test(\"Check active\", function () {  ",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(true);",
+											"});",
+											"",
+											"//Check details of an associated environment are correct",
+											"pm.test(\"Check studyDbId\", function () {  ",
+											"    pm.expect(jsonData.result.data[i].studies[0].studyDbId).to.eql(2);",
+											"});",
+											"",
+											"pm.test(\"Check studyName\", function () {  ",
+											"       pm.expect(jsonData.result.data[i].studies[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId\", function () { ",
+											"    pm.expect(jsonData.result.data[i].studies[0].locationDbId).to.eql(\"9001\");",
+											"});",
+											"pm.test(\"Check locationName\", function () {",
+											"    pm.expect(jsonData.result.data[i].studies[0].locationName).to.eql(\"Africa Rice Centre\");",
 											"});",
 											"",
 											""
@@ -9842,7 +9977,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "00a21b9b-c0a5-4d61-81c7-91e03c7be8db",
+										"id": "61000514-59c1-4ac7-a1db-7f1e1c4671cf",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -9937,7 +10072,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "3c7aee24-40d6-4d87-9db1-08e893bb89bf",
+										"id": "cff9e840-f466-447a-9931-e2317beadb44",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -9955,7 +10090,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "3871096e-04b6-4df5-91fc-b8ce1493a3ce",
+										"id": "f8331004-dc56-4cfe-bc01-17f50b3b3e9a",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -10050,29 +10185,58 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9f93b808-529a-4121-b251-582d10e26e12",
+										"id": "8258f526-d2da-46c7-ad9e-3f7ef580ca6b",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
+											"var jsonData = pm.response.json();",
+											"var i = 1;",
 											"",
-											"pm.test(\"Check details of a trial in the list are correct\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.data[1].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
-											"    pm.expect(jsonData.result.data[1].trialName).to.eql(\"Randomized Trial 20180003\");",
-											"    pm.expect(jsonData.result.data[1].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
-											"    pm.expect(jsonData.result.data[1].programName).to.eql(\"API Program\");",
-											"    pm.expect(jsonData.result.data[1].startDate).to.eql(\"20180912\");",
-											"    pm.expect(jsonData.result.data[1].endDate).to.eql(\"20190220\");",
-											"    pm.expect(jsonData.result.data[1].active).to.eql(true);",
+											"//Check details of a trial in the list are correct",
+											"pm.test(\"Check trialDbId\", function () {",
+											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
+											"});",
+											"pm.test(\"Check trialName\", function () {",
+											"    pm.expect(jsonData.result.data[i].trialName).to.eql(\"Randomized Trial 20180003\");",
 											"});",
 											"",
-											"pm.test(\"Check details of an associated environment are correct\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.data[1].studies[0].studyDbId).to.eql(2);",
-											"    pm.expect(jsonData.result.data[1].studies[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
-											"    pm.expect(jsonData.result.data[1].studies[0].locationDbId).to.eql(\"9001\");",
-											"    pm.expect(jsonData.result.data[1].studies[0].locationName).to.eql(\"Africa Rice Centre\");",
+											"pm.test(\"Check programDbId\", function () {",
+											"    pm.expect(jsonData.result.data[i].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											"});",
+											"",
+											"pm.test(\"Check programDbId\", function () {",
+											"    pm.expect(jsonData.result.data[i].programName).to.eql(\"API Program\");",
+											"});",
+											"pm.test(\"Check startDate\", function () {",
+											"   ",
+											"});",
+											"pm.test(\"Check startDate\", function () {",
+											"    pm.expect(jsonData.result.data[i].startDate).to.eql(\"2018-09-12\");",
+											"});",
+											"",
+											"pm.test(\"Check endDate\", function () { ",
+											"    pm.expect(jsonData.result.data[1].endDate).to.eql(\"2019-02-20\");",
+											"});",
+											"",
+											"pm.test(\"Check active\", function () {  ",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(true);",
+											"});",
+											"",
+											"//Check details of an associated environment are correct",
+											"pm.test(\"Check studyDbId\", function () {  ",
+											"    pm.expect(jsonData.result.data[i].studies[0].studyDbId).to.eql(2);",
+											"});",
+											"",
+											"pm.test(\"Check studyName\", function () {  ",
+											"       pm.expect(jsonData.result.data[i].studies[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId\", function () { ",
+											"    pm.expect(jsonData.result.data[i].studies[0].locationDbId).to.eql(\"9001\");",
+											"});",
+											"pm.test(\"Check locationName\", function () {",
+											"    pm.expect(jsonData.result.data[i].studies[0].locationName).to.eql(\"Africa Rice Centre\");",
 											"});",
 											"",
 											""
@@ -10083,7 +10247,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2b5c5ac2-a9cd-4fa3-a75b-8659bcec0a60",
+										"id": "45f4385b-f307-4f49-93cc-05a83ef812c1",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -10174,7 +10338,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dd91cee2-75f8-4e67-bbd7-6aff181c9aad",
+										"id": "223e8b91-161b-4934-9eae-926c3c8e2cba",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -10192,7 +10356,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b1410fde-7d30-40eb-9e91-739dd9444e66",
+										"id": "1bb6bbfd-6ed2-4f0f-8c68-86be0897eb9c",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -10283,29 +10447,58 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "af4d3d69-0429-4802-bab1-7da18ecc1b08",
+										"id": "2ffe4882-42e6-4592-bc00-68846979c25c",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
+											"var jsonData = pm.response.json();",
+											"var i = 1;",
 											"",
-											"pm.test(\"Check details of a trial in the list are correct\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.data[1].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
-											"    pm.expect(jsonData.result.data[1].trialName).to.eql(\"Randomized Trial 20180003\");",
-											"    pm.expect(jsonData.result.data[1].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
-											"    pm.expect(jsonData.result.data[1].programName).to.eql(\"API Program\");",
-											"    pm.expect(jsonData.result.data[1].startDate).to.eql(\"20180912\");",
-											"    pm.expect(jsonData.result.data[1].endDate).to.eql(\"20190220\");",
-											"    pm.expect(jsonData.result.data[1].active).to.eql(true);",
+											"//Check details of a trial in the list are correct",
+											"pm.test(\"Check trialDbId\", function () {",
+											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
+											"});",
+											"pm.test(\"Check trialName\", function () {",
+											"    pm.expect(jsonData.result.data[i].trialName).to.eql(\"Randomized Trial 20180003\");",
 											"});",
 											"",
-											"pm.test(\"Check details of an associated environment are correct\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.data[1].studies[0].studyDbId).to.eql(2);",
-											"    pm.expect(jsonData.result.data[1].studies[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
-											"    pm.expect(jsonData.result.data[1].studies[0].locationDbId).to.eql(\"9001\");",
-											"    pm.expect(jsonData.result.data[1].studies[0].locationName).to.eql(\"Africa Rice Centre\");",
+											"pm.test(\"Check programDbId\", function () {",
+											"    pm.expect(jsonData.result.data[i].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
+											"});",
+											"",
+											"pm.test(\"Check programDbId\", function () {",
+											"    pm.expect(jsonData.result.data[i].programName).to.eql(\"API Program\");",
+											"});",
+											"pm.test(\"Check startDate\", function () {",
+											"   ",
+											"});",
+											"pm.test(\"Check startDate\", function () {",
+											"    pm.expect(jsonData.result.data[i].startDate).to.eql(\"2018-09-12\");",
+											"});",
+											"",
+											"pm.test(\"Check endDate\", function () { ",
+											"    pm.expect(jsonData.result.data[1].endDate).to.eql(\"2019-02-20\");",
+											"});",
+											"",
+											"pm.test(\"Check active\", function () {  ",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(true);",
+											"});",
+											"",
+											"//Check details of an associated environment are correct",
+											"pm.test(\"Check studyDbId\", function () {  ",
+											"    pm.expect(jsonData.result.data[i].studies[0].studyDbId).to.eql(2);",
+											"});",
+											"",
+											"pm.test(\"Check studyName\", function () {  ",
+											"       pm.expect(jsonData.result.data[i].studies[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId\", function () { ",
+											"    pm.expect(jsonData.result.data[i].studies[0].locationDbId).to.eql(\"9001\");",
+											"});",
+											"pm.test(\"Check locationName\", function () {",
+											"    pm.expect(jsonData.result.data[i].studies[0].locationName).to.eql(\"Africa Rice Centre\");",
 											"});",
 											"",
 											""
@@ -10316,7 +10509,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "6a160369-98ae-4dce-8b2e-fa5f0168c572",
+										"id": "f2ea91e1-f8c7-46aa-a231-dfeb5a70b829",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -10407,7 +10600,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dad1b6fe-fe89-4ec9-999f-85129f9fcacf",
+										"id": "9509c808-bf2e-413c-a1b5-ad2d3407ddaa",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    var jsonData = pm.response.json();",
@@ -10426,7 +10619,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2eaa714e-dc37-4229-8b73-b9c9f9e00f3d",
+										"id": "bbf64433-6abd-4f1d-b31c-056b5ba7db4f",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -10517,7 +10710,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7e1df1a9-c95e-4ce3-bdfa-94b3f0c71977",
+										"id": "90b04810-7578-4fa5-b8ee-1ed6a5990edb",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -10544,7 +10737,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b690ea13-9de9-4229-84c4-001e455d27bc",
+										"id": "62325bcf-bda0-4074-9d42-b7739b52787b",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -10635,7 +10828,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "72254000-aeda-4305-88b0-9e4aa0ba35de",
+										"id": "b874874e-5cdb-4b42-a600-af467fbdcb60",
 										"exec": [
 											"pm.test(\"Status code is 200\", function() {",
 											"    pm.response.to.have.status(200);",
@@ -10658,7 +10851,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "9071e1a1-c35d-48eb-a3e3-f088c5b759df",
+										"id": "b5ef9e03-9ad5-4808-9800-3ba8ece28832",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -10749,7 +10942,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "89c78d2e-a3b5-4acf-aec3-971a532a47f5",
+										"id": "ed6dc82d-4546-4f8c-87f7-05b9f175e8cf",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {\r",
 											"    pm.response.to.have.status(404);\r",
@@ -10768,7 +10961,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "de9f2224-fc0b-4350-9fb3-0377c15e8d6e",
+										"id": "3417c303-90c4-45e8-91d2-e6b1720c5ddf",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -10866,7 +11059,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f8b3e65d-d188-411b-bc1c-2a58ca7d0844",
+										"id": "09d90cb1-f442-4c80-bdf0-5c6cc2c40fef",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -10931,7 +11124,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "658be22a-c93f-483d-9ca6-4b01dff72f93",
+										"id": "57a99980-38ef-4eb1-8eee-84b0e3aae01c",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -11018,7 +11211,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0ab0d77e-42a5-40d1-bc43-6e43562b51b2",
+										"id": "869b6984-bcdd-423d-af7a-55c72dc2dcc2",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -11030,7 +11223,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a752d54e-27b9-4a6a-9193-92496f8340a2",
+										"id": "10188cbc-e3bc-469e-bca5-9e248bdab9b7",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -11130,7 +11323,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a6a0145a-ef6a-42ab-b3e0-98fc7c06aff4",
+										"id": "6ebcdc01-bbec-4da4-b949-b5a9d6f4d52d",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -11140,7 +11333,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(14);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -11170,7 +11363,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "cf7ae1fa-0835-4452-9076-2b0642c403e9",
+										"id": "a6cac964-5d48-4781-b572-a48654804777",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -11255,7 +11448,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "b8ae6eba-917b-4084-b953-f928f0b68db1",
+										"id": "28514bc3-6891-4ba0-854d-7c5eb3f5d7a7",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -11265,7 +11458,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(7);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(6);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -11305,7 +11498,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "0f0a6c13-00cd-46d7-b283-1bcb9b5128df",
+										"id": "5dd41677-6cbc-4834-88ac-3bc72dbf2b4a",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -11396,7 +11589,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "daacfd24-ce04-4e1c-987c-237aa0a747ef",
+										"id": "a8b3c21e-4a7b-4d2a-8c88-479d4a579849",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -11406,7 +11599,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(14);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -11446,7 +11639,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "06236c07-dc41-4586-a412-4f3a563b095d",
+										"id": "f7af89b1-ac1f-4a3f-8412-67be3514689c",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -11537,7 +11730,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "af745537-4353-42cb-8ecb-5a4eb5aaf7ac",
+										"id": "7828d688-6a14-4140-a524-913106b9b61f",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -11587,7 +11780,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7292f44c-d129-441e-a490-b3ab80972ae6",
+										"id": "5d15ff24-5962-48fd-ac0a-8c733201d101",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -11678,7 +11871,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8f1224ff-907a-4000-b548-90d1d241db3b",
+										"id": "3fb25ec5-c531-45cb-b0b0-a82ec5beed8e",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -11728,7 +11921,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "4917892b-5c6f-47d7-b541-48a847ec2d24",
+										"id": "8277c49f-6665-4e7d-befa-028d2e3b0505",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -11819,7 +12012,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a697cf9a-33f0-4401-9e50-b982fca64810",
+										"id": "8889ec92-344a-4694-9392-90d1eb2ce639",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -11869,7 +12062,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "71db49f6-be79-4a42-aea2-2de17cb7731c",
+										"id": "dddd3f10-bd1f-4352-8ddd-a992eea3127f",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -11960,7 +12153,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "aa97a898-ff41-4fa3-96ab-d6a80b366b9e",
+										"id": "b8a78f6f-5ee4-4261-921c-94257136fb79",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -12010,7 +12203,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "25618045-e9bf-4280-9b5c-acb9f4dcb158",
+										"id": "b1b109cc-54a5-43da-9e4d-68fd12bac997",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -12101,7 +12294,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "c4fc9168-24b6-42f8-97a7-72b1f33108b6",
+										"id": "4b8b33fe-7aad-4cd7-ac94-bf27e9deb59d",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -12111,7 +12304,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(14);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -12151,7 +12344,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "22b978e0-fa58-4c2e-9592-6d88d26c4dae",
+										"id": "d255851a-826d-4cea-9f5b-c4b9f30f4109",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -12242,7 +12435,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f81760bc-fad1-4491-9f09-b1690265017c",
+										"id": "ddc3b1d5-1164-46f3-ac52-25b6365feb90",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -12292,7 +12485,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "d3e2a015-fbfc-49b6-83c3-e5e714bd8123",
+										"id": "2c503208-5aed-4105-9bfb-6641db3c4167",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -12383,7 +12576,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "13fe665f-ffbe-42aa-81d5-78149359c355",
+										"id": "d90f9658-d904-449f-a5c6-b7bb6b0a75e6",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -12393,7 +12586,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(14);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -12444,7 +12637,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "c69bee5b-e9f6-4c65-9fcc-72f82da776f8",
+										"id": "87c43af4-f14d-4844-beb2-8ef026ae02ff",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -12539,7 +12732,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f927882a-f375-475d-9103-43b268dbbc9b",
+										"id": "1f43a419-2058-4bd3-8e97-a720c38f2306",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -12549,7 +12742,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(14);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -12558,8 +12751,8 @@
 											"pm.test(\"Verify returned data\", function () {",
 											" var jsonData = pm.response.json();",
 											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
-											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2020-06-04\");",
-											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(\"34\");",
+											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2020-09-29\");",
+											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(\"22\");",
 											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study for Design Generation Environment Number 1\");",
 											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"6\");",
 											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Trial\");",
@@ -12599,7 +12792,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1862ca45-0f71-47bb-8130-f3a3f24581b8",
+										"id": "81947f7d-af29-416f-88f4-c6c5e55715df",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -12694,7 +12887,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2fe0677d-6b5a-4015-bf03-b8da15699fe3",
+										"id": "d25ea55c-5f14-46dd-9841-f0b617f3db19",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -12711,7 +12904,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "385782a2-6ac2-4cf7-9957-e3ad6c44f112",
+										"id": "5f0672fc-b2b8-4ba0-a0a9-92bf9a94a837",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -12806,7 +12999,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a7ccc098-cccf-4899-98be-e02af018e71a",
+										"id": "61ed2755-65e7-4b74-8930-b00271b6ba50",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -12816,7 +13009,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(14);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(13);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -12846,7 +13039,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "be5b2fd1-d8ef-401b-a0e7-c98254bedc5b",
+										"id": "f8d978c4-09ba-493d-bf6a-2e7111bd1ae6",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -12941,9 +13134,9 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7c2844d8-db88-4b7d-86f4-f714faca5455",
+										"id": "e4893042-e269-4063-ab4d-905e05db9fab",
 										"exec": [
-											"pm.test(\"Status code is 500\", function () {",
+											"    pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
 											"});",
 											"",
@@ -12958,7 +13151,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "c08f5df8-6150-4bc3-94ff-b50adff93f16",
+										"id": "efe337c5-c877-4bce-bc3d-d12c856d1733",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -13053,7 +13246,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "fccd12a5-49da-45c1-8fc4-0ac537b87a05",
+										"id": "7d00df29-81fc-446c-89cb-3b436409e704",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -13070,7 +13263,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1011d05f-5e57-4a94-a1cd-00a46a548728",
+										"id": "bfcf9851-2720-4e9a-9cf3-ed8d22957cb7",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -13165,7 +13358,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "94ad9470-b2c7-4591-938a-6aec694198f1",
+										"id": "5a59618f-064e-4df9-9f9e-060ea4173c44",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -13215,7 +13408,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "53423748-4543-438a-ab3a-51aa37f000da",
+										"id": "659635b5-63fc-4eb1-a751-0316e30d2bcb",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -13337,7 +13530,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6577cb96-e297-43d3-a7e6-45867e0e9e8c",
+										"id": "d2f5399e-176b-420d-808f-c728e000590a",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -13412,7 +13605,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7cb59f53-d4f6-4b50-a685-b87c8bf11286",
+										"id": "09686059-130e-413d-b5da-7511eac6adad",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -13498,7 +13691,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "e39f17b5-1c25-4f75-a4e3-7bc36701ece7",
+										"id": "6c3dbb92-afcb-46b6-87d4-57b27f1c023b",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -13515,7 +13708,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7435409b-2c04-486c-bbaf-1f0c2e4b436a",
+										"id": "ca1d4079-795c-45b7-805c-d052b744b11b",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -13608,7 +13801,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "98ceedd3-1f1c-4c84-b6a7-5d85e52d4759",
+										"id": "889fb606-154b-4c30-adc0-803f462cc7bf",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -13687,7 +13880,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a6ef9287-82b0-4ad6-9792-d6ed16ba8a16",
+										"id": "78fd5480-6850-4fa9-90ff-3e1ba90f1784",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -13774,7 +13967,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2b3194d4-0145-40fb-bac0-747bb2a62f36",
+										"id": "02d97ee0-89fd-468a-b742-1f42b6c31031",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -13791,7 +13984,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "5d69a49c-d677-433e-9cbe-e4e1d98d516d",
+										"id": "7f0fd412-62fb-4a38-bec5-54c281744990",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -13884,7 +14077,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "bddd603f-a820-4eb4-bf72-1afd5c049e62",
+										"id": "11c604eb-17a7-4562-9edf-3fd61fe73495",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -13901,7 +14094,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2810797c-fae2-42e0-af60-837e70ba83ea",
+										"id": "2034b83d-8c54-4752-923b-33deb1faa734",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -13994,7 +14187,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "51c9e350-5810-4bf9-a90a-a7063f2f4008",
+										"id": "490f1c0e-8ce5-4ab4-b7b6-6ed38fd566b5",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -14012,7 +14205,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "93f5c409-4e3a-4be8-b967-000693944d9d",
+										"id": "fd10c438-73e4-45fd-b119-dc328c26b628",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -14106,7 +14299,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "57a42cf0-d664-45be-8c71-9937816a9533",
+										"id": "9a3be17c-abb9-4f43-8719-925c7cde37cd",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -14268,7 +14461,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "c0641479-081e-453b-9890-6c8b0bfc6d2d",
+										"id": "7eb032a8-d826-4ec8-9091-19aa119d1a44",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -14354,7 +14547,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "ccdf83bf-0a65-4fe6-85a9-26539885f6bd",
+										"id": "15ef3583-0da1-46f9-821d-e5769be41ce8",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -14371,7 +14564,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8cf9c6d3-050d-46d3-80fa-7be4ff9dcb08",
+										"id": "0398b995-79f8-4df8-8ffc-23f3d580ab8b",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -14464,7 +14657,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f3a9bbf7-65e7-4f69-8aa6-68e28a103589",
+										"id": "ce919f14-dcdf-4c7f-b8f0-341730e5073d",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -14734,7 +14927,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "add00721-267b-4cd2-a43c-cce938d90eaf",
+										"id": "c4187544-eedc-45c2-91d2-cc48b5667310",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -14821,7 +15014,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "cfc8afa5-0271-488f-a62e-3afffade65ee",
+										"id": "8209e8cf-894f-4350-8171-1f14d99278fb",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -15084,7 +15277,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "829491c3-1379-47dc-bcc2-3e1d185a8020",
+										"id": "b6d6ac3b-379f-42a8-bde2-6b1989290962",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -15181,7 +15374,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a5f1fc92-f0db-496e-bf49-93df58611fb0",
+										"id": "3051916a-2d56-4d89-8683-a0527f772a28",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -15198,7 +15391,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b5713a61-ba73-4aa8-b581-ec78145255a7",
+										"id": "43637207-f8ce-42a5-8a6a-0935a1c82e60",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -15295,7 +15488,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6918c340-62de-44a0-b094-95473d7394c2",
+										"id": "a645d6d5-bd78-407a-8880-d27581620cfa",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -15312,7 +15505,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f915d40d-ad19-4a75-b606-513808c5e3b3",
+										"id": "915cf552-ce82-4f1d-a5c2-f98cad353a0e",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -15406,7 +15599,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "66fdb72c-1a72-4607-8b5c-e513ba9124de",
+										"id": "88bf7d54-faf0-44dd-a79d-71bc81e9a973",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -15523,7 +15716,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "828f2a53-f2f2-4452-9f21-cf329d340b4d",
+										"id": "908d97ce-cba4-4376-a02a-3782013cacd8",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -15610,7 +15803,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "d606227d-0e75-4516-ad1c-aa094ff8ac5a",
+										"id": "aacaa090-1bd4-427a-b85c-af7ae7c84564",
 										"exec": [
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(400);",
@@ -15627,7 +15820,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "bdeb547b-ea92-44a2-8808-ec0791ad364a",
+										"id": "817b55a5-748a-4453-b3ab-2e74f021fbb9",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -15714,7 +15907,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2418c031-af58-4e81-a49a-2bb3d44038eb",
+										"id": "cce94868-9aea-4624-8bdb-73535fe0a7b7",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -15758,7 +15951,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "9cb0688c-a840-4664-bd72-4b71a348ca15",
+										"id": "e76d885e-1f44-4c78-85a8-9f52dfbd5777",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -15851,7 +16044,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6d123482-e12e-44c1-b1db-17b2993c1235",
+										"id": "a544e6b7-83d8-46bb-bd70-64a60fde2be2",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -15895,7 +16088,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "748b7ef4-ee59-414d-84bc-0f873aad557c",
+										"id": "56ec11ad-b099-439d-a367-2d013e304f7b",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -15988,7 +16181,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "39e3b120-97db-4907-a40c-9b420654db5d",
+										"id": "f967570f-69e7-4499-9d72-3158e399733b",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -16032,7 +16225,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "4b648b73-74b0-4cfe-bd20-7bae9795c1f7",
+										"id": "727a6508-0186-45d7-b7bd-d7f8c1cebb93",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -16125,7 +16318,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "16534007-bc1c-41a8-928d-088003f3fecc",
+										"id": "be1c9804-b81d-4aa0-8d06-e3c765225308",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -16156,7 +16349,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "226b5c02-6a81-460b-b438-67ebf4f28c10",
+										"id": "8d4354f5-5285-4c6c-8f77-046f72e395da",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -16249,7 +16442,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7b456fcb-c7d3-4b0e-b491-fa5add9e074d",
+										"id": "f1eaaa5e-7270-41a4-a43e-f254ff4c2327",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -16292,7 +16485,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b2a9826c-6fc6-48ca-b214-b3725cb26303",
+										"id": "060156f0-ab18-47a0-a778-a4a18b543b93",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -16389,7 +16582,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6fbbff7e-c5a2-4fd1-b01a-164b189461e9",
+										"id": "c1f0e37a-a65b-46f0-bd2c-3899b71e5bae",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -16406,7 +16599,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b2f61c50-bc23-488a-9d07-c44f48ab6713",
+										"id": "9f00d203-20d7-49d2-8dc2-62b4cd675a4e",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -16510,7 +16703,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "3dbe6202-2b4c-4e56-b0ed-19c6137adc48",
+										"id": "6471ac3a-911b-4aed-bd07-ffd70509ac80",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -16556,7 +16749,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "3f2c67f7-9bdc-477a-9e6f-bfd5eb870722",
+										"id": "bdc9e050-0799-4e69-9ce1-7e39b9d69d7b",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -16652,7 +16845,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "efa2a3b1-bc98-4411-8976-324f97c3d769",
+										"id": "518f8be6-729c-4848-a17e-5a85471cc9f1",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -16698,7 +16891,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "729ea1b9-e646-4146-8a6d-b0c38b66c1ba",
+										"id": "cf782c6b-24b8-4ca6-94d6-7606160873c9",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -16794,7 +16987,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "4f20d0ee-97e8-4a4f-9ef9-31c1cb39b7b0",
+										"id": "8f7aed84-6134-43e7-b4ae-455244f1e6a8",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -16840,7 +17033,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "92658d6d-7c33-4125-bfda-2f21bb39f3f8",
+										"id": "c22cc61d-894e-48f8-b58d-119dcdac6130",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -16936,7 +17129,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "46794649-18a4-42d8-8c2a-e9f72f18aade",
+										"id": "19b6c306-f58d-4b4d-928c-0662df03c2dd",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -16982,7 +17175,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7aff7ddd-a89c-4c0e-be1b-379b97f4cfd8",
+										"id": "2fdd6474-7363-46ce-9bbf-066197d00d7f",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -17078,7 +17271,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8842f833-5cf1-414f-8392-e7918b063995",
+										"id": "572dc675-eaee-4002-ad7e-6d0c33aa1b34",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -17124,7 +17317,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "42fc1abc-1805-49dd-b679-7492e97f6e0a",
+										"id": "85a9baa1-7fe3-47fb-b2ec-a08aa09c4c34",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -17233,7 +17426,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "5e62c76c-8c91-44c3-965c-087797d05efa",
+										"id": "98c3bbb1-75b6-42c0-a17f-88da7df3233c",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -17285,7 +17478,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "87e18c0e-a4b5-4ded-81f6-d902e76bb62b",
+										"id": "9b7a6e24-e54b-4fcd-ac71-71f64aad739a",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -17341,7 +17534,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "07319465-8496-4507-a08f-250acf3069f0",
+										"id": "f0e7a23c-2732-437e-9b28-93e9bc1f8609",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -17393,7 +17586,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "89bc6711-2db1-47f1-93a6-556f4b0de165",
+										"id": "2823279a-327d-4bae-a2c0-998a8ab37ec2",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -17462,7 +17655,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "73e0a1a0-fe4f-45e9-a6a3-048b528d3b97",
+										"id": "c3d2d6e8-0a7e-47f8-aa86-9c8587dcf588",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -17514,7 +17707,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7627531b-4db5-4690-a774-3e2c09173c48",
+										"id": "51dd1de0-89cb-4a2c-a547-d613fe27673a",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -17586,7 +17779,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1c8d41d1-8b0d-480b-922b-9b61f08accb0",
+										"id": "626c4235-7a81-4675-8109-d14e408b9d8f",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -17638,7 +17831,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "3f325a0d-eb01-462a-a3fa-71f2e3554bf4",
+										"id": "9d0d047c-2db0-4fd6-8696-7bd41a07ae5d",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -17698,7 +17891,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "297594f1-d91c-4152-9433-9dd265ffe537",
+										"id": "2a97aa56-5266-4054-b2e5-6ad6f603550f",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -17750,7 +17943,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f2e2f530-ffd0-41c6-89a7-0fb66d6f3e90",
+										"id": "8af15ba3-8eab-4550-920d-cc2f64536a43",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -17809,7 +18002,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "984925af-6a10-4bd9-9b01-df0771541023",
+										"id": "dbf5780b-9604-48a5-9eae-21046a376d5f",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -17861,7 +18054,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "734972dd-f053-4b4f-8bff-79a20de49e46",
+										"id": "20565c36-824f-4d77-a5c3-9efce4db47df",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -17930,7 +18123,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3ec897dc-73cd-4217-a114-dfe4ebcef824",
+								"id": "e2451f39-0629-481d-986f-2f17e7854e3b",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -18021,7 +18214,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "65c0b88d-4c81-4abf-8a7c-36276d60b63a",
+								"id": "1a24eef3-665a-4c27-a054-c9a269fad9e1",
 								"exec": [
 									"const echoPostRequest = {\r",
 									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -18112,7 +18305,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "383c0187-f5bb-4f8f-9ef0-f2cbf6969bac",
+								"id": "8c8dfd70-627f-4810-83ac-4286ddb54f33",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -18203,7 +18396,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "e12b91cf-9576-47d7-a7db-85054d5f47d6",
+								"id": "302f9db1-7c7f-44e2-92f2-034c198c9c51",
 								"exec": [
 									"const echoPostRequest = {\r",
 									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -18304,7 +18497,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d9835bb1-2537-4d40-bc70-ed829475e83b",
+								"id": "e837d6e9-5acf-4569-ab41-2df19fca181b",
 								"exec": [
 									"pm.test(\"Status code is 500\", function () {",
 									"    pm.response.to.have.status(500);",
@@ -18321,7 +18514,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "f24a845f-31c3-4365-a427-16aeac8727d4",
+								"id": "a38d7f05-732d-4d58-ae7c-7398dfabbe1b",
 								"exec": [
 									"const echoPostRequest = {\r",
 									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -18431,7 +18624,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2fcc5ad7-3a56-4731-98ee-8f4c8f1e26d4",
+										"id": "32ce0c1a-f451-45b6-8596-6532f77bb297",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -18465,7 +18658,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "bf4d9128-5ee8-4ab6-8801-e676ee0bc4ba",
+										"id": "e3311b63-0211-440f-837d-47e7744d58fd",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -18562,7 +18755,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "bc162f38-4f99-429c-b380-484aa56c0b7c",
+										"id": "42db56fa-fa45-4c6d-a260-8a4790a8dcb7",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(400);",
@@ -18578,7 +18771,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "aa9376b2-9dbe-4035-a36f-ef4772f2cec3",
+										"id": "edf0b55b-4b96-4a62-a9f4-01a4ab4081ad",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -18682,7 +18875,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "c57caa2f-7dd1-4f9f-a798-1b1a6ad91448",
+										"id": "8f5bfa3e-31af-48e1-b129-6b529c0aa9f6",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -18697,7 +18890,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "73df35c0-d3d2-4e7a-9d26-91ff7bbaf5d1",
+										"id": "2f8aa752-b6ec-4fe0-adf2-2afe5e57427f",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -18794,7 +18987,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "39043bfe-0477-40aa-90a6-4e9cd1a68b34",
+										"id": "e4476b0d-cb67-44c4-bda0-2609a946c5fb",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -18809,7 +19002,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "44734cca-f0b9-4432-b690-6e1d3c67d09e",
+										"id": "76eea585-5369-469b-9f1a-9431d94630bb",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -18906,7 +19099,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8a2c7089-46ee-485b-a876-3da884dec65f",
+										"id": "578a53a7-8044-4dea-ac47-7022b3291319",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -18921,7 +19114,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "fa7a0e58-95f1-4fe2-a16b-03546766aef5",
+										"id": "fa70eec7-0271-4098-baf0-272048501639",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -19018,7 +19211,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "cae28583-d15b-4ce6-aea7-d0938881593a",
+										"id": "9dceeb71-4b03-43e1-afa9-c09e89fce513",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -19033,7 +19226,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "26c1f750-3a24-4a0e-a544-b779bb2fe75e",
+										"id": "a5a69d90-9167-43d3-a0a7-a81ae8a914b1",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -19130,7 +19323,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a1ac517a-f5df-4515-92a3-5ef259944c1e",
+										"id": "b835903e-8858-46a8-9514-4eb98ee862a3",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -19145,7 +19338,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1932ea9f-f83a-44be-a600-ec453d0d08f0",
+										"id": "6a28367e-da62-4667-abd9-1bd088aa1ec7",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -19242,7 +19435,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "73af7ec8-3dfa-4973-826f-6f054579cc8d",
+										"id": "bbaf209c-c1dd-4a48-8496-71d5cf4762de",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -19257,7 +19450,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "20babf38-20b8-42d5-9bb0-826fe27badf9",
+										"id": "aa9f72dc-a712-4e00-8ad0-b5e2d03f194d",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -19361,7 +19554,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "851aa567-fafb-4c17-8207-933a75eede4f",
+										"id": "79458fe8-6450-4932-b92c-01974ecc619a",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"  pm.response.to.have.status(200);",
@@ -19372,7 +19565,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"  pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"  pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-											"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(119);",
+											"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(118);",
 											"  pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"  pm.expect(jsonData.metadata.status).to.eql([]);",
 											"  pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -19490,7 +19683,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "9d11d1e4-1c3e-4200-8474-dc48f3d22caa",
+										"id": "f824ccee-dc4b-42fe-bdf1-d52cf7448c0c",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -19601,7 +19794,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6523b897-528c-4292-a4b5-3c6091713750",
+										"id": "e666f7ba-3425-49da-bfa6-25cd0da27d68",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -19635,7 +19828,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8cf12af7-793a-4baa-b3d9-219f7dcf021c",
+										"id": "62edf60f-f3fd-47f6-a42e-5515dcb222f9",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -19746,7 +19939,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "13e50109-0bc6-4088-8588-5fe7cb4fa7a4",
+										"id": "f6d21d93-5d4b-4843-a438-5f48d229a2d9",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"  pm.response.to.have.status(200);",
@@ -19756,7 +19949,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"  pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"  pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-											"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(380);",
+											"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(360);",
 											"  pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"  pm.expect(jsonData.metadata.status).to.eql([]);",
 											"  pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -19780,7 +19973,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "ed5856cf-d0a9-49e2-903c-5aebaf710452",
+										"id": "64f56487-1284-44e9-a248-3bff91611d61",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -19891,7 +20084,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8fc5ec8d-8bae-4ead-be15-f7200c85dbd5",
+										"id": "09635c71-1af3-4401-8f9f-31307d7cf759",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -19925,7 +20118,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "6069a1c7-91ff-4a77-8a7f-963b2c5153ba",
+										"id": "ecafc7e2-3925-4f41-a2db-52752f2ae973",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -20036,7 +20229,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a04672e4-e353-497f-9aaf-6cb7b5362fca",
+										"id": "89df3050-f44d-4315-be78-7e349ecdaaef",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"  pm.response.to.have.status(200);",
@@ -20046,7 +20239,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"  pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"  pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-											"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2380);",
+											"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2360);",
 											"  pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"  pm.expect(jsonData.metadata.status).to.eql([]);",
 											"  pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -20070,7 +20263,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8d00d6dc-4541-41a8-b414-0ccafea98b2b",
+										"id": "091cd60a-05c2-4920-a83a-ff660be4ae24",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -20181,7 +20374,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "e82a4b85-fd2d-473f-af35-ce1fe9199bb0",
+										"id": "c3036d11-09c0-4563-ae93-57eba38e62ed",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -20215,7 +20408,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b0ac8f1f-eb6c-412f-86ee-6fc89fb562a3",
+										"id": "4474431f-0b4e-4d62-82df-5c8487a79960",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -20339,7 +20532,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "50d5cd82-fa84-46cf-ae80-31278bdbc21b",
+										"id": "6539a1d7-a1cb-4f9e-b7b0-893db4279f99",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -20533,7 +20726,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "4eb38f6b-cd62-43b0-87b7-edc66b97faa3",
+										"id": "3b15772c-2f2f-4f23-b83f-c548e30fc435",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -20629,7 +20822,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a06146f3-4056-472d-9fe6-008a6fe74531",
+										"id": "bc8b93c1-2fb5-473a-97f4-ac05ed76ada5",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -20735,7 +20928,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "36828d8c-c365-4426-a5a3-e83b35b0f854",
+										"id": "939328d0-0a20-4d9a-b87b-23725411b690",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -20831,7 +21024,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5f4e5c6a-0484-43f0-ae8e-a13651e0e299",
+										"id": "246704eb-64d5-48e8-8c3a-2711bb68f787",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -20947,7 +21140,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "613fd7c7-9bae-44df-a292-71048fc6c74d",
+										"id": "5ba329bd-f568-48ad-bd64-972bbe3dfec8",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -21046,7 +21239,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "365986b5-0efe-4e4b-a9c2-f6cc247fe481",
+										"id": "94ddc2af-3d5e-4dc7-af1c-394c12a6e111",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -21057,7 +21250,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(860);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(840);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -21092,7 +21285,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e2cd8510-f8e1-46ec-b7a4-7fd821b0163e",
+										"id": "b5636d76-ff72-4e75-9426-0a2b1d8ce11e",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -21191,7 +21384,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7c4ec621-bf4b-45e7-89b7-b8ea457b7c39",
+										"id": "5977047c-35b6-449f-aa6f-81d1a7222277",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"  pm.response.to.have.status(200);",
@@ -21202,7 +21395,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"  pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"  pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2380);",
+											"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2360);",
 											"  pm.expect(jsonData.metadata.pagination.totalPages).to.eql(3);",
 											"  pm.expect(jsonData.metadata.status).to.eql([]);",
 											"  pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -21226,7 +21419,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "0bf02dce-8366-4504-af2d-8523de329f99",
+										"id": "02776cd7-0d4a-4919-9958-d75651ca2822",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -21322,7 +21515,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7cd7a20e-1d44-4af5-b4a8-42e1410a109c",
+										"id": "4506b742-03f5-4a8f-a2b3-fcb4423117c3",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -21357,7 +21550,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "81317b81-be97-49b7-b1f3-1ebdf0cd0eb7",
+										"id": "d0131ab3-534c-4eb8-9e5a-41e76f42b9b5",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -21453,7 +21646,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "11cd181c-ccd0-402a-9dcc-cdce73ec0078",
+										"id": "460c4fbc-5022-4860-aabb-a1e6d784d790",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -21488,7 +21681,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2c68b000-0348-4610-887a-e6924347ca84",
+										"id": "73a1e709-d9b9-4351-a98e-10fed5d9cb4f",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -21584,7 +21777,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "42cae5e3-25b9-49cf-a536-ad64df4cabba",
+										"id": "062bdcd6-6751-448c-8a8f-883cbe20851a",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -21635,7 +21828,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "107f23ff-9a52-4b39-8e5f-ac778051edc4",
+										"id": "69daf790-9ef1-4c87-8b2a-e759e4f88198",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -21731,7 +21924,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "e0ec828a-3fd6-4157-8561-6cc5f1a236ee",
+										"id": "a76a4304-1246-4e75-b8b2-765c33a25d99",
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -21742,7 +21935,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(860);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(840);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -21777,7 +21970,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "0efbc327-1aa8-4b8a-a848-20d0f11220f0",
+										"id": "0474b4e6-3379-4a64-a0fa-3df37d0f8770",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -21876,7 +22069,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "64e1dcde-f338-4fa4-bdb9-7a9dca10193b",
+										"id": "5e5a1091-4e50-4e06-9c7f-a1262f00e0da",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -21893,7 +22086,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "600d4950-bb7a-4eac-bcfb-1c0ae5bcf60f",
+										"id": "931141af-a978-442f-8843-69e9e6673d6b",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -21989,7 +22182,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "d5648b3c-f1ce-4103-a89a-fdda763f8579",
+										"id": "7290e834-aae2-4fcb-bbc3-5cfcd6d4e67b",
 										"exec": [
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
@@ -22006,7 +22199,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "cabd0000-0780-4c2c-891c-36130d2821a3",
+										"id": "63ad223d-db45-46c6-9682-93099db19728",
 										"exec": [
 											"const echoPostRequest = {\r",
 											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
@@ -22093,6 +22286,1253 @@
 									]
 								},
 								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "lot-resource-brapi",
+			"item": [
+				{
+					"name": "GET ​/{crop}​/brapi​/v2​/seedlots",
+					"item": [
+						{
+							"name": "Verify response code and body when entered crop name only",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bdc10cf0-8a05-4bc6-a1f1-9cfe819476a8",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"var data = jsonData.result.data[0];",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(227);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"//Verify data of first lot in the results",
+											"",
+											"pm.test(\"Check amount \", function () {",
+											"    pm.expect(data.amount).to.eql(100);",
+											"});",
+											"",
+											"pm.test(\"Check createdDate \", function () {",
+											"    pm.expect(data.createdDate).to.eql(\"2018-10-25\");",
+											"});",
+											"",
+											"pm.test(\"Check germplasmDbId \", function () {",
+											"    pm.expect(data.germplasmDbId).to.eql(34);",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId \", function () {",
+											"    pm.expect(data.locationDbId).to.eql(6000);",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDescription \", function () {",
+											"    pm.expect(data.seedLotDescription).to.eql(\"From List Import\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotName \", function () {",
+											"    pm.expect(data.seedLotName).to.eql(\"SID2-14\");",
+											"});",
+											"",
+											"pm.test(\"Check storageLocation \", function () {",
+											"    pm.expect(data.storageLocation).to.eql(\"Default Seed Store\");",
+											"});",
+											"",
+											"pm.test(\"Check units \", function () {",
+											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDbId \", function () {",
+											"    pm.expect(data.seedLotDbId).to.eql(\"39725719-09b9-11ea-8631-0242ac110002\");",
+											"});",
+											"",
+											"//Check additional info",
+											"pm.test(\"Check lotInternalId \", function () {",
+											"    pm.expect(data.additionalInfo.lotInternalId).to.eql(21);",
+											"});",
+											"",
+											"pm.test(\"Check actualBalance \", function () {",
+											"    pm.expect(data.additionalInfo.actualBalance).to.eql(100);",
+											"});",
+											"",
+											"pm.test(\"Check totalWithdrawals \", function () {",
+											"    pm.expect(data.additionalInfo.totalWithdrawals).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check pendingDeposits \", function () {",
+											"    pm.expect(data.additionalInfo.pendingDeposits).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check germplasmName \", function () {",
+											"    pm.expect(data.additionalInfo.germplasmName).to.eql(\"CML14\");",
+											"});",
+											"",
+											"pm.test(\"Check lastDepositDate \", function () {",
+											"    pm.expect(data.additionalInfo.lastDepositDate).to.eql(\"2018-10-25\");",
+											"});",
+											"",
+											"pm.test(\"Check totalReserved \", function () {",
+											"    pm.expect(data.additionalInfo.totalReserved).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check username \", function () {",
+											"    pm.expect(data.additionalInfo.username).to.eql(\"admin\");",
+											"});",
+											"",
+											"pm.test(\"Check status \", function () {",
+											"    pm.expect(data.additionalInfo.status).to.eql(\"ACTIVE\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "db126a2b-11d8-4929-90ef-d4680255696f",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered seedLotDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0f223e40-745e-4520-b773-7ba5828e5861",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"var data = jsonData.result.data[0];",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"//Verify data of first lot in the results",
+											"",
+											"pm.test(\"Check amount \", function () {",
+											"    pm.expect(data.amount).to.eql(100);",
+											"});",
+											"",
+											"pm.test(\"Check createdDate \", function () {",
+											"    pm.expect(data.createdDate).to.eql(\"2018-10-25\");",
+											"});",
+											"",
+											"pm.test(\"Check germplasmDbId \", function () {",
+											"    pm.expect(data.germplasmDbId).to.eql(34);",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId \", function () {",
+											"    pm.expect(data.locationDbId).to.eql(6000);",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDescription \", function () {",
+											"    pm.expect(data.seedLotDescription).to.eql(\"From List Import\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotName \", function () {",
+											"    pm.expect(data.seedLotName).to.eql(\"SID2-14\");",
+											"});",
+											"",
+											"pm.test(\"Check storageLocation \", function () {",
+											"    pm.expect(data.storageLocation).to.eql(\"Default Seed Store\");",
+											"});",
+											"",
+											"pm.test(\"Check units \", function () {",
+											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDbId \", function () {",
+											"    pm.expect(data.seedLotDbId).to.eql(\"39725719-09b9-11ea-8631-0242ac110002\");",
+											"});",
+											"",
+											"//Check additional info",
+											"pm.test(\"Check lotInternalId \", function () {",
+											"    pm.expect(data.additionalInfo.lotInternalId).to.eql(21);",
+											"});",
+											"",
+											"pm.test(\"Check actualBalance \", function () {",
+											"    pm.expect(data.additionalInfo.actualBalance).to.eql(100);",
+											"});",
+											"",
+											"pm.test(\"Check totalWithdrawals \", function () {",
+											"    pm.expect(data.additionalInfo.totalWithdrawals).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check pendingDeposits \", function () {",
+											"    pm.expect(data.additionalInfo.pendingDeposits).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check germplasmName \", function () {",
+											"    pm.expect(data.additionalInfo.germplasmName).to.eql(\"CML14\");",
+											"});",
+											"",
+											"pm.test(\"Check lastDepositDate \", function () {",
+											"    pm.expect(data.additionalInfo.lastDepositDate).to.eql(\"2018-10-25\");",
+											"});",
+											"",
+											"pm.test(\"Check totalReserved \", function () {",
+											"    pm.expect(data.additionalInfo.totalReserved).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check username \", function () {",
+											"    pm.expect(data.additionalInfo.username).to.eql(\"admin\");",
+											"});",
+											"",
+											"pm.test(\"Check status \", function () {",
+											"    pm.expect(data.additionalInfo.status).to.eql(\"ACTIVE\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "35d99c02-3193-4c5e-bf96-ff2f7e47d7a7",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?seedLotDbId=39725719-09b9-11ea-8631-0242ac110002",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "seedLotDbId",
+											"value": "39725719-09b9-11ea-8631-0242ac110002"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered germplasmDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "edd9f8c2-1503-42ca-b45e-2d22e600bab2",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"var data = jsonData.result.data[0];",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"//Verify data of first lot in the results",
+											"",
+											"pm.test(\"Check amount \", function () {",
+											"    pm.expect(data.amount).to.eql(100);",
+											"});",
+											"",
+											"pm.test(\"Check createdDate \", function () {",
+											"    pm.expect(data.createdDate).to.eql(\"2018-10-25\");",
+											"});",
+											"",
+											"pm.test(\"Check germplasmDbId \", function () {",
+											"    pm.expect(data.germplasmDbId).to.eql(34);",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId \", function () {",
+											"    pm.expect(data.locationDbId).to.eql(6000);",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDescription \", function () {",
+											"    pm.expect(data.seedLotDescription).to.eql(\"From List Import\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotName \", function () {",
+											"    pm.expect(data.seedLotName).to.eql(\"SID2-14\");",
+											"});",
+											"",
+											"pm.test(\"Check storageLocation \", function () {",
+											"    pm.expect(data.storageLocation).to.eql(\"Default Seed Store\");",
+											"});",
+											"",
+											"pm.test(\"Check units \", function () {",
+											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDbId \", function () {",
+											"    pm.expect(data.seedLotDbId).to.eql(\"39725719-09b9-11ea-8631-0242ac110002\");",
+											"});",
+											"",
+											"//Check additional info",
+											"pm.test(\"Check lotInternalId \", function () {",
+											"    pm.expect(data.additionalInfo.lotInternalId).to.eql(21);",
+											"});",
+											"",
+											"pm.test(\"Check actualBalance \", function () {",
+											"    pm.expect(data.additionalInfo.actualBalance).to.eql(100);",
+											"});",
+											"",
+											"pm.test(\"Check totalWithdrawals \", function () {",
+											"    pm.expect(data.additionalInfo.totalWithdrawals).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check pendingDeposits \", function () {",
+											"    pm.expect(data.additionalInfo.pendingDeposits).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check germplasmName \", function () {",
+											"    pm.expect(data.additionalInfo.germplasmName).to.eql(\"CML14\");",
+											"});",
+											"",
+											"pm.test(\"Check lastDepositDate \", function () {",
+											"    pm.expect(data.additionalInfo.lastDepositDate).to.eql(\"2018-10-25\");",
+											"});",
+											"",
+											"pm.test(\"Check totalReserved \", function () {",
+											"    pm.expect(data.additionalInfo.totalReserved).to.eql(0);",
+											"});",
+											"",
+											"pm.test(\"Check username \", function () {",
+											"    pm.expect(data.additionalInfo.username).to.eql(\"admin\");",
+											"});",
+											"",
+											"pm.test(\"Check status \", function () {",
+											"    pm.expect(data.additionalInfo.status).to.eql(\"ACTIVE\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "96df5d50-747b-4537-893a-5c819a635a55",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?germplasmDbId=34",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "germplasmDbId",
+											"value": "34"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered page no and pageSize values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b247ac94-bad0-41f1-b01e-42fc077488a2",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"var data = jsonData.result.data[0];",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(2);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(227);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(23);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"//Verify data of first lot in the results",
+											"",
+											"pm.test(\"Check amount \", function () {",
+											"    pm.expect(data.amount).to.eql(0.0);",
+											"});",
+											"",
+											"pm.test(\"Check createdDate \", function () {",
+											"    pm.expect(data.createdDate).to.eql(\"2020-06-16\");",
+											"});",
+											"",
+											"pm.test(\"Check germplasmDbId \", function () {",
+											"    pm.expect(data.germplasmDbId).to.eql(21);",
+											"});",
+											"",
+											"pm.test(\"Check locationDbId \", function () {",
+											"    pm.expect(data.locationDbId).to.eql(6000);",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDescription \", function () {",
+											"    pm.expect(data.seedLotDescription).to.eql(\"new lot record\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotName \", function () {",
+											"    pm.expect(data.seedLotName).to.eql(\"SID3-1\");",
+											"});",
+											"",
+											"pm.test(\"Check storageLocation \", function () {",
+											"    pm.expect(data.storageLocation).to.eql(\"Default Seed Store\");",
+											"});",
+											"",
+											"pm.test(\"Check units \", function () {",
+											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
+											"});",
+											"",
+											"pm.test(\"Check seedLotDbId \", function () {",
+											"    pm.expect(data.seedLotDbId).to.eql(\"31a74660-3579-4d74-91a8-3a7f74c2cffe\");",
+											"});",
+											"",
+											"//Check additional info",
+											"pm.test(\"Check lotInternalId \", function () {",
+											"    pm.expect(data.additionalInfo.lotInternalId).to.eql(41);",
+											"});",
+											"",
+											"pm.test(\"Check actualBalance \", function () {",
+											"    pm.expect(data.additionalInfo.actualBalance).to.eql(0.0);",
+											"});",
+											"",
+											"pm.test(\"Check totalWithdrawals \", function () {",
+											"    pm.expect(data.additionalInfo.totalWithdrawals).to.eql(0.0);",
+											"});",
+											"",
+											"pm.test(\"Check pendingDeposits \", function () {",
+											"    pm.expect(data.additionalInfo.pendingDeposits).to.eql(0.0);",
+											"});",
+											"",
+											"pm.test(\"Check germplasmName \", function () {",
+											"    pm.expect(data.additionalInfo.germplasmName).to.eql(\"CML1\");",
+											"});",
+											"",
+											"//pm.test(\"Check lastDepositDate \", function () {",
+											"//    pm.expect(data.additionalInfo.lastDepositDate).to.eql(\"2018-10-25\");",
+											"//});",
+											"",
+											"pm.test(\"Check totalReserved \", function () {",
+											"    pm.expect(data.additionalInfo.totalReserved).to.eql(0.0);",
+											"});",
+											"",
+											"pm.test(\"Check username \", function () {",
+											"    pm.expect(data.additionalInfo.username).to.eql(\"admin\");",
+											"});",
+											"",
+											"pm.test(\"Check status \", function () {",
+											"    pm.expect(data.additionalInfo.status).to.eql(\"ACTIVE\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "616acd54-396c-4d68-9446-0d6646fffc62",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?page=2&pageSize=10",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "2"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered  page number that does not exist for the given pageSize",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "17e65c6a-e9e5-4d49-8a40-8dc76534e5ff",
+										"exec": [
+											"pm.test(\"Status code is 500\", function () {",
+											"    pm.response.to.have.status(500);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check error message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"A total of 23 pages are available, so the page number must between 0 and 23 (exclusive).\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4ba09cba-6730-48a4-8280-de732c2c966b",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?page=10000&pageSize=10",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "10000"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered pageSize value greater than max pageSize in the system",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ada31935-0153-4fdd-948c-b346e9232fb8",
+										"exec": [
+											"pm.test(\"Status code is 500\", function () {",
+											"    pm.response.to.have.status(500);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check error message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Page size must between 1 and 10000.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2f8ba1cf-4b9f-415b-b725-eae75039c35f",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?page=0&pageSize=10001",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "10001"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered seedLotDbId of a closed lot",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "97440584-e4e4-4302-9000-f1dc1a67c8f2",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"//Verify data of first lot in the results",
+											"",
+											"pm.test(\"Check data \", function () {",
+											"    pm.expect(jsonData.result.data).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Check observations \", function () {",
+											"    pm.expect(jsonData.result.observations).to.eql([]);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "d13d49be-7bf6-42dd-81ff-0dc0dd97c8fd",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?seedLotDbId=eb55f552-2b21-451b-9e78-3dcf84f0d256",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "seedLotDbId",
+											"value": "eb55f552-2b21-451b-9e78-3dcf84f0d256"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered combination of parameter values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e792678a-06d2-412b-87f4-97f08403a794",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"//Verify data of first lot in the results",
+											"",
+											"pm.test(\"Check data \", function () {",
+											"    pm.expect(jsonData.result.data).to.eql([]);",
+											"});",
+											"",
+											"pm.test(\"Check observations \", function () {",
+											"    pm.expect(jsonData.result.observations).to.eql([]);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0fd3949d-c270-4461-8b5f-ae9fd7dc06cb",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?seedLotDbId=eb55f552-2b21-451b-9e78-3dcf84f0d256&germplasmDbId=34&page=0&pageSize=10000",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"seedlots"
+									],
+									"query": [
+										{
+											"key": "seedLotDbId",
+											"value": "eb55f552-2b21-451b-9e78-3dcf84f0d256"
+										},
+										{
+											"key": "germplasmDbId",
+											"value": "34"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "10000"
+										}
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v2​/seedlots"
 							},
 							"response": []
 						}
