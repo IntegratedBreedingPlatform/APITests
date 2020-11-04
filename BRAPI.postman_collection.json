@@ -12332,6 +12332,246 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when filtered by searchDateRangeEnd",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f07048c1-ce16-44f1-a6a0-f71f8c9ef8f4",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Check if startDate is before searchDateRangeEnd\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  var timeStampEndMoment = require('moment');",
+											"  var timeStampEnd = timeStampEndMoment(pm.environment.get(\"searchDateRangeEnd\"));",
+											"  for (i = 0; i < jsonData.result.data.length ; i++) {",
+											"   var returnedTimeStamp = jsonData.result.data[i].startDate",
+											"   var returnedTimeStampMoment = require('moment');",
+											"   console.log(returnedTimeStamp);",
+											"   var isBefore = returnedTimeStampMoment(returnedTimeStamp).isBefore(timeStampEnd);",
+											"   pm.expect(isBefore).to.eql(true);",
+											"      console.log(isBefore);  ",
+											"      }",
+											"  ",
+											" ",
+											"});    ",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "613ee98d-6fe1-4131-939d-af4f4ae1d8a6",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/trials?searchDateRangeEnd={{searchDateRangeEnd}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"trials"
+									],
+									"query": [
+										{
+											"key": "searchDateRangeEnd",
+											"value": "{{searchDateRangeEnd}}"
+										}
+									]
+								},
+								"description": "GET ​/{crop}​/brapi​/v1​/trials"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when filtered by searchDateRangeStart",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8c31715c-1361-4f2e-ab51-d42106fc09c7",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Check if endDate is before searchDateRangeStart\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  var timeStampStartMoment = require('moment');",
+											"  var timeStampStart = timeStampStartMoment(pm.environment.get(\"searchDateRangeStart\"));",
+											"  for (i = 0; i < jsonData.result.data.length ; i++) {",
+											"   var returnedTimeStamp = jsonData.result.data[i].endDate",
+											"   var returnedTimeStampMoment = require('moment');",
+											"   console.log(returnedTimeStamp);",
+											"   var isAfter = returnedTimeStampMoment(returnedTimeStamp).isAfter(timeStampStart);",
+											"   pm.expect(isAfter).to.eql(true);",
+											"      console.log(isAfter);  ",
+											"      }",
+											"  ",
+											" ",
+											"});    ",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f5e167c5-8b80-4486-bbd0-8143f312706c",
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/trials?searchDateRangeStart={{searchDateRangeStart}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"trials"
+									],
+									"query": [
+										{
+											"key": "searchDateRangeStart",
+											"value": "{{searchDateRangeStart}}"
+										}
+									]
+								},
+								"description": "GET ​/{crop}​/brapi​/v1​/trials"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when entered invalid commonCropName Copy",
 							"event": [
 								{
@@ -20367,7 +20607,7 @@
 									"    var jsonData = pm.response.json();",
 									" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 									" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-									" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(25);",
+									" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(26);",
 									" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 									" pm.expect(jsonData.metadata.status).to.eql([]);",
 									" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -20549,7 +20789,7 @@
 									"    var jsonData = pm.response.json();",
 									" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 									" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-									" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(25);",
+									" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(26);",
 									" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 									" pm.expect(jsonData.metadata.status).to.eql([]);",
 									" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
