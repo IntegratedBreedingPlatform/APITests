@@ -9961,7 +9961,7 @@
 											"    for (i = 0; i < dataLength; i++) {\r",
 											"        var lotId = jsonData[i].lotId\r",
 											"        if (lotId == 194) {\r",
-											"            pm.expect(jsonData[0].gid).to.eql(21);\r",
+											"            pm.expect(jsonData[0].gid).to.eql(40);\r",
 											"             pm.expect(jsonData[0].actualBalance).to.eql(100.0);\r",
 											"            console.log(\"index:\" + i + \"Found! \");\r",
 											"        }\r",
@@ -26347,7 +26347,7 @@
 											"",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check error message\", function () {",
-											"  pm.expect(jsonData.errors[0].message).to.eql(\"Instance(s) cannot be deleted due to internal validations (samples, sub-observations, inventory transactions associated with the environment or advance/cross list associated with study).\");   ",
+											"  pm.expect(jsonData.errors[0].message).to.eql(\"Instance(s) cannot be deleted due to internal validations (samples, sub-observations, inventory transactions, means data associated with the environment or advance/cross list associated with study).\");   ",
 											"});",
 											""
 										],
@@ -29662,7 +29662,7 @@
 									"",
 									"pm.test(\"Check error message\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.errors[0].message).to.eql(\"Instance(s) cannot be deleted due to internal validations (samples, sub-observations, inventory transactions associated with the environment or advance/cross list associated with study).\");",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Instance(s) cannot be deleted due to internal validations (samples, sub-observations, inventory transactions, means data associated with the environment or advance/cross list associated with study).\");",
 									"});"
 								],
 								"type": "text/javascript"
