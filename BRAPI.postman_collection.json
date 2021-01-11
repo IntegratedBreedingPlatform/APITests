@@ -19275,7 +19275,7 @@
 											"});",
 											"",
 											"",
-											"pm.test(\"Check if next trialDbId is less than or equal to previous trialDbId\", function () {",
+											"pm.test(\"Check if next studyTypeDbId is less than or equal to previous studyTypeDbId\", function () {",
 											"  ",
 											"    var jsonData = pm.response.json();",
 											"    var data = jsonData.result.data;",
@@ -19428,7 +19428,7 @@
 											"});",
 											"",
 											"",
-											"pm.test(\"Check if next trialDbId is greater or equal to previous trialDbId\", function () {",
+											"pm.test(\"Check if next studyTypeDbId is greater or equal to previous studyTypeDbId\", function () {",
 											"  ",
 											"    var jsonData = pm.response.json();",
 											"    var data = jsonData.result.data;",
@@ -19553,14 +19553,25 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"pm.test(\"Check all locationDbId are equal to input parameter\", function () {",
-											"  var jsonData = pm.response.json();",
-											"   var trialDbIds = [\"3063\",\"3046\",\"3009\",\"3013\",\"3013\",\"3073\",\"3058\",\"3009\",\"3078\",\"3068\",\"3083\",\"3028\",\"3019\",\"3053\"]",
-											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
-											"        pm.expect(jsonData.result.data[i].trialDbId).to.eql(trialDbIds[i]);",
-											"        console.log(jsonData.result.data[i].trialDbId);",
-											"    }",
-											"}); ",
+											"",
+											"pm.test(\"Check if next locationDbId is greater or equal to previous locationDbId\", function () {",
+											"  ",
+											"    var jsonData = pm.response.json();",
+											"    var data = jsonData.result.data;",
+											"    var i;",
+											"    var proceed = true",
+											"    for (i = 0; i+1 < data.length ; i++) {",
+											"        ",
+											"           if((parseInt(data[i+1].locationDbId)) >= (parseInt(data[i].locationDbId))){",
+											"               proceed = true;",
+											"             ",
+											"           }else{",
+											"              proceed = false;",
+											"     }",
+											"   }",
+											"       pm.expect(proceed).to.eql(true);   ",
+											"});",
+											"",
 											""
 										],
 										"type": "text/javascript"
@@ -19668,14 +19679,25 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"pm.test(\"Check all locationDbId are equal to input parameter\", function () {",
-											"  var jsonData = pm.response.json();",
-											"   var trialDbIds = [\"3053\",\"3019\",\"3028\",\"3083\",\"3068\",\"3078\",\"3009\",\"3058\",\"3073\",\"3013\",\"3013\",\"3009\",\"3046\",\"3063\"]",
-											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
-											"        pm.expect(jsonData.result.data[i].trialDbId).to.eql(trialDbIds[i]);",
-											"        console.log(jsonData.result.data[i].trialDbId);",
-											"    }",
-											"}); ",
+											"",
+											"pm.test(\"Check if next locationDbId is less than or equal to previous locationDbId\", function () {",
+											"  ",
+											"    var jsonData = pm.response.json();",
+											"    var data = jsonData.result.data;",
+											"    var i;",
+											"    var proceed = true",
+											"    for (i = 0; i+1 < data.length ; i++) {",
+											"        ",
+											"           if((parseInt(data[i+1].locationDbId)) <= (parseInt(data[i].locationDbId))){",
+											"               proceed = true;",
+											"              console.log(data[i+1].locationDbId + \"is less than/equal \" +data[i].locationDbId);",
+											"           }else{",
+											"              proceed = false;",
+											"     }",
+											"   }",
+											"       pm.expect(proceed).to.eql(true);   ",
+											"});",
+											"",
 											""
 										],
 										"type": "text/javascript"
@@ -19761,6 +19783,462 @@
 										{
 											"key": "sortBy",
 											"value": "locationDbId"
+										},
+										{
+											"key": "sortOrder",
+											"value": "DESC"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when sortedBy seasonDbId in asc order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Check all locationDbId are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var trialDbIds = [\"3019\",\"3028\",\"3046\",\"3053\",\"3058\",\"3063\",\"3068\",\"3073\",\"3078\",\"3083\",\"3009\",\"3013\",\"3009\",\"3013\"]",
+											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
+											"        pm.expect(jsonData.result.data[i].trialDbId).to.eql(trialDbIds[i]);",
+											"    }",
+											"}); ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/studies?sortBy=seasonDbId&sortOrder=ASC",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "seasonDbId"
+										},
+										{
+											"key": "sortOrder",
+											"value": "ASC"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when sortedBy seasonDbId in desc order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Check all locationDbId are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var trialDbIds = [\"3009\",\"3013\",\"3009\",\"3013\",\"3019\",\"3028\",\"3046\",\"3053\",\"3058\",\"3063\",\"3068\",\"3073\",\"3078\",\"3083\"]",
+											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
+											"        pm.expect(jsonData.result.data[i].trialDbId).to.eql(trialDbIds[i]);",
+											"    }",
+											"}); ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/studies?sortBy=seasonDbId&sortOrder=DESC",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "seasonDbId"
+										},
+										{
+											"key": "sortOrder",
+											"value": "DESC"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when sortedBy programName in asc order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Check all locationDbId are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var trialDbIds = [\"3009\",\"3009\",\"3013\",\"3013\",\"3019\",\"3028\",\"3046\",\"3053\",\"3058\",\"3063\",\"3068\",\"3073\",\"3078\",\"3083\"]",
+											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
+											"        pm.expect(jsonData.result.data[i].trialDbId).to.eql(trialDbIds[i]);",
+											"    }",
+											"}); ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/studies?sortBy=programName&sortOrder=ASC",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "programName"
+										},
+										{
+											"key": "sortOrder",
+											"value": "ASC"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/studies/{studyDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when sortedBy programName in desc order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Check all locationDbId are equal to input parameter\", function () {",
+											"  var jsonData = pm.response.json();",
+											"   var trialDbIds = [\"3009\",\"3009\",\"3013\",\"3013\",\"3019\",\"3028\",\"3046\",\"3053\",\"3058\",\"3063\",\"3068\",\"3073\",\"3078\",\"3083\"]",
+											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
+											"        pm.expect(jsonData.result.data[i].trialDbId).to.eql(trialDbIds[i]);",
+											"    }",
+											"}); ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/studies?sortBy=programName&sortOrder=DESC",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"studies"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "programName"
 										},
 										{
 											"key": "sortOrder",
