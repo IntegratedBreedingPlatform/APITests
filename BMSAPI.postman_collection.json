@@ -12020,7 +12020,7 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
+											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											""
@@ -12237,7 +12237,7 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Some of the lot UUIDs were not found. Please review\");\r",
+											"    pm.expect(error).to.eql(\"One or more of the records do not include a valid LOT UID. Please correct them and try again\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -33608,8 +33608,8 @@
 											"",
 											"pm.test(\"Verify returned sample details\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData[0].sampleId).to.eql(1);",
-											"    pm.expect(jsonData[0].sampleNumber).to.eql(1);",
+											"    pm.expect(jsonData[0].title).to.eql(\"Crop lists\");",
+											"    pm.expect(jsonData[0].key).to.eql(\"CROPLISTS\");",
 											"    ",
 											"});"
 										],
