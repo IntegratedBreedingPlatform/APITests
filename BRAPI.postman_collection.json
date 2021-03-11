@@ -136,7 +136,7 @@
 											"});",
 											"pm.test(\"Check total call count\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(31);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(24);",
 											"});",
 											"",
 											"",
@@ -815,7 +815,7 @@
 											"});",
 											"pm.test(\"Check total call count\", function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(31);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(24);",
 											"});",
 											"",
 											"",
@@ -1118,7 +1118,7 @@
 											"});",
 											"pm.test(\"Check total call count\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(31);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(24);",
 											"});",
 											"",
 											"",
@@ -1803,7 +1803,7 @@
 											"});",
 											"pm.test(\"Check total call count\", function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(31);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(24);",
 											"});",
 											"",
 											"",
@@ -7285,9 +7285,8 @@
 											"});",
 											"pm.test(\"Response message is no germplasm found \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"Invalid germplasm identifier\");",
-											"});",
-											""
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid germplasm identifier\");",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -38703,7 +38702,7 @@
 							"response": []
 						},
 						{
-							"name": "Verify response when entered germplasmDbId-tofix",
+							"name": "Verify response when entered germplasmDbId",
 							"event": [
 								{
 									"listen": "test",
@@ -38763,14 +38762,14 @@
 											"    pm.expect(data.additionalInfo.locationId).to.eql(6000);",
 											"});",
 											"pm.test(\"Check stockId \", function () {",
-											"    pm.expect(data.additionalInfo.stockId).to.eql(\"SID2-5\");",
+											"    pm.expect(data.additionalInfo.stockId).to.eql(\"SID2-1\");",
 											"});",
 											"",
 											"pm.test(\"Check unitId \", function () {",
 											"    pm.expect(data.additionalInfo.unitId).to.eql(8264);",
 											"});",
 											"pm.test(\"Check designation \", function () {",
-											"    pm.expect(data.additionalInfo.designation).to.eql(\"CML5\");",
+											"    pm.expect(data.additionalInfo.designation).to.eql(\"CML1\");",
 											"});",
 											"pm.test(\"Check locationAbbr \", function () {",
 											"    pm.expect(data.additionalInfo.locationAbbr).to.eql(\"DSS\");",
@@ -38787,7 +38786,7 @@
 											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
 											"});",
 											"pm.test(\"Check transactionDbId \", function () {",
-											"    pm.expect(data.transactionDbId).to.eql(\"53\");",
+											"    pm.expect(data.transactionDbId).to.eql(\"50\");",
 											"});",
 											""
 										],
@@ -38860,7 +38859,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions?germplasmDbId=\"PKWDG942cd372\"",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions?germplasmDbId=PKWDG942cd372",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -38873,7 +38872,7 @@
 									"query": [
 										{
 											"key": "germplasmDbId",
-											"value": "\"PKWDG942cd372\""
+											"value": "PKWDG942cd372"
 										}
 									]
 								},
