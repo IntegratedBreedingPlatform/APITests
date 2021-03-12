@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "113b31d1-70e0-4af6-9622-36bafcaa7ac2",
+		"_postman_id": "edaa99f5-401f-4e9b-a1b9-f5b92d2e4f1c",
 		"name": "BRAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -136,7 +136,7 @@
 											"});",
 											"pm.test(\"Check total call count\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(31);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(24);",
 											"});",
 											"",
 											"",
@@ -815,7 +815,7 @@
 											"});",
 											"pm.test(\"Check total call count\", function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(31);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(24);",
 											"});",
 											"",
 											"",
@@ -1118,7 +1118,7 @@
 											"});",
 											"pm.test(\"Check total call count\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(31);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(24);",
 											"});",
 											"",
 											"",
@@ -1803,7 +1803,7 @@
 											"});",
 											"pm.test(\"Check total call count\", function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(31);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(24);",
 											"});",
 											"",
 											"",
@@ -6762,7 +6762,7 @@
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.germplasmDbId).to.eql(41);",
+											"    pm.expect(jsonData.result.germplasmDbId).to.eql(\"PKWDGccd05c2c\");",
 											"});",
 											"pm.test(\"Check defaultDisplayName \", function () {",
 											"    var jsonData = pm.response.json();",
@@ -6777,7 +6777,7 @@
 											"    pm.expect(jsonData.result.parent2DbId).to.eql(26);",
 											"    pm.expect(jsonData.result.parent2Name).to.eql(\"CML6\");",
 											"    pm.expect(jsonData.result.parent2Type).to.eql(\"MALE\");",
-											"    pm.expect(jsonData.result.siblings[0].germplasmDbId).to.eql(61);",
+											"    pm.expect(jsonData.result.siblings[0].germplasmDbId).to.eql(\"PKWDG0bd87275\");",
 											"    pm.expect(jsonData.result.siblings[0].defaultDisplayName).to.eql(\"CML1\");",
 											"});",
 											""
@@ -6851,7 +6851,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{crossGID}}/pedigree?includeSiblings=true",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{cross_uuid}}/pedigree?includeSiblings=true",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -6860,7 +6860,7 @@
 										"brapi",
 										"v1",
 										"germplasm",
-										"{{crossGID}}",
+										"{{cross_uuid}}",
 										"pedigree"
 									],
 									"query": [
@@ -6896,7 +6896,7 @@
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.germplasmDbId).to.eql(41);",
+											"    pm.expect(jsonData.result.germplasmDbId).to.eql(\"PKWDGccd05c2c\");",
 											"});",
 											"pm.test(\"Check defaultDisplayName \", function () {",
 											"    var jsonData = pm.response.json();",
@@ -6984,7 +6984,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{crossGID}}/pedigree?includeSiblings=false",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{cross_uuid}}/pedigree?includeSiblings=false",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -6993,7 +6993,7 @@
 										"brapi",
 										"v1",
 										"germplasm",
-										"{{crossGID}}",
+										"{{cross_uuid}}",
 										"pedigree"
 									],
 									"query": [
@@ -7019,17 +7019,17 @@
 											"});",
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
-											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(0);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
-											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
-											" pm.expect(jsonData.metadata.status).to.eql([]);",
-											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.germplasmDbId).to.eql(parseInt(pm.environment.get(\"advancedGID\")));",
+											"    pm.expect(jsonData.result.germplasmDbId).to.eql(\"PKWDG0bd87275\");",
 											"});",
 											"pm.test(\"Check defaultDisplayName \", function () {",
 											"    var jsonData = pm.response.json();",
@@ -7117,7 +7117,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{advancedGID}}/pedigree?includeSiblings=true",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{advanced_uuid}}/pedigree?includeSiblings=true",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -7126,7 +7126,7 @@
 										"brapi",
 										"v1",
 										"germplasm",
-										"{{advancedGID}}",
+										"{{advanced_uuid}}",
 										"pedigree"
 									],
 									"query": [
@@ -7162,7 +7162,7 @@
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.germplasmDbId).to.eql(parseInt(pm.environment.get(\"noParentGID\")));",
+											"    pm.expect(jsonData.result.germplasmDbId).to.eql(\"PKWDG942cd372\");",
 											"});",
 											"pm.test(\"Check defaultDisplayName \", function () {",
 											"    var jsonData = pm.response.json();",
@@ -7250,7 +7250,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{noParentGID}}/pedigree?includeSiblings=false",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasm_uuid}}/pedigree?includeSiblings=false",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -7259,7 +7259,7 @@
 										"brapi",
 										"v1",
 										"germplasm",
-										"{{noParentGID}}",
+										"{{germplasm_uuid}}",
 										"pedigree"
 									],
 									"query": [
@@ -7285,9 +7285,8 @@
 											"});",
 											"pm.test(\"Response message is no germplasm found \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"no germplasm found\");",
-											"});",
-											""
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid germplasm identifier\");",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -7368,6 +7367,109 @@
 										"v1",
 										"germplasm",
 										"{{nonExistingGID}}",
+										"pedigree"
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v1​/germplasm​/{germplasmDbId}​/pedigree"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered invalid cropname",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message is no germplasm found \", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalidcrop for URL:/invalidcrop/brapi/v1/germplasm/PKWDG942cd372/pedigree\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/invalidcrop/brapi/v1/germplasm/{{germplasm_uuid}}/pedigree",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"invalidcrop",
+										"brapi",
+										"v1",
+										"germplasm",
+										"{{germplasm_uuid}}",
 										"pedigree"
 									]
 								},
@@ -7594,7 +7696,7 @@
 											"});",
 											"pm.test(\"Check germplasmDbId \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.germplasmDbId).to.eql(21);",
+											"    pm.expect(jsonData.result.germplasmDbId).to.eql(\"PKWDG942cd372\");",
 											"});",
 											"pm.test(\"Check defaultDisplayName \", function () {",
 											"    var jsonData = pm.response.json();",
@@ -7602,7 +7704,7 @@
 											"});",
 											"pm.test(\"Check progeny details \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.progeny[0].germplasmDbId).to.eql(41);",
+											"    pm.expect(jsonData.result.progeny[0].germplasmDbId).to.eql(\"PKWDGccd05c2c\");",
 											"    pm.expect(jsonData.result.progeny[0].defaultDisplayName).to.eql(\"IB1\");",
 											"   pm.expect(jsonData.result.progeny[0].parentType).to.eql(\"FEMALE\");",
 											"});"
@@ -7676,7 +7778,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasmDbId}}/progeny",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasm_uuid}}/progeny",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -7685,7 +7787,7 @@
 										"brapi",
 										"v1",
 										"germplasm",
-										"{{germplasmDbId}}",
+										"{{germplasm_uuid}}",
 										"progeny"
 									]
 								},
@@ -7703,9 +7805,10 @@
 											"pm.test(\"Status code is 404\", function () {",
 											"    pm.response.to.have.status(404);",
 											"});",
+											"",
 											"pm.test(\"Response message is no germplasm found \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"no germplasm found\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid germplasm identifier\");",
 											"});",
 											""
 										],
@@ -7788,6 +7891,109 @@
 										"v1",
 										"germplasm",
 										"{{nonExistingGID}}",
+										"progeny"
+									]
+								},
+								"description": "GET ​/{crop}​/brapi​/v1​/germplasm​/{germplasmDbId}​/progeny"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered invalid cropname",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message is no germplasm found \", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalidcrop for URL:/invalidcrop/brapi/v1/germplasm/PKWDG942cd372/progeny\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/invalidcrop/brapi/v1/germplasm/{{germplasm_uuid}}/progeny",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"invalidcrop",
+										"brapi",
+										"v1",
+										"germplasm",
+										"{{germplasm_uuid}}",
 										"progeny"
 									]
 								},
@@ -8783,7 +8989,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasmDbId}}/attributes",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasm_uuid}}/attributes",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -8792,7 +8998,7 @@
 										"brapi",
 										"v1",
 										"germplasm",
-										"{{germplasmDbId}}",
+										"{{germplasm_uuid}}",
 										"attributes"
 									]
 								},
@@ -8830,7 +9036,7 @@
 											"",
 											"pm.test(\"Check returned germplasmDbId \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.germplasmDbId).to.eql(pm.environment.get(\"germplasmDbId\"));",
+											"    pm.expect(jsonData.result.germplasmDbId).to.eql(\"PKWDG942cd372\");",
 											"});",
 											""
 										],
@@ -8903,7 +9109,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasmDbId}}/attributes?attributeDbIds=224",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasm_uuid}}/attributes?attributeDbIds=224",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -8912,7 +9118,7 @@
 										"brapi",
 										"v1",
 										"germplasm",
-										"{{germplasmDbId}}",
+										"{{germplasm_uuid}}",
 										"attributes"
 									],
 									"query": [
@@ -9012,7 +9218,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasmDbId}}/attributes?attributeDbIds=2131",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasm_uuid}}/attributes?attributeDbIds=2131",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9021,7 +9227,7 @@
 										"brapi",
 										"v1",
 										"germplasm",
-										"{{germplasmDbId}}",
+										"{{germplasm_uuid}}",
 										"attributes"
 									],
 									"query": [
@@ -9139,6 +9345,109 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when entered invalid cropname",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Verify returned error\", function () {",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalidcrop for URL:/invalidcrop/brapi/v1/germplasm/PKWDG942cd372/attributes\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/invalidcrop/brapi/v1/germplasm/{{germplasm_uuid}}/attributes",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"invalidcrop",
+										"brapi",
+										"v1",
+										"germplasm",
+										"{{germplasm_uuid}}",
+										"attributes"
+									]
+								},
+								"description": "GET /{crop}​/brapi​/v1​/search​/germplasm​/{germplasmDbId}​/attributes"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when entered valid germplasmDbId and attributeDbId Copy",
 							"event": [
 								{
@@ -9168,7 +9477,7 @@
 											"",
 											"pm.test(\"Check returned germplasmDbId \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.result.germplasmDbId).to.eql(pm.environment.get(\"germplasmDbId\"));",
+											"    pm.expect(jsonData.result.germplasmDbId).to.eql(\"PKWDG942cd372\");",
 											"});",
 											""
 										],
@@ -9241,7 +9550,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasmDbId}}/attributes?attributeDbIds=224&page=0&pageSize=10000",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasm_uuid}}/attributes?attributeDbIds=224&page=0&pageSize=10000",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9250,7 +9559,7 @@
 										"brapi",
 										"v1",
 										"germplasm",
-										"{{germplasmDbId}}",
+										"{{germplasm_uuid}}",
 										"attributes"
 									],
 									"query": [
@@ -9357,7 +9666,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasmDbId}}/attributes?attributeDbIds=224&page=0&pageSize=10001",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasm_uuid}}/attributes?attributeDbIds=224&page=0&pageSize=10001",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -9366,7 +9675,7 @@
 										"brapi",
 										"v1",
 										"germplasm",
-										"{{germplasmDbId}}",
+										"{{germplasm_uuid}}",
 										"attributes"
 									],
 									"query": [
@@ -11564,7 +11873,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm-search?germplasmDbId=PKWDG942cd372",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm-search?germplasmDbId={{germplasm_uuid}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -11577,7 +11886,7 @@
 									"query": [
 										{
 											"key": "germplasmDbId",
-											"value": "PKWDG942cd372"
+											"value": "{{germplasm_uuid}}"
 										}
 									]
 								}
@@ -11596,14 +11905,12 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"/**",
-											"",
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
 											"var jsonData = pm.response.json();",
-											"pm.test(\"Check GID \", function () {",
-											"    pm.expect(jsonData.result.germplasmDbId).to.eql(\"21\");",
+											"pm.test(\"Check germplasmDbId \", function () {",
+											"    pm.expect(jsonData.result.germplasmDbId).to.eql(\"PKWDG942cd372\");",
 											"});",
 											"",
 											"pm.test(\"Check defaultDisplayName \", function () {",
@@ -11615,9 +11922,6 @@
 											"",
 											"pm.test(\"Check germplasmName \", function () {",
 											"    pm.expect(jsonData.result.germplasmName).to.eql(\"CML1\");",
-											"});",
-											"pm.test(\"Check germplasmPUI \", function () {",
-											"    pm.expect(jsonData.result.germplasmPUI).to.eql(\"PKWDG942cd372\");",
 											"});",
 											"",
 											"pm.test(\"Check pedigree\", function () {",
@@ -11632,14 +11936,14 @@
 											"",
 											"});    ",
 											"pm.test(\"Check commonCropName\", function () {",
-											"    pm.expect(jsonData.result.commonCropName).to.eql(\"testdata\");",
+											"    pm.expect(jsonData.result.commonCropName).to.eql(\"commoncropnm\");",
 											"});",
 											"",
 											"pm.test(\"Check instituteCode\", function () {",
-											"    pm.expect(jsonData.result.instituteCode).to.eql(\"PROGM1\");",
+											"    pm.expect(jsonData.result.instituteCode).to.eql(\"instituteCode001\");",
 											"});",
 											"pm.test(\"Check instituteName\", function () {",
-											"    pm.expect(jsonData.result.instituteName).to.eql(\"PROGM1\");",
+											"    pm.expect(jsonData.result.instituteName).to.eql(\"instituteName001\");",
 											"});",
 											"",
 											"",
@@ -11679,7 +11983,7 @@
 											"    pm.expect(jsonData.result.acquisitionDate).to.eql(\"2018-10-25\");",
 											"});",
 											"pm.test(\"Check breedingMethodDbId\", function () {",
-											"    pm.expect(jsonData.result.breedingMethodDbId).to.eql(\"Accession into genebank\");",
+											"    pm.expect(jsonData.result.breedingMethodDbId).to.eql(\"70\");",
 											"});",
 											"",
 											"pm.test(\"Check germplasmGenus\", function () {",
@@ -11710,7 +12014,7 @@
 											"pm.test(\"Check additionalInfo PROGM\", function () {",
 											"    pm.expect(jsonData.result.additionalInfo.PROGM).to.eql(\"PROGM1\");",
 											"});",
-											" */"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -11781,7 +12085,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasmDbId}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/germplasm/{{germplasm_uuid}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -11790,7 +12094,7 @@
 										"brapi",
 										"v1",
 										"germplasm",
-										"{{germplasmDbId}}"
+										"{{germplasm_uuid}}"
 									]
 								}
 							},
@@ -11803,12 +12107,12 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 500\", function () {",
-											"    pm.response.to.have.status(500);",
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
 											"});",
 											"pm.test(\"Response message is no germplasm found \", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid Germplasm Id\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid germplasm identifier\");",
 											"});",
 											""
 										],
@@ -11896,8 +12200,129 @@
 								"description": "GET ​/{crop}​/brapi​/v1​/germplasm​/{germplasmDbId}"
 							},
 							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered invalid cropname",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Response message is no germplasm found \", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalidcrop for URL:/invalidcrop/brapi/v1/germplasm/PKWDG942cd372\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/invalidcrop/brapi/v1/germplasm/{{germplasm_uuid}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"invalidcrop",
+										"brapi",
+										"v1",
+										"germplasm",
+										"{{germplasm_uuid}}"
+									]
+								},
+								"description": "GET ​/{crop}​/brapi​/v1​/germplasm​/{germplasmDbId}"
+							},
+							"response": []
 						}
 					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -36487,7 +36912,7 @@
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(data.germplasmDbId).to.eql(34);",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDG34bd21ac\");",
 											"});",
 											"",
 											"pm.test(\"Check locationDbId \", function () {",
@@ -36667,7 +37092,7 @@
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(data.germplasmDbId).to.eql(34);",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDG34bd21ac\");",
 											"});",
 											"",
 											"pm.test(\"Check locationDbId \", function () {",
@@ -36853,7 +37278,7 @@
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(data.germplasmDbId).to.eql(34);",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDG34bd21ac\");",
 											"});",
 											"",
 											"pm.test(\"Check locationDbId \", function () {",
@@ -36986,7 +37411,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?germplasmDbId=34",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?germplasmDbId=PKWDG34bd21ac",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -36999,7 +37424,7 @@
 									"query": [
 										{
 											"key": "germplasmDbId",
-											"value": "34"
+											"value": "PKWDG34bd21ac"
 										}
 									]
 								},
@@ -37039,7 +37464,7 @@
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(data.germplasmDbId).to.eql(21);",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDG942cd372\");",
 											"});",
 											"",
 											"pm.test(\"Check locationDbId \", function () {",
@@ -37568,7 +37993,7 @@
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(data.germplasmDbId).to.eql(34);",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDG34bd21ac\");",
 											"});",
 											"",
 											"pm.test(\"Check locationDbId \", function () {",
@@ -37701,7 +38126,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?seedLotDbId=39725719-09b9-11ea-8631-0242ac110002&germplasmDbId=34&page=0&pageSize=10000",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots?seedLotDbId=39725719-09b9-11ea-8631-0242ac110002&germplasmDbId=PKWDG34bd21ac&page=0&pageSize=10000",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -37718,7 +38143,7 @@
 										},
 										{
 											"key": "germplasmDbId",
-											"value": "34"
+											"value": "PKWDG34bd21ac"
 										},
 										{
 											"key": "page",
@@ -37794,7 +38219,7 @@
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(24);",
+											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(\"PKWDG47fa785e\");",
 											"});",
 											"pm.test(\"Check transactionType \", function () {",
 											"    pm.expect(data.additionalInfo.transactionType).to.eql(\"Deposit\");",
@@ -37967,7 +38392,7 @@
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(34);",
+											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(\"PKWDG34bd21ac\");",
 											"});",
 											"pm.test(\"Check transactionType \", function () {",
 											"    pm.expect(data.additionalInfo.transactionType).to.eql(\"Deposit\");",
@@ -38146,7 +38571,7 @@
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(34);",
+											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(\"PKWDG34bd21ac\");",
 											"});",
 											"pm.test(\"Check transactionType \", function () {",
 											"    pm.expect(data.additionalInfo.transactionType).to.eql(\"Deposit\");",
@@ -38317,15 +38742,15 @@
 											"});",
 											"",
 											"pm.test(\"Check seedLotID \", function () {",
-											"    pm.expect(data.additionalInfo.seedLotID).to.eql(\"39725b71-09b9-11ea-8631-0242ac110002\");",
+											"    pm.expect(data.additionalInfo.seedLotID).to.eql(\"39725a4a-09b9-11ea-8631-0242ac110002\");",
 											"});",
 											"",
 											"pm.test(\"Check lotId \", function () {",
-											"    pm.expect(data.additionalInfo.lotId).to.eql(33);",
+											"    pm.expect(data.additionalInfo.lotId).to.eql(30);",
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(25);",
+											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(\"PKWDG942cd372\");",
 											"});",
 											"pm.test(\"Check transactionType \", function () {",
 											"    pm.expect(data.additionalInfo.transactionType).to.eql(\"Deposit\");",
@@ -38337,14 +38762,14 @@
 											"    pm.expect(data.additionalInfo.locationId).to.eql(6000);",
 											"});",
 											"pm.test(\"Check stockId \", function () {",
-											"    pm.expect(data.additionalInfo.stockId).to.eql(\"SID2-5\");",
+											"    pm.expect(data.additionalInfo.stockId).to.eql(\"SID2-1\");",
 											"});",
 											"",
 											"pm.test(\"Check unitId \", function () {",
 											"    pm.expect(data.additionalInfo.unitId).to.eql(8264);",
 											"});",
 											"pm.test(\"Check designation \", function () {",
-											"    pm.expect(data.additionalInfo.designation).to.eql(\"CML5\");",
+											"    pm.expect(data.additionalInfo.designation).to.eql(\"CML1\");",
 											"});",
 											"pm.test(\"Check locationAbbr \", function () {",
 											"    pm.expect(data.additionalInfo.locationAbbr).to.eql(\"DSS\");",
@@ -38361,7 +38786,7 @@
 											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
 											"});",
 											"pm.test(\"Check transactionDbId \", function () {",
-											"    pm.expect(data.transactionDbId).to.eql(\"53\");",
+											"    pm.expect(data.transactionDbId).to.eql(\"50\");",
 											"});",
 											""
 										],
@@ -38434,7 +38859,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions?germplasmDbId=25",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions?germplasmDbId=PKWDG942cd372",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -38447,7 +38872,7 @@
 									"query": [
 										{
 											"key": "germplasmDbId",
-											"value": "25"
+											"value": "PKWDG942cd372"
 										}
 									]
 								},
@@ -38504,7 +38929,7 @@
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(24);",
+											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(\"PKWDG47fa785e\");",
 											"});",
 											"pm.test(\"Check transactionType \", function () {",
 											"    pm.expect(data.additionalInfo.transactionType).to.eql(\"Deposit\");",
@@ -38763,7 +39188,7 @@
 							"response": []
 						},
 						{
-							"name": "Verify response when entered a combination of parameter values",
+							"name": "Verify response when entered a combination of parameter values-tofix",
 							"event": [
 								{
 									"listen": "test",
@@ -38811,7 +39236,7 @@
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(34);",
+											"    pm.expect(data.additionalInfo.germplasmDbId).to.eql(\"PKWDG34bd21ac\");",
 											"});",
 											"pm.test(\"Check transactionType \", function () {",
 											"    pm.expect(data.additionalInfo.transactionType).to.eql(\"Deposit\");",
@@ -38920,7 +39345,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions?transactionDbId=61&seedLotDbId=39725719-09b9-11ea-8631-0242ac110002&germplasmDbId=34&page=0&pageSize=10000",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions?transactionDbId=61&seedLotDbId=39725719-09b9-11ea-8631-0242ac110002&germplasmDbId=PKWDG34bd21ac&page=0&pageSize=10000",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -38941,7 +39366,7 @@
 										},
 										{
 											"key": "germplasmDbId",
-											"value": "34"
+											"value": "PKWDG34bd21ac"
 										},
 										{
 											"key": "page",
