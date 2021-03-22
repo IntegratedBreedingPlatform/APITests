@@ -68298,7 +68298,7 @@
 											"});",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check error message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalid for URL:/crops/invalid/germplasm/9999/samples\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The following gid(s): 9999 were not found in the system\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -68369,13 +68369,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/invalid/germplasm/9999/samples",
+									"raw": "{{BMSurl}}/crops/{{crop}}/germplasm/9999/samples",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
 										"crops",
-										"invalid",
+										"{{crop}}",
 										"germplasm",
 										"9999",
 										"samples"
