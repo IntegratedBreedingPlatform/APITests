@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0931a14c-e5ab-4f6a-819c-f25435494a65",
+		"_postman_id": "dae978c2-ae75-43b1-bafe-a571bd2fe144",
 		"name": "BRAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -3511,7 +3511,7 @@
 											" */",
 											"",
 											"pm.test(\"Check synonyms\", function () {",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
 											"   for (var i = 0; i < data.synonyms.length; i++) {",
 											"    pm.expect(data.synonyms[i]).to.eql(names[i]);",
 											"    }",
@@ -4899,9 +4899,9 @@
 											" */",
 											"",
 											"pm.test(\"Check synonyms\", function () {",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
 											"   for (var i = 0; i < data.synonyms.length; i++) {",
-											"    pm.expect(data.synonyms[i]).to.eql(names[i]);",
+											"    pm.expect(data.synonyms[i].synonym).to.eql(names[i]);",
 											"    }",
 											"",
 											"});",
@@ -5845,20 +5845,13 @@
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
 											"});",
 											"",
-											"",
-											" ",
-											"",
 											"pm.test(\"Check synonyms\", function () {",
-											"       // var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
-											"   for (var i = 0; i < jsonData.result.data.length; i++) {",
-											"       var data = jsonData.result.data[i]",
-											"         for (var j = 0; j < data.synonyms.length; j++) {",
-											"         pm.expect(data.synonyms[j].ACCNO).to.eql(\"ACCNO1\");",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
+											"   for (var i = 0; i < jsonData.result.data[0].synonyms.length; i++) {",
+											"    pm.expect(jsonData.result.data[0].synonyms[i].synonym).to.eql(names[i]);",
 											"    }",
-											"         }",
 											"",
 											"});",
-											"",
 											""
 										],
 										"type": "text/javascript"
@@ -6269,9 +6262,9 @@
 											" */",
 											"",
 											"pm.test(\"Check synonyms\", function () {",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
 											"   for (var i = 0; i < data.synonyms.length; i++) {",
-											"    pm.expect(data.synonyms[i]).to.eql(names[i]);",
+											"    pm.expect(data.synonyms[i].synonym).to.eql(names[i]);",
 											"    }",
 											"",
 											"});",
@@ -8746,7 +8739,7 @@
 											"    pm.expect(data.pedigree).to.eql(\"CML1\");",
 											"});",
 											"pm.test(\"Check synonyms\", function () {",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
 											"   for (var i = 0; i < data.synonyms.length; i++) {",
 											"    pm.expect(data.synonyms[i]).to.eql(names[i]);",
 											"    }",
@@ -10979,7 +10972,7 @@
 											"});\r",
 											" */\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
 											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
 											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
 											"    }\r",
@@ -11233,7 +11226,7 @@
 											"});\r",
 											" */\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
 											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
 											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
 											"    }\r",
@@ -11436,7 +11429,7 @@
 											"});\r",
 											" */\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
 											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
 											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
 											"    }\r",
@@ -11639,7 +11632,7 @@
 											"});\r",
 											" */\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
 											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
 											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
 											"    }\r",
@@ -11842,7 +11835,7 @@
 											"});\r",
 											" */\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
 											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
 											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
 											"    }\r",
@@ -12047,7 +12040,7 @@
 											"});\r",
 											" */\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
 											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
 											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
 											"    }\r",
@@ -12199,7 +12192,7 @@
 											"});\r",
 											" */\r",
 											"pm.test(\"Check synonyms\", function () {\r",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
 											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
 											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
 											"    }\r",
@@ -12513,7 +12506,7 @@
 											"});",
 											" */",
 											"pm.test(\"Check synonyms\", function () {",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
 											"   for (var i = 0; i < data.synonyms.length; i++) {",
 											"    pm.expect(data.synonyms[i]).to.eql(names[i]);",
 											"    }",
@@ -13159,7 +13152,7 @@
 											"});",
 											"  ",
 											"pm.test(\"Check synonyms\", function () {",
-											" var names = [\"GP1\",\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];",
 											"   for (var i = 0; i < jsonData.result.synonyms.length; i++) {",
 											"    pm.expect(jsonData.result.synonyms[i]).to.eql(names[i]);",
 											"    }",
@@ -13221,30 +13214,7 @@
 											"});",
 											"pm.test(\"Check germplasmSpecies\", function () {",
 											"    pm.expect(jsonData.result.germplasmSpecies).to.eql(\"SPNAM1\");",
-											"});",
-											"pm.test(\"Check additionalInfo SUBTAX\", function () {",
-											"    pm.expect(jsonData.result.additionalInfo.SUBTAX).to.eql(\"SUBTAX1\");",
-											"});",
-											"",
-											"pm.test(\"Check additionalInfo NOTE\", function () {",
-											"    pm.expect(jsonData.result.additionalInfo.NOTE).to.eql(\"note1\");",
-											"});",
-											"pm.test(\"Check additionalInfo STAUTH\", function () {",
-											"    pm.expect(jsonData.result.additionalInfo.STAUTH).to.eql(\"STAUTH1\");",
-											"});",
-											"pm.test(\"Check additionalInfo ORI_COUN\", function () {",
-											"    pm.expect(jsonData.result.additionalInfo.ORI_COUN).to.eql(\"ORI_COUN1\");",
-											"});",
-											"pm.test(\"Check additionalInfo SPNAM\", function () {",
-											"    pm.expect(jsonData.result.additionalInfo.SPNAM).to.eql(\"SPNAM1\");",
-											"});",
-											"pm.test(\"Check additionalInfo SPAUTH\", function () {",
-											"    pm.expect(jsonData.result.additionalInfo.SPAUTH).to.eql(\"SPAUTH1\");",
-											"});",
-											"pm.test(\"Check additionalInfo PROGM\", function () {",
-											"    pm.expect(jsonData.result.additionalInfo.PROGM).to.eql(\"PROGM1\");",
-											"});",
-											""
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -13564,25 +13534,25 @@
 											"});",
 											"  ",
 											"  ",
-											"pm.test(\"Check synonym ACCNO \", function () {",
-											"    pm.expect(jsonData.result.synonyms.ACCNO).to.eql(\"updatedACCNO\");",
+											"pm.test(\"Check synonym LNAME \", function () {",
+											"    pm.expect(jsonData.result.synonyms[0].synonym).to.eql(\"updatedDisplayName\");",
 											"});",
-											"pm.test(\"Check synonym DRVNM \", function () {",
-											"    pm.expect(jsonData.result.synonyms.DRVNM).to.eql(\"DVNM1\");",
+											"pm.test(\"Check synonym ACCNO \", function () {",
+											"    pm.expect(jsonData.result.synonyms[1].synonym).to.eql(\"updatedACCNO\");",
 											"});",
 											"",
-											"pm.test(\"Check synonym LNAME \", function () {",
-											"    pm.expect(jsonData.result.synonyms.LNAME).to.eql(\"updatedDisplayName\");",
+											"pm.test(\"Check synonym DRVNM \", function () {",
+											"    pm.expect(jsonData.result.synonyms[2].synonym).to.eql(\"DVNM1\");",
 											"});",
 											"pm.test(\"Check synonym GENUS \", function () {",
-											"    pm.expect(jsonData.result.synonyms.GENUS).to.eql(\"updatedGenus\");",
+											"    pm.expect(jsonData.result.synonyms[3].synonym).to.eql(\"updatedGenus\");",
 											"});",
 											"pm.test(\"Check synonym SELHISFIX \", function () {",
-											"    pm.expect(jsonData.result.synonyms.SELHISFIX).to.eql(\"DVNM1\");",
+											"    pm.expect(jsonData.result.synonyms[4].synonym).to.eql(\"DVNM1\");",
 											"});",
 											"",
 											"pm.test(\"Check synonym PED \", function () {",
-											"    pm.expect(jsonData.result.synonyms.PED).to.eql(\"updatedPed\");",
+											"    pm.expect(jsonData.result.synonyms[5].synonym).to.eql(\"updatedPed\");",
 											"});    ",
 											"pm.test(\"Check commonCropName\", function () {",
 											"    pm.expect(jsonData.result.commonCropName).to.eql(\"updatedCommonCrop\");",
@@ -13792,17 +13762,17 @@
 											"  ",
 											"  ",
 											"pm.test(\"Check synonym ACCNO \", function () {",
-											"    pm.expect(jsonData.result.synonyms.ACCNO).to.eql(\"ACCNO1\");",
+											"    pm.expect(jsonData.result.synonyms[0].synonym).to.eql(\"ACCNO1\");",
 											"});",
 											"",
 											"pm.test(\"Check synonym DRVNM \", function () {",
-											"    pm.expect(jsonData.result.synonyms.DRVNM).to.eql(\"DVNM1\");",
+											"    pm.expect(jsonData.result.synonyms[1].synonym).to.eql(\"DVNM1\");",
 											"});",
 											"pm.test(\"Check synonym GENUS \", function () {",
-											"    pm.expect(jsonData.result.synonyms.GENUS).to.eql(\"GENUS1\");",
+											"    pm.expect(jsonData.result.synonyms[2].synonym).to.eql(\"GENUS1\");",
 											"});",
 											"pm.test(\"Check synonym SELHISFIX \", function () {",
-											"    pm.expect(jsonData.result.synonyms.SELHISFIX).to.eql(\"DVNM1\");",
+											"    pm.expect(jsonData.result.synonyms[3].synonym).to.eql(\"DVNM1\");",
 											"});",
 											"/*",
 											"pm.test(\"Check synonym PED \", function () {",
@@ -14017,21 +13987,21 @@
 											"  ",
 											"  ",
 											"pm.test(\"Check synonym ACCNO \", function () {",
-											"    pm.expect(jsonData.result.synonyms.ACCNO).to.eql(\"updatedACCNO\");",
+											"    pm.expect(jsonData.result.synonyms[0].synonym).to.eql(\"updatedACCNO\");",
 											"});",
 											"",
 											"pm.test(\"Check synonym DRVNM \", function () {",
-											"    pm.expect(jsonData.result.synonyms.DRVNM).to.eql(\"DVNM1\");",
+											"    pm.expect(jsonData.result.synonyms[1].synonym).to.eql(\"DVNM1\");",
 											"});",
 											"/**pm.test(\"Check synonym LNAME \", function () {",
 											"    pm.expect(jsonData.result.synonyms.LNAME).to.eql(\"updatedDisplayName\");",
 											"});",
 											" */",
 											"pm.test(\"Check synonym GENUS \", function () {",
-											"    pm.expect(jsonData.result.synonyms.GENUS).to.eql(\"GENUS1\");",
+											"    pm.expect(jsonData.result.synonyms[2].synonym).to.eql(\"GENUS1\");",
 											"});",
 											"pm.test(\"Check synonym SELHISFIX \", function () {",
-											"    pm.expect(jsonData.result.synonyms.SELHISFIX).to.eql(\"DVNM1\");",
+											"    pm.expect(jsonData.result.synonyms[3].synonym).to.eql(\"DVNM1\");",
 											"});",
 											"/*",
 											"pm.test(\"Check synonym PED \", function () {",
@@ -14246,17 +14216,17 @@
 											"  ",
 											"  ",
 											"pm.test(\"Check synonym ACCNO \", function () {",
-											"    pm.expect(jsonData.result.synonyms.ACCNO).to.eql(\"ACCNO1\");",
+											"    pm.expect(jsonData.result.synonyms[0].synonym).to.eql(\"ACCNO1\");",
 											"});",
 											"",
 											"pm.test(\"Check synonym DRVNM \", function () {",
-											"    pm.expect(jsonData.result.synonyms.DRVNM).to.eql(\"DVNM1\");",
+											"    pm.expect(jsonData.result.synonyms[1].synonym).to.eql(\"DVNM1\");",
 											"});",
 											"pm.test(\"Check synonym GENUS \", function () {",
-											"    pm.expect(jsonData.result.synonyms.GENUS).to.eql(\"GENUS1\");",
+											"    pm.expect(jsonData.result.synonyms[2].synonym).to.eql(\"GENUS1\");",
 											"});",
 											"pm.test(\"Check synonym SELHISFIX \", function () {",
-											"    pm.expect(jsonData.result.synonyms.SELHISFIX).to.eql(\"DVNM1\");",
+											"    pm.expect(jsonData.result.synonyms[3].synonym).to.eql(\"DVNM1\");",
 											"});",
 											"/*",
 											"pm.test(\"Check synonym PED \", function () {",
@@ -18230,7 +18200,6 @@
 											"pm.test(\"Check coordinates\", function () {",
 											"    pm.expect(data.coordinates.geometry.coordinates[0]).to.eql(24);",
 											"    pm.expect(data.coordinates.geometry.coordinates[1]).to.eql(-4);",
-											"    pm.expect(data.coordinates.geometry.coordinates[2]).to.eql(null);",
 											"});",
 											"",
 											"pm.test(\"Check geometry type\", function () {",
@@ -19922,20 +19891,15 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/brapi/v2/programs?commonCropName={{crop}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/programs",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
+										"{{crop}}",
 										"brapi",
 										"v2",
 										"programs"
-									],
-									"query": [
-										{
-											"key": "commonCropName",
-											"value": "{{crop}}"
-										}
 									]
 								},
 								"description": "GET ​/brapi​/v2/programs"
@@ -20041,11 +20005,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/brapi/v2/programs?programDbId={{api_program_id}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/programs?programDbId={{api_program_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
+										"{{crop}}",
 										"brapi",
 										"v2",
 										"programs"
@@ -20160,11 +20125,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/brapi/v2/programs?programName=API Program",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/programs?programName=API Program",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
+										"{{crop}}",
 										"brapi",
 										"v2",
 										"programs"
@@ -20285,20 +20251,17 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/brapi/v2/programs?commonCropName={{crop}}&programName=API Program&programDbId={{api_program_id}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/programs?programName=API Program&programDbId={{api_program_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
+										"{{crop}}",
 										"brapi",
 										"v2",
 										"programs"
 									],
 									"query": [
-										{
-											"key": "commonCropName",
-											"value": "{{crop}}"
-										},
 										{
 											"key": "programName",
 											"value": "API Program"
@@ -20412,11 +20375,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/brapi/v2/programs?page=0&pageSize=10000",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/programs?page=0&pageSize=10000",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
+										"{{crop}}",
 										"brapi",
 										"v2",
 										"programs"
@@ -20522,11 +20486,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/brapi/v2/programs?page=0&pageSize=10001",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/programs?page=0&pageSize=10001",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
+										"{{crop}}",
 										"brapi",
 										"v2",
 										"programs"
@@ -20632,11 +20597,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/brapi/v2/programs?page=10000&pageSize=10000",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/programs?page=10000&pageSize=10000",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
+										"{{crop}}",
 										"brapi",
 										"v2",
 										"programs"
@@ -20742,11 +20708,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/brapi/v2/programs?commonCropName=invalid",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/programs?commonCropName=invalid",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
+										"{{crop}}",
 										"brapi",
 										"v2",
 										"programs"
@@ -20847,11 +20814,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/brapi/v2/programs?programDbId=invalid",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/programs?programDbId=invalid",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
+										"{{crop}}",
 										"brapi",
 										"v2",
 										"programs"
@@ -20952,11 +20920,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/brapi/v2/programs?programName=invalid",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/programs?programName=invalid",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
+										"{{crop}}",
 										"brapi",
 										"v2",
 										"programs"
@@ -21202,7 +21171,7 @@
 											"",
 											"//Check details of a trial in the list are correct",
 											"pm.test(\"Check trialDbId\", function () {",
-											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
+											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(pm.environment.get(\"trialStudyId\"));",
 											"});",
 											"pm.test(\"Check trialName\", function () {",
 											"    pm.expect(jsonData.result.data[i].trialName).to.eql(\"Randomized Trial 20180003\");",
@@ -21227,7 +21196,7 @@
 											"});",
 											"",
 											"pm.test(\"Check active\", function () {  ",
-											"    pm.expect(jsonData.result.data[i].active).to.eql(true);",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(false);",
 											"});",
 											"",
 											"//Check details of an associated environment are correct",
@@ -21347,7 +21316,7 @@
 											"",
 											"//Check details of a trial in the list are correct",
 											"pm.test(\"Check trialDbId\", function () {",
-											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
+											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(pm.environment.get(\"trialStudyId\"));",
 											"});",
 											"pm.test(\"Check trialName\", function () {",
 											"    pm.expect(jsonData.result.data[i].trialName).to.eql(\"Randomized Trial 20180003\");",
@@ -21372,7 +21341,7 @@
 											"});",
 											"",
 											"pm.test(\"Check active\", function () {  ",
-											"    pm.expect(jsonData.result.data[i].active).to.eql(true);",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(false);",
 											"});",
 											"",
 											"//Check details of an associated environment are correct",
@@ -21600,7 +21569,7 @@
 											"",
 											"//Check details of a trial in the list are correct",
 											"pm.test(\"Check trialDbId\", function () {",
-											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
+											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(pm.environment.get(\"trialStudyId\"));",
 											"});",
 											"pm.test(\"Check trialName\", function () {",
 											"    pm.expect(jsonData.result.data[i].trialName).to.eql(\"Randomized Trial 20180003\");",
@@ -21625,7 +21594,7 @@
 											"});",
 											"",
 											"pm.test(\"Check active\", function () {  ",
-											"    pm.expect(jsonData.result.data[i].active).to.eql(true);",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(false);",
 											"});",
 											"",
 											"//Check details of an associated environment are correct",
@@ -21861,54 +21830,13 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
-											"var jsonData = pm.response.json();",
-											"var i = 1;",
 											"",
-											"//Check details of a trial in the list are correct",
-											"pm.test(\"Check trialDbId\", function () {",
-											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
-											"});",
-											"pm.test(\"Check trialName\", function () {",
-											"    pm.expect(jsonData.result.data[i].trialName).to.eql(\"Randomized Trial 20180003\");",
-											"});",
-											"",
-											"pm.test(\"Check programDbId\", function () {",
-											"    pm.expect(jsonData.result.data[i].programDbId).to.eql(\"c9e335d2-3057-4958-a43e-e38cf61d09ca\");",
-											"});",
-											"",
-											"pm.test(\"Check programDbId\", function () {",
-											"    pm.expect(jsonData.result.data[i].programName).to.eql(\"API Program\");",
-											"});",
-											"pm.test(\"Check startDate\", function () {",
-											"   ",
-											"});",
-											"pm.test(\"Check startDate\", function () {",
-											"    pm.expect(jsonData.result.data[i].startDate).to.eql(\"2018-09-12\");",
-											"});",
-											"",
-											"pm.test(\"Check endDate\", function () { ",
-											"    pm.expect(jsonData.result.data[1].endDate).to.eql(\"2019-02-20\");",
-											"});",
-											"",
-											"pm.test(\"Check active\", function () {  ",
+											"pm.test(\"Check all active status are equal to input parameter\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
 											"    pm.expect(jsonData.result.data[i].active).to.eql(true);",
-											"});",
-											"",
-											"//Check details of an associated environment are correct",
-											"pm.test(\"Check studyDbId\", function () {  ",
-											"    pm.expect(jsonData.result.data[i].studies[0].studyDbId).to.eql(2);",
-											"});",
-											"",
-											"pm.test(\"Check studyName\", function () {  ",
-											"       pm.expect(jsonData.result.data[i].studies[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
-											"});",
-											"",
-											"pm.test(\"Check locationDbId\", function () { ",
-											"    pm.expect(jsonData.result.data[i].studies[0].locationDbId).to.eql(\"9002\");",
-											"});",
-											"pm.test(\"Check locationName\", function () {",
-											"    pm.expect(jsonData.result.data[i].studies[0].locationName).to.eql(\"Int Institute of Tropical Agriculture\");",
-											"});",
+											"    }",
+											"});    ",
 											"",
 											""
 										],
@@ -21981,7 +21909,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?status=true",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/trials?active=true",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -21993,7 +21921,7 @@
 									],
 									"query": [
 										{
-											"key": "status",
+											"key": "active",
 											"value": "true"
 										}
 									]
@@ -22009,15 +21937,16 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 404\", function () {",
-											"    pm.response.to.have.status(404);",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
 											"});",
 											"",
-											"pm.test(\"Response message is no inactive studies found \", function () {",
+											"pm.test(\"Check all active status are equal to input parameter\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"No inactive studies found.\");",
-											"});",
-											""
+											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(false);",
+											"    }",
+											"});    "
 										],
 										"type": "text/javascript"
 									}
@@ -22124,7 +22053,7 @@
 											"",
 											"//Check details of a trial in the list are correct",
 											"pm.test(\"Check trialDbId\", function () {",
-											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(JSON.parse(pm.environment.get(\"trialStudyId\")));",
+											"  pm.expect(jsonData.result.data[i].trialDbId).to.eql(pm.environment.get(\"trialStudyId\"));",
 											"});",
 											"pm.test(\"Check trialName\", function () {",
 											"    pm.expect(jsonData.result.data[i].trialName).to.eql(\"Randomized Trial 20180003\");",
@@ -22149,7 +22078,7 @@
 											"});",
 											"",
 											"pm.test(\"Check active\", function () {  ",
-											"    pm.expect(jsonData.result.data[i].active).to.eql(true);",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(false);",
 											"});",
 											"",
 											"//Check details of an associated environment are correct",
@@ -22386,7 +22315,7 @@
 											"    var data = jsonData.result.data;",
 											"    var i;",
 											"    for (i = 0; i+1 < data.length ; i++) { ",
-											"      pm.expect(data[i+1].trialDbId).to.be.above(data[i].trialDbId);",
+											"      pm.expect(parseInt(data[i+1].trialDbId)).to.be.above(parseInt(data[i].trialDbId));",
 											"        ",
 											"   }",
 											" ",
@@ -22504,7 +22433,7 @@
 											"    var data = jsonData.result.data;",
 											"    var i;",
 											"    for (i = 0; i+1 < data.length ; i++) { ",
-											"      pm.expect(data[i].trialDbId).to.be.above(data[i+1].trialDbId);",
+											"      pm.expect(parseInt(data[i].trialDbId)).to.be.above(parseInt(data[i+1].trialDbId));",
 											"   ",
 											"   }",
 											" ",
@@ -22894,6 +22823,220 @@
 										"brapi",
 										"v2",
 										"trials"
+									]
+								},
+								"description": "GET ​/{crop}​/brapi​/v2/trials"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when filtered by active status set to true",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Check all active status are equal to input parameter\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(true);",
+											"    }",
+											"});    "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/trials?active=true",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"trials"
+									],
+									"query": [
+										{
+											"key": "active",
+											"value": "true"
+										}
+									]
+								},
+								"description": "GET ​/{crop}​/brapi​/v2/trials"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when filtered by active status set to false",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Check all active status are equal to input parameter\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
+											"    pm.expect(jsonData.result.data[i].active).to.eql(false);",
+											"    }",
+											"});    "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/trials?active=false",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"trials"
+									],
+									"query": [
+										{
+											"key": "active",
+											"value": "false"
+										}
 									]
 								},
 								"description": "GET ​/{crop}​/brapi​/v2/trials"
@@ -26782,7 +26925,7 @@
 											"",
 											"pm.test(\"Verify returned data\", function () {",
 											" var jsonData = pm.response.json();",
-											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"false\");",
 											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
 											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
 											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
@@ -26905,7 +27048,7 @@
 											"",
 											"pm.test(\"Verify returned data\", function () {",
 											" var jsonData = pm.response.json();",
-											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"false\");",
 											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
 											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
 											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
@@ -27044,7 +27187,7 @@
 											"",
 											"pm.test(\"Verify returned data\", function () {",
 											" var jsonData = pm.response.json();",
-											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"false\");",
 											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
 											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
 											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
@@ -27183,7 +27326,7 @@
 											"",
 											"pm.test(\"Verify returned data\", function () {",
 											" var jsonData = pm.response.json();",
-											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"false\");",
 											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
 											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
 											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
@@ -27322,7 +27465,7 @@
 											"",
 											"pm.test(\"Verify returned data\", function () {",
 											" var jsonData = pm.response.json();",
-											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"false\");",
 											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
 											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
 											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
@@ -27461,7 +27604,7 @@
 											"",
 											"pm.test(\"Verify returned data\", function () {",
 											" var jsonData = pm.response.json();",
-											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"false\");",
 											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-09-12\");",
 											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"studyDbId\"));",
 											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Randomized Trial 20180003 Environment Number 1\");",
@@ -27600,7 +27743,7 @@
 											"",
 											"pm.test(\"Verify returned data\", function () {",
 											" var jsonData = pm.response.json();",
-											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
+											" pm.expect(jsonData.result.data[0].active).to.eql(\"false\");",
 											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
 											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
 											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
@@ -27731,7 +27874,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(15);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(10);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -27740,11 +27883,11 @@
 											"pm.test(\"Verify returned data\", function () {",
 											" var jsonData = pm.response.json();",
 											" pm.expect(jsonData.result.data[0].active).to.eql(\"true\");",
-											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2018-10-25\");",
-											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(pm.environment.get(\"nursery1StudyDbId\"));",
-											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 1\");",
-											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"1\");",
-											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Nursery\");",
+											" pm.expect(jsonData.result.data[0].startDate).to.eql(\"2019-01-22\");",
+											" pm.expect(jsonData.result.data[0].studyDbId).to.eql(\"4\");",
+											" pm.expect(jsonData.result.data[0].studyName).to.eql(\"Locked Study Trial 20190001 Environment Number 1\");",
+											" pm.expect(jsonData.result.data[0].studyTypeDbId).to.eql(\"6\");",
+											" pm.expect(jsonData.result.data[0].studyTypeName).to.eql(\"Trial\");",
 											" pm.expect(jsonData.result.data[0].seasons[0].season).to.eql(\"Dry season\");",
 											" pm.expect(jsonData.result.data[0].seasons[0].seasonDbId).to.eql(\"10290\");",
 											" pm.expect(jsonData.result.data[0].locationDbId).to.eql(\"9001\");",
@@ -30569,7 +30712,7 @@
 											"});",
 											"",
 											"",
-											"pm.test(\"Check all actvie are equal to input parameter\", function () {",
+											"pm.test(\"Check all active status are equal to input parameter\", function () {",
 											"  var jsonData = pm.response.json();",
 											"   var i;",
 											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
@@ -43226,7 +43369,7 @@
 											"});",
 											"",
 											"pm.test(\"Check lotId \", function () {",
-											"    pm.expect(data.additionalInfo.lotId).to.eql(34);",
+											"    pm.expect(data.additionalInfo.lotId).to.eql(\"34\");",
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
@@ -43239,14 +43382,14 @@
 											"    pm.expect(data.additionalInfo.lotNotes).to.eql(\"From List Import\");",
 											"});",
 											"pm.test(\"Check locationId \", function () {",
-											"    pm.expect(data.additionalInfo.locationId).to.eql(6000);",
+											"    pm.expect(data.additionalInfo.locationId).to.eql(\"6000\");",
 											"});",
 											"pm.test(\"Check stockId \", function () {",
 											"    pm.expect(data.additionalInfo.stockId).to.eql(\"SID2-4\");",
 											"});",
 											"",
 											"pm.test(\"Check unitId \", function () {",
-											"    pm.expect(data.additionalInfo.unitId).to.eql(8264);",
+											"    pm.expect(data.additionalInfo.unitId).to.eql(\"8264\");",
 											"});",
 											"pm.test(\"Check designation \", function () {",
 											"    pm.expect(data.additionalInfo.designation).to.eql(\"CML4\");",
@@ -43260,7 +43403,7 @@
 											"    pm.expect(data.amount).to.eql(100);",
 											"});",
 											"pm.test(\"Check transactionTimestamp \", function () {",
-											"    pm.expect(data.transactionTimestamp).to.eql(\"2018-10-25\");",
+											"    pm.expect(data.transactionTimestamp).to.eql(\"2018-10-25T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Check units \", function () {",
 											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
@@ -43339,7 +43482,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots/transactions",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43347,6 +43490,7 @@
 										"{{crop}}",
 										"brapi",
 										"v2",
+										"seedlots",
 										"transactions"
 									]
 								},
@@ -43399,7 +43543,7 @@
 											"});",
 											"",
 											"pm.test(\"Check lotId \", function () {",
-											"    pm.expect(data.additionalInfo.lotId).to.eql(21);",
+											"    pm.expect(data.additionalInfo.lotId).to.eql(\"21\");",
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
@@ -43412,14 +43556,14 @@
 											"    pm.expect(data.additionalInfo.lotNotes).to.eql(\"From List Import\");",
 											"});",
 											"pm.test(\"Check locationId \", function () {",
-											"    pm.expect(data.additionalInfo.locationId).to.eql(6000);",
+											"    pm.expect(data.additionalInfo.locationId).to.eql(\"6000\");",
 											"});",
 											"pm.test(\"Check stockId \", function () {",
 											"    pm.expect(data.additionalInfo.stockId).to.eql(\"SID2-14\");",
 											"});",
 											"",
 											"pm.test(\"Check unitId \", function () {",
-											"    pm.expect(data.additionalInfo.unitId).to.eql(8264);",
+											"    pm.expect(data.additionalInfo.unitId).to.eql(\"8264\");",
 											"});",
 											"pm.test(\"Check designation \", function () {",
 											"    pm.expect(data.additionalInfo.designation).to.eql(\"CML14\");",
@@ -43433,7 +43577,7 @@
 											"    pm.expect(data.amount).to.eql(15);",
 											"});",
 											"pm.test(\"Check transactionTimestamp \", function () {",
-											"    pm.expect(data.transactionTimestamp).to.eql(\"2020-04-14\");",
+											"    pm.expect(data.transactionTimestamp).to.eql(\"2020-04-14T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Check units \", function () {",
 											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
@@ -43512,7 +43656,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions?transactionDbId=61",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots/transactions?transactionDbId=61",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43520,6 +43664,7 @@
 										"{{crop}}",
 										"brapi",
 										"v2",
+										"seedlots",
 										"transactions"
 									],
 									"query": [
@@ -43578,7 +43723,7 @@
 											"});",
 											"",
 											"pm.test(\"Check lotId \", function () {",
-											"    pm.expect(data.additionalInfo.lotId).to.eql(21);",
+											"    pm.expect(data.additionalInfo.lotId).to.eql(\"21\");",
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
@@ -43591,14 +43736,14 @@
 											"    pm.expect(data.additionalInfo.lotNotes).to.eql(\"From List Import\");",
 											"});",
 											"pm.test(\"Check locationId \", function () {",
-											"    pm.expect(data.additionalInfo.locationId).to.eql(6000);",
+											"    pm.expect(data.additionalInfo.locationId).to.eql(\"6000\");",
 											"});",
 											"pm.test(\"Check stockId \", function () {",
 											"    pm.expect(data.additionalInfo.stockId).to.eql(\"SID2-14\");",
 											"});",
 											"",
 											"pm.test(\"Check unitId \", function () {",
-											"    pm.expect(data.additionalInfo.unitId).to.eql(8264);",
+											"    pm.expect(data.additionalInfo.unitId).to.eql(\"8264\");",
 											"});",
 											"pm.test(\"Check designation \", function () {",
 											"    pm.expect(data.additionalInfo.designation).to.eql(\"CML14\");",
@@ -43612,7 +43757,7 @@
 											"    pm.expect(data.amount).to.eql(100);",
 											"});",
 											"pm.test(\"Check transactionTimestamp \", function () {",
-											"    pm.expect(data.transactionTimestamp).to.eql(\"2018-10-25\");",
+											"    pm.expect(data.transactionTimestamp).to.eql(\"2018-10-25T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Check units \", function () {",
 											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
@@ -43691,7 +43836,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions?seedLotDbId=39725719-09b9-11ea-8631-0242ac110002",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots/transactions?seedLotDbId=39725719-09b9-11ea-8631-0242ac110002",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43699,6 +43844,7 @@
 										"{{crop}}",
 										"brapi",
 										"v2",
+										"seedlots",
 										"transactions"
 									],
 									"query": [
@@ -43757,7 +43903,7 @@
 											"});",
 											"",
 											"pm.test(\"Check lotId \", function () {",
-											"    pm.expect(data.additionalInfo.lotId).to.eql(30);",
+											"    pm.expect(data.additionalInfo.lotId).to.eql(\"30\");",
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
@@ -43770,14 +43916,14 @@
 											"    pm.expect(data.additionalInfo.lotNotes).to.eql(\"From List Import\");",
 											"});",
 											"pm.test(\"Check locationId \", function () {",
-											"    pm.expect(data.additionalInfo.locationId).to.eql(6000);",
+											"    pm.expect(data.additionalInfo.locationId).to.eql(\"6000\");",
 											"});",
 											"pm.test(\"Check stockId \", function () {",
 											"    pm.expect(data.additionalInfo.stockId).to.eql(\"SID2-1\");",
 											"});",
 											"",
 											"pm.test(\"Check unitId \", function () {",
-											"    pm.expect(data.additionalInfo.unitId).to.eql(8264);",
+											"    pm.expect(data.additionalInfo.unitId).to.eql(\"8264\");",
 											"});",
 											"pm.test(\"Check designation \", function () {",
 											"    pm.expect(data.additionalInfo.designation).to.eql(\"CML1\");",
@@ -43791,7 +43937,7 @@
 											"    pm.expect(data.amount).to.eql(100);",
 											"});",
 											"pm.test(\"Check transactionTimestamp \", function () {",
-											"    pm.expect(data.transactionTimestamp).to.eql(\"2018-10-25\");",
+											"    pm.expect(data.transactionTimestamp).to.eql(\"2018-10-25T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Check units \", function () {",
 											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
@@ -43870,7 +44016,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions?germplasmDbId=PKWDG942cd372",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots/transactions?germplasmDbId=PKWDG942cd372",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43878,6 +44024,7 @@
 										"{{crop}}",
 										"brapi",
 										"v2",
+										"seedlots",
 										"transactions"
 									],
 									"query": [
@@ -43936,7 +44083,7 @@
 											"});",
 											"",
 											"pm.test(\"Check lotId \", function () {",
-											"    pm.expect(data.additionalInfo.lotId).to.eql(34);",
+											"    pm.expect(data.additionalInfo.lotId).to.eql(\"34\");",
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
@@ -43949,14 +44096,14 @@
 											"    pm.expect(data.additionalInfo.lotNotes).to.eql(\"From List Import\");",
 											"});",
 											"pm.test(\"Check locationId \", function () {",
-											"    pm.expect(data.additionalInfo.locationId).to.eql(6000);",
+											"    pm.expect(data.additionalInfo.locationId).to.eql(\"6000\");",
 											"});",
 											"pm.test(\"Check stockId \", function () {",
 											"    pm.expect(data.additionalInfo.stockId).to.eql(\"SID2-4\");",
 											"});",
 											"",
 											"pm.test(\"Check unitId \", function () {",
-											"    pm.expect(data.additionalInfo.unitId).to.eql(8264);",
+											"    pm.expect(data.additionalInfo.unitId).to.eql(\"8264\");",
 											"});",
 											"pm.test(\"Check designation \", function () {",
 											"    pm.expect(data.additionalInfo.designation).to.eql(\"CML4\");",
@@ -43970,7 +44117,7 @@
 											"    pm.expect(data.amount).to.eql(100);",
 											"});",
 											"pm.test(\"Check transactionTimestamp \", function () {",
-											"    pm.expect(data.transactionTimestamp).to.eql(\"2018-10-25\");",
+											"    pm.expect(data.transactionTimestamp).to.eql(\"2018-10-25T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Check units \", function () {",
 											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
@@ -44049,7 +44196,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions?page=0&pageSize=10000",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots/transactions?page=0&pageSize=10000",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44057,6 +44204,7 @@
 										"{{crop}}",
 										"brapi",
 										"v2",
+										"seedlots",
 										"transactions"
 									],
 									"query": [
@@ -44183,7 +44331,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots/transactions",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44191,6 +44339,7 @@
 										"{{crop}}",
 										"brapi",
 										"v2",
+										"seedlots",
 										"transactions"
 									]
 								},
@@ -44243,7 +44392,7 @@
 											"});",
 											"",
 											"pm.test(\"Check lotId \", function () {",
-											"    pm.expect(data.additionalInfo.lotId).to.eql(21);",
+											"    pm.expect(data.additionalInfo.lotId).to.eql(\"21\");",
 											"});",
 											"",
 											"pm.test(\"Check germplasmDbId \", function () {",
@@ -44256,14 +44405,14 @@
 											"    pm.expect(data.additionalInfo.lotNotes).to.eql(\"From List Import\");",
 											"});",
 											"pm.test(\"Check locationId \", function () {",
-											"    pm.expect(data.additionalInfo.locationId).to.eql(6000);",
+											"    pm.expect(data.additionalInfo.locationId).to.eql(\"6000\");",
 											"});",
 											"pm.test(\"Check stockId \", function () {",
 											"    pm.expect(data.additionalInfo.stockId).to.eql(\"SID2-14\");",
 											"});",
 											"",
 											"pm.test(\"Check unitId \", function () {",
-											"    pm.expect(data.additionalInfo.unitId).to.eql(8264);",
+											"    pm.expect(data.additionalInfo.unitId).to.eql(\"8264\");",
 											"});",
 											"pm.test(\"Check designation \", function () {",
 											"    pm.expect(data.additionalInfo.designation).to.eql(\"CML14\");",
@@ -44277,7 +44426,7 @@
 											"    pm.expect(data.amount).to.eql(15);",
 											"});",
 											"pm.test(\"Check transactionTimestamp \", function () {",
-											"    pm.expect(data.transactionTimestamp).to.eql(\"2020-04-14\");",
+											"    pm.expect(data.transactionTimestamp).to.eql(\"2020-04-14T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Check units \", function () {",
 											"    pm.expect(data.units).to.eql(\"SEED_AMOUNT_g\");",
@@ -44356,7 +44505,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/transactions?transactionDbId=61&seedLotDbId=39725719-09b9-11ea-8631-0242ac110002&germplasmDbId=PKWDG34bd21ac&page=0&pageSize=10000",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/seedlots/transactions?transactionDbId=61&seedLotDbId=39725719-09b9-11ea-8631-0242ac110002&germplasmDbId=PKWDG34bd21ac&page=0&pageSize=10000",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44364,6 +44513,7 @@
 										"{{crop}}",
 										"brapi",
 										"v2",
+										"seedlots",
 										"transactions"
 									],
 									"query": [
@@ -45388,7 +45538,7 @@
 											"    var selectedData = jsonData.result.calls[index];",
 											"    pm.expect(selectedData.service).to.eql(\"trials\");",
 											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
-											"    pm.expect(selectedData.methods).to.eql(['GET'])",
+											"    pm.expect(selectedData.methods).to.eql(['GET','POST'])",
 											"    pm.expect(selectedData.versions).to.eql([",
 											"                    \"2.0\"",
 											"                ]);",
@@ -45404,10 +45554,10 @@
 											"                    \"2.0\"",
 											"                ]);",
 											"});",
-											"pm.test(\"Check search/observationunits/{searchResultsDbid} call\", function () {",
+											"pm.test(\"Check search/observationunits/{searchResultsDbId} call\", function () {",
 											"    var index = 6;",
 											"    var selectedData = jsonData.result.calls[index];",
-											"    pm.expect(selectedData.service).to.eql(\"search/observationunits/{searchResultsDbid}\");",
+											"    pm.expect(selectedData.service).to.eql(\"search/observationunits/{searchResultsDbId}\");",
 											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
 											"    pm.expect(selectedData.methods).to.eql(['GET'])",
 											"    pm.expect(selectedData.versions).to.eql([",
@@ -45425,10 +45575,10 @@
 											"                    \"2.0\"",
 											"                ]);",
 											"});",
-											"pm.test(\"Check transactions call\", function () {",
+											"pm.test(\"Check seedlots/transactions call\", function () {",
 											"    var index = 8;",
 											"    var selectedData = jsonData.result.calls[index];",
-											"    pm.expect(selectedData.service).to.eql(\"transactions\");",
+											"    pm.expect(selectedData.service).to.eql(\"seedlots/transactions\");",
 											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
 											"    pm.expect(selectedData.methods).to.eql(['GET'])",
 											"    pm.expect(selectedData.versions).to.eql([",
@@ -46117,7 +46267,7 @@
 											"    var selectedData = jsonData.result.calls[index];",
 											"    pm.expect(selectedData.service).to.eql(\"trials\");",
 											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
-											"    pm.expect(selectedData.methods).to.eql(['GET'])",
+											"    pm.expect(selectedData.methods).to.eql(['GET','POST'])",
 											"    pm.expect(selectedData.versions).to.eql([",
 											"                    \"2.0\"",
 											"                ]);",
@@ -46133,10 +46283,10 @@
 											"                    \"2.0\"",
 											"                ]);",
 											"});",
-											"pm.test(\"Check search/observationunits/{searchResultsDbid} call\", function () {",
+											"pm.test(\"Check search/observationunits/{searchResultsDbId} call\", function () {",
 											"    var index = 6;",
 											"    var selectedData = jsonData.result.calls[index];",
-											"    pm.expect(selectedData.service).to.eql(\"search/observationunits/{searchResultsDbid}\");",
+											"    pm.expect(selectedData.service).to.eql(\"search/observationunits/{searchResultsDbId}\");",
 											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
 											"    pm.expect(selectedData.methods).to.eql(['GET'])",
 											"    pm.expect(selectedData.versions).to.eql([",
@@ -46154,10 +46304,10 @@
 											"                    \"2.0\"",
 											"                ]);",
 											"});",
-											"pm.test(\"Check transactions call\", function () {",
+											"pm.test(\"Check seedlots/transactions call\", function () {",
 											"    var index = 8;",
 											"    var selectedData = jsonData.result.calls[index];",
-											"    pm.expect(selectedData.service).to.eql(\"transactions\");",
+											"    pm.expect(selectedData.service).to.eql(\"seedlots/transactions\");",
 											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
 											"    pm.expect(selectedData.methods).to.eql(['GET'])",
 											"    pm.expect(selectedData.versions).to.eql([",
