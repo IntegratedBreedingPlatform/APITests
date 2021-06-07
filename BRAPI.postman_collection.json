@@ -19793,7 +19793,7 @@
 					"name": "GET ​/{crop}​/brapi​/v2/programs",
 					"item": [
 						{
-							"name": "Verify response code and body when entered commonCropName",
+							"name": "Verify response code and body when entered valid crop name",
 							"event": [
 								{
 									"listen": "test",
@@ -20635,7 +20635,7 @@
 											"",
 											"pm.test(\"Verify returned error message\",function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Crop invalid doesn't exist.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalid for URL:/invalid/brapi/v2/programs\");",
 											"});",
 											""
 										],
@@ -20708,21 +20708,15 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/programs?commonCropName=invalid",
+									"raw": "{{BMSurl}}/invalid/brapi/v2/programs",
 									"host": [
 										"{{BMSurl}}"
 									],
 									"path": [
-										"{{crop}}",
+										"invalid",
 										"brapi",
 										"v2",
 										"programs"
-									],
-									"query": [
-										{
-											"key": "commonCropName",
-											"value": "invalid"
-										}
 									]
 								},
 								"description": "GET ​/brapi​/v2/programs"
