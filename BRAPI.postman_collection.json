@@ -18078,6 +18078,182 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when entered invalid codes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"//Check status",
+											"pm.test(\"Check messageType\", function () {",
+											"    pm.expect(jsonData.metadata.status[0].messageType).to.eql(\"INFO\");",
+											"});",
+											"pm.test(\"Check message\", function () {",
+											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"1 out of 1 germplasm created successfully.\");",
+											"});",
+											"",
+											"//Check datafiles",
+											"pm.test(\"Check datafiles\", function () {",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"",
+											"",
+											"//Check results",
+											"var index = 0",
+											"",
+											"pm.test(\"Check if defaultDisplayName returned is correct\", function () {",
+											"    pm.expect(jsonData.result.data[index].defaultDisplayName).to.eql(\"GermplasmWithInvalidCodes\");",
+											"});",
+											"",
+											"pm.test(\"Check if accessionNumber property is not present\", function() {",
+											"  pm.expect(jsonData.result.data[index]).to.not.have.property('accessionNumber');",
+											"});",
+											"",
+											"pm.test(\"Check if breedingMethodDbId returns default method id\", function() {",
+											"  pm.expect(jsonData.result.data[index].breedingMethodDbId).to.eql(\"31\");",
+											"});",
+											"",
+											"pm.test(\"Check if additionalInfo NOTE property is not present\", function() {",
+											"  pm.expect(jsonData.result.data[index].additionalInfo).to.not.have.property('NOTE');",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check if additionalInfo CROPNM property is not present\", function() {",
+											"  pm.expect(jsonData.result.data[index].additionalInfo).to.not.have.property('CROPNM');",
+											"});",
+											"pm.test(\"Check if additionalInfo SUBTAX property is not present\", function() {",
+											"  pm.expect(jsonData.result.data[index].additionalInfo).to.not.have.property('SUBTAX');",
+											"});",
+											"pm.test(\"Check if additionalInfo ORIGININST property is not present\", function() {",
+											"  pm.expect(jsonData.result.data[index].additionalInfo).to.not.have.property('ORIGININST');",
+											"});",
+											"pm.test(\"Check if additionalInfo STAUTH property is not present\", function() {",
+											"  pm.expect(jsonData.result.data[index].additionalInfo).to.not.have.property('STAUTH');",
+											"});",
+											"pm.test(\"Check if additionalInfo SPNAM property is not present\", function() {",
+											"  pm.expect(jsonData.result.data[index].additionalInfo).to.not.have.property('SPNAM');",
+											"});",
+											"pm.test(\"Check if additionalInfo PLOTCODE property is not present\", function() {",
+											"  pm.expect(jsonData.result.data[index].additionalInfo).to.not.have.property('PLOTCODE');",
+											"});",
+											"",
+											"pm.test(\"Check if additionalInfo SPAUTH property is not present\", function() {",
+											"  pm.expect(jsonData.result.data[index].additionalInfo).to.not.have.property('SPAUTH');",
+											"});",
+											"pm.test(\"Check if additionalInfo INSTCODE property is not present\", function() {",
+											"  pm.expect(jsonData.result.data[index].additionalInfo).to.not.have.property('INSTCODE');",
+											"});",
+											"",
+											"pm.test(\"Check if additionalInfo SORIG property is present\", function() {",
+											"  pm.expect(jsonData.result.data[index].additionalInfo).to.have.property('SORIG');",
+											"});",
+											"",
+											"",
+											"pm.test(\"Check if DRVNM is present in synonyms\", function() {",
+											"  pm.expect(jsonData.result.data[index].synonyms[0].type).to.eql('DRVNM');",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"accessionNumberx\": \"ACCNO0\",\r\n    \"acquisitionDate\": \"2021-03-01\",\r\n    \"additionalInfo\": {\r\n      \"NOTEx\": \"NOTE0\"\r\n    },\r\n    \"breedingMethodDbIdx\": 1,\r\n    \"commonCropNamex\": \"testCommonCrop\",\r\n    \"countryOfOriginCode\": \"UGA\",\r\n    \"defaultDisplayName\": \"GermplasmWithInvalidCodes\",\r\n    \"genusx\": \"GENUS0\",\r\n    \"germplasmNamex\": \"MyGermplasm0\",\r\n    \"germplasmOrigin\": \"SORIG0\",\r\n    \"instituteCodex\": \"INSTCODE0\",\r\n    \"instituteNamex\": \"INSTNAME0\",\r\n    \"pedigreex\": \"AB0/CD0\",\r\n    \"seedSourcex\": \"Randomized Trial:TEST:0:0\",\r\n    \"speciesx\": \"SPECIES0\",\r\n    \"speciesAuthorityx\": \"SPAUTH0\",\r\n    \"subtaxax\": \"SUBTAXA0\",\r\n    \"subtaxaAuthorityx\": \"STAUTH0\",\r\n    \"synonyms\": [\r\n      {\r\n        \"synonym\": \"DRVNM0\",\r\n        \"type\": \"DRVNM\"\r\n      }\r\n    ]\r\n  }\r\n]"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/germplasm",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"germplasm"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body entered accession number greater than max length",
 							"event": [
 								{
