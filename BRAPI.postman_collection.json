@@ -17550,6 +17550,121 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body entered multiple germplasm entries",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"//Check status",
+											"pm.test(\"Check messageType\", function () {",
+											"    pm.expect(jsonData.metadata.status[0].messageType).to.eql(\"INFO\");",
+											"});",
+											"pm.test(\"Check message\", function () {",
+											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"2 out of 2 germplasm created successfully.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"accessionNumber\": \"ACCNO1\",\r\n    \"acquisitionDate\": \"2021-03-01\",\r\n    \"additionalInfo\": {\r\n      \"NOTE\": \"NOTE0\"\r\n    },\r\n    \"breedingMethodDbId\": 1,\r\n    \"commonCropName\": \"testCommonCrop\",\r\n    \"countryOfOriginCode\": \"UGA\",\r\n    \"defaultDisplayName\": \"MyGermplasm1\",\r\n    \"genus\": \"GENUS1\",\r\n    \"germplasmName\": \"MyGermplasm1\",\r\n    \"germplasmOrigin\": \"SORIG1\",\r\n    \"instituteCode\": \"INSTCODE1\",\r\n    \"instituteName\": \"INSTNAME1\",\r\n    \"pedigree\": \"AB1/CD1\",\r\n    \"seedSource\": \"Randomized Trial:TEST:0:1\",\r\n    \"species\": \"SPECIES1\",\r\n    \"speciesAuthority\": \"SPAUTH1\",\r\n    \"subtaxa\": \"SUBTAXA1\",\r\n    \"subtaxaAuthority\": \"STAUTH1\",\r\n    \"synonyms\": [\r\n      {\r\n        \"synonym\": \"DRVNM1\",\r\n        \"type\": \"DRVNM\"\r\n      }\r\n    ]\r\n  },\r\n{\r\n    \"accessionNumber\": \"ACCNO2\",\r\n    \"acquisitionDate\": \"2021-03-01\",\r\n    \"additionalInfo\": {\r\n      \"NOTE\": \"NOTE0\"\r\n    },\r\n    \"breedingMethodDbId\": 1,\r\n    \"commonCropName\": \"testCommonCrop\",\r\n    \"countryOfOriginCode\": \"UGA\",\r\n    \"defaultDisplayName\": \"MyGermplasm2\",\r\n    \"genus\": \"GENUS2\",\r\n    \"germplasmName\": \"MyGermplasm2\",\r\n    \"germplasmOrigin\": \"SORIG2\",\r\n    \"instituteCode\": \"INSTCODE2\",\r\n    \"instituteName\": \"INSTNAME2\",\r\n    \"pedigree\": \"AB2/CD2\",\r\n    \"seedSource\": \"Randomized Trial:TEST:0:2\",\r\n    \"species\": \"SPECIES2\",\r\n    \"speciesAuthority\": \"SPAUTH2\",\r\n    \"subtaxa\": \"SUBTAXA2\",\r\n    \"subtaxaAuthority\": \"STAUTH2\",\r\n    \"synonyms\": [\r\n      {\r\n        \"synonym\": \"DRVNM2\",\r\n        \"type\": \"DRVNM\"\r\n      }\r\n    ]\r\n  }\r\n]"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/germplasm",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"germplasm"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when entered required details only",
 							"event": [
 								{
