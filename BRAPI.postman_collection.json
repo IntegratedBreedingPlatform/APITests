@@ -55749,6 +55749,17 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"var jsonData = pm.response.json();",
+											"//Check status",
+											"pm.test(\"Check messageType\", function () {",
+											"    pm.expect(jsonData.metadata.status[0].messageType).to.eql(\"INFO\");",
+											"});",
+											"pm.test(\"Check message\", function () {",
+											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"194 out of 194 observation units created successfully.\");",
+											"});",
+											"",
+											"pm.test(\"Check datafiles\", function () {",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
 											""
 										],
 										"type": "text/javascript"
