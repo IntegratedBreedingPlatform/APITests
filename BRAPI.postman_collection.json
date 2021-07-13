@@ -7859,7 +7859,7 @@
 											"    pm.expect(jsonData.result.familyCode).to.equal(null);",
 											"});",
 											"pm.test(\"Check parent1DbId\", function () {",
-											"    pm.expect(jsonData.result.parent1DbId).to.eql(21);",
+											"    pm.expect(jsonData.result.parent1DbId).to.eql(\"PKWDG942cd372\");",
 											"});",
 											"pm.test(\"Check parent1Name\", function () {",
 											"    pm.expect(jsonData.result.parent1Name).to.eql(\"CML1\");",
@@ -7868,7 +7868,7 @@
 											"    pm.expect(jsonData.result.parent1Type).to.eql(\"FEMALE\");",
 											"});",
 											"pm.test(\"Check parent2DbId\", function () {",
-											"    pm.expect(jsonData.result.parent2DbId).to.eql(26);",
+											"    pm.expect(jsonData.result.parent2DbId).to.eql(\"PKWDG4b204948\");",
 											"});",
 											"pm.test(\"Check parent2Name\", function () {",
 											"    pm.expect(jsonData.result.parent2Name).to.eql(\"CML6\");",
@@ -8013,7 +8013,7 @@
 											"    pm.expect(jsonData.result.crossingPlan).to.eql(\"C2W|Single cross|GEN\");",
 											"    pm.expect(jsonData.result.crossingYear).to.eql(2018);",
 											"    pm.expect(jsonData.result.familyCode).to.equal(null);",
-											"    pm.expect(jsonData.result.parent1DbId).to.eql(21);",
+											"    pm.expect(jsonData.result.parent1DbId).to.eql(\"PKWDG942cd372\");",
 											"    pm.expect(jsonData.result.parent1Name).to.eql(\"CML1\");",
 											"    pm.expect(jsonData.result.parent1Type).to.eql(\"FEMALE\");",
 											"    pm.expect(jsonData.result.parent2DbId).to.eql(26);",
@@ -8159,7 +8159,7 @@
 											"});",
 											"",
 											"pm.test(\"Check familyCode \", function () {",
-											"    pm.expect(jsonData.result.parent1DbId).to.eql(21);",
+											"    pm.expect(jsonData.result.parent1DbId).to.eql(\"PKWDG942cd372\");",
 											"});",
 											"pm.test(\"Check parent1Name \", function () {",
 											"    pm.expect(jsonData.result.parent1Name).to.eql(\"CML1\");",
@@ -8168,7 +8168,7 @@
 											"    pm.expect(jsonData.result.parent1Type).to.eql(\"POPULATION\");",
 											"});",
 											"pm.test(\"Check parent2DbId \", function () {",
-											"    pm.expect(jsonData.result.parent2DbId).to.eql(21);",
+											"    pm.expect(jsonData.result.parent2DbId).to.eql(\"PKWDG942cd372\");",
 											"});",
 											"pm.test(\"Check parent2Name \", function () {",
 											"    pm.expect(jsonData.result.parent2Name).to.eql(\"CML1\");",
@@ -37775,264 +37775,6 @@
 							"response": []
 						},
 						{
-							"name": "Post phenotype search by externalReferenceId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"",
-											"pm.test(\"Verify returned metadata\", function () {",
-											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
-											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(194);",
-											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
-											" pm.expect(jsonData.metadata.status).to.eql([]);",
-											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
-											"});",
-											"   ",
-											"",
-											"pm.test(\"Check if all data has correct externalReferenceID\", function () {",
-											"  var jsonData = pm.response.json();",
-											"  var dataLength = jsonData.result.data.length;",
-											"",
-											"  for (i = 0; i < dataLength ; i++) {",
-											"      var data = jsonData.result.data[i];",
-											"      pm.expect(data.externalReferences[0].referenceID).to.eql(\"refID\");",
-											"  }",
-											" ",
-											"}); "
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"externalReferenceIDs\": [\n\t\t\"refID\"\n\t]\n}"
-								},
-								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/phenotypes-search",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"{{crop}}",
-										"brapi",
-										"v1",
-										"phenotypes-search"
-									]
-								},
-								"description": "POST /{crop}/brapi/v1/search/germplasm"
-							},
-							"response": []
-						},
-						{
-							"name": "Post phenotype search by externalReferenceSource",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"",
-											"pm.test(\"Verify returned metadata\", function () {",
-											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
-											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(194);",
-											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
-											" pm.expect(jsonData.metadata.status).to.eql([]);",
-											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
-											"});",
-											"   ",
-											"",
-											"pm.test(\"Check if all data has correct externalReferenceID\", function () {",
-											"  var jsonData = pm.response.json();",
-											"  var dataLength = jsonData.result.data.length;",
-											"",
-											"  for (i = 0; i < dataLength ; i++) {",
-											"      var data = jsonData.result.data[i];",
-											"      pm.expect(data.externalReferences[0].referenceID).to.eql(\"refID\");",
-											"  }",
-											" ",
-											"}); "
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"externalReferenceSources\": [\n\t\t\"referenceSource\"\n\t]\n}"
-								},
-								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/phenotypes-search",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"{{crop}}",
-										"brapi",
-										"v1",
-										"phenotypes-search"
-									]
-								},
-								"description": "POST /{crop}/brapi/v1/search/germplasm"
-							},
-							"response": []
-						},
-						{
 							"name": "Post phenotype search by observationTimeStamps",
 							"event": [
 								{
@@ -52031,7 +51773,7 @@
 											"    pm.expect(jsonData.result.data[index].endDate).to.eql(\"2021-12-31T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Check if studyDbId returned is correct\", function () {",
-											"    pm.expect(jsonData.result.data[index].studyDbId).to.eql(\"113\");",
+											"    pm.expect(jsonData.result.data[index].studyDbId).to.eql(\"116\");",
 											"});",
 											"pm.test(\"Check if studyName returned is correct\", function () {",
 											"    pm.expect(jsonData.result.data[index].studyName).to.eql(\"Study w complete details Environment Number 1\");",
@@ -52989,10 +52731,10 @@
 											"    pm.expect(jsonData.result.data[index].endDate).to.eql(\"2021-12-31T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Check if studyDbId returned is correct\", function () {",
-											"    pm.expect(jsonData.result.data[index].studyDbId).to.eql(\"116\");",
+											"    pm.expect(jsonData.result.data[index].studyDbId).to.eql(\"128\");",
 											"});",
 											"pm.test(\"Check if studyName returned is correct\", function () {",
-											"    pm.expect(jsonData.result.data[index].studyName).to.eql(\"Study w complete details Environment Number 4\");",
+											"    pm.expect(jsonData.result.data[index].studyName).to.eql(\"Study w complete details Environment Number 3\");",
 											"});",
 											"",
 											"pm.test(\"Check if studyTypeDbId returned is correct\", function () {",
@@ -53281,7 +53023,7 @@
 											"    pm.expect(jsonData.result.data[index].endDate).to.eql(\"2019-10-25T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Check if studyDbId returned is correct\", function () {",
-											"    pm.expect(jsonData.result.data[index].studyDbId).to.eql(\"117\");",
+											"    pm.expect(jsonData.result.data[index].studyDbId).to.eql(\"129\");",
 											"});",
 											"pm.test(\"Check if studyName returned is correct\", function () {",
 											"    pm.expect(jsonData.result.data[index].studyName).to.eql(\"Study with Imported Cross Nursery 2018002 Environment Number 3\");",
@@ -53574,10 +53316,10 @@
 											"    pm.expect(jsonData.result.data[index].endDate).to.eql(\"2021-12-31T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Check if studyDbId returned is correct\", function () {",
-											"    pm.expect(jsonData.result.data[index].studyDbId).to.eql(\"118\");",
+											"    pm.expect(jsonData.result.data[index].studyDbId).to.eql(\"130\");",
 											"});",
 											"pm.test(\"Check if studyName returned is correct\", function () {",
-											"    pm.expect(jsonData.result.data[index].studyName).to.eql(\"Study w complete details Environment Number 5\");",
+											"    pm.expect(jsonData.result.data[index].studyName).to.eql(\"Study w complete details Environment Number 4\");",
 											"});",
 											"",
 											"pm.test(\"Check if studyTypeDbId returned is correct\", function () {",
