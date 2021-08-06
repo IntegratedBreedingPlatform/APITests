@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a02b8de8-2f41-44f9-913d-8b09f867fee5",
+		"_postman_id": "9461ce59-510e-4547-8bc9-3ff0fd756f06",
 		"name": "BRAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -50632,19 +50632,19 @@
 											"});",
 											"",
 											"pm.test(\"Check if contacts contactDbId returned is correct\", function () {",
-											"    pm.expect(jsonData.result.data[index].contacts[0].contactDbId).to.eql(\"1\");",
+											"    pm.expect(jsonData.result.data[index].contacts[0].contactDbId).to.eql(\"\");",
 											"});",
 											"pm.test(\"Check if contacts email returned is correct\", function () {",
-											"    pm.expect(jsonData.result.data[index].contacts[0].email).to.eql(\"admin1@leafnode.io\");",
+											"    pm.expect(jsonData.result.data[index].contacts[0].email).to.eql(\"bob@bob.com\");",
 											"});",
 											"pm.test(\"Check if contacts instituteName returned is correct\", function () {",
-											"    pm.expect(jsonData.result.data[index].contacts[0].instituteName).to.eql(\"\");",
+											"    pm.expect(jsonData.result.data[index].contacts[0].instituteName).to.eql(\"The BrAPI Institute\");",
 											"});",
 											"pm.test(\"Check if contacts name returned is correct\", function () {",
-											"    pm.expect(jsonData.result.data[index].contacts[0].name).to.eql(\"Admin Admin\");",
+											"    pm.expect(jsonData.result.data[index].contacts[0].name).to.eql(\"Bob Robertson\");",
 											"});",
 											"pm.test(\"Check if contacts type returned is correct\", function () {",
-											"    pm.expect(jsonData.result.data[index].contacts[0].type).to.eql(\"Creator\");",
+											"    pm.expect(jsonData.result.data[index].contacts[0].type).to.eql(\"PI\");",
 											"});",
 											"pm.test(\"Check if contacts orcid returned is correct\", function () {",
 											"    pm.expect(jsonData.result.data[index].contacts[0].orcid).to.eql(\"\");",
@@ -50739,7 +50739,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\r\n\t{\r\n\t\t\"active\": true,\r\n\t\t\"additionalInfo\": {\r\n\t\t\t\"STUDY_BM_CODE\": \"WCO\",\r\n\t\t\t\"INSTITUTE_ID\": \"12345\",\r\n\t\t\t\"Target_Region\": \"Region 3\",\r\n\t\t\t\"COOPERATOR_ID\": \"2\",\r\n\t\t\t\"Project_Prefix\": \"Project Prefix 3\",\r\n\t\t\t\"PI_NAME_ID\": \"2\",\r\n\t\t\t\"STUDY_INSTITUTE\": \"INSTITUTE 1\",\r\n\t\t\t\"STUDY_DATE\": \"20210526\"\r\n\t\t},\r\n\t\t\"commonCropName\": \"testdata\",\r\n\t\t\"externalReferences\": [\r\n\t\t\t{\r\n\t\t\t\t\"referenceID\": \"reference1\",\r\n\t\t\t\t\"referenceSource\": \"Source1\"\r\n\t\t\t}\r\n\t\t],\r\n\t\t\"programDbId\": \"c9e335d2-3057-4958-a43e-e38cf61d09ca\",\r\n\t\t\"startDate\": \"2021-05-26\",\r\n        \"endDate\": \"2021-12-31\",\r\n\t\t\"trialDescription\": \"Study description\",\r\n\t\t\"trialName\": \"Study w complete details\"\r\n\t}\r\n]"
+									"raw": "[\r\n    {\r\n        \"active\": true,\r\n        \"additionalInfo\": {\r\n            \"STUDY_BM_CODE\": \"WCO\",\r\n            \"INSTITUTE_ID\": \"12345\",\r\n            \"Target_Region\": \"Region 3\",\r\n            \"COOPERATOR_ID\": \"2\",\r\n            \"Project_Prefix\": \"Project Prefix 3\",\r\n            \"PI_NAME_ID\": \"2\",\r\n            \"STUDY_INSTITUTE\": \"INSTITUTE 1\",\r\n            \"STUDY_DATE\": \"20210526\"\r\n        },\r\n        \"commonCropName\": \"testdata\",\r\n        \"contacts\": [\r\n            {\r\n                \"contactDbId\": \"5f4e5509\",\r\n                \"email\": \"bob@bob.com\",\r\n                \"instituteName\": \"The BrAPI Institute\",\r\n                \"name\": \"Bob Robertson\",\r\n                \"orcid\": \"http://orcid.org/0000-0001-8640-1750\",\r\n                \"type\": \"PI\"\r\n            }\r\n        ],\r\n        \"externalReferences\": [\r\n            {\r\n                \"referenceID\": \"reference1\",\r\n                \"referenceSource\": \"Source1\"\r\n            }\r\n        ],\r\n        \"programDbId\": \"c9e335d2-3057-4958-a43e-e38cf61d09ca\",\r\n        \"startDate\": \"2021-05-26\",\r\n        \"endDate\": \"2021-12-31\",\r\n        \"trialDescription\": \"Study description\",\r\n        \"trialName\": \"Study w complete details\"\r\n    }\r\n]"
 								},
 								"url": {
 									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/trials",
