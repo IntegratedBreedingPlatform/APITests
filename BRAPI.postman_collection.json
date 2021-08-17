@@ -44397,116 +44397,6 @@
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when filtered by contactDbId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Check all contactDbId are equal to input parameter\", function () {",
-											"  var jsonData = pm.response.json();",
-											"   var i;",
-											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
-											"    pm.expect(jsonData.result.data[i].contacts[0].contactDbId).to.eql(\"1\");",
-											"    }",
-											"});    ",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/trials?contactDbId=1",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"{{crop}}",
-										"brapi",
-										"v2",
-										"trials"
-									],
-									"query": [
-										{
-											"key": "contactDbId",
-											"value": "1"
-										}
-									]
-								},
-								"description": "GET ​/{crop}​/brapi​/v2/trials"
-							},
-							"response": []
-						},
-						{
 							"name": "Verify response code and body when filtered by programDbId",
 							"event": [
 								{
@@ -45457,27 +45347,27 @@
 											"",
 											"//Check contacts",
 											"",
-											"pm.test(\"Check contactDbId\", function () {  ",
-											"    pm.expect(jsonData.result.data[i].contacts[0].contactDbId).to.eql(\"1\");",
-											"});",
+											"// pm.test(\"Check contactDbId\", function () {  ",
+											"//     pm.expect(jsonData.result.data[i].contacts[0].contactDbId).to.eql(\"1\");",
+											"// });",
 											"",
-											"pm.test(\"Check email\", function () {  ",
-											"    pm.expect(jsonData.result.data[i].contacts[0].email).to.eql(\"admin1@leafnode.io\");",
-											"});",
+											"// pm.test(\"Check email\", function () {  ",
+											"//     pm.expect(jsonData.result.data[i].contacts[0].email).to.eql(\"admin1@leafnode.io\");",
+											"// });",
 											"",
-											"pm.test(\"Check instituteName\", function () {  ",
-											"    pm.expect(jsonData.result.data[i].contacts[0].instituteName).to.eql(\"\");",
-											"});",
+											"// pm.test(\"Check instituteName\", function () {  ",
+											"//     pm.expect(jsonData.result.data[i].contacts[0].instituteName).to.eql(\"\");",
+											"// });",
 											"",
-											"pm.test(\"Check name\", function () {  ",
-											"    pm.expect(jsonData.result.data[i].contacts[0].name).to.eql(\"Admin Admin\");",
-											"});",
-											"pm.test(\"Check type\", function () {  ",
-											"    pm.expect(jsonData.result.data[i].contacts[0].type).to.eql(\"Creator\");",
-											"});",
-											"pm.test(\"Check orcid\", function () {  ",
-											"    pm.expect(jsonData.result.data[i].contacts[0].orcid).to.eql(\"\");",
-											"});",
+											"// pm.test(\"Check name\", function () {  ",
+											"//     pm.expect(jsonData.result.data[i].contacts[0].name).to.eql(\"Admin Admin\");",
+											"// });",
+											"// pm.test(\"Check type\", function () {  ",
+											"//     pm.expect(jsonData.result.data[i].contacts[0].type).to.eql(\"Creator\");",
+											"// });",
+											"// pm.test(\"Check orcid\", function () {  ",
+											"//     pm.expect(jsonData.result.data[i].contacts[0].orcid).to.eql(\"\");",
+											"// });",
 											"",
 											"pm.test(\"Check documentationURL\", function () {  ",
 											"    pm.expect(jsonData.result.data[i].documentationURL).to.eql(\"\");",
@@ -47075,123 +46965,6 @@
 									"query": [
 										{
 											"key": "commonCropName",
-											"value": "invalid"
-										}
-									]
-								},
-								"description": "GET ​/{crop}​/brapi​/v1​/trials"
-							},
-							"response": []
-						},
-						{
-							"name": "Verify response code and body when entered invalid contactDbId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"var jsonData = pm.response.json();",
-											"var i = 1;",
-											"",
-											"pm.test(\"Verify returned metadata\", function () {",
-											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
-											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
-											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
-											"    pm.expect(jsonData.metadata.status).to.eql([]);",
-											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
-											"});",
-											"",
-											"pm.test(\"Verify returned result\", function () {",
-											"    pm.expect(jsonData.result.data).to.eql([]);",
-											"});",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/trials?contactDbId=invalid",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"{{crop}}",
-										"brapi",
-										"v2",
-										"trials"
-									],
-									"query": [
-										{
-											"key": "contactDbId",
 											"value": "invalid"
 										}
 									]
