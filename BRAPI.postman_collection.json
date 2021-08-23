@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4ce3f9e0-cae2-4508-9fcb-147e7bb71fa4",
+		"_postman_id": "51aab8e0-fa36-4176-928b-7c1765298983",
 		"name": "BRAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9547,6 +9547,1001 @@
 								],
 								"body": {
 									"mode": "raw",
+									"raw": "{\r\n  \"germplasmDbIds\": [\r\n    \"{{germplasm_uuid}}\"\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when searched by germplasmDbId with germplasmOrigin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"    var jsonData = pm.response.json();",
+											"    pm.environment.unset(\"searchResultDbId_v2_germplasmDbId_w_origin\");",
+											"    pm.environment.set(\"searchResultDbId_v2_germplasmDbId_w_origin\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"germplasmDbIds\": [\r\n    \"PKWDGdZIjsBS9\"\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/germplasm",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"search",
+										"germplasm"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when searched by germplasmGenus",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"    var jsonData = pm.response.json();",
+											"    pm.environment.unset(\"searchResultDbId_germplasmGenus\");",
+											"    pm.environment.set(\"searchResultDbId_germplasmGenus\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"germplasmGenus\": [\r\n    \"GENUS1\"\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when searched by germplasmNames",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"    var jsonData = pm.response.json();",
+											"    pm.environment.unset(\"searchResultDbId_germplasmNames\");",
+											"    pm.environment.set(\"searchResultDbId_germplasmNames\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"germplasmName\": [\r\n    \"CML1\"\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when searched by germplasmSpecies",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"    var jsonData = pm.response.json();",
+											"    pm.environment.unset(\"searchResultDbId_germplasmSpecies\");",
+											"    pm.environment.set(\"searchResultDbId_germplasmSpecies\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"germplasmSpecies\": [\r\n    \"SPNAM1\"\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when searched by preferredName",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"    var jsonData = pm.response.json();",
+											"    pm.environment.unset(\"searchResultDbId_preferredName\");",
+											"    pm.environment.set(\"searchResultDbId_preferredName\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"preferredName\": \"CML1\"\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when searched by germplasmDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"    var jsonData = pm.response.json();",
+											"    pm.environment.unset(\"searchResultDbId_germplasmDbIds\");",
+											"    pm.environment.set(\"searchResultDbId_germplasmDbIds\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"germplasmDbIds\": [\r\n      \"PKWDG942cd372\"\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST /{crop}/brapi/v2/search/germplasm",
+					"item": [
+						{
+							"name": "Verify response code and body when searched by accessionNumbers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"    var jsonData = pm.response.json();",
+											"    pm.environment.unset(\"searchResultDbId_v2_accessionNumbers\");",
+											"    pm.environment.set(\"searchResultDbId_v2_accessionNumbers\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"accessionNumbers\": [\r\n    \"ACCNO1\"\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/germplasm",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"search",
+										"germplasm"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when searched by commonCropNames",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"    var jsonData = pm.response.json();",
+											"    pm.environment.unset(\"ssearchResultDbId_v2_commonCropNames\");",
+											"    pm.environment.set(\"searchResultDbId_v2_commonCropNames\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"commonCropNames\": [\r\n    \"commoncropnm\"\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/germplasm",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"search",
+										"germplasm"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when searched by germplasmDbIds",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"    var jsonData = pm.response.json();",
+											"    pm.environment.unset(\"searchResultDbId_germplasmDbIds\");",
+											"    pm.environment.set(\"searchResultDbId_germplasmDbIds\", jsonData.result.searchResultDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
 									"raw": "{\r\n  \"germplasmDbIds\": [\r\n    \"21\"\r\n  ]\r\n}"
 								},
 								"url": {
@@ -11562,6 +12557,1784 @@
 										"search",
 										"germplasm",
 										"{{searchResultDbId_germplasmDbIds}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "100"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/search/germplasm/{searchResultsDbid}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchResultsDbid that filters by germplasmGenus",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"var data = jsonData.result.data[0];\r",
+											"pm.test(\"Verify returned metadata\", function () {\r",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);\r",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(100);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);\r",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check germplasmDbId \", function () {\r",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDG942cd372\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check defaultDisplayName \", function () {\r",
+											"    pm.expect(data.defaultDisplayName).to.eql(\"CML1\");\r",
+											"});\r",
+											"pm.test(\"Check accessionNumber \", function () {\r",
+											"    pm.expect(data.accessionNumber).to.eql(\"ACCNO1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check germplasmName \", function () {\r",
+											"    pm.expect(data.germplasmName).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check pedigree\", function () {\r",
+											"    pm.expect(data.pedigree).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"/**\r",
+											"pm.test(\"Check germplasmSeedSource\", function () {\r",
+											"    pm.expect(data.germplasmSeedSource).to.eql(\"AA001\");\r",
+											"});\r",
+											" */\r",
+											"pm.test(\"Check synonyms\", function () {\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check commonCropName\", function () {\r",
+											"    pm.expect(data.commonCropName).to.eql(\"commoncropnm\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check instituteCode\", function () {\r",
+											"    pm.expect(data.instituteCode).to.eql(\"instituteCode001\");\r",
+											"});\r",
+											"pm.test(\"Check instituteName\", function () {\r",
+											"    pm.expect(data.instituteName).to.eql(\"instituteName001\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check countryOfOriginCode\", function () {\r",
+											"    pm.expect(data.countryOfOriginCode).to.eql(\"WARDA\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check typeOfGermplasmStorageCode\", function () {\r",
+											"    pm.expect(data.typeOfGermplasmStorageCode).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check genus\", function () {\r",
+											"    pm.expect(data.genus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check species\", function () {\r",
+											"    pm.expect(data.species).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											"pm.test(\"Check taxonIds\", function () {\r",
+											"    pm.expect(data.taxonIds).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check speciesAuthority\", function () {\r",
+											"    pm.expect(data.speciesAuthority).to.eql(\"SPAUTH1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check subtaxa\", function () {\r",
+											"    pm.expect(data.subtaxa).to.eql(\"SUBTAX1\");\r",
+											"});\r",
+											"pm.test(\"Check subtaxaAuthority\", function () {\r",
+											"    pm.expect(data.subtaxaAuthority).to.eql(\"STAUTH1\");\r",
+											"});\r",
+											"pm.test(\"Check donors\", function () {\r",
+											"    pm.expect(data.donors).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check acquisitionDate\", function () {\r",
+											"    pm.expect(data.acquisitionDate).to.eql(\"2018-10-25\");\r",
+											"});\r",
+											"pm.test(\"Check breedingMethodDbId\", function () {\r",
+											"    pm.expect(data.breedingMethodDbId).to.eql(\"70\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmGenus\", function () {\r",
+											"    pm.expect(data.germplasmGenus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmSpecies\", function () {\r",
+											"    pm.expect(data.germplasmSpecies).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm/{{searchResultDbId_germplasmGenus}}?page=0&pageSize=100",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm",
+										"{{searchResultDbId_germplasmGenus}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "100"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/search/germplasm/{searchResultsDbid}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchResultsDbid that filters by germplasmNames",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"var data = jsonData.result.data[0];\r",
+											"pm.test(\"Verify returned metadata\", function () {\r",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);\r",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(100);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(86);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);\r",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check germplasmDbId \", function () {\r",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDG942cd372\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check defaultDisplayName \", function () {\r",
+											"    pm.expect(data.defaultDisplayName).to.eql(\"CML1\");\r",
+											"});\r",
+											"pm.test(\"Check accessionNumber \", function () {\r",
+											"    pm.expect(data.accessionNumber).to.eql(\"ACCNO1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check germplasmName \", function () {\r",
+											"    pm.expect(data.germplasmName).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check pedigree\", function () {\r",
+											"    pm.expect(data.pedigree).to.eql(\"CML1\");\r",
+											"});\r",
+											"/**\r",
+											"pm.test(\"Check germplasmSeedSource\", function () {\r",
+											"    pm.expect(data.germplasmSeedSource).to.eql(\"AA001\");\r",
+											"});\r",
+											" */\r",
+											"pm.test(\"Check synonyms\", function () {\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check commonCropName\", function () {\r",
+											"    pm.expect(data.commonCropName).to.eql(\"commoncropnm\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check instituteCode\", function () {\r",
+											"    pm.expect(data.instituteCode).to.eql(\"instituteCode001\");\r",
+											"});\r",
+											"pm.test(\"Check instituteName\", function () {\r",
+											"    pm.expect(data.instituteName).to.eql(\"instituteName001\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check countryOfOriginCode\", function () {\r",
+											"    pm.expect(data.countryOfOriginCode).to.eql(\"WARDA\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check typeOfGermplasmStorageCode\", function () {\r",
+											"    pm.expect(data.typeOfGermplasmStorageCode).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check genus\", function () {\r",
+											"    pm.expect(data.genus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check species\", function () {\r",
+											"    pm.expect(data.species).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											"pm.test(\"Check taxonIds\", function () {\r",
+											"    pm.expect(data.taxonIds).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check speciesAuthority\", function () {\r",
+											"    pm.expect(data.speciesAuthority).to.eql(\"SPAUTH1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check subtaxa\", function () {\r",
+											"    pm.expect(data.subtaxa).to.eql(\"SUBTAX1\");\r",
+											"});\r",
+											"pm.test(\"Check subtaxaAuthority\", function () {\r",
+											"    pm.expect(data.subtaxaAuthority).to.eql(\"STAUTH1\");\r",
+											"});\r",
+											"pm.test(\"Check donors\", function () {\r",
+											"    pm.expect(data.donors).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check acquisitionDate\", function () {\r",
+											"    pm.expect(data.acquisitionDate).to.eql(\"2018-10-25\");\r",
+											"});\r",
+											"pm.test(\"Check breedingMethodDbId\", function () {\r",
+											"    pm.expect(data.breedingMethodDbId).to.eql(\"70\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmGenus\", function () {\r",
+											"    pm.expect(data.germplasmGenus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmSpecies\", function () {\r",
+											"    pm.expect(data.germplasmSpecies).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm/{{searchResultDbId_germplasmNames}}?page=0&pageSize=100",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm",
+										"{{searchResultDbId_germplasmNames}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "100"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/search/germplasm/{searchResultsDbid}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchResultsDbid that filters by germplasmSpecies",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"var data = jsonData.result.data[0];\r",
+											"pm.test(\"Verify returned metadata\", function () {\r",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);\r",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(100);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);\r",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check germplasmDbId \", function () {\r",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDG942cd372\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check defaultDisplayName \", function () {\r",
+											"    pm.expect(data.defaultDisplayName).to.eql(\"CML1\");\r",
+											"});\r",
+											"pm.test(\"Check accessionNumber \", function () {\r",
+											"    pm.expect(data.accessionNumber).to.eql(\"ACCNO1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check germplasmName \", function () {\r",
+											"    pm.expect(data.germplasmName).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check pedigree\", function () {\r",
+											"    pm.expect(data.pedigree).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"/**\r",
+											"pm.test(\"Check germplasmSeedSource\", function () {\r",
+											"    pm.expect(data.germplasmSeedSource).to.eql(\"AA001\");\r",
+											"});\r",
+											" */\r",
+											"pm.test(\"Check synonyms\", function () {\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check commonCropName\", function () {\r",
+											"    pm.expect(data.commonCropName).to.eql(\"commoncropnm\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check instituteCode\", function () {\r",
+											"    pm.expect(data.instituteCode).to.eql(\"instituteCode001\");\r",
+											"});\r",
+											"pm.test(\"Check instituteName\", function () {\r",
+											"    pm.expect(data.instituteName).to.eql(\"instituteName001\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check countryOfOriginCode\", function () {\r",
+											"    pm.expect(data.countryOfOriginCode).to.eql(\"WARDA\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check typeOfGermplasmStorageCode\", function () {\r",
+											"    pm.expect(data.typeOfGermplasmStorageCode).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check genus\", function () {\r",
+											"    pm.expect(data.genus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check species\", function () {\r",
+											"    pm.expect(data.species).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											"pm.test(\"Check taxonIds\", function () {\r",
+											"    pm.expect(data.taxonIds).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check speciesAuthority\", function () {\r",
+											"    pm.expect(data.speciesAuthority).to.eql(\"SPAUTH1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check subtaxa\", function () {\r",
+											"    pm.expect(data.subtaxa).to.eql(\"SUBTAX1\");\r",
+											"});\r",
+											"pm.test(\"Check subtaxaAuthority\", function () {\r",
+											"    pm.expect(data.subtaxaAuthority).to.eql(\"STAUTH1\");\r",
+											"});\r",
+											"pm.test(\"Check donors\", function () {\r",
+											"    pm.expect(data.donors).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check acquisitionDate\", function () {\r",
+											"    pm.expect(data.acquisitionDate).to.eql(\"2018-10-25\");\r",
+											"});\r",
+											"pm.test(\"Check breedingMethodDbId\", function () {\r",
+											"    pm.expect(data.breedingMethodDbId).to.eql(\"70\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmGenus\", function () {\r",
+											"    pm.expect(data.germplasmGenus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmSpecies\", function () {\r",
+											"    pm.expect(data.germplasmSpecies).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm/{{searchResultDbId_germplasmSpecies}}?page=0&pageSize=100",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm",
+										"{{searchResultDbId_germplasmSpecies}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "100"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/search/germplasm/{searchResultsDbid}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchResultsDbid that filters by preferredName",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"var data = jsonData.result.data[0];\r",
+											"pm.test(\"Verify returned metadata\", function () {\r",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);\r",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(100);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(33);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);\r",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check germplasmDbId \", function () {\r",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDG942cd372\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check defaultDisplayName \", function () {\r",
+											"    pm.expect(data.defaultDisplayName).to.eql(\"CML1\");\r",
+											"});\r",
+											"pm.test(\"Check accessionNumber \", function () {\r",
+											"    pm.expect(data.accessionNumber).to.eql(\"ACCNO1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check germplasmName \", function () {\r",
+											"    pm.expect(data.germplasmName).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check pedigree\", function () {\r",
+											"    pm.expect(data.pedigree).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"/**\r",
+											"pm.test(\"Check germplasmSeedSource\", function () {\r",
+											"    pm.expect(data.germplasmSeedSource).to.eql(\"AA001\");\r",
+											"});\r",
+											" */\r",
+											"pm.test(\"Check synonyms\", function () {\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check commonCropName\", function () {\r",
+											"    pm.expect(data.commonCropName).to.eql(\"commoncropnm\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check instituteCode\", function () {\r",
+											"    pm.expect(data.instituteCode).to.eql(\"instituteCode001\");\r",
+											"});\r",
+											"pm.test(\"Check instituteName\", function () {\r",
+											"    pm.expect(data.instituteName).to.eql(\"instituteName001\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check countryOfOriginCode\", function () {\r",
+											"    pm.expect(data.countryOfOriginCode).to.eql(\"WARDA\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check typeOfGermplasmStorageCode\", function () {\r",
+											"    pm.expect(data.typeOfGermplasmStorageCode).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check genus\", function () {\r",
+											"    pm.expect(data.genus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check species\", function () {\r",
+											"    pm.expect(data.species).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											"pm.test(\"Check taxonIds\", function () {\r",
+											"    pm.expect(data.taxonIds).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check speciesAuthority\", function () {\r",
+											"    pm.expect(data.speciesAuthority).to.eql(\"SPAUTH1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check subtaxa\", function () {\r",
+											"    pm.expect(data.subtaxa).to.eql(\"SUBTAX1\");\r",
+											"});\r",
+											"pm.test(\"Check subtaxaAuthority\", function () {\r",
+											"    pm.expect(data.subtaxaAuthority).to.eql(\"STAUTH1\");\r",
+											"});\r",
+											"pm.test(\"Check donors\", function () {\r",
+											"    pm.expect(data.donors).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check acquisitionDate\", function () {\r",
+											"    pm.expect(data.acquisitionDate).to.eql(\"2018-10-25\");\r",
+											"});\r",
+											"pm.test(\"Check breedingMethodDbId\", function () {\r",
+											"    pm.expect(data.breedingMethodDbId).to.eql(\"70\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmGenus\", function () {\r",
+											"    pm.expect(data.germplasmGenus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmSpecies\", function () {\r",
+											"    pm.expect(data.germplasmSpecies).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm/{{searchResultDbId_preferredName}}?page=0&pageSize=100",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm",
+										"{{searchResultDbId_preferredName}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "100"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/search/germplasm/{searchResultsDbid}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered non-existing searchResultsDbid",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"pm.test(\"Check error message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"no search request found\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm/99999?page=0&pageSize=100",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm",
+										"99999"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "100"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/search/germplasm/{searchResultsDbid}"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET /{crop}/brapi/v2/search/germplasm/{searchResultsDbid}",
+					"item": [
+						{
+							"name": "Verify results when entered searchResultsDbid that filters by accessionNumbers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"var data = jsonData.result.data[0];\r",
+											"\r",
+											"pm.test(\"Verify returned metadata\", function () {\r",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);\r",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(100);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);\r",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check germplasmDbId \", function () {\r",
+											"    pm.expect(data.germplasmDbId).to.eql(pm.environment.get(\"germplasm_uuid\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check defaultDisplayName \", function () {\r",
+											"    pm.expect(data.defaultDisplayName).to.eql(\"CML1\");\r",
+											"});\r",
+											"pm.test(\"Check accessionNumber \", function () {\r",
+											"    pm.expect(data.accessionNumber).to.eql(\"ACCNO1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check germplasmName \", function () {\r",
+											"    pm.expect(data.germplasmName).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check germplasmPUI \", function () {\r",
+											"    pm.expect(data.germplasmPUI).to.eql(\"PUIname1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check pedigree\", function () {\r",
+											"    pm.expect(data.pedigree).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check seedSource\", function () {\r",
+											"    pm.expect(data.seedSource).to.eql(\"seedSource\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check synonyms\", function () {\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i].synonym).to.eql(names[i]);\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check synonym types\", function () {\r",
+											" var types = [\"ACCNO\", \"DRVNM\", \"GENUS\", \"SELHISFIX\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i].type).to.eql(types[i]);\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check commonCropName\", function () {\r",
+											"    pm.expect(data.commonCropName).to.eql(\"commoncropnm\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check instituteCode\", function () {\r",
+											"    pm.expect(data.instituteCode).to.eql(\"instituteCode001\");\r",
+											"});\r",
+											"pm.test(\"Check instituteName\", function () {\r",
+											"    pm.expect(data.instituteName).to.eql(\"instituteName001\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check countryOfOriginCode\", function () {\r",
+											"    pm.expect(data.countryOfOriginCode).to.eql(\"WARDA\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check typeOfGermplasmStorageCode\", function () {\r",
+											"    pm.expect(data.typeOfGermplasmStorageCode).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check genus\", function () {\r",
+											"    pm.expect(data.genus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check species\", function () {\r",
+											"    pm.expect(data.species).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											"pm.test(\"Check taxonIds\", function () {\r",
+											"    pm.expect(data.taxonIds).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check speciesAuthority\", function () {\r",
+											"    pm.expect(data.speciesAuthority).to.eql(\"SPAUTH1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check subtaxa\", function () {\r",
+											"    pm.expect(data.subtaxa).to.eql(\"SUBTAX1\");\r",
+											"});\r",
+											"pm.test(\"Check subtaxaAuthority\", function () {\r",
+											"    pm.expect(data.subtaxaAuthority).to.eql(\"STAUTH1\");\r",
+											"});\r",
+											"pm.test(\"Check donors\", function () {\r",
+											"    pm.expect(data.donors).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check acquisitionDate\", function () {\r",
+											"    pm.expect(data.acquisitionDate).to.eql(\"2018-10-25\");\r",
+											"});\r",
+											"pm.test(\"Check breedingMethodDbId\", function () {\r",
+											"    pm.expect(data.breedingMethodDbId).to.eql(\"70\");\r",
+											"});\r",
+											"pm.test(\"Check if returned additionalInfo NOTE_AA_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.NOTE_AA_text).to.eql(\"note1\");\r",
+											"});\r",
+											"pm.test(\"Check if returned additionalInfo PROGM_AA_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.PROGM_AA_text).to.eql(\"PROGM1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check if returned additionalInfo CROPNM_AP_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.CROPNM_AP_text).to.eql(\"commoncropnm\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check if returned additionalInfo SORIG_AP_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.SORIG_AP_text ).to.eql(\"sorig001\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check if returned additionalInfo SPAUTH_AP_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.SPAUTH_AP_text).to.eql(\"SPAUTH1\");\r",
+											"});\r",
+											"pm.test(\"Check if returned additionalInfo STAUTH_AP_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.STAUTH_AP_text).to.eql(\"STAUTH1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check if returned additionalInfo ORIGININST_AP_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.ORIGININST_AP_text).to.eql(\"instituteName001\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check if returned additionalInfo INSTCODE_AP_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.INSTCODE_AP_text).to.eql(\"instituteCode001\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check if returned additionalInfo SPNAM_AP_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.SPNAM_AP_text).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											"pm.test(\"Check if returned additionalInfo PLOTCODE_AP_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.PLOTCODE_AP_text).to.eql(\"seedSource\");\r",
+											"});\r",
+											"pm.test(\"Check if returned additionalInfo ORI_COUN_AP_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.ORI_COUN_AP_text).to.eql(\"ORI_COUN1\");\r",
+											"});\r",
+											"pm.test(\"Check if returned additionalInfo SUBTAX_AP_text is correct\", function () {\r",
+											"    pm.expect(data.additionalInfo.SUBTAX_AP_text).to.eql(\"SUBTAX1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check externalReferences referenceID\", function () {\r",
+											"    pm.expect(data.externalReferences[0].referenceID).to.eql(\"germplasm_refID\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check externalReferences referenceSource\", function () {\r",
+											"    pm.expect(data.externalReferences[0].referenceSource).to.eql(\"germplasm_refSource\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/germplasm/{{searchResultDbId_v2_accessionNumbers}}?page=0&pageSize=100",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"search",
+										"germplasm",
+										"{{searchResultDbId_v2_accessionNumbers}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "100"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/search/germplasm/{searchResultsDbid}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchResultsDbid that filters by commonCropNames",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"var data = jsonData.result.data[0];\r",
+											"pm.test(\"Verify returned metadata\", function () {\r",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);\r",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(100);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);\r",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check germplasmDbId \", function () {\r",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDG942cd372\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check defaultDisplayName \", function () {\r",
+											"    pm.expect(data.defaultDisplayName).to.eql(\"CML1\");\r",
+											"});\r",
+											"pm.test(\"Check accessionNumber \", function () {\r",
+											"    pm.expect(data.accessionNumber).to.eql(\"ACCNO1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check germplasmName \", function () {\r",
+											"    pm.expect(data.germplasmName).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check pedigree\", function () {\r",
+											"    pm.expect(data.pedigree).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"/**\r",
+											"pm.test(\"Check germplasmSeedSource\", function () {\r",
+											"    pm.expect(data.germplasmSeedSource).to.eql(\"AA001\");\r",
+											"});\r",
+											" */\r",
+											"pm.test(\"Check synonyms\", function () {\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check commonCropName\", function () {\r",
+											"    pm.expect(data.commonCropName).to.eql(\"commoncropnm\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check instituteCode\", function () {\r",
+											"    pm.expect(data.instituteCode).to.eql(\"instituteCode001\");\r",
+											"});\r",
+											"pm.test(\"Check instituteName\", function () {\r",
+											"    pm.expect(data.instituteName).to.eql(\"instituteName001\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check countryOfOriginCode\", function () {\r",
+											"    pm.expect(data.countryOfOriginCode).to.eql(\"WARDA\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check typeOfGermplasmStorageCode\", function () {\r",
+											"    pm.expect(data.typeOfGermplasmStorageCode).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check genus\", function () {\r",
+											"    pm.expect(data.genus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check species\", function () {\r",
+											"    pm.expect(data.species).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											"pm.test(\"Check taxonIds\", function () {\r",
+											"    pm.expect(data.taxonIds).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check speciesAuthority\", function () {\r",
+											"    pm.expect(data.speciesAuthority).to.eql(\"SPAUTH1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check subtaxa\", function () {\r",
+											"    pm.expect(data.subtaxa).to.eql(\"SUBTAX1\");\r",
+											"});\r",
+											"pm.test(\"Check subtaxaAuthority\", function () {\r",
+											"    pm.expect(data.subtaxaAuthority).to.eql(\"STAUTH1\");\r",
+											"});\r",
+											"pm.test(\"Check donors\", function () {\r",
+											"    pm.expect(data.donors).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check acquisitionDate\", function () {\r",
+											"    pm.expect(data.acquisitionDate).to.eql(\"2018-10-25\");\r",
+											"});\r",
+											"pm.test(\"Check breedingMethodDbId\", function () {\r",
+											"    pm.expect(data.breedingMethodDbId).to.eql(\"70\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmGenus\", function () {\r",
+											"    pm.expect(data.germplasmGenus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmSpecies\", function () {\r",
+											"    pm.expect(data.germplasmSpecies).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/germplasm/{{searchResultDbId_v2_commonCropNames}}?page=0&pageSize=100",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"search",
+										"germplasm",
+										"{{searchResultDbId_v2_commonCropNames}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "100"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/search/germplasm/{searchResultsDbid}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchResultsDbid that filters by germplasmDbIds",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"var data = jsonData.result.data[0];\r",
+											"pm.test(\"Verify returned metadata\", function () {\r",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);\r",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(100);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);\r",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check germplasmDbId \", function () {\r",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDG942cd372\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check defaultDisplayName \", function () {\r",
+											"    pm.expect(data.defaultDisplayName).to.eql(\"CML1\");\r",
+											"});\r",
+											"pm.test(\"Check accessionNumber \", function () {\r",
+											"    pm.expect(data.accessionNumber).to.eql(\"ACCNO1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check germplasmName \", function () {\r",
+											"    pm.expect(data.germplasmName).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check pedigree\", function () {\r",
+											"    pm.expect(data.pedigree).to.eql(\"CML1\");\r",
+											"});\r",
+											"\r",
+											"/**\r",
+											"pm.test(\"Check germplasmSeedSource\", function () {\r",
+											"    pm.expect(data.germplasmSeedSource).to.eql(\"AA001\");\r",
+											"});\r",
+											" */\r",
+											"pm.test(\"Check synonyms\", function () {\r",
+											" var names = [\"ACCNO1\", \"DVNM1\", \"GENUS1\", \"DVNM1\"];\r",
+											"   for (var i = 0; i < data.synonyms.length; i++) {\r",
+											"    pm.expect(data.synonyms[i]).to.eql(names[i]);\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check commonCropName\", function () {\r",
+											"    pm.expect(data.commonCropName).to.eql(\"commoncropnm\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check instituteCode\", function () {\r",
+											"    pm.expect(data.instituteCode).to.eql(\"instituteCode001\");\r",
+											"});\r",
+											"pm.test(\"Check instituteName\", function () {\r",
+											"    pm.expect(data.instituteName).to.eql(\"instituteName001\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check countryOfOriginCode\", function () {\r",
+											"    pm.expect(data.countryOfOriginCode).to.eql(\"WARDA\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check typeOfGermplasmStorageCode\", function () {\r",
+											"    pm.expect(data.typeOfGermplasmStorageCode).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check genus\", function () {\r",
+											"    pm.expect(data.genus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check species\", function () {\r",
+											"    pm.expect(data.species).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											"pm.test(\"Check taxonIds\", function () {\r",
+											"    pm.expect(data.taxonIds).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check speciesAuthority\", function () {\r",
+											"    pm.expect(data.speciesAuthority).to.eql(\"SPAUTH1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check subtaxa\", function () {\r",
+											"    pm.expect(data.subtaxa).to.eql(\"SUBTAX1\");\r",
+											"});\r",
+											"pm.test(\"Check subtaxaAuthority\", function () {\r",
+											"    pm.expect(data.subtaxaAuthority).to.eql(\"STAUTH1\");\r",
+											"});\r",
+											"pm.test(\"Check donors\", function () {\r",
+											"    pm.expect(data.donors).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check acquisitionDate\", function () {\r",
+											"    pm.expect(data.acquisitionDate).to.eql(\"2018-10-25\");\r",
+											"});\r",
+											"pm.test(\"Check breedingMethodDbId\", function () {\r",
+											"    pm.expect(data.breedingMethodDbId).to.eql(\"70\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmGenus\", function () {\r",
+											"    pm.expect(data.germplasmGenus).to.eql(\"GENUS1\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmSpecies\", function () {\r",
+											"    pm.expect(data.germplasmSpecies).to.eql(\"SPNAM1\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/search/germplasm/{{searchResultDbId_germplasmDbIds}}?page=0&pageSize=100",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v1",
+										"search",
+										"germplasm",
+										"{{searchResultDbId_germplasmDbIds}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "100"
+										}
+									]
+								},
+								"description": "GET /{crop}/brapi/v1/search/germplasm/{searchResultsDbid}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify results when entered searchResultsDbid that filters by germplasmDbId w germplasmOrigin",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"var data = jsonData.result.data[0];\r",
+											"pm.test(\"Verify returned metadata\", function () {\r",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);\r",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(100);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);\r",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);\r",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check germplasmDbId \", function () {\r",
+											"    pm.expect(data.germplasmDbId).to.eql(\"PKWDGdZIjsBS9\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check defaultDisplayName \", function () {\r",
+											"    pm.expect(data.defaultDisplayName).to.eql(\"IB21\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmName \", function () {\r",
+											"    pm.expect(data.germplasmName).to.eql(\"IB21\");\r",
+											"});\r",
+											"pm.test(\"Check pedigree\", function () {\r",
+											"    pm.expect(data.pedigree).to.eql(\"CML1/CML3\");\r",
+											"});\r",
+											"pm.test(\"Check synonyms\", function () {\r",
+											"    pm.expect(data.synonyms).to.eql([]);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"//Verify details of germplasm origin\r",
+											"pm.test(\"Check germplasmOrigin coordinateUncertainty\", function () {\r",
+											"    pm.expect(data.germplasmOrigin.coordinateUncertainty).to.eql(\"\");\r",
+											"    \r",
+											"});\r",
+											"pm.test(\"Check germplasmOrigin geometry coordinates  \", function () {\r",
+											"    pm.expect(data.germplasmOrigin.coordinates.geometry.coordinates).to.eql([-76.506042,42.417373]);\r",
+											"});\r",
+											"pm.test(\"Check germplasmOrigin geometry type  \", function () {\r",
+											"    pm.expect(data.germplasmOrigin.coordinates.geometry.type).to.eql(\"Point\");\r",
+											"});\r",
+											"pm.test(\"Check germplasmOrigin coordinates type  \", function () {\r",
+											"    pm.expect(data.germplasmOrigin.coordinates.type).to.eql(\"Feature\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.test(\"Check countryOfOriginCode\", function () {\r",
+											"    pm.expect(data.countryOfOriginCode).to.eql(\"WARDA\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check typeOfGermplasmStorageCode\", function () {\r",
+											"    pm.expect(data.typeOfGermplasmStorageCode).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check taxonIds\", function () {\r",
+											"    pm.expect(data.taxonIds).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check donors\", function () {\r",
+											"    pm.expect(data.donors).to.eql([]);\r",
+											"});\r",
+											"pm.test(\"Check acquisitionDate\", function () {\r",
+											"    pm.expect(data.acquisitionDate).to.eql(\"2021-04-01\");\r",
+											"});\r",
+											"pm.test(\"Check breedingMethodDbId\", function () {\r",
+											"    pm.expect(data.breedingMethodDbId).to.eql(\"107\");\r",
+											"});\r",
+											"pm.test(\"Check seedSource\", function () {\r",
+											"    pm.expect(data.seedSource).to.eql(\"Study with Crosses and Selections:WARDA:202103:34:/Study with Crosses and Selections:WARDA:202103:30:\");\r",
+											"});\r",
+											"pm.test(\"Check additionalInfo PLOTCODE_AP_text\", function () {\r",
+											"    pm.expect(data.additionalInfo.PLOTCODE_AP_text).to.eql(\"Study with Crosses and Selections:WARDA:202103:34:/Study with Crosses and Selections:WARDA:202103:30:\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/germplasm/{{searchResultDbId_v2_germplasmDbId_w_origin}}?page=0&pageSize=100",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"search",
+										"germplasm",
+										"{{searchResultDbId_v2_germplasmDbId_w_origin}}"
 									],
 									"query": [
 										{
