@@ -83984,6 +83984,162 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when no specified programUUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function() {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"var index = 0;",
+											"pm.test(\"Check code\", function () {",
+											"    pm.expect(jsonData.code).to.eql(\"ABC\");",
+											"});      ",
+											"pm.test(\"Check name\", function () {",
+											"    pm.expect(jsonData.name).to.eql(\"Method with no programUUID\");",
+											"});   ",
+											"pm.test(\"Check description\", function () {",
+											"    pm.expect(jsonData.description).to.eql(\"This is a sample description\");",
+											"});   ",
+											"pm.test(\"Check type\", function () {",
+											"    pm.expect(jsonData.type).to.eql(\"MAN\");",
+											"});   ",
+											"pm.test(\"Check group\", function () {",
+											"    pm.expect(jsonData.group).to.eql(\"G\");",
+											"});   ",
+											"pm.test(\"Check methodClass\", function () {",
+											"    pm.expect(jsonData.methodClass).to.eql(1540);",
+											"});   ",
+											"pm.test(\"Check numberOfProgenitors\", function () {",
+											"    pm.expect(jsonData.numberOfProgenitors).to.eql(-1);",
+											"});   ",
+											"pm.test(\"Check separator\", function () {",
+											"    pm.expect(jsonData.separator).to.eql(\":\");",
+											"});   ",
+											"pm.test(\"Check prefix\", function () {",
+											"    pm.expect(jsonData.prefix).to.eql(\"[SEASON]\");",
+											"});  ",
+											"pm.test(\"Check count\", function () {",
+											"    pm.expect(jsonData.count).to.eql(\"[SEQUENCE]\");",
+											"}); ",
+											"pm.test(\"Check suffix\", function () {",
+											"    pm.expect(jsonData.suffix).to.eql(\"TEST\");",
+											"}); ",
+											"pm.test(\"Check mid\", function () {",
+											"    pm.expect(jsonData.mid).to.not.be.null;",
+											"}); ",
+											"pm.test(\"Check isBulkingMethod\", function () {",
+											"    pm.expect(jsonData.isBulkingMethod).to.eql(true);",
+											"}); ",
+											"pm.test(\"Check favorite\", function () {",
+											"    pm.expect(jsonData.favorite).to.eql(null);",
+											"}); ",
+											"",
+											" pm.environment.unset(\"created_method_mid2\");",
+											"    pm.environment.set(\"created_method_mid2\", jsonData.mid);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n        \"code\": \"ABC\",\r\n        \"name\": \"Method with no programUUID\",\r\n        \"description\": \"This is a sample description\",\r\n        \"type\": \"MAN\",\r\n        \"group\": \"G\",\r\n        \"methodClass\": 1540,\r\n        \"numberOfProgenitors\": -1,\r\n        \"separator\": \":\",\r\n        \"prefix\": \"[SEASON]\",\r\n        \"count\": \"[SEQUENCE]\",\r\n        \"suffix\": \"TEST\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?programUUID={{api_program_id}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods"
+									],
+									"query": [
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
+										}
+									]
+								},
+								"description": "GET ​/crops​/{cropName}​/germplasm​/attributes"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when entered invalid crop",
 							"event": [
 								{
@@ -84331,7 +84487,7 @@
 											"});",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check returned message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Breeding method name New method already exists\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Breeding method name (New method) already exists\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -84667,7 +84823,7 @@
 											"});",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check returned message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"name must not exceed 50 characters\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"description must not exceed 255 characters\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -84963,7 +85119,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": " {\r\n        \"code\": \"AAA\",\r\n        \"name\": \"New method\",\r\n        \"description\": \"This is a sample description\",\r\n        \"type\": \"invalid\",\r\n        \"group\": \"G\",\r\n        \"methodClass\": 1540,\r\n        \"numberOfProgenitors\": -1,\r\n        \"separator\": \":\",\r\n        \"prefix\": \"[SEASON]\",\r\n        \"count\": \"[SEQUENCE]\",\r\n        \"suffix\": \"TEST\"\r\n    }",
+									"raw": " {\r\n        \"code\": \"AAA\",\r\n        \"name\": \"New method\",\r\n        \"description\": \"This is a sample description\",\r\n        \"type\": \"GEN\",\r\n        \"group\": \"invalid\",\r\n        \"methodClass\": 1540,\r\n        \"numberOfProgenitors\": 2,\r\n        \"separator\": \":\",\r\n        \"prefix\": \"[SEASON]\",\r\n        \"count\": \"[SEQUENCE]\",\r\n        \"suffix\": \"TEST\"\r\n    }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -85901,7 +86057,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"code\": \"AAB\",\r\n    \"name\": \"New method2\",\r\n    \"type\": \"MAN\",\r\n    \"group\": \"G\",\r\n    \"methodClass\": 1540,\r\n    \"numberOfProgenitors\": -1\r\n}",
+									"raw": "{\r\n    \"code\": \"AAB\",\r\n    \"name\": \"New method2\",\r\n    \"description\": \"This is a sample description\",\r\n    \"type\": \"MAN\",\r\n    \"group\": \"G\",\r\n    \"methodClass\": 1540,\r\n    \"numberOfProgenitors\": -1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -86036,6 +86192,112 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when code has empty value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check returned message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"code is a required field.\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"\",\r\n    \"name\": \"New method2\",\r\n    \"description\": \"This is a sample description\",\r\n    \"type\": \"MAN\",\r\n    \"group\": \"G\",\r\n    \"methodClass\": 1540,\r\n    \"numberOfProgenitors\": -1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods"
+									]
+								},
+								"description": "GET ​/crops​/{cropName}​/germplasm​/attributes"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when name is missing",
 							"event": [
 								{
@@ -86148,6 +86410,118 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when name has an empty value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check returned message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"name is a required field.\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n        \"code\": \"AAA\",\r\n        \"name\": \"\",\r\n        \"description\": \"This is a sample description\",\r\n        \"type\": \"MAN\",\r\n        \"group\": \"G\",\r\n        \"methodClass\": 1540,\r\n        \"numberOfProgenitors\": -1,\r\n        \"separator\": \"\",\r\n        \"prefix\": \"\",\r\n        \"count\": \"[SEQUENCE]\",\r\n        \"suffix\": \"TEST\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?programUUID={{api_program_id}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods"
+									],
+									"query": [
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
+										}
+									]
+								},
+								"description": "GET ​/crops​/{cropName}​/germplasm​/attributes"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when type is missing",
 							"event": [
 								{
@@ -86232,6 +86606,118 @@
 								"body": {
 									"mode": "raw",
 									"raw": " {\r\n        \"code\": \"AAA\",\r\n        \"name\": \"New method\",\r\n        \"description\": \"This is a sample description\",\r\n        \"group\": \"G\",\r\n        \"methodClass\": 1540,\r\n        \"numberOfProgenitors\": -1,\r\n        \"separator\": \"\",\r\n        \"prefix\": \"\",\r\n        \"count\": \"[SEQUENCE]\",\r\n        \"suffix\": \"TEST\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?programUUID={{api_program_id}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods"
+									],
+									"query": [
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
+										}
+									]
+								},
+								"description": "GET ​/crops​/{cropName}​/germplasm​/attributes"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when type has an empty value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check returned message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The type  is invalid (valid types: DER, GEN, MAN)\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n        \"code\": \"AAA\",\r\n        \"name\": \"New method\",\r\n        \"type\": \"\",\r\n        \"description\": \"This is a sample description\",\r\n        \"group\": \"G\",\r\n        \"methodClass\": 1540,\r\n        \"numberOfProgenitors\": -1,\r\n        \"separator\": \"\",\r\n        \"prefix\": \"\",\r\n        \"count\": \"[SEQUENCE]\",\r\n        \"suffix\": \"TEST\"\r\n    }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -86373,6 +86859,119 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when group has an empty value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check returned message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The group  is invalid (valid groups: S, O, C, G)\"",
+											");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n        \"code\": \"AAA\",\r\n        \"name\": \"New method\",\r\n        \"description\": \"This is a sample description\",\r\n        \"type\": \"MAN\",\r\n        \"group\": \"\",\r\n        \"methodClass\": 1540,\r\n        \"numberOfProgenitors\": -1,\r\n        \"separator\": \"\",\r\n        \"prefix\": \"\",\r\n        \"count\": \"[SEQUENCE]\",\r\n        \"suffix\": \"TEST\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?programUUID={{api_program_id}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods"
+									],
+									"query": [
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
+										}
+									]
+								},
+								"description": "GET ​/crops​/{cropName}​/germplasm​/attributes"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when method class is missing",
 							"event": [
 								{
@@ -86485,6 +87084,118 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when methodClass has an empty value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check returned message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The methodClass id null is invalid (valid ids: 1490, 1510, 1530, 1540, 1550, 1560, 1570, 1590, 1580)\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n        \"code\": \"AAA\",\r\n        \"name\": \"New method\",\r\n        \"description\": \"This is a sample description\",\r\n        \"type\": \"MAN\",\r\n        \"group\": \"G\",\r\n        \"methodClass\": \"\",\r\n        \"numberOfProgenitors\": -1,\r\n        \"separator\": \"\",\r\n        \"prefix\": \"\",\r\n        \"count\": \"[SEQUENCE]\",\r\n        \"suffix\": \"TEST\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?programUUID={{api_program_id}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods"
+									],
+									"query": [
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
+										}
+									]
+								},
+								"description": "GET ​/crops​/{cropName}​/germplasm​/attributes"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when numberOfProgenitors is missing",
 							"event": [
 								{
@@ -86569,6 +87280,118 @@
 								"body": {
 									"mode": "raw",
 									"raw": " {\r\n        \"code\": \"AAA\",\r\n        \"name\": \"New method\",\r\n        \"description\": \"This is a sample description\",\r\n        \"type\": \"MAN\",\r\n        \"group\": \"G\",\r\n        \"methodClass\": 1540,\r\n        \"separator\": \"\",\r\n        \"prefix\": \"\",\r\n        \"count\": \"[SEQUENCE]\",\r\n        \"suffix\": \"TEST\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?programUUID={{api_program_id}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods"
+									],
+									"query": [
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
+										}
+									]
+								},
+								"description": "GET ​/crops​/{cropName}​/germplasm​/attributes"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when numberOfProgenitors has an empty value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check returned message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"numberOfProgenitors is a required field.\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n        \"code\": \"AAA\",\r\n        \"name\": \"New method\",\r\n        \"description\": \"This is a sample description\",\r\n        \"type\": \"MAN\",\r\n        \"group\": \"G\",\r\n        \"methodClass\": 1540,\r\n        \"numberOfProgenitors\": \"\",\r\n        \"separator\": \"\",\r\n        \"prefix\": \"\",\r\n        \"count\": \"[SEQUENCE]\",\r\n        \"suffix\": \"TEST\"\r\n    }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -86722,6 +87545,159 @@
 									}
 								],
 								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodTypes=MAN&favoritesOnly=false&methodCodes=AGB1&programUUID={{api_program_id}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods"
+									],
+									"query": [
+										{
+											"key": "methodTypes",
+											"value": "MAN"
+										},
+										{
+											"key": "favoritesOnly",
+											"value": "false"
+										},
+										{
+											"key": "methodCodes",
+											"value": "AGB1"
+										},
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
+										}
+									]
+								},
+								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
+							},
+							"response": []
+						},
+						{
+							"name": "Filter breeding method with combined parameters but with no specified programUUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"var index = 0;",
+											"pm.test(\"Check code\", function () {",
+											"    pm.expect(jsonData[index].code).to.eql(\"AGB1\");",
+											"});      ",
+											"pm.test(\"Check name\", function () {",
+											"    pm.expect(jsonData[index].name).to.eql(\"Accession into genebank\");",
+											"});   ",
+											"pm.test(\"Check description\", function () {",
+											"    pm.expect(jsonData[index].description).to.eql(\"GID represents a sample accessed into a formal genebank collection\");",
+											"});   ",
+											"pm.test(\"Check type\", function () {",
+											"    pm.expect(jsonData[index].type).to.eql(\"MAN\");",
+											"});   ",
+											"pm.test(\"Check group\", function () {",
+											"    pm.expect(jsonData[index].group).to.eql(\"G\");",
+											"});   ",
+											"pm.test(\"Check methodClass\", function () {",
+											"    pm.expect(jsonData[index].methodClass).to.eql(1540);",
+											"});   ",
+											"pm.test(\"Check numberOfProgenitors\", function () {",
+											"    pm.expect(jsonData[index].numberOfProgenitors).to.eql(-1);",
+											"});   ",
+											"pm.test(\"Check separator\", function () {",
+											"    pm.expect(jsonData[index].separator).to.eql(\":\");",
+											"});   ",
+											"pm.test(\"Check prefix\", function () {",
+											"    pm.expect(jsonData[index].prefix).to.eql(\"[SEASON]\");",
+											"});  ",
+											"pm.test(\"Check count\", function () {",
+											"    pm.expect(jsonData[index].count).to.eql(null);",
+											"}); ",
+											"pm.test(\"Check suffix\", function () {",
+											"    pm.expect(jsonData[index].suffix).to.eql(null);",
+											"}); ",
+											"pm.test(\"Check mid\", function () {",
+											"    pm.expect(jsonData[index].mid).to.eql(70);",
+											"}); ",
+											"pm.test(\"Check isBulkingMethod\", function () {",
+											"    pm.expect(jsonData[index].isBulkingMethod).to.eql(true);",
+											"}); ",
+											"pm.test(\"Check favorite\", function () {",
+											"    pm.expect(jsonData[index].favorite).to.eql(false);",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"value": "{{masterToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
 									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodTypes=MAN&favoritesOnly=false&methodCodes=AGB1",
 									"host": [
 										"{{BMSurl}}"
@@ -86751,114 +87727,6 @@
 							"response": []
 						},
 						{
-							"name": "Filter breeding methods with GEN method type and false for favoritesOnly",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function() {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"pm.test(\"Check method type\", function () {",
-											"    for (var i = 0; i < jsonData.length; i++) { ",
-											"        pm.expect(jsonData[i].type).to.eql(\"GEN\");",
-											"    }",
-											"});    ",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "X-Auth-Token",
-										"value": "{{masterToken}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodTypes=GEN&favoritesOnly=false",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"breedingmethods"
-									],
-									"query": [
-										{
-											"key": "methodTypes",
-											"value": "GEN"
-										},
-										{
-											"key": "favoritesOnly",
-											"value": "false"
-										}
-									]
-								},
-								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
-							},
-							"response": []
-						},
-						{
 							"name": "Filter breeding methods with DER method type and false for favoritesOnly",
 							"event": [
 								{
@@ -86870,12 +87738,19 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
+											"pm.test(\"Check if response is not empty\", function () { ",
+											"    pm.expect(jsonData).to.not.eql([]);",
+											"});  ",
 											"pm.test(\"Check method type\", function () {",
 											"    for (var i = 0; i < jsonData.length; i++) { ",
 											"        pm.expect(jsonData[i].type).to.eql(\"DER\");",
 											"    }",
 											"});    ",
-											""
+											"pm.test(\"Check favorite\", function () {",
+											"    for (var i = 0; i < jsonData.length; i++) { ",
+											"        pm.expect(jsonData[i].favorite).to.eql(false);",
+											"    }",
+											"});  "
 										],
 										"type": "text/javascript"
 									}
@@ -86942,7 +87817,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodTypes=DER&favoritesOnly=false",
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodTypes=DER&favoritesOnly=false&programUUID={{api_program_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -86959,6 +87834,10 @@
 										{
 											"key": "favoritesOnly",
 											"value": "false"
+										},
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
 										}
 									]
 								},
@@ -86967,7 +87846,7 @@
 							"response": []
 						},
 						{
-							"name": "Filter breeding methods with MAN method type and false for favoritesOnly",
+							"name": "Filter breeding methods with DER method type and true for favoritesOnly",
 							"event": [
 								{
 									"listen": "test",
@@ -86978,12 +87857,19 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
+											"pm.test(\"Check if response is not empty\", function () { ",
+											"    pm.expect(jsonData).to.not.eql([]);",
+											"});  ",
 											"pm.test(\"Check method type\", function () {",
 											"    for (var i = 0; i < jsonData.length; i++) { ",
-											"        pm.expect(jsonData[i].type).to.eql(\"MAN\");",
+											"        pm.expect(jsonData[i].type).to.eql(\"DER\");",
 											"    }",
 											"});    ",
-											""
+											"pm.test(\"Check favorite\", function () {",
+											"    for (var i = 0; i < jsonData.length; i++) { ",
+											"        pm.expect(jsonData[i].favorite).to.eql(true);",
+											"    }",
+											"});  "
 										],
 										"type": "text/javascript"
 									}
@@ -87050,7 +87936,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodTypes=MAN&favoritesOnly=false",
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodTypes=DER&favoritesOnly=true&programUUID={{api_program_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -87062,7 +87948,130 @@
 									"query": [
 										{
 											"key": "methodTypes",
-											"value": "MAN"
+											"value": "DER"
+										},
+										{
+											"key": "favoritesOnly",
+											"value": "true"
+										},
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
+										}
+									]
+								},
+								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
+							},
+							"response": []
+						},
+						{
+							"name": "Filter breeding methods with GEN method type and false for favoritesOnly",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check if response is not empty\", function () { ",
+											"    pm.expect(jsonData).to.not.eql([]);",
+											"});  ",
+											"pm.test(\"Check method type\", function () {",
+											"    for (var i = 0; i < jsonData.length; i++) { ",
+											"        pm.expect(jsonData[i].type).to.eql(\"GEN\");",
+											"    }",
+											"});    ",
+											"pm.test(\"Check favorite\", function () {",
+											"    for (var i = 0; i < jsonData.length; i++) { ",
+											"        pm.expect(jsonData[i].favorite).to.eql(false);",
+											"    }",
+											"});  "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"value": "{{masterToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?programUUID={{api_program_id}}&methodTypes=GEN&favoritesOnly=false",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods"
+									],
+									"query": [
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
+										},
+										{
+											"key": "methodTypes",
+											"value": "GEN"
 										},
 										{
 											"key": "favoritesOnly",
@@ -87086,11 +88095,20 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
+											"pm.test(\"Check if response is not empty\", function () { ",
+											"    pm.expect(jsonData).to.not.eql([]);",
+											"});  ",
 											"pm.test(\"Check favorite\", function () {",
 											"    for (var i = 0; i < jsonData.length; i++) { ",
 											"        pm.expect(jsonData[i].favorite).to.eql(true);",
 											"    }",
 											"});    ",
+											"pm.test(\"Check type\", function () {",
+											"    for (var i = 0; i < jsonData.length; i++) { ",
+											"        pm.expect(jsonData[i].type).to.eql(\"GEN\");",
+											"    }",
+											"}); ",
+											"",
 											""
 										],
 										"type": "text/javascript"
@@ -87187,6 +88205,246 @@
 							"response": []
 						},
 						{
+							"name": "Filter breeding methods with MAN method type and false for favoritesOnly",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check if response is not empty\", function () { ",
+											"    pm.expect(jsonData).to.not.eql([]);",
+											"});  ",
+											"pm.test(\"Check favorite\", function () {",
+											"    for (var i = 0; i < jsonData.length; i++) { ",
+											"        pm.expect(jsonData[i].favorite).to.eql(false);",
+											"    }",
+											"});   ",
+											"pm.test(\"Check method type\", function () {",
+											"    for (var i = 0; i < jsonData.length; i++) { ",
+											"        pm.expect(jsonData[i].type).to.eql(\"MAN\");",
+											"    }",
+											"});    ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"value": "{{masterToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?favoritesOnly=false&programUUID={{api_program_id}}&methodTypes=MAN",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods"
+									],
+									"query": [
+										{
+											"key": "favoritesOnly",
+											"value": "false"
+										},
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
+										},
+										{
+											"key": "methodTypes",
+											"value": "MAN"
+										}
+									]
+								},
+								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
+							},
+							"response": []
+						},
+						{
+							"name": "Filter breeding methods with MAN method type and true for favoritesOnly",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check if response is not empty\", function () { ",
+											"    pm.expect(jsonData).to.not.eql([]);",
+											"});  ",
+											"pm.test(\"Check favorite\", function () {",
+											"    for (var i = 0; i < jsonData.length; i++) { ",
+											"        pm.expect(jsonData[i].favorite).to.eql(true);",
+											"    }",
+											"});   ",
+											"pm.test(\"Check method type\", function () {",
+											"    for (var i = 0; i < jsonData.length; i++) { ",
+											"        pm.expect(jsonData[i].type).to.eql(\"MAN\");",
+											"    }",
+											"});    ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"value": "{{masterToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?favoritesOnly=true&programUUID={{api_program_id}}&methodTypes=MAN",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods"
+									],
+									"query": [
+										{
+											"key": "favoritesOnly",
+											"value": "true"
+										},
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
+										},
+										{
+											"key": "methodTypes",
+											"value": "MAN"
+										}
+									]
+								},
+								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
+							},
+							"response": []
+						},
+						{
 							"name": "Filter breeding methods with multiple method type",
 							"event": [
 								{
@@ -87198,6 +88456,9 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
+											"pm.test(\"Check if response is not empty\", function () { ",
+											"    pm.expect(jsonData).to.not.eql([]);",
+											"});  ",
 											"pm.test(\"Check method type\", function () {",
 											"    for (var i = 0; i < jsonData.length; i++) { ",
 											"        pm.expect(jsonData[i].type).to.be.oneOf([\"DER\",\"GEN\",\"MAN\"]);",
@@ -87270,7 +88531,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodTypes=GEN,DER,MAN&favoritesOnly=false",
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodTypes=GEN,DER,MAN&favoritesOnly=false&programUUID={{api_program_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -87287,6 +88548,10 @@
 										{
 											"key": "favoritesOnly",
 											"value": "false"
+										},
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
 										}
 									]
 								},
@@ -87376,7 +88641,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodTypes=invalid&favoritesOnly=false",
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodTypes=invalid&favoritesOnly=false&programUUID={{api_program_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -87393,6 +88658,10 @@
 										{
 											"key": "favoritesOnly",
 											"value": "false"
+										},
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
 										}
 									]
 								},
@@ -87482,7 +88751,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/invalid/breedingmethods?methodTypes=DER&favoritesOnly=false",
+									"raw": "{{BMSurl}}/crops/invalid/breedingmethods?methodTypes=DER&favoritesOnly=false&programUUID={{api_program_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -87499,6 +88768,10 @@
 										{
 											"key": "favoritesOnly",
 											"value": "false"
+										},
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
 										}
 									]
 								},
@@ -87698,7 +88971,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodCodes=AGB1&favoritesOnly=false",
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodCodes=AGB1&favoritesOnly=false&programUUID={{api_program_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -87715,6 +88988,10 @@
 										{
 											"key": "favoritesOnly",
 											"value": "false"
+										},
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
 										}
 									]
 								},
@@ -87733,7 +89010,7 @@
 											"    pm.response.to.have.status(200);",
 											"});",
 											"var jsonData = pm.response.json();",
-											"pm.test(\"Check method type\", function () {",
+											"pm.test(\"Check body\", function () {",
 											"   pm.expect(jsonData).to.eql([]);",
 											"",
 											"});  ",
@@ -87804,7 +89081,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodCodes=invalid&favoritesOnly=false",
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods?methodCodes=invalid&favoritesOnly=false&programUUID={{api_program_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -87821,6 +89098,10 @@
 										{
 											"key": "favoritesOnly",
 											"value": "false"
+										},
+										{
+											"key": "programUUID",
+											"value": "{{api_program_id}}"
 										}
 									]
 								},
@@ -87888,9 +89169,7 @@
 											"pm.test(\"Check favorite\", function () {",
 											"    pm.expect(jsonData.favorite).to.eql(false);",
 											"}); ",
-											"",
-											" pm.environment.unset(\"created_method_mid\");",
-											"    pm.environment.set(\"created_method_mid\", jsonData.mid);"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -87972,6 +89251,142 @@
 											"key": "programUUID",
 											"value": "{{api_program_id}}"
 										}
+									]
+								},
+								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered valid inputs but with no specified programUUID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"var index = 0;",
+											"pm.test(\"Check code\", function () {",
+											"    pm.expect(jsonData.code).to.eql(\"AAA\");",
+											"});      ",
+											"pm.test(\"Check name\", function () {",
+											"    pm.expect(jsonData.name).to.eql(\"New method\");",
+											"});   ",
+											"pm.test(\"Check description\", function () {",
+											"    pm.expect(jsonData.description).to.eql(\"This is a sample description\");",
+											"});   ",
+											"pm.test(\"Check type\", function () {",
+											"    pm.expect(jsonData.type).to.eql(\"MAN\");",
+											"});   ",
+											"pm.test(\"Check group\", function () {",
+											"    pm.expect(jsonData.group).to.eql(\"G\");",
+											"});   ",
+											"pm.test(\"Check methodClass\", function () {",
+											"    pm.expect(jsonData.methodClass).to.eql(1540);",
+											"});   ",
+											"pm.test(\"Check numberOfProgenitors\", function () {",
+											"    pm.expect(jsonData.numberOfProgenitors).to.eql(-1);",
+											"});   ",
+											"pm.test(\"Check separator\", function () {",
+											"    pm.expect(jsonData.separator).to.eql(\":\");",
+											"});   ",
+											"pm.test(\"Check prefix\", function () {",
+											"    pm.expect(jsonData.prefix).to.eql(\"[SEASON]\");",
+											"});  ",
+											"pm.test(\"Check count\", function () {",
+											"    pm.expect(jsonData.count).to.eql(\"[SEQUENCE]\");",
+											"}); ",
+											"pm.test(\"Check suffix\", function () {",
+											"    pm.expect(jsonData.suffix).to.eql(\"TEST\");",
+											"}); ",
+											"pm.test(\"Check mid\", function () {",
+											"    pm.expect(jsonData.mid).to.not.be.null;",
+											"}); ",
+											"pm.test(\"Check isBulkingMethod\", function () {",
+											"    pm.expect(jsonData.isBulkingMethod).to.eql(true);",
+											"}); ",
+											"pm.test(\"Check favorite\", function () {",
+											"    pm.expect(jsonData.favorite).to.eql(null);",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"value": "{{masterToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods/{{created_method_mid}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods",
+										"{{created_method_mid}}"
 									]
 								},
 								"description": "GET /crops/{crop}/studies/{studyId}/datasets/{datasetId}/instances"
@@ -88448,6 +89863,155 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when no programUUID specified",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"var index = 0;",
+											"pm.test(\"Check code\", function () {",
+											"    pm.expect(jsonData.code).to.eql(\"BBB\");",
+											"});      ",
+											"pm.test(\"Check name\", function () {",
+											"    pm.expect(jsonData.name).to.eql(\"New method_edited\");",
+											"});   ",
+											"pm.test(\"Check description\", function () {",
+											"    pm.expect(jsonData.description).to.eql(\"This is a sample description edited\");",
+											"});   ",
+											"pm.test(\"Check type\", function () {",
+											"    pm.expect(jsonData.type).to.eql(\"DER\");",
+											"});   ",
+											"pm.test(\"Check group\", function () {",
+											"    pm.expect(jsonData.group).to.eql(\"G\");",
+											"});   ",
+											"pm.test(\"Check methodClass\", function () {",
+											"    pm.expect(jsonData.methodClass).to.eql(1490);",
+											"});   ",
+											"pm.test(\"Check numberOfProgenitors\", function () {",
+											"    pm.expect(jsonData.numberOfProgenitors).to.eql(-1);",
+											"});   ",
+											"pm.test(\"Check separator\", function () {",
+											"    pm.expect(jsonData.separator).to.eql(\"-\");",
+											"});   ",
+											"pm.test(\"Check prefix\", function () {",
+											"    pm.expect(jsonData.prefix).to.eql(\"[SELTRAIT]\");",
+											"});  ",
+											"pm.test(\"Check count\", function () {",
+											"    pm.expect(jsonData.count).to.eql(\"[NUMBER]\");",
+											"}); ",
+											"pm.test(\"Check suffix\", function () {",
+											"    pm.expect(jsonData.suffix).to.eql(\"BMS\");",
+											"}); ",
+											"pm.test(\"Check mid\", function () {",
+											"    pm.expect(jsonData.mid).to.not.be.null;",
+											"}); ",
+											"pm.test(\"Check isBulkingMethod\", function () {",
+											"    pm.expect(jsonData.isBulkingMethod).to.eql(true);",
+											"}); ",
+											"pm.test(\"Check favorite\", function () {",
+											"    pm.expect(jsonData.favorite).to.eql(null);",
+											"}); ",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"BBB\",\r\n    \"name\": \"New method_edited\",\r\n    \"description\": \"This is a sample description edited\",\r\n    \"type\": \"DER\",\r\n    \"group\": \"G\",\r\n    \"methodClass\": 1490,\r\n    \"numberOfProgenitors\": -1,\r\n    \"separator\": \"-\",\r\n    \"prefix\": \"[SELTRAIT]\",\r\n    \"count\": \"[NUMBER]\",\r\n    \"suffix\": \"BMS\",\r\n    \"isBulkingMethod\": false,\r\n    \"favorite\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods/{{created_method_mid}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"breedingmethods",
+										"{{created_method_mid}}"
+									]
+								},
+								"description": "GET ​/crops​/{cropName}​/germplasm​/attributes"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when entered invalid crop",
 							"event": [
 								{
@@ -88793,55 +90357,13 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function() {",
-											"    pm.response.to.have.status(200);",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
 											"});",
-											"",
 											"var jsonData = pm.response.json();",
-											"var index = 0;",
-											"pm.test(\"Check code\", function () {",
-											"    pm.expect(jsonData.code).to.eql(\"BBB\");",
-											"});      ",
-											"pm.test(\"Check name\", function () {",
-											"    pm.expect(jsonData.name).to.eql(\"New method_edited\");",
-											"});   ",
-											"pm.test(\"Check description\", function () {",
-											"    pm.expect(jsonData.description).to.eql(\"This is a sample description edited\");",
-											"});   ",
-											"pm.test(\"Check type\", function () {",
-											"    pm.expect(jsonData.type).to.eql(\"DER\");",
-											"});   ",
-											"pm.test(\"Check group\", function () {",
-											"    pm.expect(jsonData.group).to.eql(\"G\");",
-											"});   ",
-											"pm.test(\"Check methodClass\", function () {",
-											"    pm.expect(jsonData.methodClass).to.eql(1490);",
-											"});   ",
-											"pm.test(\"Check numberOfProgenitors\", function () {",
-											"    pm.expect(jsonData.numberOfProgenitors).to.eql(-1);",
-											"});   ",
-											"pm.test(\"Check separator\", function () {",
-											"    pm.expect(jsonData.separator).to.eql(\"-\");",
-											"});   ",
-											"pm.test(\"Check prefix\", function () {",
-											"    pm.expect(jsonData.prefix).to.eql(\"[SELTRAIT]\");",
-											"});  ",
-											"pm.test(\"Check count\", function () {",
-											"    pm.expect(jsonData.count).to.eql(\"[NUMBER]\");",
-											"}); ",
-											"pm.test(\"Check suffix\", function () {",
-											"    pm.expect(jsonData.suffix).to.eql(\"BMS\");",
-											"}); ",
-											"pm.test(\"Check mid\", function () {",
-											"    pm.expect(jsonData.mid).to.not.be.null;",
-											"}); ",
-											"pm.test(\"Check isBulkingMethod\", function () {",
-											"    pm.expect(jsonData.isBulkingMethod).to.eql(true);",
-											"}); ",
-											"pm.test(\"Check favorite\", function () {",
-											"    pm.expect(jsonData.favorite).to.eql(null);",
-											"}); ",
-											""
+											"pm.test(\"Check returned message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Breeding method code UGM already exists\");",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -88948,55 +90470,13 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function() {",
-											"    pm.response.to.have.status(200);",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
 											"});",
-											"",
 											"var jsonData = pm.response.json();",
-											"var index = 0;",
-											"pm.test(\"Check code\", function () {",
-											"    pm.expect(jsonData.code).to.eql(\"BBB\");",
-											"});      ",
-											"pm.test(\"Check name\", function () {",
-											"    pm.expect(jsonData.name).to.eql(\"New method_edited\");",
-											"});   ",
-											"pm.test(\"Check description\", function () {",
-											"    pm.expect(jsonData.description).to.eql(\"This is a sample description edited\");",
-											"});   ",
-											"pm.test(\"Check type\", function () {",
-											"    pm.expect(jsonData.type).to.eql(\"DER\");",
-											"});   ",
-											"pm.test(\"Check group\", function () {",
-											"    pm.expect(jsonData.group).to.eql(\"G\");",
-											"});   ",
-											"pm.test(\"Check methodClass\", function () {",
-											"    pm.expect(jsonData.methodClass).to.eql(1490);",
-											"});   ",
-											"pm.test(\"Check numberOfProgenitors\", function () {",
-											"    pm.expect(jsonData.numberOfProgenitors).to.eql(-1);",
-											"});   ",
-											"pm.test(\"Check separator\", function () {",
-											"    pm.expect(jsonData.separator).to.eql(\"-\");",
-											"});   ",
-											"pm.test(\"Check prefix\", function () {",
-											"    pm.expect(jsonData.prefix).to.eql(\"[SELTRAIT]\");",
-											"});  ",
-											"pm.test(\"Check count\", function () {",
-											"    pm.expect(jsonData.count).to.eql(\"[NUMBER]\");",
-											"}); ",
-											"pm.test(\"Check suffix\", function () {",
-											"    pm.expect(jsonData.suffix).to.eql(\"BMS\");",
-											"}); ",
-											"pm.test(\"Check mid\", function () {",
-											"    pm.expect(jsonData.mid).to.not.be.null;",
-											"}); ",
-											"pm.test(\"Check isBulkingMethod\", function () {",
-											"    pm.expect(jsonData.isBulkingMethod).to.eql(true);",
-											"}); ",
-											"pm.test(\"Check favorite\", function () {",
-											"    pm.expect(jsonData.favorite).to.eql(null);",
-											"}); ",
-											""
+											"pm.test(\"Check returned message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Breeding method name (Unknown generative method) already exists\");",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -90464,54 +91944,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function() {",
-											"    pm.response.to.have.status(200);",
+											"pm.test(\"Status code is 204\", function() {",
+											"    pm.response.to.have.status(204);",
 											"});",
 											"",
-											"var jsonData = pm.response.json();",
-											"var index = 0;",
-											"pm.test(\"Check code\", function () {",
-											"    pm.expect(jsonData.code).to.eql(\"BBB\");",
-											"});      ",
-											"pm.test(\"Check name\", function () {",
-											"    pm.expect(jsonData.name).to.eql(\"New method_edited\");",
-											"});   ",
-											"pm.test(\"Check description\", function () {",
-											"    pm.expect(jsonData.description).to.eql(\"This is a sample description edited\");",
-											"});   ",
-											"pm.test(\"Check type\", function () {",
-											"    pm.expect(jsonData.type).to.eql(\"DER\");",
-											"});   ",
-											"pm.test(\"Check group\", function () {",
-											"    pm.expect(jsonData.group).to.eql(\"G\");",
-											"});   ",
-											"pm.test(\"Check methodClass\", function () {",
-											"    pm.expect(jsonData.methodClass).to.eql(1490);",
-											"});   ",
-											"pm.test(\"Check numberOfProgenitors\", function () {",
-											"    pm.expect(jsonData.numberOfProgenitors).to.eql(-1);",
-											"});   ",
-											"pm.test(\"Check separator\", function () {",
-											"    pm.expect(jsonData.separator).to.eql(\"-\");",
-											"});   ",
-											"pm.test(\"Check prefix\", function () {",
-											"    pm.expect(jsonData.prefix).to.eql(\"[SELTRAIT]\");",
-											"});  ",
-											"pm.test(\"Check count\", function () {",
-											"    pm.expect(jsonData.count).to.eql(\"[NUMBER]\");",
-											"}); ",
-											"pm.test(\"Check suffix\", function () {",
-											"    pm.expect(jsonData.suffix).to.eql(\"BMS\");",
-											"}); ",
-											"pm.test(\"Check mid\", function () {",
-											"    pm.expect(jsonData.mid).to.not.be.null;",
-											"}); ",
-											"pm.test(\"Check isBulkingMethod\", function () {",
-											"    pm.expect(jsonData.isBulkingMethod).to.eql(true);",
-											"}); ",
-											"pm.test(\"Check favorite\", function () {",
-											"    pm.expect(jsonData.favorite).to.eql(null);",
-											"}); ",
 											""
 										],
 										"type": "text/javascript"
@@ -90583,7 +92019,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"code\": \"UGM\",\r\n    \"name\": \"New method_edited\",\r\n    \"description\": \"This is a sample description edited\",\r\n    \"type\": \"DER\",\r\n    \"group\": \"G\",\r\n    \"methodClass\": 1490,\r\n    \"numberOfProgenitors\": -1,\r\n    \"separator\": \"-\",\r\n    \"prefix\": \"[SELTRAIT]\",\r\n    \"count\": \"[NUMBER]\",\r\n    \"suffix\": \"BMS\",\r\n    \"isBulkingMethod\": false,\r\n    \"favorite\": true\r\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -90619,8 +92055,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
 											"});",
 											""
 										],
@@ -90701,7 +92137,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods/{{created_method_mid}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/breedingmethods/{{created_method_mid2}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -90709,7 +92145,7 @@
 										"crops",
 										"{{crop}}",
 										"breedingmethods",
-										"{{created_method_mid}}"
+										"{{created_method_mid2}}"
 									]
 								},
 								"description": "GET ​/crops​/{cropName}​/germplasm​/attributes"
@@ -90728,7 +92164,7 @@
 											"});",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check returned message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalid for URL:/crops/invalid/breedingmethods/1003\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalid for URL:/crops/invalid/breedingmethods/\"+pm.environment.get(\"created_method_mid\"));",
 											"});"
 										],
 										"type": "text/javascript"
@@ -90841,7 +92277,7 @@
 											"});",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check returned message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid program: invalid for crop: testdata for service with path /crops/testdata/breedingmethods/1003\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid program: invalid for crop: testdata for service with path /crops/testdata/breedingmethods/\"+pm.environment.get(\"created_method_mid\"));",
 											"});"
 										],
 										"type": "text/javascript"
