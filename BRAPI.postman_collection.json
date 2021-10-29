@@ -47291,7 +47291,7 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"Page size must between 1 and 10000.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"A total of 1 pages are available, so the page number must between 0 and 1 (exclusive).\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -60860,7 +60860,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(16);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(21);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -61033,7 +61033,56 @@
 											"                    \"2.0\"",
 											"                ]);",
 											"});",
-											""
+											"pm.test(\"Check variables call\", function () {",
+											"    var index = 16;",
+											"    var selectedData = jsonData.result.calls[index];",
+											"    pm.expect(selectedData.service).to.eql(\"variables\");",
+											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
+											"    pm.expect(selectedData.methods).to.eql([ 'GET'] )",
+											"    pm.expect(selectedData.versions).to.eql([",
+											"                    \"2.0\"",
+											"                ]);",
+											"});",
+											"pm.test(\"Check search/variables call\", function () {",
+											"    var index = 17;",
+											"    var selectedData = jsonData.result.calls[index];",
+											"    pm.expect(selectedData.service).to.eql(\"search/variables\");",
+											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
+											"    pm.expect(selectedData.methods).to.eql([ 'POST'] )",
+											"    pm.expect(selectedData.versions).to.eql([",
+											"                    \"2.0\"",
+											"                ]);",
+											"});",
+											"pm.test(\"Check search/variables/{searchResultsDbId} call\", function () {",
+											"    var index = 18;",
+											"    var selectedData = jsonData.result.calls[index];",
+											"    pm.expect(selectedData.service).to.eql(\"search/variables/{searchResultsDbId}\");",
+											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
+											"    pm.expect(selectedData.methods).to.eql([ 'GET'] )",
+											"    pm.expect(selectedData.versions).to.eql([",
+											"                    \"2.0\"",
+											"                ]);",
+											"});",
+											"pm.test(\"Check observations call\", function () {",
+											"    var index = 19;",
+											"    var selectedData = jsonData.result.calls[index];",
+											"    pm.expect(selectedData.service).to.eql(\"observations\");",
+											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
+											"    pm.expect(selectedData.methods).to.eql([ 'GET','POST'] )",
+											"    pm.expect(selectedData.versions).to.eql([",
+											"                    \"2.0\"",
+											"                ]);",
+											"});",
+											"pm.test(\"Check variables call\", function () {",
+											"    var index = 20;",
+											"    var selectedData = jsonData.result.calls[index];",
+											"    pm.expect(selectedData.service).to.eql(\"variables\");",
+											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
+											"    pm.expect(selectedData.methods).to.eql([ 'PUT'] )",
+											"    pm.expect(selectedData.versions).to.eql([",
+											"                    \"2.1\"",
+											"                ]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -61630,7 +61679,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(16);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(21);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -61773,8 +61822,6 @@
 											"                    \"2.0\"",
 											"                ]);",
 											"});",
-											"",
-											"",
 											"pm.test(\"Check search/germplasm call\", function () {",
 											"    var index = 13;",
 											"    var selectedData = jsonData.result.calls[index];",
@@ -61805,7 +61852,56 @@
 											"                    \"2.0\"",
 											"                ]);",
 											"});",
-											""
+											"pm.test(\"Check variables call\", function () {",
+											"    var index = 16;",
+											"    var selectedData = jsonData.result.calls[index];",
+											"    pm.expect(selectedData.service).to.eql(\"variables\");",
+											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
+											"    pm.expect(selectedData.methods).to.eql([ 'GET'] )",
+											"    pm.expect(selectedData.versions).to.eql([",
+											"                    \"2.0\"",
+											"                ]);",
+											"});",
+											"pm.test(\"Check search/variables call\", function () {",
+											"    var index = 17;",
+											"    var selectedData = jsonData.result.calls[index];",
+											"    pm.expect(selectedData.service).to.eql(\"search/variables\");",
+											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
+											"    pm.expect(selectedData.methods).to.eql([ 'POST'] )",
+											"    pm.expect(selectedData.versions).to.eql([",
+											"                    \"2.0\"",
+											"                ]);",
+											"});",
+											"pm.test(\"Check search/variables/{searchResultsDbId} call\", function () {",
+											"    var index = 18;",
+											"    var selectedData = jsonData.result.calls[index];",
+											"    pm.expect(selectedData.service).to.eql(\"search/variables/{searchResultsDbId}\");",
+											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
+											"    pm.expect(selectedData.methods).to.eql([ 'GET'] )",
+											"    pm.expect(selectedData.versions).to.eql([",
+											"                    \"2.0\"",
+											"                ]);",
+											"});",
+											"pm.test(\"Check observations call\", function () {",
+											"    var index = 19;",
+											"    var selectedData = jsonData.result.calls[index];",
+											"    pm.expect(selectedData.service).to.eql(\"observations\");",
+											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
+											"    pm.expect(selectedData.methods).to.eql([ 'GET','POST'] )",
+											"    pm.expect(selectedData.versions).to.eql([",
+											"                    \"2.0\"",
+											"                ]);",
+											"});",
+											"pm.test(\"Check variables call\", function () {",
+											"    var index = 20;",
+											"    var selectedData = jsonData.result.calls[index];",
+											"    pm.expect(selectedData.service).to.eql(\"variables\");",
+											"    pm.expect(selectedData.dataTypes).to.eql(['application/json']);",
+											"    pm.expect(selectedData.methods).to.eql([ 'PUT'] )",
+											"    pm.expect(selectedData.versions).to.eql([",
+											"                    \"2.1\"",
+											"                ]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -61905,7 +62001,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(16);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(21);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -69358,7 +69454,130 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"class Variable{\r",
+											"   // var traitClass;\r",
+											"    constructor(jsonData){\r",
+											"        this.jsonData = jsonData\r",
+											"    }\r",
+											"\r",
+											"    checkCommonCropName(){\r",
+											"    //  pm.test(\"Check commonCropName\", function () {\r",
+											"    //     pm.expect(jsonData.result.commonCropName).to.eql(\"testdata\");\r",
+											"    // });\r",
+											"    console.log(jsonData)\r",
+											"    }\r",
+											"}\r",
+											"pm.environment.unset(\"sampleClass\");\r",
+											"pm.environment.set(\"sampleClass\", Variable);\r",
 											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"additionalInfo\": {},\r\n    \"commonCropName\": \"testdata\",\r\n    \"contextOfUse\": [\r\n        \"PLOT\"\r\n    ],\r\n    \"defaultValue\": \"\",\r\n    \"documentationURL\": null,\r\n    \"externalReferences\": [\r\n        {\r\n            \"referenceID\": \"noteReferenceID\",\r\n            \"referenceSource\": \"noteReferenceSource\"\r\n        }\r\n    ],\r\n    \"growthStage\": null,\r\n    \"institution\": null,\r\n    \"language\": null,\r\n    \"observationVariableDbId\": \"8390\",\r\n    \"observationVariableName\": \"NOTES\",\r\n    \"ontologyDbId\": \"8390\",\r\n    \"ontologyName\": \"NOTES\",\r\n    \"ontologyReference\": null,\r\n    \"trait\": {\r\n        \"additionalInfo\": {},\r\n        \"alternativeAbbreviations\": [],\r\n        \"attribute\": null,\r\n        \"entity\": null,\r\n        \"externalReferences\": [\r\n            {\r\n                \"referenceID\": \"noteTraitReferenceID\",\r\n                \"referenceSource\": \"noteTraitReferenceSource\"\r\n            }\r\n        ],\r\n        \"mainAbbreviation\": null,\r\n        \"traitClass\": \"General\",\r\n        \"traitDescription\": \"Comment\",\r\n        \"name\": \"Comment\",\r\n        \"status\": \"Active\",\r\n        \"synonyms\": [],\r\n        \"traitDbId\": \"2065\",\r\n        \"traitName\": \"Comment\",\r\n        \"ontologyReference\": {\r\n            \"documentationLinks\": [],\r\n            \"ontologyDbId\": \"null\",\r\n            \"ontologyName\": \"Comment\",\r\n            \"version\": null\r\n        }\r\n    },\r\n    \"method\": {\r\n        \"additionalInfo\": {},\r\n        \"bibliographicalReference\": null,\r\n        \"externalReferences\": [\r\n            {\r\n                \"referenceID\": \"noteMethodReferenceID\",\r\n                \"referenceSource\": \"noteMethodReferenceSource\"\r\n            }\r\n        ],\r\n        \"methodClass\": null,\r\n        \"description\": \"Value recorded after observation\",\r\n        \"formula\": \"null\",\r\n        \"methodDbId\": \"4110\",\r\n        \"methodName\": \"Observed\",\r\n        \"ontologyReferenceObject\": {\r\n            \"documentationLinks\": [],\r\n            \"ontologyDbId\": \"4110\",\r\n            \"ontologyName\": \"Observed\",\r\n            \"version\": null\r\n        },\r\n        \"ontologyReference\": {\r\n            \"documentationLinks\": [],\r\n            \"ontologyDbId\": \"4110\",\r\n            \"ontologyName\": \"Observed\",\r\n            \"version\": null\r\n        }\r\n    },\r\n    \"scale\": {\r\n        \"additionalInfo\": {},\r\n        \"dataType\": \"Text\",\r\n        \"decimalPlaces\": null,\r\n        \"externalReferences\": [\r\n            {\r\n                \"referenceID\": \"noteScaleReferenceID\",\r\n                \"referenceSource\": \"noteScaleReferenceSource\"\r\n            }\r\n        ],\r\n        \"ontologyReference\": {\r\n            \"documentationLinks\": [],\r\n            \"ontologyDbId\": \"6020\",\r\n            \"ontologyName\": \"Text\",\r\n            \"version\": null\r\n        },\r\n        \"scaleDbId\": \"6020\",\r\n        \"scaleName\": \"Text\",\r\n        \"validValues\": {\r\n            \"categories\": null,\r\n            \"max\": null,\r\n            \"min\": null\r\n        }\r\n    },\r\n    \"scientist\": null,\r\n    \"status\": null,\r\n    \"submissionTimestamp\": null,\r\n    \"synonyms\": [],\r\n    \"studyDbIds\": [\r\n        \"{{createdStudyDbId1}}\"\r\n    ]\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/variables/8390",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"variables",
+										"8390"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body entered complete set of inputs for character/text variable Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"eval(pm.environment.get(\"sampleClasss\"));\r",
+											"\r",
+											"var Variable = this.Variable;\r",
+											"sample.checkCommonCropName(pm.response.json())"
 										],
 										"type": "text/javascript"
 									}
