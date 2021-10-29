@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ad7fd86c-d9c6-4486-959e-207087fec7b2",
+		"_postman_id": "06540da4-6433-49d4-af02-8cac977ba818",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -4229,351 +4229,351 @@
 			]
 		},
 		{
-			"name": "variable-type-resource",
+			"name": "scale-resource",
 			"item": [
 				{
-					"name": "scale-resource",
-					"item": [
+					"name": "POST /crops/{cropname}/scales",
+					"event": [
 						{
-							"name": "POST /crops/{cropname}/scales",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 201\", function () {",
-											"    pm.response.to.have.status(201);",
-											"});",
-											"",
-											"// Store returned variable",
-											"    var jsonData = pm.response.json();",
-											"    pm.environment.unset(\"new_scale_id\");",
-											"    pm.environment.set(\"new_scale_id\", jsonData.id);",
-											"    ",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Auth-Token",
-										"type": "text",
-										"value": "{{masterToken}}"
-									},
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Store returned variable",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.unset(\"new_scale_id\");",
+									"    pm.environment.set(\"new_scale_id\", jsonData.id);",
+									"    ",
+									""
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"{{{{new_scale_name}}}}\",\r\n  \"description\": \"This is a test scale\",\r\n  \"dataType\": {\r\n    \"id\": \"1110\",\r\n    \"name\": \"Numeric\",\r\n    \"systemDataType\": false\r\n  },\r\n  \"validValues\": {\r\n    \"min\": \"\",\r\n    \"max\": \"\",\r\n    \"categories\": [\r\n      {\r\n        \"id\": \"\",\r\n        \"name\": \"\",\r\n        \"description\": \"\",\r\n        \"editable\": false\r\n      }\r\n    ]\r\n  },\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": false,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/scales?programUUID={{api_program_id}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"scales"
-									],
-									"query": [
-										{
-											"key": "programUUID",
-											"value": "{{api_program_id}}"
-										}
-									]
-								}
-							},
-							"response": []
+								"type": "text/javascript"
+							}
 						},
 						{
-							"name": "PUT /crops/{cropname}/scales/{id}",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 204\", function () {",
-											"    pm.response.to.have.status(204);",
-											"});",
-											"",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "X-Auth-Token",
-										"type": "text",
-										"value": "{{masterToken}}"
-									},
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"{{updated_scale_name}}\",\r\n  \"description\": \"This is a test scalex\",\r\n  \"dataType\": {\r\n    \"id\": \"1110\",\r\n    \"name\": \"Numeric\",\r\n    \"systemDataType\": false\r\n  },\r\n  \"validValues\": {\r\n    \"min\": \"\",\r\n    \"max\": \"\",\r\n    \"categories\": [\r\n      {\r\n        \"id\": \"\",\r\n        \"name\": \"\",\r\n        \"description\": \"\",\r\n        \"editable\": false\r\n      }\r\n    ]\r\n  },\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": false,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/scales/{{new_scale_id}}?programUUID={{api_program_id}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"scales",
-										"{{new_scale_id}}"
-									],
-									"query": [
-										{
-											"key": "programUUID",
-											"value": "{{api_program_id}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE /crops/{cropname}/scales/{id}",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(204);",
-											"});",
-											"",
-											"// Note: Checked details of first, middle and last method only for all methods are too many.",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "X-Auth-Token",
-										"type": "text",
-										"value": "{{masterToken}}"
-									},
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/scales/{{new_scale_id}}?programUUID={{api_program_id}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"scales",
-										"{{new_scale_id}}"
-									],
-									"query": [
-										{
-											"key": "programUUID",
-											"value": "{{api_program_id}}"
-										}
-									]
-								}
-							},
-							"response": []
+								"type": "text/javascript"
+							}
 						}
-					]
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"{{{{new_scale_name}}}}\",\r\n  \"description\": \"This is a test scale\",\r\n  \"dataType\": {\r\n    \"id\": \"1110\",\r\n    \"name\": \"Numeric\",\r\n    \"systemDataType\": false\r\n  },\r\n  \"validValues\": {\r\n    \"min\": \"\",\r\n    \"max\": \"\",\r\n    \"categories\": [\r\n      {\r\n        \"id\": \"\",\r\n        \"name\": \"\",\r\n        \"description\": \"\",\r\n        \"editable\": false\r\n      }\r\n    ]\r\n  },\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": false,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/scales?programUUID={{api_program_id}}",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"scales"
+							],
+							"query": [
+								{
+									"key": "programUUID",
+									"value": "{{api_program_id}}"
+								}
+							]
+						}
+					},
+					"response": []
 				},
+				{
+					"name": "PUT /crops/{cropname}/scales/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"{{updated_scale_name}}\",\r\n  \"description\": \"This is a test scalex\",\r\n  \"dataType\": {\r\n    \"id\": \"1110\",\r\n    \"name\": \"Numeric\",\r\n    \"systemDataType\": false\r\n  },\r\n  \"validValues\": {\r\n    \"min\": \"\",\r\n    \"max\": \"\",\r\n    \"categories\": [\r\n      {\r\n        \"id\": \"\",\r\n        \"name\": \"\",\r\n        \"description\": \"\",\r\n        \"editable\": false\r\n      }\r\n    ]\r\n  },\r\n  \"metadata\": {\r\n    \"dateCreated\": \"\",\r\n    \"dateLastModified\": \"\",\r\n    \"editableFields\": [\r\n      \"\"\r\n    ],\r\n    \"deletable\": false,\r\n    \"editable\": false,\r\n    \"usage\": {\r\n      \"variables\": [\r\n        {\r\n          \"id\": \"\",\r\n          \"name\": \"\",\r\n          \"description\": \"\"\r\n        }\r\n      ],\r\n      \"observations\": 0,\r\n      \"studies\": 0,\r\n      \"datasets\": 0\r\n    },\r\n    \"datasets\": 0\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/scales/{{new_scale_id}}?programUUID={{api_program_id}}",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"scales",
+								"{{new_scale_id}}"
+							],
+							"query": [
+								{
+									"key": "programUUID",
+									"value": "{{api_program_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /crops/{cropname}/scales/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									"",
+									"// Note: Checked details of first, middle and last method only for all methods are too many.",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/scales/{{new_scale_id}}?programUUID={{api_program_id}}",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"scales",
+								"{{new_scale_id}}"
+							],
+							"query": [
+								{
+									"key": "programUUID",
+									"value": "{{api_program_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "variable-type-resource",
+			"item": [
 				{
 					"name": "GET /crops/{crop}variable-types",
 					"event": [
@@ -4584,92 +4584,107 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"var index = 0;\r",
 									"\r",
 									"pm.test(\"Check analysis variable type\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[0].id).to.eql(\"1801\");\r",
-									"    pm.expect(jsonData[0].name).to.eql(\"Analysis\");\r",
-									"    pm.expect(jsonData[0].description).to.eql(\"Variable to be used only in analysis (for example derived variables).\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1801\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Analysis\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Variable to be used only in analysis (for example derived variables).\");\r",
 									"});\r",
-									"\r",
+									"var index = 1;\r",
 									"pm.test(\"Check analysis summary variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[1].id).to.eql(\"1811\");\r",
-									"    pm.expect(jsonData[1].name).to.eql(\"Analysis Summary\");\r",
-									"    pm.expect(jsonData[1].description).to.eql(\"Analysis Summary Variables\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1811\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Analysis Summary\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Analysis Summary Variables\");\r",
 									"});\r",
-									"\r",
+									"var index = 2;\r",
+									"pm.test(\"Check analysis summary variable type\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1815\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Entry Detail\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Variables that describes list entries\");\r",
+									"});\r",
+									"var index = 3;\r",
 									"pm.test(\"Check environment condition variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[2].id).to.eql(\"1802\");\r",
-									"    pm.expect(jsonData[2].name).to.eql(\"Environment Condition\");\r",
-									"    pm.expect(jsonData[2].description).to.eql(\"Observations made of conditions in an individual environment involved in a study.\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1802\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Environment Condition\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Observations made of conditions in an individual environment involved in a study.\");\r",
 									"});\r",
-									"\r",
+									"var index = 4;\r",
 									"pm.test(\"Check environment detail variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[3].id).to.eql(\"1806\");\r",
-									"    pm.expect(jsonData[3].name).to.eql(\"Environment Detail\");\r",
-									"    pm.expect(jsonData[3].description).to.eql(\"Administrative details to be tracked per environment.\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1806\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Environment Detail\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Administrative details to be tracked per environment.\");\r",
 									"});\r",
-									"\r",
+									"var index = 5;\r",
 									"pm.test(\"Check experimental design variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[4].id).to.eql(\"1810\");\r",
-									"    pm.expect(jsonData[4].name).to.eql(\"Experimental Design\");\r",
-									"    pm.expect(jsonData[4].description).to.eql(\"Experimental Design Variables\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1810\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Experimental Design\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Experimental Design Variables\");\r",
 									"});\r",
+									"\r",
+									"var index = 6;\r",
 									"pm.test(\"Check germplasm attribute variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[5].id).to.eql(\"1814\");\r",
-									"    pm.expect(jsonData[5].name).to.eql(\"Germplasm Attribute\");\r",
-									"    pm.expect(jsonData[5].description).to.eql(\"Germplasm Attribute\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1814\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Germplasm Attribute\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Germplasm Attribute\");\r",
 									"});\r",
+									"var index = 7;\r",
 									"pm.test(\"Check germplasm descriptor variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[6].id).to.eql(\"1804\");\r",
-									"    pm.expect(jsonData[6].name).to.eql(\"Germplasm Descriptor\");\r",
-									"    pm.expect(jsonData[6].description).to.eql(\"Information to be recorded about each germplasm in a study.\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1804\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Germplasm Descriptor\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Information to be recorded about each germplasm in a study.\");\r",
 									"});\r",
+									"var index = 8\r",
 									"pm.test(\"Check germplasm passport variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[7].id).to.eql(\"1813\");\r",
-									"    pm.expect(jsonData[7].name).to.eql(\"Germplasm Passport\");\r",
-									"    pm.expect(jsonData[7].description).to.eql(\"Germplasm Passport\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1813\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Germplasm Passport\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Germplasm Passport\");\r",
 									"});\r",
-									"\r",
+									"var index = 9\r",
 									"pm.test(\"Check observation unit variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[8].id).to.eql(\"1812\");\r",
-									"    pm.expect(jsonData[8].name).to.eql(\"Observation Unit\");\r",
-									"    pm.expect(jsonData[8].description).to.eql(\"Observation Unit Variables\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1812\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Observation Unit\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Observation Unit Variables\");\r",
 									"});\r",
+									"var index = 10\r",
 									"pm.test(\"Check selection method variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[9].id).to.eql(\"1807\");\r",
-									"    pm.expect(jsonData[9].name).to.eql(\"Selection Method\");\r",
-									"    pm.expect(jsonData[9].description).to.eql(\"How material is chosen for advancing to the next generation.\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1807\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Selection Method\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"How material is chosen for advancing to the next generation.\");\r",
 									"});\r",
-									"\r",
+									"var index = 11;\r",
 									"pm.test(\"Check study details variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[10].id).to.eql(\"1805\");\r",
-									"    pm.expect(jsonData[10].name).to.eql(\"Study Detail\");\r",
-									"    pm.expect(jsonData[10].description).to.eql(\"Administrative details to be tracked per study.\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1805\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Study Detail\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Administrative details to be tracked per study.\");\r",
 									"});\r",
 									"\r",
+									"var index = 12\r",
 									"pm.test(\"Check trait variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[11].id).to.eql(\"1808\");\r",
-									"    pm.expect(jsonData[11].name).to.eql(\"Trait\");\r",
-									"    pm.expect(jsonData[11].description).to.eql(\"Characteristics of a germplasm to be recorded during a study.\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1808\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Trait\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Characteristics of a germplasm to be recorded during a study.\");\r",
 									"});\r",
 									"\r",
+									"var index = 13;\r",
 									"pm.test(\"Check treatment factor variable type\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData[12].id).to.eql(\"1809\");\r",
-									"    pm.expect(jsonData[12].name).to.eql(\"Treatment Factor\");\r",
-									"    pm.expect(jsonData[12].description).to.eql(\"Treatments to be applied to members of a trial.\");\r",
+									"    pm.expect(jsonData[index].id).to.eql(\"1809\");\r",
+									"    pm.expect(jsonData[index].name).to.eql(\"Treatment Factor\");\r",
+									"    pm.expect(jsonData[index].description).to.eql(\"Treatments to be applied to members of a trial.\");\r",
 									"});"
 								],
 								"type": "text/javascript"
