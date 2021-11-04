@@ -39699,10 +39699,10 @@
 											"});",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Verify returned metadata\", function () {",
-											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
-											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
+											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(1);",
+											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10);",
 											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(140);",
-											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(14);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
 											"});",
@@ -39710,10 +39710,10 @@
 											"var index = 0;",
 											"//Verify returned data of the first obs unit",
 											"pm.test(\"Verify returned observationUnitDbId \", function () {",
-											"     pm.expect(jsonData.result.data[index].observationUnitDbId).to.eql(\"PKWDPtLOzD8Sz\");     ",
+											"     pm.expect(jsonData.result.data[index].observationUnitDbId).to.eql(\"PKWDP0fPOkMaC\");     ",
 											"});",
 											"pm.test(\"Verify returned observationUnitName\", function () {",
-											"     pm.expect(jsonData.result.data[index].observationUnitName).to.eql(\"PLOT1\");",
+											"     pm.expect(jsonData.result.data[index].observationUnitName).to.eql(\"PLOT11\");",
 											"     ",
 											"});",
 											"pm.test(\"Verify returned observationLevel\", function () {",
@@ -39723,7 +39723,7 @@
 											"     pm.expect(jsonData.result.data[index].observationLevels).to.eql(\"1\");",
 											"});",
 											"pm.test(\"Verify returned plotNumber\", function () {",
-											"     pm.expect(jsonData.result.data[index].plotNumber).to.eql(\"1\");     ",
+											"     pm.expect(jsonData.result.data[index].plotNumber).to.eql(\"11\");     ",
 											"});",
 											"pm.test(\"Verify returned plantNumber\", function () {",
 											"     pm.expect(jsonData.result.data[index].plantNumber).to.eql(null);",
@@ -39735,10 +39735,10 @@
 											"     pm.expect(jsonData.result.data[index].replicate).to.eql(null);   ",
 											"});",
 											"pm.test(\"Verify returned germplasmDbId\", function () {",
-											"     pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG942cd372\");",
+											"     pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG225f1813\");",
 											"});",
 											"pm.test(\"Verify returned germplasmName\", function () {",
-											"     pm.expect(jsonData.result.data[index].germplasmName).to.eql(\"GP1\");",
+											"     pm.expect(jsonData.result.data[index].germplasmName).to.eql(\"GP11\");",
 											"});",
 											"pm.test(\"Verify returned studyDbId\", function () {",
 											"     pm.expect(jsonData.result.data[index].studyDbId).to.eql(\"1\");     ",
@@ -39765,10 +39765,10 @@
 											"     pm.expect(jsonData.result.data[index].entryType).to.eql(\"Test entry\");",
 											"});",
 											"pm.test(\"Verify returned entryNumber\", function () {",
-											"     pm.expect(jsonData.result.data[index].entryNumber).to.eql(\"1\");",
+											"     pm.expect(jsonData.result.data[index].entryNumber).to.eql(\"11\");",
 											"});",
 											"pm.test(\"Check observations observationDbId\", function () {",
-											"    var observationDbIds = [\"65048\",\"65050\",\"65051\"];",
+											"    var observationDbIds = [\"65099\",\"65100\",\"65101\"];",
 											"    for (var i = 0; i < jsonData.result.data[index].observations.length; i++ ){",
 											"        pm.expect(jsonData.result.data[index].observations[i].observationDbId).to.eql(observationDbIds[i]);",
 											"    }",
@@ -39810,7 +39810,7 @@
 											"    }",
 											"});",
 											"pm.test(\"Check observations value\", function () {",
-											"    var values = [\"21\",\"23\",\"40\"];",
+											"    var values = [\"39\",\"20\",\"31\"];",
 											"    for (var i = 0; i < jsonData.result.data[index].observations.length; i++ ){",
 											"        pm.expect(jsonData.result.data[index].observations[i].value).to.eql(values[i]);",
 											"    }",
@@ -39910,7 +39910,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{nursery1StudyDbId}}/observationunits?page=0&pageSize=10000",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v1/studies/{{nursery1StudyDbId}}/observationunits?page=1&pageSize=10",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -39925,11 +39925,11 @@
 									"query": [
 										{
 											"key": "page",
-											"value": "0"
+											"value": "1"
 										},
 										{
 											"key": "pageSize",
-											"value": "10000"
+											"value": "10"
 										}
 									]
 								},
