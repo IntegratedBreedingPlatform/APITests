@@ -70095,6 +70095,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"const ObservationUnitSchema_v2 = JSON.parse(pm.environment.get(\"ObservationUnitSchema_v2\"));",
+											"pm.test(\"Validate schema\", () => {",
+											"    pm.response.to.have.jsonSchema(ObservationUnitSchema_v2);",
+											"});",
+											"",
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
