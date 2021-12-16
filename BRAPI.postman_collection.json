@@ -65574,7 +65574,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[\r\n\t{\r\n\t\t\"active\": true,\r\n\t\t\"additionalInfo\": {\r\n\t\t\t\"STUDY_BM_CODE\": \"WCO\",\r\n\t\t\t\"INSTITUTE_ID\": \"12345\",\r\n\t\t\t\"Target_Region\": \"Region 3\",\r\n\t\t\t\"COOPERATOR_ID\": \"2\",\r\n\t\t\t\"Project_Prefix\": \"Project Prefix 3\",\r\n\t\t\t\"PI_NAME_ID\": \"2\",\r\n\t\t\t\"STUDY_INSTITUTE\": \"INSTITUTE 1\",\r\n\t\t\t\"STUDY_DATE\": \"20210526\"\r\n\t\t},\r\n\t\t\"commonCropName\": \"testdata\",\r\n        \"contacts\": [\r\n            {\r\n                \"email\": \"bob@bob.com\",\r\n                \"instituteName\": \"The BrAPI Institute\",\r\n                \"name\": \"Bob Robertson\",\r\n                \"type\": \"Creator\"\r\n            }\r\n        ],\r\n\t\t\"externalReferences\": [\r\n\t\t\t{\r\n\t\t\t\t\"referenceID\": \"reference1\",\r\n\t\t\t\t\"referenceSource\": \"Source1\"\r\n\t\t\t}\r\n\t\t],\r\n\t\t\"programDbId\": \"c9e335d2-3057-4958-a43e-e38cf61d09ca\",\r\n\t\t\"startDate\": \"2021-05-26\",\r\n        \"endDate\": \"2021-12-31\",\r\n\t\t\"trialDescription\": \"Study description\",\r\n\t\t\"trialName\": \"Study w complete details\"\r\n\t}\r\n]"
+									"raw": "[\r\n\t{\r\n\t\t\"active\": true,\r\n\t\t\"additionalInfo\": {\r\n\t\t\t\"STUDY_BM_CODE\": \"WCO\",\r\n\t\t\t\"INSTITUTE_ID\": \"12345\",\r\n\t\t\t\"Target_Region\": \"Region 3\",\r\n\t\t\t\"COOPERATOR_ID\": \"2\",\r\n\t\t\t\"Project_Prefix\": \"Project Prefix 3\",\r\n\t\t\t\"PI_NAME_ID\": \"2\",\r\n\t\t\t\"STUDY_INSTITUTE\": \"INSTITUTE 1\",\r\n\t\t\t\"STUDY_DATE\": \"20210526\"\r\n\t\t},\r\n\t\t\"commonCropName\": \"testdata\",\r\n        \"contacts\": [\r\n            {\r\n                \"email\": \"bob@bob.com\",\r\n                \"instituteName\": \"The BrAPI Institute\",\r\n                \"name\": \"Bob Robertson\",\r\n                \"type\": \"Creator\"\r\n            }\r\n        ],\r\n\t\t\"externalReferences\": [\r\n\t\t\t{\r\n\t\t\t\t\"referenceID\": \"reference1\",\r\n\t\t\t\t\"referenceSource\": \"Source1\"\r\n\t\t\t}\r\n\t\t],\r\n\t\t\"programDbId\": \"{{programDbId}}\",\r\n\t\t\"startDate\": \"2021-05-26\",\r\n        \"endDate\": \"2021-12-31\",\r\n\t\t\"trialDescription\": \"Study description\",\r\n\t\t\"trialName\": \"Study w complete details\"\r\n\t}\r\n]"
 								},
 								"url": {
 									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/trials",
@@ -75925,7 +75925,17 @@
 											"\r",
 											"pm.test(\"Check value\", function () {\r",
 											"    pm.expect(jsonData.result.data[index].value).to.eql(\"note1\");\r",
-											"});"
+											"});\r",
+											"\r",
+											"\r",
+											"pm.environment.unset(\"createdObservationDbId5\");\r",
+											"pm.environment.set(\"createdObservationDbId5\", jsonData.result.data[0].observationDbId);\r",
+											"\r",
+											"pm.environment.unset(\"createdObservationDbId6\");\r",
+											"pm.environment.set(\"createdObservationDbId6\", jsonData.result.data[1].observationDbId);\r",
+											"\r",
+											"pm.environment.unset(\"createdObservationDbId7\");\r",
+											"pm.environment.set(\"createdObservationDbId7\", jsonData.result.data[2].observationDbId);"
 										],
 										"type": "text/javascript"
 									}
@@ -76713,7 +76723,10 @@
 											"\r",
 											"pm.test(\"Check value\", function () {\r",
 											"    pm.expect(jsonData.result.data[index].value).to.eql(\"invalid\");\r",
-											"});"
+											"});\r",
+											"\r",
+											"pm.environment.unset(\"createdObservationDbId8\");\r",
+											"pm.environment.set(\"createdObservationDbId8\", jsonData.result.data[0].observationDbId);"
 										],
 										"type": "text/javascript"
 									}
@@ -77299,7 +77312,95 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
-											""
+											"var jsonData = pm.response.json();",
+											"",
+											"",
+											"//Check metadata",
+											"pm.test(\"Check current page\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"});",
+											"pm.test(\"Check pageSize\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10);",
+											"});",
+											"pm.test(\"Check totalCount\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);",
+											"})",
+											"",
+											"pm.test(\"Check status\", function () {",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"})",
+											"pm.test(\"Check datafiles\", function () {",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"})",
+											"",
+											"//Check result",
+											"var index = 0;",
+											"",
+											"pm.test(\"Check additionalInfo\", function () {",
+											"    pm.expect(jsonData.result.data[index].additionalInfo).to.eql(null);",
+											"});",
+											"pm.test(\"Check collector\", function () {",
+											"    pm.expect(jsonData.result.data[index].collector).to.eql(null);",
+											"});",
+											"",
+											"pm.test(\"Check externalReferences referenceID\", function () {",
+											"    pm.expect(jsonData.result.data[index].externalReferences[0].referenceID).to.eql(\"NoteRefID\");",
+											"});",
+											"pm.test(\"Check externalReferences referenceSource\", function () {",
+											"    pm.expect(jsonData.result.data[index].externalReferences[0].referenceSource).to.eql(\"NoteRefSource\");",
+											"});",
+											"",
+											"pm.test(\"Check germplasmDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(pm.environment.get(\"germplasm_uuid\"));",
+											"});",
+											"",
+											"pm.test(\"Check germplasmName\", function () {",
+											"    pm.expect(jsonData.result.data[index].germplasmName).to.eql(\"CML1\");",
+											"});",
+											"",
+											"pm.test(\"Check observationDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].observationDbId).to.not.be.null;",
+											"});",
+											"",
+											"pm.test(\"Check observationTimeStamp\", function () {",
+											"    //TODO: Get current date time",
+											"    pm.expect(jsonData.result.data[index].observationTimeStamp).to.eql(\"2018-10-26T00:00:00.000+08:00\");",
+											"});",
+											"",
+											"pm.test(\"Check observationUnitDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].observationUnitDbId).to.eql(pm.environment.get(\"createdObservationUnitDbId\"));",
+											"});",
+											"",
+											"pm.test(\"Check observationUnitName\", function () {",
+											"    pm.expect(jsonData.result.data[index].observationUnitName).to.eql(\"\");",
+											"});",
+											"",
+											"pm.test(\"Check observationVariableDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].observationVariableDbId).to.eql(\"8390\");",
+											"});",
+											"",
+											"pm.test(\"Check observationVariableName\", function () {",
+											"    pm.expect(jsonData.result.data[index].observationVariableName).to.eql(\"NOTES\");",
+											"});",
+											"",
+											"pm.test(\"Check season season\", function () {",
+											"    pm.expect(jsonData.result.data[index].season.season).to.eql(\"Dry season\");",
+											"});",
+											"pm.test(\"Check season seasonDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].season.seasonDbId).to.eql(\"10290\");",
+											"});",
+											"",
+											"pm.test(\"Check studyDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].studyDbId).to.eql(\"116\");",
+											"});",
+											"",
+											"pm.test(\"Check uploadedBy\", function () {",
+											"    pm.expect(jsonData.result.data[index].uploadedBy).to.eql(null);",
+											"});",
+											"",
+											"pm.test(\"Check value\", function () {",
+											"    pm.expect(jsonData.result.data[index].value).to.eql(\"note2\");",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -77319,7 +77420,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?observationDbId",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?observationDbId={{createdObservationDbId1}}&observationUnitDbId={{createdObservationUnitDbId}}&germplasmDbId={{germplasm_uuid}}&observationVariableDbId=8390&studyDbId={{createdStudyDbId1}}&locationDbId=3953&trialDbId={{createdTrialDbId}}&programDbId={{programDbId}}&seasonDbId=10290&observationTimeStampRangeStart=&observationTimeStampRangeEnd&externalReferenceID=NoteRefID&externalReferenceSource=NoteRefSource&page=0&pageSize=10",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -77332,7 +77433,64 @@
 									"query": [
 										{
 											"key": "observationDbId",
+											"value": "{{createdObservationDbId1}}"
+										},
+										{
+											"key": "observationUnitDbId",
+											"value": "{{createdObservationUnitDbId}}"
+										},
+										{
+											"key": "germplasmDbId",
+											"value": "{{germplasm_uuid}}"
+										},
+										{
+											"key": "observationVariableDbId",
+											"value": "8390"
+										},
+										{
+											"key": "studyDbId",
+											"value": "{{createdStudyDbId1}}"
+										},
+										{
+											"key": "locationDbId",
+											"value": "3953",
+											"description": "Aargau"
+										},
+										{
+											"key": "trialDbId",
+											"value": "{{createdTrialDbId}}"
+										},
+										{
+											"key": "programDbId",
+											"value": "{{programDbId}}"
+										},
+										{
+											"key": "seasonDbId",
+											"value": "10290"
+										},
+										{
+											"key": "observationTimeStampRangeStart",
+											"value": ""
+										},
+										{
+											"key": "observationTimeStampRangeEnd",
 											"value": null
+										},
+										{
+											"key": "externalReferenceID",
+											"value": "NoteRefID"
+										},
+										{
+											"key": "externalReferenceSource",
+											"value": "NoteRefSource"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
 										}
 									]
 								},
@@ -77401,7 +77559,92 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
-											""
+											"var jsonData = pm.response.json();",
+											"",
+											"",
+											"//Check metadata",
+											"pm.test(\"Check current page\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(1);",
+											"});",
+											"pm.test(\"Check pageSize\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10);",
+											"});",
+											"pm.test(\"Check totalCount\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1693);",
+											"})",
+											"",
+											"pm.test(\"Check status\", function () {",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"})",
+											"pm.test(\"Check datafiles\", function () {",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"})",
+											"",
+											"//Check result",
+											"var index = 0;",
+											"",
+											"pm.test(\"Check additionalInfo\", function () {",
+											"    pm.expect(jsonData.result.data[index].additionalInfo).to.eql(null);",
+											"});",
+											"pm.test(\"Check collector\", function () {",
+											"    pm.expect(jsonData.result.data[index].collector).to.eql(null);",
+											"});",
+											"",
+											"pm.test(\"Check externalReferences\", function () {",
+											"    pm.expect(jsonData.result.data[index].externalReferences).to.eql(null);",
+											"});",
+											"",
+											"pm.test(\"Check germplasmDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG34bd21ac\");",
+											"});",
+											"",
+											"pm.test(\"Check germplasmName\", function () {",
+											"    pm.expect(jsonData.result.data[index].germplasmName).to.eql(\"CML14\");",
+											"});",
+											"",
+											"pm.test(\"Check observationDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].observationDbId).to.not.be.null;",
+											"});",
+											"",
+											"pm.test(\"Check observationTimeStamp\", function () {",
+											"    //TODO: Get current date time",
+											"    pm.expect(jsonData.result.data[index].observationTimeStamp).to.eql(\"2018-10-26T00:00:00.000+08:00\");",
+											"});",
+											"",
+											"pm.test(\"Check observationUnitDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].observationUnitDbId).to.eql(\"PKWDPPh1TNHCh\");",
+											"});",
+											"",
+											"pm.test(\"Check observationUnitName\", function () {",
+											"    pm.expect(jsonData.result.data[index].observationUnitName).to.eql(\"\");",
+											"});",
+											"",
+											"pm.test(\"Check observationVariableDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].observationVariableDbId).to.eql(\"8263\");",
+											"});",
+											"",
+											"pm.test(\"Check observationVariableName\", function () {",
+											"    pm.expect(jsonData.result.data[index].observationVariableName).to.eql(\"NPSEL\");",
+											"});",
+											"",
+											"pm.test(\"Check season season\", function () {",
+											"    pm.expect(jsonData.result.data[index].season.season).to.eql(\"Dry season\");",
+											"});",
+											"pm.test(\"Check season seasonDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].season.seasonDbId).to.eql(\"10290\");",
+											"});",
+											"",
+											"pm.test(\"Check studyDbId\", function () {",
+											"    pm.expect(jsonData.result.data[index].studyDbId).to.eql(\"1\");",
+											"});",
+											"",
+											"pm.test(\"Check uploadedBy\", function () {",
+											"    pm.expect(jsonData.result.data[index].uploadedBy).to.eql(null);",
+											"});",
+											"",
+											"pm.test(\"Check value\", function () {",
+											"    pm.expect(jsonData.result.data[index].value).to.eql(\"3\");",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -77421,7 +77664,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?page=2&pageSize=5",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?page=1&pageSize=10",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -77434,11 +77677,11 @@
 									"query": [
 										{
 											"key": "page",
-											"value": "2"
+											"value": "1"
 										},
 										{
 											"key": "pageSize",
-											"value": "5"
+											"value": "10"
 										}
 									]
 								},
@@ -77520,7 +77763,7 @@
 											"",
 											"pm.test(\"Check if all observationDbIds are correct\", function () {",
 											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
-											"    pm.expect(jsonData.result.data[i].observationDbId).to.eql(\"116517\");",
+											"    pm.expect(jsonData.result.data[i].observationDbId).to.eql(pm.environment.get(\"createdObservationDbId1\"));",
 											"    }",
 											"}); "
 										],
@@ -77542,7 +77785,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?observationDbId=116517",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?observationDbId={{createdObservationDbId1}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -77555,7 +77798,7 @@
 									"query": [
 										{
 											"key": "observationDbId",
-											"value": "116517"
+											"value": "{{createdObservationDbId1}}"
 										}
 									]
 								},
@@ -77744,7 +77987,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(4);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -77753,7 +77996,7 @@
 											"",
 											"pm.test(\"Check if all observationUnitDbIds are correct\", function () {",
 											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
-											"    pm.expect(jsonData.result.data[i].observationUnitDbId).to.eql(\"PKWDP1SnVQCKf\");",
+											"    pm.expect(jsonData.result.data[i].observationUnitDbId).to.eql(pm.environment.get(\"createdObservationUnitDbId\"));",
 											"    }",
 											"}); "
 										],
@@ -77775,7 +78018,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?observationUnitDbId=PKWDP1SnVQCKf",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?observationUnitDbId={{createdObservationUnitDbId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -77788,7 +78031,7 @@
 									"query": [
 										{
 											"key": "observationUnitDbId",
-											"value": "PKWDP1SnVQCKf"
+											"value": "{{createdObservationUnitDbId}}"
 										}
 									]
 								},
@@ -77977,7 +78220,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(95);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -77986,7 +78229,7 @@
 											"",
 											"pm.test(\"Check if all germplasmDbIds are correct\", function () {",
 											"    for (i = 0; i < jsonData.result.data.length; i++) { ",
-											"    pm.expect(jsonData.result.data[i].germplasmDbId).to.eql(\"PKWDGTjIJC71Z\");",
+											"    pm.expect(jsonData.result.data[i].germplasmDbId).to.eql(pm.environment.get(\"germplasm_uuid\"));",
 											"    }",
 											"}); "
 										],
@@ -78210,7 +78453,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(41);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(3);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -78442,7 +78685,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(40);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(8);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -78472,7 +78715,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?studyDbId=105",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?studyDbId={{createdStudyDbId1}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -78485,7 +78728,7 @@
 									"query": [
 										{
 											"key": "studyDbId",
-											"value": "105"
+											"value": "{{createdStudyDbId1}}"
 										}
 									]
 								},
@@ -78674,18 +78917,23 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(40);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(8);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
 											"});",
 											"",
 											"pm.test(\"Check if all observationDbIds are correct\", function () {",
-											"   var observationDbIds = [\"116502\",\"116503\",\"116504\",\"116505\",\"116506\",\"116507\",",
-											"\"116508\",\"116509\",\"116510\",\"116511\",\"116512\",\"116513\",\"116514\",\"116515\",\"116516\",",
-											"\"116517\",\"116518\",\"116519\",\"116520\",\"116521\",\"116522\",\"116523\",\"116524\",\"116525\",",
-											"\"116526\",\"116527\",\"116528\",\"116529\",\"116530\",\"116531\",\"116532\",\"116533\",\"116534\",",
-											"\"116535\",\"116536\",\"116537\",\"116538\",\"116539\",\"116540\",\"116541\"];",
+											"   var observationDbIds = [",
+											"       pm.environment.get(\"createdObservationDbId1\"),",
+											"       pm.environment.get(\"createdObservationDbId2\"),",
+											"       pm.environment.get(\"createdObservationDbId3\"),",
+											"       pm.environment.get(\"createdObservationDbId4\"),",
+											"       pm.environment.get(\"createdObservationDbId5\"),",
+											"       pm.environment.get(\"createdObservationDbId6\"),",
+											"       pm.environment.get(\"createdObservationDbId7\"),",
+											"       pm.environment.get(\"createdObservationDbId8\")",
+											"       ];",
 											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
 											"       pm.expect(jsonData.result.data[i].observationDbId).to.be.oneOf(observationDbIds);",
 											"        console.log(jsonData.result.data[i].observationDbId);",
@@ -78710,7 +78958,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?locationDbId=9014",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?locationDbId=3953",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -78723,7 +78971,7 @@
 									"query": [
 										{
 											"key": "locationDbId",
-											"value": "9014"
+											"value": "3953"
 										}
 									]
 								},
@@ -78912,18 +79160,23 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(40);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(8);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
 											"});",
 											"",
 											"pm.test(\"Check if all observationDbIds are correct\", function () {",
-											"   var observationDbIds = [\"116502\",\"116503\",\"116504\",\"116505\",\"116506\",\"116507\",",
-											"\"116508\",\"116509\",\"116510\",\"116511\",\"116512\",\"116513\",\"116514\",\"116515\",\"116516\",",
-											"\"116517\",\"116518\",\"116519\",\"116520\",\"116521\",\"116522\",\"116523\",\"116524\",\"116525\",",
-											"\"116526\",\"116527\",\"116528\",\"116529\",\"116530\",\"116531\",\"116532\",\"116533\",\"116534\",",
-											"\"116535\",\"116536\",\"116537\",\"116538\",\"116539\",\"116540\",\"116541\"];",
+											"   var observationDbIds = [",
+											"       pm.environment.get(\"createdObservationDbId1\"),",
+											"       pm.environment.get(\"createdObservationDbId2\"),",
+											"       pm.environment.get(\"createdObservationDbId3\"),",
+											"       pm.environment.get(\"createdObservationDbId4\"),",
+											"       pm.environment.get(\"createdObservationDbId5\"),",
+											"       pm.environment.get(\"createdObservationDbId6\"),",
+											"       pm.environment.get(\"createdObservationDbId7\"),",
+											"       pm.environment.get(\"createdObservationDbId8\")",
+											"       ];",
 											"    for (var i = 0; i < jsonData.result.data.length; i++) { ",
 											"       pm.expect(jsonData.result.data[i].observationDbId).to.be.oneOf(observationDbIds);",
 											"        console.log(jsonData.result.data[i].observationDbId);",
@@ -78948,7 +79201,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?trialDbId=3089",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?trialDbId={{createdTrialDbId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -78961,7 +79214,7 @@
 									"query": [
 										{
 											"key": "trialDbId",
-											"value": "3089"
+											"value": "{{createdTrialDbId}}"
 										}
 									]
 								},
@@ -79150,7 +79403,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1725);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1693);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(2);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -79377,7 +79630,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(440);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(408);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -80095,7 +80348,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(40);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -81956,7 +82209,7 @@
 													"pm.test(\"Verify returned metadata\", function () {",
 													"  pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 													"  pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-													"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(122);",
+													"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(124);",
 													"  pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 													"  pm.expect(jsonData.metadata.status).to.eql([]);",
 													"  pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -82241,7 +82494,7 @@
 													"pm.test(\"Verify returned metadata\", function () {",
 													"  pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 													"  pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-													"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(615);",
+													"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(618);",
 													"  pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 													"  pm.expect(jsonData.metadata.status).to.eql([]);",
 													"  pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -82403,8 +82656,8 @@
 													"",
 													"//Check details of result",
 													"var index = 0;",
-													"pm.test(\"Check additionalInfo\", function () {",
-													"    pm.expect(jsonData.result.data[index].additionalInfo).to.eql({});",
+													"pm.test(\"Check additionalInfo ENTRY_NO\", function () {",
+													"    pm.expect(jsonData.result.data[index].additionalInfo.ENTRY_NO).to.eql(\"1\");",
 													"});",
 													"",
 													"pm.test(\"Check externalReferences referenceID\", function () {",
@@ -82645,7 +82898,7 @@
 													"pm.test(\"Verify returned metadata\", function () {",
 													"  pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 													"  pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-													"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2615);",
+													"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2618);",
 													"  pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 													"  pm.expect(jsonData.metadata.status).to.eql([]);",
 													"  pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -82788,8 +83041,8 @@
 													"pm.test(\"Verify returned metadata\", function () {",
 													"  pm.expect(jsonData.metadata.pagination.currentPage).to.eql(1);",
 													"  pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10);",
-													"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2422);",
-													"  pm.expect(jsonData.metadata.pagination.totalPages).to.eql(243);",
+													"  pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2618);",
+													"  pm.expect(jsonData.metadata.pagination.totalPages).to.eql(262);",
 													"  pm.expect(jsonData.metadata.status).to.eql([]);",
 													"  pm.expect(jsonData.metadata.datafiles).to.eql([]);",
 													"});",
@@ -82807,8 +83060,8 @@
 													"",
 													"//Check details of result",
 													"var index = 0;",
-													"pm.test(\"Check additionalInfo\", function () {",
-													"    pm.expect(jsonData.result.data[index].additionalInfo).to.eql({});",
+													"pm.test(\"Check additionalInfo ENTRY_NO\", function () {",
+													"    pm.expect(jsonData.result.data[index].additionalInfo.ENTRY_NO).to.eql(\"11\");",
 													"});",
 													"",
 													"pm.test(\"Check externalReferences\", function () {",
@@ -82817,17 +83070,17 @@
 													"",
 													"",
 													"pm.test(\"Check if observationUnitDbId is correct\", function () {",
-													"    pm.expect(jsonData.result.data[index].observationUnitDbId).to.eql(\"e593ffb8-36a4-4faa-bf81-75bc237afbbe\");",
+													"    pm.expect(jsonData.result.data[index].observationUnitDbId).to.eql(\"PKWDP0fPOkMaC\");",
 													"});",
 													"pm.test(\"Check if observationUnitName is correct\", function () {",
-													"    pm.expect(jsonData.result.data[index].observationUnitName).to.eql(null);",
+													"    pm.expect(jsonData.result.data[index].observationUnitName).to.eql(\"PLOT11\");",
 													"});",
 													"pm.test(\"Check if germplasmDbId is correct\", function () {",
-													"    pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG02fca806\");",
+													"    pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG225f1813\");",
 													"});",
 													"",
 													"pm.test(\"Check if germplasmName is correct\", function () {",
-													"    pm.expect(jsonData.result.data[index].germplasmName).to.eql(\"GP2\");",
+													"    pm.expect(jsonData.result.data[index].germplasmName).to.eql(\"GP11\");",
 													"});",
 													"",
 													"pm.test(\"Check if studyDbId is correct\", function () {",
@@ -82862,7 +83115,7 @@
 													"});",
 													"",
 													"pm.test(\"Check if observationUnitPosition observationLevel is correct\", function () {",
-													"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevel.levelName).to.eql(\"PLANT\");",
+													"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevel.levelName).to.eql(\"PLOT\");",
 													"});",
 													"",
 													"//Check observationLevelRelationships",
@@ -83172,7 +83425,7 @@
 													"pm.test(\"Verify returned metadata\", function () {",
 													" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 													" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-													" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(194);",
+													" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(195);",
 													" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 													" pm.expect(jsonData.metadata.status).to.eql([]);",
 													" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -83315,7 +83568,7 @@
 													"pm.test(\"Verify returned metadata\", function () {",
 													" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 													" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-													" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(194);",
+													" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(195);",
 													" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 													" pm.expect(jsonData.metadata.status).to.eql([]);",
 													" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -83458,7 +83711,7 @@
 													"pm.test(\"Verify returned metadata\", function () {",
 													" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 													" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(10000);",
-													" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);",
+													" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(4);",
 													" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 													" pm.expect(jsonData.metadata.status).to.eql([]);",
 													" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -83610,8 +83863,8 @@
 													"",
 													"//Check details of result",
 													"var index = 0;",
-													"pm.test(\"Check additionalInfo\", function () {",
-													"    pm.expect(jsonData.result.data[index].additionalInfo).to.eql({});",
+													"pm.test(\"Check additionalInfo ENTRY_NO\", function () {",
+													"    pm.expect(jsonData.result.data[index].additionalInfo.ENTRY_NO).to.eql(\"1\");",
 													"});",
 													"",
 													"pm.test(\"Check externalReferences referenceID\", function () {",
