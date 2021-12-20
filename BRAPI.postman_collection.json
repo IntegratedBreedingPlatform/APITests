@@ -75688,8 +75688,9 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check observationTimeStamp\", function () {\r",
-											"    //TODO: Get current date time\r",
-											"    pm.expect(jsonData.result.data[index].observationTimeStamp).to.eql(\"2021-12-15T00:00:00.000+08:00\");\r",
+											"    var moment = require('moment');\r",
+											"    pm.expect(jsonData.result.data[index].observationTimeStamp).to.eql(moment().format(\"YYYY-MM-DD\")+\"T00:00:00.000+08:00\");\r",
+											"\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Check observationUnitDbId\", function () {\r",
@@ -75737,7 +75738,16 @@
 											"pm.environment.set(\"createdObservationDbId3\", jsonData.result.data[2].observationDbId);\r",
 											"\r",
 											"pm.environment.unset(\"createdObservationDbId4\");\r",
-											"pm.environment.set(\"createdObservationDbId4\", jsonData.result.data[3].observationDbId);"
+											"pm.environment.set(\"createdObservationDbId4\", jsonData.result.data[3].observationDbId);\r",
+											"\r",
+											"pm.environment.unset(\"createdObservationTimestamp1\");\r",
+											"pm.environment.set(\"createdObservationTimestamp1\", jsonData.result.data[0].observationTimeStamp);\r",
+											"pm.environment.unset(\"createdObservationTimestamp2\");\r",
+											"pm.environment.set(\"createdObservationTimestamp2\", jsonData.result.data[1].observationTimeStamp);\r",
+											"pm.environment.unset(\"createdObservationTimestamp3\");\r",
+											"pm.environment.set(\"createdObservationTimestamp3\", jsonData.result.data[2].observationTimeStamp);\r",
+											"pm.environment.unset(\"createdObservationTimestamp4\");\r",
+											"pm.environment.set(\"createdObservationTimestamp4\", jsonData.result.data[2].observationTimeStamp);"
 										],
 										"type": "text/javascript"
 									}
@@ -75883,8 +75893,8 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check observationTimeStamp\", function () {\r",
-											"    //TODO: Get current date time\r",
-											"    pm.expect(jsonData.result.data[index].observationTimeStamp).to.eql(\"2021-12-15T00:00:00.000+08:00\");\r",
+											"    var moment = require('moment');\r",
+											"    pm.expect(jsonData.result.data[index].observationTimeStamp).to.eql(moment().format(\"YYYY-MM-DD\")+\"T00:00:00.000+08:00\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Check observationUnitDbId\", function () {\r",
@@ -75930,7 +75940,14 @@
 											"pm.environment.set(\"createdObservationDbId6\", jsonData.result.data[1].observationDbId);\r",
 											"\r",
 											"pm.environment.unset(\"createdObservationDbId7\");\r",
-											"pm.environment.set(\"createdObservationDbId7\", jsonData.result.data[2].observationDbId);"
+											"pm.environment.set(\"createdObservationDbId7\", jsonData.result.data[2].observationDbId);\r",
+											"\r",
+											"pm.environment.unset(\"createdObservationTimestamp5\");\r",
+											"pm.environment.set(\"createdObservationTimestamp5\", jsonData.result.data[0].observationTimeStamp);\r",
+											"pm.environment.unset(\"createdObservationTimestamp6\");\r",
+											"pm.environment.set(\"createdObservationTimestamp6\", jsonData.result.data[1].observationTimeStamp);\r",
+											"pm.environment.unset(\"createdObservationTimestamp7\");\r",
+											"pm.environment.set(\"createdObservationTimestamp7\", jsonData.result.data[2].observationTimeStamp);"
 										],
 										"type": "text/javascript"
 									}
@@ -76681,8 +76698,8 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check observationTimeStamp\", function () {\r",
-											"    //TODO: Get current date time\r",
-											"    pm.expect(jsonData.result.data[index].observationTimeStamp).to.eql(\"2021-12-15T00:00:00.000+08:00\");\r",
+											"    var moment = require('moment');\r",
+											"    pm.expect(jsonData.result.data[index].observationTimeStamp).to.eql(moment().format(\"YYYY-MM-DD\")+\"T00:00:00.000+08:00\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Check observationUnitDbId\", function () {\r",
