@@ -79947,7 +79947,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(40);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(8);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -79956,8 +79956,8 @@
 											"",
 											"pm.test(\"Check if observation timestamps are within observationTimeStamps\", function () {",
 											"  var moment = require('moment');",
-											"  var timeStampStart = moment.utc(\"2021-10-17T00:00:00.000+08:00\").format();",
-											"  var timeStampEnd = moment.utc(\"2021-10-19T00:00:00.000+08:00\").format();",
+											"  var timeStampStart = moment.utc(\"2022-01-01T00:00:00.000+08:00\").format();",
+											"  var timeStampEnd = moment.utc(\"2022-12-31T00:00:00.000+08:00\").format();",
 											"  for (i = 0; i < jsonData.result.data.length ; i++) {",
 											"            var returnedTimeStamp = jsonData.result.data[i].observationTimeStamp;",
 											"            var isAfter = moment(returnedTimeStamp).isAfter(timeStampStart);",
@@ -79989,7 +79989,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?observationTimeStampRangeStart=2021-10-17T00:00:00.000+08:00&observationTimeStampRangeEnd=2021-10-19T00:00:00.000+08:00",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/observations?observationTimeStampRangeStart=2022-01-17T00:00:00.000+08:00&observationTimeStampRangeEnd=2022-12-19T00:00:00.000+08:00",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -80002,11 +80002,11 @@
 									"query": [
 										{
 											"key": "observationTimeStampRangeStart",
-											"value": "2021-10-17T00:00:00.000+08:00"
+											"value": "2022-01-17T00:00:00.000+08:00"
 										},
 										{
 											"key": "observationTimeStampRangeEnd",
-											"value": "2021-10-19T00:00:00.000+08:00"
+											"value": "2022-12-19T00:00:00.000+08:00"
 										}
 									]
 								},
