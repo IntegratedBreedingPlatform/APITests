@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "06540da4-6433-49d4-af02-8cac977ba818",
+		"_postman_id": "02e076b1-fdd7-42e0-be35-ea3758c88575",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12340,7 +12340,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"lotGeneratorInput\": {\r\n    \"generateStock\": true,\r\n    \"locationId\": 6000,\r\n    \"notes\": \"Created by Postman\",\r\n    \"unitId\": 8264\r\n  },\r\n  \"searchComposite\": {\r\n    \"searchRequest\": {\r\n      \"searchOrigin\": \"MANAGE_STUDY\",\r\n      \"searchRequestId\": {{searchbygid}}\r\n    }\r\n  }\r\n}\r\n",
+									"raw": "{\r\n  \"lotGeneratorInput\": {\r\n    \"generateStock\": true,\r\n    \"locationId\": 6000,\r\n    \"notes\": \"Created by Postman\",\r\n    \"unitId\": 8264\r\n  },\r\n  \"searchComposite\": {\r\n    \"searchRequest\": {\r\n      \"searchOrigin\": \"MANAGE_STUDY_SOURCE\",\r\n      \"searchRequestId\": {{searchbygid}}\r\n    }\r\n  }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -12661,7 +12661,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"lotGeneratorInput\": {\r\n    \"generateStock\": true,\r\n    \"locationId\": 6000,\r\n    \"notes\": \"Created by Postman\",\r\n    \"unitId\": 8264\r\n  },\r\n  \"searchComposite\": {\r\n    \"searchRequest\": {\r\n      \"searchOrigin\": \"MANAGE_STUDY\",\r\n      \"searchRequestId\": 0\r\n    }\r\n  }\r\n}\r\n",
+									"raw": "{\r\n  \"lotGeneratorInput\": {\r\n    \"generateStock\": true,\r\n    \"locationId\": 6000,\r\n    \"notes\": \"Created by Postman\",\r\n    \"unitId\": 8264\r\n  },\r\n  \"searchComposite\": {\r\n    \"searchRequest\": {\r\n      \"searchOrigin\": \"MANAGE_STUDY_SOURCE\",\r\n      \"searchRequestId\": 0\r\n    }\r\n  }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -17683,114 +17683,6 @@
 					"name": "POST ​/crops​/{cropName}​/transactions​/confirmed-deposits​/generation",
 					"item": [
 						{
-							"name": "Verify response code and body for multiple confirmed deposits with invalid soureStudyId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 404\", function () {\r",
-											"    pm.response.to.have.status(404);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Verify error message is correct\", function () {\r",
-											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Study does not exist\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Auth-Token",
-										"type": "text",
-										"value": "{{masterToken}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"depositsPerUnit\": {\r\n    \"SEED_AMOUNT_kg\": 2,\r\n    \"SEED_AMOUNT_Packets\": 2\r\n  },\r\n  \"notes\": \"test\",\r\n  \"selectedLots\": {\r\n    \"itemIds\": [\r\n      \"PKWDLU54yhRGz\",\"PKWDLld3QgQqq\"\r\n    ]\r\n  },\r\n  \"sourceStudyId\": 1\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/transactions/confirmed-deposits/generation",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"transactions",
-										"confirmed-deposits",
-										"generation"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Verify response code and body for multiple confirmed deposits with valid lotUIDs",
 							"event": [
 								{
@@ -18775,114 +18667,6 @@
 				{
 					"name": "POST ​/crops​/{cropName}​/transactions​/pending-deposits​/generation",
 					"item": [
-						{
-							"name": "Verify response code and body for multiple pending deposits with invalid soureStudyId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 404\", function () {\r",
-											"    pm.response.to.have.status(404);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Verify error message is correct\", function () {\r",
-											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Study does not exist\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Auth-Token",
-										"type": "text",
-										"value": "{{masterToken}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"depositsPerUnit\": {\r\n    \"SEED_AMOUNT_kg\": 2,\r\n    \"SEED_AMOUNT_Packets\": 2\r\n  },\r\n  \"notes\": \"test\",\r\n  \"selectedLots\": {\r\n    \"itemIds\": [\r\n      \"PKWDLU54yhRGz\",\"PKWDLld3QgQqq\"\r\n    ]\r\n  },\r\n  \"sourceStudyId\": 1\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/transactions/pending-deposits/generation",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"transactions",
-										"pending-deposits",
-										"generation"
-									]
-								}
-							},
-							"response": []
-						},
 						{
 							"name": "Verify response code and body for multiple pending deposits with valid lotUIDs",
 							"event": [
