@@ -85761,7 +85761,7 @@
 											"",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(22);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(30);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -85784,7 +85784,8 @@
 											"     pm.expect(jsonData.result.data[index].determinedDate).to.eql(\"2021-02-17T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Verify returned externalReferences\", function () {",
-											"     pm.expect(jsonData.result.data[index].externalReferences).to.eql(null);     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceID).to.eql(\"ref_01\");     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceSource).to.eql(\"DOIA1\");    ",
 											"});",
 											"pm.test(\"Verify returned germplasmDbId\", function () {",
 											"     pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG942cd372\");   ",
@@ -85890,6 +85891,145 @@
 											"key": "programUUID",
 											"value": "c9e335d2-3057-4958-a43e-e38cf61d09ca"
 										}
+									]
+								},
+								"description": "GET ​/{crop}​/brapi​/v1​/studies​/{studyDbId}​/observationunits"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered valid multiple valid filters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"//var data = jsonData.result.data[0];",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(1);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"var index = 0;",
+											"//Verify returned data of the first attribute record",
+											"pm.test(\"Verify returned additionalInfo \", function () {",
+											"     pm.expect(jsonData.result.data[index].additionalInfo.locationDbId).to.eql(\"9001\");     ",
+											"});",
+											"pm.test(\"Verify returned attributeValueDbId\", function () {",
+											"     pm.expect(jsonData.result.data[index].attributeValueDbId).to.eql(\"364\");  ",
+											"});",
+											"pm.test(\"Verify returned attributeDbId\", function () {",
+											"     pm.expect(jsonData.result.data[index].attributeDbId).to.eql(\"100643\");",
+											"});",
+											"pm.test(\"Verify returned attributeName\", function () {",
+											"     pm.expect(jsonData.result.data[index].attributeName).to.eql(\"INSTCODE_AP_text\");     ",
+											"});",
+											"pm.test(\"Verify returned determinedDate\", function () {",
+											"     pm.expect(jsonData.result.data[index].determinedDate).to.eql(\"2021-02-17T00:00:00.000Z\");",
+											"});",
+											"pm.test(\"Verify returned externalReferences\", function () {",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceID).to.eql(\"ref_01\");     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceSource).to.eql(\"DOIA1\");    ",
+											"});",
+											"pm.test(\"Verify returned germplasmDbId\", function () {",
+											"     pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG942cd372\");   ",
+											"});",
+											"pm.test(\"Verify returned germplasmName\", function () {",
+											"     pm.expect(jsonData.result.data[index].germplasmName).to.eql(\"CML1\");",
+											"});",
+											"pm.test(\"Verify returned value\", function () {",
+											"     pm.expect(jsonData.result.data[index].value).to.eql(\"instituteCode001\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributevalues/{{searchResultDbId_v2_multiple}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"search",
+										"attributevalues",
+										"{{searchResultDbId_v2_multiple}}"
 									]
 								},
 								"description": "GET ​/{crop}​/brapi​/v1​/studies​/{studyDbId}​/observationunits"
@@ -86158,7 +86298,8 @@
 											"     pm.expect(jsonData.result.data[index].determinedDate).to.eql(\"2021-02-17T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Verify returned externalReferences\", function () {",
-											"     pm.expect(jsonData.result.data[index].externalReferences).to.eql(null);     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceID).to.eql(\"ref_01\");     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceSource).to.eql(\"DOIA1\");    ",
 											"});",
 											"pm.test(\"Verify returned germplasmDbId\", function () {",
 											"     pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG942cd372\");   ",
@@ -86296,7 +86437,8 @@
 											"     pm.expect(jsonData.result.data[index].determinedDate).to.eql(\"2021-02-17T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Verify returned externalReferences\", function () {",
-											"     pm.expect(jsonData.result.data[index].externalReferences).to.eql(null);     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceID).to.eql(\"ref_01\");     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceSource).to.eql(\"DOIA1\");    ",
 											"});",
 											"pm.test(\"Verify returned germplasmDbId\", function () {",
 											"     pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG942cd372\");   ",
@@ -86434,7 +86576,8 @@
 											"     pm.expect(jsonData.result.data[index].determinedDate).to.eql(\"2021-02-17T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Verify returned externalReferences\", function () {",
-											"     pm.expect(jsonData.result.data[index].externalReferences).to.eql(null);     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceID).to.eql(\"ref_01\");     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceSource).to.eql(\"DOIA1\");    ",
 											"});",
 											"pm.test(\"Verify returned germplasmDbId\", function () {",
 											"     pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG942cd372\");   ",
@@ -87239,7 +87382,8 @@
 											"     pm.expect(jsonData.result.data[index].determinedDate).to.eql(\"2021-02-17T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Verify returned externalReferences\", function () {",
-											"     pm.expect(jsonData.result.data[index].externalReferences).to.eql(null);     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceID).to.eql(\"ref_01\");     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceSource).to.eql(\"DOIA1\");    ",
 											"});",
 											"pm.test(\"Verify returned germplasmDbId\", function () {",
 											"     pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG942cd372\");   ",
@@ -87377,7 +87521,8 @@
 											"     pm.expect(jsonData.result.data[index].determinedDate).to.eql(\"2021-02-17T00:00:00.000Z\");",
 											"});",
 											"pm.test(\"Verify returned externalReferences\", function () {",
-											"     pm.expect(jsonData.result.data[index].externalReferences).to.eql(null);     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceID).to.eql(\"ref_01\");     ",
+											"     pm.expect(jsonData.result.data[index].externalReferences[0].referenceSource).to.eql(\"DOIA1\");    ",
 											"});",
 											"pm.test(\"Verify returned germplasmDbId\", function () {",
 											"     pm.expect(jsonData.result.data[index].germplasmDbId).to.eql(\"PKWDG942cd372\");   ",
@@ -88907,6 +89052,117 @@
 								"description": "POST /{crop}/brapi/v1/search/germplasm"
 							},
 							"response": []
+						},
+						{
+							"name": "Verify response code and body when searched by valid multiple filters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"    var jsonData = pm.response.json();",
+											"    pm.environment.unset(\"searchResultDbId_v1_multiples\");",
+											"    pm.environment.set(\"searchResultDbId_v1_multiples\", jsonData.result.searchResultsDbId);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"attributeDbIds\": [\r\n    \"100647\",\"100643\"\r\n  ],\r\n  \"dataTypes\": [\r\n    \"Text\", \"Nominal\"\r\n  ],\r\n  \"traitDbIds\": [\r\n    \"100516\"\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"search",
+										"attributes"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
 						}
 					]
 				},
@@ -88930,7 +89186,7 @@
 											"",
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(100);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(2);",
 											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -88945,13 +89201,13 @@
 											"     ",
 											"});",
 											"pm.test(\"Verify returned attributeDbId\", function () {",
-											"     pm.expect(jsonData.result.data[index].attributeDbId).to.eql(\"100630\");",
+											"     pm.expect(jsonData.result.data[index].attributeDbId).to.eql(\"100643\");",
 											"});",
 											"pm.test(\"Verify returned attributeDescription\", function () {",
-											"     pm.expect(jsonData.result.data[index].attributeDescription).to.eql(\"Acquisition date\");",
+											"     pm.expect(jsonData.result.data[index].attributeDescription).to.eql(\"Additional details about germplasm\");",
 											"});",
 											"pm.test(\"Verify returned attributeName\", function () {",
-											"     pm.expect(jsonData.result.data[index].attributeName).to.eql(\"ACQ_DATE_AA_text\");     ",
+											"     pm.expect(jsonData.result.data[index].attributeName).to.eql(\"INSTCODE_AP_text\");     ",
 											"});",
 											"pm.test(\"Verify returned commonCropName\", function () {",
 											"     pm.expect(jsonData.result.data[index].commonCropName).to.eql(\"testdata\");",
@@ -89023,22 +89279,22 @@
 											"});",
 											"",
 											"pm.test(\"Verify returned traitDescription\", function () {",
-											"     pm.expect(jsonData.result.data[index].trait.traitDescription).to.eql(\"Acquisition date\");     ",
+											"     pm.expect(jsonData.result.data[index].trait.traitDescription).to.eql(\"Additional details about germplasm\");     ",
 											"});",
 											"",
 											"pm.test(\"Verify returned traitName\", function () {",
-											"     pm.expect(jsonData.result.data[index].trait.name).to.eql(\"Acquisition date\");     ",
+											"     pm.expect(jsonData.result.data[index].trait.name).to.eql(\"Additional details about germplasm\");     ",
 											"});",
 											"",
 											"pm.test(\"Verify returned trait status\", function () {",
 											"     pm.expect(jsonData.result.data[index].trait.status).to.eql(\"Active\");     ",
 											"});",
 											"pm.test(\"Verify returned traitDbId\", function () {",
-											"     pm.expect(jsonData.result.data[index].trait.traitDbId).to.eql(\"100503\");     ",
+											"     pm.expect(jsonData.result.data[index].trait.traitDbId).to.eql(\"100516\");     ",
 											"});",
 											"",
 											"pm.test(\"Verify returned trait ontologyName\", function () {",
-											"     pm.expect(jsonData.result.data[index].trait.ontologyReference.ontologyName).to.eql(\"Acquisition date\");     ",
+											"     pm.expect(jsonData.result.data[index].trait.ontologyReference.ontologyName).to.eql(\"Additional details about germplasm\");     ",
 											"});",
 											""
 										],
@@ -92019,7 +92275,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v2_multiple}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_multiples}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -92029,7 +92285,7 @@
 										"v2",
 										"search",
 										"attribute",
-										"{{searchResultDbId_v2_multiple}}"
+										"{{searchResultDbId_v1_multiples}}"
 									]
 								},
 								"description": "GET ​/{crop}​/brapi​/v1​/studies​/{studyDbId}​/observationunits"
