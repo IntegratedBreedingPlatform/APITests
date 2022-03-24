@@ -21902,210 +21902,21 @@
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered breedingMethodId type is not the same with existing (GEN)",
+							"name": "Verify validation message when entered different breedingMethodId type to germplasm that has descendants",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"var jsonData = pm.response.json();",
-											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(jsonData.result.germplasmDbId).to.eql(\"PKWDGccd05c2c\");",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
 											"});",
 											"",
-											"pm.test(\"Check defaultDisplayName \", function () {",
-											"    pm.expect(jsonData.result.defaultDisplayName).to.eql(\"IB1\");",
+											"pm.test(\"Check validation message is correct\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Cannot change method for germplasm PKWDG942cd372. The breeding method should be the same type as Accession into genebank (MAN).\");",
 											"});",
-											"",
-											"pm.test(\"Check germplasmName \", function () {",
-											"    pm.expect(jsonData.result.germplasmName).to.eql(\"IB1\");",
-											"});",
-											"",
-											"pm.test(\"Check synonyms \", function () {",
-											"    pm.expect(jsonData.result.synonyms).to.eql([]);",
-											"});",
-											"",
-											"pm.test(\"Check countryOfOriginCode\", function () {",
-											"    pm.expect(jsonData.result.countryOfOriginCode).to.eql(\"WARDA\");",
-											"});",
-											"",
-											"pm.test(\"Check taxonIds\", function () {",
-											"    pm.expect(jsonData.result.taxonIds).to.eql([]);",
-											"});",
-											"",
-											"pm.test(\"Check donors\", function () {",
-											"    pm.expect(jsonData.result.donors).to.eql([]);",
-											"});",
-											"pm.test(\"Check acquisitionDate\", function () {",
-											"    pm.expect(jsonData.result.acquisitionDate).to.eql(\"2018-10-01\");",
-											"});",
-											"pm.test(\"Check breedingMethodDbId\", function () {",
-											"    pm.expect(jsonData.result.breedingMethodDbId).to.eql(\"70\");",
-											"});",
-											"pm.test(\"Check seedSource\", function () {",
-											"    pm.expect(jsonData.result.seedSource).to.eql(\"Nursery 1:Africa Rice Centre:201810:1:/Nursery 1:Africa Rice Centre:201810:6:\");",
-											"});",
-											"pm.test(\"Check additionalInfo PLOTCODE_AP_text\", function () {",
-											"    pm.expect(jsonData.result.additionalInfo.PLOTCODE_AP_text).to.eql(\"Nursery 1:Africa Rice Centre:201810:1:/Nursery 1:Africa Rice Centre:201810:6:\");",
-											"});",
-											"",
-											"pm.test(\"Check storageTypes\", function () {",
-											"    pm.expect(jsonData.result.storageTypes).to.eql([]);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n     \"breedingMethodDbId\": \"70\"\r\n\r\n}"
-								},
-								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/germplasm/PKWDGccd05c2c",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"{{crop}}",
-										"brapi",
-										"v2",
-										"germplasm",
-										"PKWDGccd05c2c"
-									]
-								},
-								"description": "PUT ​/{crop}​/brapi​/v2​/germplasm​/{germplasmDbId}"
-							},
-							"response": []
-						},
-						{
-							"name": "Verify validation if entered mprgn of generative breedingMethodId is not the same with existing",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"var jsonData = pm.response.json();",
-											"pm.test(\"Check germplasmDbId \", function () {",
-											"    pm.expect(jsonData.result.germplasmDbId).to.eql(\"PKWDGccd05c2c\");",
-											"});",
-											"",
-											"pm.test(\"Check defaultDisplayName \", function () {",
-											"    pm.expect(jsonData.result.defaultDisplayName).to.eql(\"IB1\");",
-											"});",
-											"",
-											"pm.test(\"Check germplasmName \", function () {",
-											"    pm.expect(jsonData.result.germplasmName).to.eql(\"IB1\");",
-											"});",
-											"",
-											"pm.test(\"Check synonyms \", function () {",
-											"    pm.expect(jsonData.result.synonyms).to.eql([]);",
-											"});",
-											"",
-											"pm.test(\"Check countryOfOriginCode\", function () {",
-											"    pm.expect(jsonData.result.countryOfOriginCode).to.eql(\"WARDA\");",
-											"});",
-											"",
-											"pm.test(\"Check taxonIds\", function () {",
-											"    pm.expect(jsonData.result.taxonIds).to.eql([]);",
-											"});",
-											"",
-											"pm.test(\"Check donors\", function () {",
-											"    pm.expect(jsonData.result.donors).to.eql([]);",
-											"});",
-											"pm.test(\"Check acquisitionDate\", function () {",
-											"    pm.expect(jsonData.result.acquisitionDate).to.eql(\"2018-10-01\");",
-											"});",
-											"pm.test(\"Check breedingMethodDbId\", function () {",
-											"    pm.expect(jsonData.result.breedingMethodDbId).to.eql(\"1\");",
-											"});",
-											"pm.test(\"Check seedSource\", function () {",
-											"    pm.expect(jsonData.result.seedSource).to.eql(\"Nursery 1:Africa Rice Centre:201810:1:/Nursery 1:Africa Rice Centre:201810:6:\");",
-											"});",
-											"pm.test(\"Check additionalInfo PLOTCODE_AP_text\", function () {",
-											"    pm.expect(jsonData.result.additionalInfo.PLOTCODE_AP_text).to.eql(\"Nursery 1:Africa Rice Centre:201810:1:/Nursery 1:Africa Rice Centre:201810:6:\");",
-											"});",
-											"",
-											"pm.test(\"Check storageTypes\", function () {",
-											"    pm.expect(jsonData.result.storageTypes).to.eql([]);",
-											"});"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -22187,7 +21998,7 @@
 									"raw": "{\r\n     \"breedingMethodDbId\": \"1\"\r\n\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/germplasm/PKWDGccd05c2c",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/germplasm/PKWDG942cd372",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -22196,7 +22007,120 @@
 										"brapi",
 										"v2",
 										"germplasm",
-										"PKWDGccd05c2c"
+										"PKWDG942cd372"
+									]
+								},
+								"description": "PUT ​/{crop}​/brapi​/v2​/germplasm​/{germplasmDbId}"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify validation if entered different mprgn of generative breedingMethodId to a germplasm that has descendant",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Check validation message is correct\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Cannot update germplasm PKWDG94574ef6. New breeding method has to have the same method.mprgn as the old one.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"breedingMethodDbId\": \"1\"\r\n\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/germplasm/PKWDG94574ef6",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"germplasm",
+										"PKWDG94574ef6"
 									]
 								},
 								"description": "PUT ​/{crop}​/brapi​/v2​/germplasm​/{germplasmDbId}"
