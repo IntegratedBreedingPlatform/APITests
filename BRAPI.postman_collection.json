@@ -92969,6 +92969,142 @@
 							"response": []
 						},
 						{
+							"name": "Verify response code and body when no listOwnerPersonDbId is specified",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var jsonData = pm.response.json();",
+											"",
+											"//Check pagination",
+											"pm.test(\"Check currentPage\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"});",
+											"pm.test(\"Check pageSize\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(0);",
+											"});",
+											"pm.test(\"Check totalCount\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
+											"});",
+											"pm.test(\"Check totalPages\", function () {",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(0);",
+											"});",
+											"",
+											"",
+											"//Check status",
+											"pm.test(\"Check messageType\", function () {",
+											"    pm.expect(jsonData.metadata.status[0].messageType).to.eql(\"INFO\");",
+											"});",
+											"pm.test(\"Check returned message\", function () {",
+											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"0 out of 1 lists created successfully.\");",
+											"});",
+											"pm.test(\"Check messageType\", function () {",
+											"    pm.expect(jsonData.metadata.status[1].messageType).to.eql(\"ERROR\");",
+											"});",
+											"pm.test(\"Check returned message\", function () {",
+											"    pm.expect(jsonData.metadata.status[1].message).to.eql(\"ERROR1 List at position 1 is invalid because the listOwnerPersonDbId is not specified.\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"additionalInfo\": {},\r\n\"data\": [\r\n      \"PKWDG942cd372\",\"PKWDG02fca806\",\"PKWDG94574ef6\"\r\n    ],\r\n    \"dateCreated\": \"2022-01-01\",\r\n    \"dateModified\": \"\",\r\n    \"externalReferences\": [\r\n      {\r\n        \"referenceID\": \"ref1\",\r\n        \"referenceSource\": \"ref-s\"\r\n      }\r\n    ],\r\n    \"listDescription\": \"Germplasm List\",\r\n    \"listName\": \"Germplasm List 0005\",\r\n    \"listOwnerName\": \"Admin Admin\",\r\n    \"listOwnerPersonDbId\": \"\",\r\n    \"listSize\": 2,\r\n    \"listSource\": \"Test\",\r\n    \"listType\": \"germplasm\"\r\n  }\r\n]"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/lists",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"lists"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
+						},
+						{
 							"name": "Verify response code and body when entered listOwnerPersonDbId that does not exist in the database",
 							"event": [
 								{
