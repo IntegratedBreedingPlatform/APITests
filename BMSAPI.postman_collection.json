@@ -144,17 +144,17 @@
 									"",
 									"pm.test(\"Check Method for MSE method\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[42].id).to.eql(\"4380\");",
-									"    pm.expect(jsonData[42].name).to.eql(\"Method for MinLSD\");",
-									"    pm.expect(jsonData[42].description).to.eql(\"MinLSD  (system generated method)\");",
+									"    pm.expect(jsonData[50].id).to.eql(\"4380\");",
+									"    pm.expect(jsonData[50].name).to.eql(\"Method for MinLSD\");",
+									"    pm.expect(jsonData[50].description).to.eql(\"MinLSD  (system generated method)\");",
 									"});",
 									"",
 									"",
 									"pm.test(\"Check weighed method\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[102].id).to.eql(pm.environment.get(\"weighed_method_id\"));",
-									"    pm.expect(jsonData[102].name).to.eql(\"Weighed\");",
-									"    pm.expect(jsonData[102].description).to.eql(\"Weighing method\");",
+									"    pm.expect(jsonData[117].id).to.eql(pm.environment.get(\"weighed_method_id\"));",
+									"    pm.expect(jsonData[117].name).to.eql(\"Weighed\");",
+									"    pm.expect(jsonData[117].description).to.eql(\"Weighing method\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -387,9 +387,9 @@
 									"",
 									"pm.test(\"Check trial instance property\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[164].id).to.eql(\"100120\");",
-									"    pm.expect(jsonData[164].name).to.eql(\"Property1\");",
-									"    pm.expect(jsonData[164].description).to.eql(\"Property1\");",
+									"    pm.expect(jsonData[196].id).to.eql(\"100120\");",
+									"    pm.expect(jsonData[196].name).to.eql(\"Property1\");",
+									"    pm.expect(jsonData[196].description).to.eql(\"Property1\");",
 									"});",
 									""
 								],
@@ -616,9 +616,9 @@
 									"",
 									"pm.test(\"Check type scale\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[86].id).to.eql(\"6070\");",
-									"    pm.expect(jsonData[86].name).to.eql(\"Type\");",
-									"    pm.expect(jsonData[86].description).to.eql(\"Type\");",
+									"    pm.expect(jsonData[92].id).to.eql(\"6070\");",
+									"    pm.expect(jsonData[92].name).to.eql(\"Type\");",
+									"    pm.expect(jsonData[92].description).to.eql(\"Type\");",
 									"});",
 									""
 								],
@@ -35110,1814 +35110,6 @@
 			]
 		},
 		{
-			"name": "experimental-design-resource",
-			"item": [
-				{
-					"name": "Generate RCBD design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"blockSize\": null,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 0,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 10001,\n\t\t\t\"locationId\": 33,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": 2,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"{{studyForDeisgnGenId}}",
-								"experimental-designs",
-								"generation"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete generated design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"3083",
-								"experimental-designs"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Generate RIBD design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"blockSize\": 2,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 1,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 10001,\n\t\t\t\"locationId\": 33,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": 2,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"{{studyForDeisgnGenId}}",
-								"experimental-designs",
-								"generation"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete generated design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"3083",
-								"experimental-designs"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Generate RIBD Latinized design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"blockSize\": 2,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 1,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": \"2\",\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": \"1\",\n\t\"replicationsCount\": 2,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"{{studyForDeisgnGenId}}",
-								"experimental-designs",
-								"generation"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete generated design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"3083",
-								"experimental-designs"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Generate Row and Col Design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"blockSize\": null,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": 5,\n\t\"designType\": 2,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": 9012\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": 2,\n\t\"rowsPerReplications\": 4,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"{{studyForDeisgnGenId}}",
-								"experimental-designs",
-								"generation"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete generated design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"3083",
-								"experimental-designs"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Generate Row and Col Latinized Design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"blockSize\": null,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": 5,\n\t\"designType\": 2,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": \"2\",\n\t\"nrlatin\": \"2\",\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": \"2\",\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": \"3\",\n\t\"replicationsCount\": 2,\n\t\"rowsPerReplications\": 4,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"{{studyForDeisgnGenId}}",
-								"experimental-designs",
-								"generation"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete generated design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"3083",
-								"experimental-designs"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Generate Augmented Design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"blockSize\": null,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 4,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": 2,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": null,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"{{studyForDeisgnGenId}}",
-								"experimental-designs",
-								"generation"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete generated design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"3083",
-								"experimental-designs"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Generate Entry List Order Design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"blockSize\": null,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": 5,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 5,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": null,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"{{studyForDeisgnGenId}}",
-								"experimental-designs",
-								"generation"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete generated design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"3083",
-								"experimental-designs"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Generate Prep Design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"blockSize\": 2,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 6,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": 40,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": 3,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"{{studyForDeisgnGenId}}",
-								"experimental-designs",
-								"generation"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete generated design",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"3083",
-								"experimental-designs"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete generated design on a study with no design yet",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 400\", function () {",
-									"    pm.response.to.have.status(400);",
-									"});",
-									"",
-									"pm.test(\"Check error message\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.errors[0].message).to.eql(\"The study has no experiment design yet.\");",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"3083",
-								"experimental-designs"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				},
-				{
-					"name": "Delete generated design on a study with restrictions",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 400\", function () {",
-									"    pm.response.to.have.status(400);",
-									"});",
-									"",
-									"pm.test(\"Check error message\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.errors[0].message).to.eql(\"Instance(s) cannot be deleted due to internal validations (samples, files, sub-observations, inventory transactions, means data associated with the environment or advance/cross list associated with study).\");",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const echoPostRequest = {\r",
-									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-									"  method: 'POST',\r",
-									"  header: 'Content-Type:application/json',\r",
-									"  body: {\r",
-									"    mode: 'application/json',\r",
-									"    raw: JSON.stringify({\r",
-									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-									"        \t\"grant_type\": \"\",\r",
-									"            \"client_id\": \"\"\r",
-									"        })\r",
-									"  }\r",
-									"};\r",
-									"\r",
-									"var getToken = true;\r",
-									"\r",
-									"if (!pm.environment.get('masterTokenExpiry') || \r",
-									"    !pm.environment.get('masterToken')) {\r",
-									"    console.log('Token or expiry date are missing')\r",
-									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-									"    console.log('Token is expired')\r",
-									"} else {\r",
-									"    getToken = false;\r",
-									"    console.log('Token and expiry date are all good');\r",
-									"}\r",
-									"\r",
-									"if (getToken === true) {\r",
-									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-									"    console.log(err ? err : res.json());\r",
-									"        if (err === null) {\r",
-									"            console.log('Saving the token and expiry date')\r",
-									"            var responseJson = res.json();\r",
-									"            pm.environment.set('masterToken', responseJson.access_token)\r",
-									"    \r",
-									"            var expiryDate = new Date();\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"pm.globals.get(\"variable_key\");\r",
-									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-									"        }\r",
-									"    });\r",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-Auth-Token",
-								"type": "text",
-								"value": "{{masterToken}}"
-							}
-						],
-						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/experimental-designs",
-							"host": [
-								"{{BMSurl}}"
-							],
-							"path": [
-								"crops",
-								"{{crop}}",
-								"programs",
-								"{{api_program_id}}",
-								"studies",
-								"{{studyId}}",
-								"experimental-designs"
-							]
-						},
-						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "dataset-resource",
 			"item": [
 				{
@@ -59783,6 +57975,1814 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "experimental-design-resource",
+			"item": [
+				{
+					"name": "Generate RCBD design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"blockSize\": null,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 0,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 10001,\n\t\t\t\"locationId\": 33,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": 2,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"{{studyForDeisgnGenId}}",
+								"experimental-designs",
+								"generation"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete generated design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"3083",
+								"experimental-designs"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate RIBD design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"blockSize\": 2,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 1,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 10001,\n\t\t\t\"locationId\": 33,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": 2,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"{{studyForDeisgnGenId}}",
+								"experimental-designs",
+								"generation"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete generated design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"3083",
+								"experimental-designs"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate RIBD Latinized design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"blockSize\": 2,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 1,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": \"2\",\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": \"1\",\n\t\"replicationsCount\": 2,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"{{studyForDeisgnGenId}}",
+								"experimental-designs",
+								"generation"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete generated design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"3083",
+								"experimental-designs"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Row and Col Design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"blockSize\": null,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": 5,\n\t\"designType\": 2,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": 9012\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": 2,\n\t\"rowsPerReplications\": 4,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"{{studyForDeisgnGenId}}",
+								"experimental-designs",
+								"generation"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete generated design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"3083",
+								"experimental-designs"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Row and Col Latinized Design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"blockSize\": null,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": 5,\n\t\"designType\": 2,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": \"2\",\n\t\"nrlatin\": \"2\",\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": \"2\",\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": \"3\",\n\t\"replicationsCount\": 2,\n\t\"rowsPerReplications\": 4,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"{{studyForDeisgnGenId}}",
+								"experimental-designs",
+								"generation"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete generated design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"3083",
+								"experimental-designs"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Augmented Design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"blockSize\": null,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 4,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": 2,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": null,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"{{studyForDeisgnGenId}}",
+								"experimental-designs",
+								"generation"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete generated design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"3083",
+								"experimental-designs"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Entry List Order Design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"blockSize\": null,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": 5,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 5,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": null,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": null,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"{{studyForDeisgnGenId}}",
+								"experimental-designs",
+								"generation"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete generated design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"3083",
+								"experimental-designs"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Prep Design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"blockSize\": 2,\n\t\"checkInsertionManner\": \"8414\",\n\t\"checkSpacing\": null,\n\t\"checkStartingPosition\": 1,\n\t\"colsPerReplications\": null,\n\t\"designType\": 6,\n\t\"environments\": [\n\t\t{\n\t\t\t\"experimentId\": 11000,\n\t\t\t\"locationId\": 34,\n\t\t\t\"managementDetailValues\": {\n\t\t\t\t\"8170\": \"1\",\n\t\t\t\t\"8190\": \"9012\"\n\t\t\t},\n\t\t\t\"phenotypeIDMap\": {},\n\t\t\t\"stockId\": 0,\n\t\t\t\"trialDetailValues\": {}\n\t\t}\n\t],\n\t\"fileName\": null,\n\t\"hasMeasurementData\": false,\n\t\"nblatin\": null,\n\t\"nclatin\": null,\n\t\"nrlatin\": null,\n\t\"numberOfBlocks\": null,\n\t\"replatinGroups\": null,\n\t\"replicationPercentage\": 40,\n\t\"replicationsArrangement\": null,\n\t\"replicationsCount\": 3,\n\t\"rowsPerReplications\": null,\n\t\"startingPlotNo\": 1,\n\t\"totalGermplasmListCount\": null,\n\t\"treatmentFactors\": {},\n\t\"treatmentFactorsData\": {},\n\t\"trialInstancesForDesignGeneration\": [\n\t\t\"1\"\n\t],\n\t\"trialSettings\": {\n\t\t\"userInput\": {}\n\t},\n\t\"useLatenized\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyForDeisgnGenId}}/experimental-designs/generation",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"{{studyForDeisgnGenId}}",
+								"experimental-designs",
+								"generation"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete generated design",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"3083",
+								"experimental-designs"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete generated design on a study with no design yet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Check error message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"The study has no experiment design yet.\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/3083/experimental-designs",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"3083",
+								"experimental-designs"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete generated design on a study with restrictions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Check error message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Instance(s) cannot be deleted due to internal validations (samples, files, sub-observations, inventory transactions, means data associated with the environment or advance/cross list associated with study).\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const echoPostRequest = {\r",
+									"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+									"  method: 'POST',\r",
+									"  header: 'Content-Type:application/json',\r",
+									"  body: {\r",
+									"    mode: 'application/json',\r",
+									"    raw: JSON.stringify({\r",
+									"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+									"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+									"        \t\"grant_type\": \"\",\r",
+									"            \"client_id\": \"\"\r",
+									"        })\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"var getToken = true;\r",
+									"\r",
+									"if (!pm.environment.get('masterTokenExpiry') || \r",
+									"    !pm.environment.get('masterToken')) {\r",
+									"    console.log('Token or expiry date are missing')\r",
+									"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+									"    console.log('Token is expired')\r",
+									"} else {\r",
+									"    getToken = false;\r",
+									"    console.log('Token and expiry date are all good');\r",
+									"}\r",
+									"\r",
+									"if (getToken === true) {\r",
+									"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+									"    console.log(err ? err : res.json());\r",
+									"        if (err === null) {\r",
+									"            console.log('Saving the token and expiry date')\r",
+									"            var responseJson = res.json();\r",
+									"            pm.environment.set('masterToken', responseJson.access_token)\r",
+									"    \r",
+									"            var expiryDate = new Date();\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"pm.globals.get(\"variable_key\");\r",
+									"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+									"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"type": "text",
+								"value": "{{masterToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/experimental-designs",
+							"host": [
+								"{{BMSurl}}"
+							],
+							"path": [
+								"crops",
+								"{{crop}}",
+								"programs",
+								"{{api_program_id}}",
+								"studies",
+								"{{studyId}}",
+								"experimental-designs"
+							]
+						},
+						"description": "POST ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/experimental-designs​/generation"
+					},
+					"response": []
 				}
 			]
 		},
