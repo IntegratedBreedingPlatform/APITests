@@ -1,7 +1,6 @@
 {
 	"info": {
-
-		"_postman_id": "23e998b0-ee3f-49cf-8e77-15a0aef6e629",
+		"_postman_id": "15a51c33-5c9c-4fe0-a5ad-7d07688444c4",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "5151467"
@@ -43371,7 +43370,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_biomass_yield_cvterm_id}}\",\r\n  \"studyAlias\": \"Biomas_yield\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43384,7 +43383,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -43483,7 +43482,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_pestpressure_cvtermId}}\",\r\n  \"studyAlias\": \"PestPressure_0_9\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableId={{study_pestpressure_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableId={{study_pestpressure_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43496,7 +43495,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -43601,7 +43600,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43614,7 +43613,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -43713,7 +43712,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{germitest_date_cvtermId}}\",\r\n  \"studyAlias\": \"GermiTest_date\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43726,7 +43725,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -43745,7 +43744,7 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.equal(\"Invalid crop \"+pm.environment.get(\"invalidCrop\")+\" for URL:/crops/\"+pm.environment.get(\"invalidCrop\")+\"/programs/\"+pm.environment.get(\"api_program_id\")+\"/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs_datasetId\")+\"/variables\");",
+											"    pm.expect(jsonData.errors[0].message).to.equal(\"Invalid crop \"+pm.environment.get(\"invalidCrop\")+\" for URL:/crops/\"+pm.environment.get(\"invalidCrop\")+\"/programs/\"+pm.environment.get(\"api_program_id\")+\"/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs_datasetId\")+\"/traits\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -43823,7 +43822,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{invalidCrop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{invalidCrop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43836,7 +43835,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -43855,7 +43854,7 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.equal(\"Invalid program: invalid for crop: \"+pm.environment.get(\"crop\")+\" for service with path /crops/\"+pm.environment.get(\"crop\")+\"/programs/invalid/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs_datasetId\")+\"/variables\");",
+											"    pm.expect(jsonData.errors[0].message).to.equal(\"Invalid program: invalid for crop: \"+pm.environment.get(\"crop\")+\" for service with path /crops/\"+pm.environment.get(\"crop\")+\"/programs/invalid/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs_datasetId\")+\"/traits\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -43933,7 +43932,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/invalid/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/invalid/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43946,7 +43945,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44043,7 +44042,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44056,7 +44055,7 @@
 										"{{non_existing_study_id}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44153,7 +44152,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44166,7 +44165,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44263,7 +44262,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44276,7 +44275,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_plot_dataset_id_noPhenoCount}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44373,7 +44372,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_biomass_yield_cvterm_id}}\",\r\n  \"studyAlias\": \"Biomas_yield\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44386,7 +44385,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44483,7 +44482,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{site_soil_ph_cvtermId}}\",\r\n  \"studyAlias\": \"SITE_SOIL_PH\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44496,7 +44495,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44597,7 +44596,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{selection_method_cvtermId}}\",\r\n  \"variableId\": \"{{npsel_cvtermId}}\",\r\n  \"studyAlias\": \"NPSEL\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44610,7 +44609,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44707,7 +44706,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{study_condition_cvtermId}}\",\r\n  \"variableId\": \"{{site_soil_ph_cvtermId}}\",\r\n  \"studyAlias\": \"SITE_SOIL_PH\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44720,7 +44719,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44806,7 +44805,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_biomass_yield_cvterm_id}}\",\r\n  \"studyAlias\": \"Biomas_yield\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{locked_studyId}}/datasets/{{locked_study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{locked_studyId}}/datasets/{{locked_study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44819,7 +44818,7 @@
 										"{{locked_studyId}}",
 										"datasets",
 										"{{locked_study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -46061,7 +46060,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_biomass_yield_cvterm_id}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_biomass_yield_cvterm_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46074,7 +46073,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46167,7 +46166,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_pestpressure_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_pestpressure_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46180,7 +46179,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46273,7 +46272,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46286,7 +46285,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46379,7 +46378,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{germitest_date_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{germitest_date_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46392,7 +46391,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46485,7 +46484,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{npsel_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{npsel_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46498,7 +46497,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46595,7 +46594,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46608,7 +46607,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46705,7 +46704,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{invalidCrop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{invalidCrop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46718,7 +46717,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46815,7 +46814,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/invalid/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/invalid/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46828,7 +46827,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46925,7 +46924,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46938,7 +46937,7 @@
 										"{{non_existing_study_id}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -47035,7 +47034,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -47048,7 +47047,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -47145,7 +47144,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{string_input}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{string_input}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -47158,7 +47157,7 @@
 										"{{string_input}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -47255,7 +47254,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{string_input}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{string_input}}/variables?traits={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -47272,7 +47271,7 @@
 									],
 									"query": [
 										{
-											"key": "variableIds",
+											"key": "traits",
 											"value": "{{study_notes_cvtermId}}"
 										}
 									]
@@ -47365,7 +47364,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{string_input}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{string_input}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -47378,7 +47377,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
