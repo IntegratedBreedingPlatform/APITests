@@ -43276,7 +43276,7 @@
 					]
 				},
 				{
-					"name": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables",
+					"name": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/traits",
 					"item": [
 						{
 							"name": "Verify adding variable to a sub obs dataset with a numeric scale",
@@ -44393,7 +44393,7 @@
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered variable that is not of given variable type",
+							"name": "Verify response code and body when entered not supported variable type",
 							"event": [
 								{
 									"listen": "test",
@@ -44404,7 +44404,7 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.equal(\"Variable is not of given variable type.\");",
+											"    pm.expect(jsonData.errors[0].message).to.equal(\"Variable type is not supported.\");",
 											"});"
 										],
 										"type": "text/javascript"
