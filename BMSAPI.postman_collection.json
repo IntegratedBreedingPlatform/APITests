@@ -1,7 +1,6 @@
 {
 	"info": {
-
-		"_postman_id": "23e998b0-ee3f-49cf-8e77-15a0aef6e629",
+		"_postman_id": "15a51c33-5c9c-4fe0-a5ad-7d07688444c4",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "5151467"
@@ -2610,52 +2609,58 @@
 									"});",
 									"pm.test(\"Check returned classes\", function() {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[0]).to.equal(\"Abiotic condition\");",
-									"    pm.expect(jsonData[1]).to.equal(\"Abiotic stress\");",
-									"    pm.expect(jsonData[2]).to.equal(\"Agronomic\");",
-									"    pm.expect(jsonData[3]).to.equal(\"Biochemical trait\");",
-									"    pm.expect(jsonData[4]).to.equal(\"Biotic condition\");",
-									"    pm.expect(jsonData[5]).to.equal(\"Biotic stress\");",
-									"    pm.expect(jsonData[6]).to.equal(\"Breeding methods\");",
-									"    pm.expect(jsonData[7]).to.equal(\"Breedingprocess\");",
-									"    pm.expect(jsonData[8]).to.equal(\"Bulking breeding methods\");",
-									"    pm.expect(jsonData[9]).to.equal(\"Climatic condition\");",
-									"    pm.expect(jsonData[10]).to.equal(\"Crop research ontology\");",
-									"    pm.expect(jsonData[11]).to.equal(\"Crop trait ontology\");",
-									"    pm.expect(jsonData[12]).to.equal(\"Crossing methods\");",
-									"    pm.expect(jsonData[13]).to.equal(\"Cultivar formation methods\");",
-									"    pm.expect(jsonData[14]).to.equal(\"Cytogenetic manipulation\");",
-									"    pm.expect(jsonData[15]).to.equal(\"Dataset Condition\");",
-									"    pm.expect(jsonData[16]).to.equal(\"Derivative breeding methods\");",
-									"    pm.expect(jsonData[17]).to.equal(\"Disease resistance\");",
-									"    pm.expect(jsonData[18]).to.equal(\"General\");",
-									"    pm.expect(jsonData[19]).to.equal(\"Generative breeding methods\");",
-									"    pm.expect(jsonData[20]).to.equal(\"Genetic Modification\");",
-									"    pm.expect(jsonData[21]).to.equal(\"Germplasm\");",
-									"    pm.expect(jsonData[22]).to.equal(\"Insect and pest resistance\");",
-									"    pm.expect(jsonData[23]).to.equal(\"Inventory\");",
-									"    pm.expect(jsonData[24]).to.equal(\"Maintenance methods\");",
-									"    pm.expect(jsonData[25]).to.equal(\"Molecular property\");",
-									"    pm.expect(jsonData[26]).to.equal(\"Morphological\");",
-									"    pm.expect(jsonData[27]).to.equal(\"Mutation methods\");",
-									"    pm.expect(jsonData[28]).to.equal(\"Non-bulking breedingmethods\");",
-									"    pm.expect(jsonData[29]).to.equal(\"Passport\");",
-									"    pm.expect(jsonData[30]).to.equal(\"Phenology\");",
-									"    pm.expect(jsonData[31]).to.equal(\"Physiological\");",
-									"    pm.expect(jsonData[32]).to.equal(\"Post harvest\");",
-									"    pm.expect(jsonData[33]).to.equal(\"Quality\");",
-									"    pm.expect(jsonData[34]).to.equal(\"Seed acquisation methods\");",
-									"    pm.expect(jsonData[35]).to.equal(\"Seed increase methods\");",
-									"    pm.expect(jsonData[36]).to.equal(\"Seed storage\");",
-									"    pm.expect(jsonData[37]).to.equal(\"Site condition\");",
-									"    pm.expect(jsonData[38]).to.equal(\"Soil condition\");",
-									"    pm.expect(jsonData[39]).to.equal(\"Study condition\");",
-									"    pm.expect(jsonData[40]).to.equal(\"Trial Design\");",
-									"    pm.expect(jsonData[41]).to.equal(\"Trial environment\");",
-									"    pm.expect(jsonData[42]).to.equal(\"Trial management\");",
-									"    pm.expect(jsonData[43]).to.equal(\"Variate condition\");",
-									"    pm.expect(jsonData[44]).to.equal(\"Yield component\");",
-									"});"
+									"    var classes = [\"Abiotic condition\",",
+									"    \"Abiotic stress\",",
+									"    \"Agronomic\",",
+									"    \"Biochemical trait\",",
+									"    \"Biotic condition\",",
+									"    \"Biotic stress\",",
+									"    \"Breeding methods\",",
+									"    \"Breedingprocess\",",
+									"    \"Bulking breeding methods\",",
+									"    \"Climatic condition\",",
+									"    \"Crop research ontology\",",
+									"    \"Crop trait ontology\",",
+									"    \"Crossing methods\",",
+									"    \"Cultivar formation methods\",",
+									"    \"Cytogenetic manipulation\",",
+									"    \"Dataset Condition\",",
+									"    \"Derivative breeding methods\",",
+									"    \"Disease resistance\",",
+									"    \"Fertility\",",
+									"    \"General\",",
+									"    \"Generative breeding methods\",",
+									"    \"Genetic Modification\",",
+									"    \"Germplasm\",",
+									"    \"Insect and pest resistance\",",
+									"    \"Inventory\",",
+									"    \"Maintenance methods\",",
+									"    \"Molecular property\",",
+									"    \"Morphological\",",
+									"    \"Mutation methods\",",
+									"    \"Non-bulking breedingmethods\",",
+									"    \"Passport\",",
+									"    \"Phenology\",",
+									"    \"Physiological\",",
+									"    \"Post harvest\",",
+									"    \"Quality\",",
+									"    \"Seed acquisation methods\",",
+									"    \"Seed increase methods\",",
+									"    \"Seed storage\",",
+									"    \"Site condition\",",
+									"    \"Soil condition\",",
+									"    \"Study condition\",",
+									"    \"Trial Design\",",
+									"    \"Trial environment\",",
+									"    \"Trial management\",",
+									"    \"Variate condition\",",
+									"    \"Yield component\"];",
+									"",
+									"    for (var i = 0; i<jsonData.length; i++){",
+									"       pm.expect(jsonData[i]).to.eql(classes[i]); ",
+									"    }",
+									"});",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -43277,7 +43282,7 @@
 					]
 				},
 				{
-					"name": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables",
+					"name": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/traits",
 					"item": [
 						{
 							"name": "Verify adding variable to a sub obs dataset with a numeric scale",
@@ -43371,7 +43376,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_biomass_yield_cvterm_id}}\",\r\n  \"studyAlias\": \"Biomas_yield\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43384,7 +43389,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -43483,7 +43488,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_pestpressure_cvtermId}}\",\r\n  \"studyAlias\": \"PestPressure_0_9\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableId={{study_pestpressure_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableId={{study_pestpressure_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43496,7 +43501,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -43601,7 +43606,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43614,7 +43619,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -43713,7 +43718,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{germitest_date_cvtermId}}\",\r\n  \"studyAlias\": \"GermiTest_date\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43726,7 +43731,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -43745,7 +43750,7 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.equal(\"Invalid crop \"+pm.environment.get(\"invalidCrop\")+\" for URL:/crops/\"+pm.environment.get(\"invalidCrop\")+\"/programs/\"+pm.environment.get(\"api_program_id\")+\"/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs_datasetId\")+\"/variables\");",
+											"    pm.expect(jsonData.errors[0].message).to.equal(\"Invalid crop \"+pm.environment.get(\"invalidCrop\")+\" for URL:/crops/\"+pm.environment.get(\"invalidCrop\")+\"/programs/\"+pm.environment.get(\"api_program_id\")+\"/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs_datasetId\")+\"/traits\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -43823,7 +43828,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{invalidCrop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{invalidCrop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43836,7 +43841,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -43855,7 +43860,7 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.equal(\"Invalid program: invalid for crop: \"+pm.environment.get(\"crop\")+\" for service with path /crops/\"+pm.environment.get(\"crop\")+\"/programs/invalid/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs_datasetId\")+\"/variables\");",
+											"    pm.expect(jsonData.errors[0].message).to.equal(\"Invalid program: invalid for crop: \"+pm.environment.get(\"crop\")+\" for service with path /crops/\"+pm.environment.get(\"crop\")+\"/programs/invalid/studies/\"+pm.environment.get(\"studyId\")+\"/datasets/\"+pm.environment.get(\"study_subobs_datasetId\")+\"/traits\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -43933,7 +43938,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/invalid/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/invalid/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -43946,7 +43951,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44043,7 +44048,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44056,7 +44061,7 @@
 										"{{non_existing_study_id}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44153,7 +44158,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44166,7 +44171,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44263,7 +44268,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_notes_cvtermId}}\",\r\n  \"studyAlias\": \"NOTES\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_plot_dataset_id_noPhenoCount}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44276,7 +44281,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_plot_dataset_id_noPhenoCount}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44373,7 +44378,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_biomass_yield_cvterm_id}}\",\r\n  \"studyAlias\": \"Biomas_yield\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44386,7 +44391,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44394,7 +44399,7 @@
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when entered variable that is not of given variable type",
+							"name": "Verify response code and body when variable is not of given variable type",
 							"event": [
 								{
 									"listen": "test",
@@ -44483,7 +44488,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{site_soil_ph_cvtermId}}\",\r\n  \"studyAlias\": \"SITE_SOIL_PH\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44496,121 +44501,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
-									]
-								},
-								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
-							},
-							"response": []
-						},
-						{
-							"name": "Verify response code and body when entered selection variable",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Check returned \", function () {",
-											"    var jsonData = pm.response.json();",
-											"    var varId = Number(pm.environment.get(\"npsel_cvtermId\"));",
-											"    pm.expect(jsonData.termId).to.equal(varId);",
-											"});",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "X-Auth-Token",
-										"type": "text",
-										"value": "{{masterToken}}"
-									},
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"variableTypeId\": \"{{selection_method_cvtermId}}\",\r\n  \"variableId\": \"{{npsel_cvtermId}}\",\r\n  \"studyAlias\": \"NPSEL\"\r\n}"
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"programs",
-										"{{api_program_id}}",
-										"studies",
-										"{{studyId}}",
-										"datasets",
-										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44707,7 +44598,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{study_condition_cvtermId}}\",\r\n  \"variableId\": \"{{site_soil_ph_cvtermId}}\",\r\n  \"studyAlias\": \"SITE_SOIL_PH\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44720,7 +44611,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -44806,7 +44697,7 @@
 									"raw": "{\r\n  \"variableTypeId\": \"{{Trait_cvtermId}}\",\r\n  \"variableId\": \"{{study_biomass_yield_cvterm_id}}\",\r\n  \"studyAlias\": \"Biomas_yield\"\r\n}"
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{locked_studyId}}/datasets/{{locked_study_subobs_datasetId}}/variables",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{locked_studyId}}/datasets/{{locked_study_subobs_datasetId}}/traits",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -44819,7 +44710,126 @@
 										"{{locked_studyId}}",
 										"datasets",
 										"{{locked_study_subobs_datasetId}}",
-										"variables"
+										"traits"
+									]
+								},
+								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/selections",
+					"item": [
+						{
+							"name": "Verify response code and body when entered selection variable",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Check returned \", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var varId = Number(pm.environment.get(\"npsel_cvtermId\"));",
+											"    pm.expect(jsonData.termId).to.equal(varId);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Auth-Token",
+										"type": "text",
+										"value": "{{masterToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"variableTypeId\": \"{{selection_method_cvtermId}}\",\r\n  \"variableId\": \"{{npsel_cvtermId}}\",\r\n  \"studyAlias\": \"NPSEL\"\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/selections",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"crops",
+										"{{crop}}",
+										"programs",
+										"{{api_program_id}}",
+										"studies",
+										"{{studyId}}",
+										"datasets",
+										"{{study_subobs_datasetId}}",
+										"selections"
 									]
 								},
 								"description": "PUT ​/crops​/{crop}​/programs​/{programUUID}​/studies​/{studyId}​/datasets​/{datasetId}​/variables"
@@ -46061,7 +46071,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_biomass_yield_cvterm_id}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_biomass_yield_cvterm_id}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46074,7 +46084,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46167,7 +46177,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_pestpressure_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_pestpressure_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46180,7 +46190,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46273,7 +46283,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46286,7 +46296,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46379,7 +46389,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{germitest_date_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{germitest_date_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46392,7 +46402,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46485,7 +46495,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{npsel_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{npsel_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46498,7 +46508,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46595,7 +46605,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46608,7 +46618,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46705,7 +46715,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{invalidCrop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{invalidCrop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46718,7 +46728,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46815,7 +46825,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/invalid/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/invalid/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46828,7 +46838,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -46925,7 +46935,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{non_existing_study_id}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -46938,7 +46948,7 @@
 										"{{non_existing_study_id}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -47035,7 +47045,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{non_existing_dataset_id}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -47048,7 +47058,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{non_existing_dataset_id}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -47145,7 +47155,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{string_input}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{string_input}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -47158,7 +47168,7 @@
 										"{{string_input}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
@@ -47255,7 +47265,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{string_input}}/variables?variableIds={{study_notes_cvtermId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{string_input}}/variables?traits={{study_notes_cvtermId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -47272,7 +47282,7 @@
 									],
 									"query": [
 										{
-											"key": "variableIds",
+											"key": "traits",
 											"value": "{{study_notes_cvtermId}}"
 										}
 									]
@@ -47365,7 +47375,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/variables?variableIds={{string_input}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{study_subobs_datasetId}}/traits?variableIds={{string_input}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -47378,7 +47388,7 @@
 										"{{studyId}}",
 										"datasets",
 										"{{study_subobs_datasetId}}",
-										"variables"
+										"traits"
 									],
 									"query": [
 										{
