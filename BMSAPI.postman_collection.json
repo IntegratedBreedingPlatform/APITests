@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9d3cada6-5cb3-4ade-873b-3b9e6db0a5b2",
+		"_postman_id": "70fd2fd9-96d5-43da-8976-c99ddb599482",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "5151467"
@@ -18008,18 +18008,6 @@
 					"name": "GET /crops/{cropName}/lot-lists/template/xls",
 					"event": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
@@ -18069,6 +18057,18 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -18084,7 +18084,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/lot-lists/templates/xls",
+							"raw": "{{BMSurl}}/crops/{{crop}}/lot-lists/templates/xls?lotExcelTemplateExportType=LOT_CREATION",
 							"host": [
 								"{{BMSurl}}"
 							],
@@ -18094,6 +18094,12 @@
 								"lot-lists",
 								"templates",
 								"xls"
+							],
+							"query": [
+								{
+									"key": "lotExcelTemplateExportType",
+									"value": "LOT_CREATION"
+								}
 							]
 						}
 					},
