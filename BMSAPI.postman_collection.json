@@ -6518,7 +6518,7 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Stock ID Prefix must end with a letter\");\r",
+											"    pm.expect(error).to.eql(\"Stock ID Prefix allows letters and numbers with a maximum length of 15 characters, and It must end with a letter.\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -6609,7 +6609,132 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Verify response code and body when entered stockId prefix > 15 characters",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Auth-Token",
+												"type": "text",
+												"value": "{{masterToken}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"generateStock\": true,\r\n  \"gid\": 40,\r\n  \"locationId\": 6000,\r\n  \"notes\": \"new lot record\",\r\n  \"stockPrefix\": \"1234\",\r\n  \"unitId\": 8264\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BMSurl}}/crops/{{crop}}/lots",
+											"host": [
+												"{{BMSurl}}"
+											],
+											"path": [
+												"crops",
+												"{{crop}}",
+												"lots"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.17.6"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Jan 2024 01:38:12 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json;charset=UTF-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "POST, PUT, PATCH, GET, OPTIONS, DELETE"
+										},
+										{
+											"key": "Access-Control-Max-Age",
+											"value": "3600"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "x-requested-with, x-auth-token, Authorization, Content-type"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "strict-origin-when-cross-origin"
+										},
+										{
+											"key": "Feature-Policy",
+											"value": "self"
+										},
+										{
+											"key": "Content-Security-Policy",
+											"value": "default-src 'self'; img-src 'self' data: https:; frame-src 'self' https://surveyhero.com https://www.surveyhero.com data: blob: https://surveyhero.com; connect-src 'self' https:; object-src 'none'; script-src 'self' https://embed-cdn.surveyhero.com https://nominatim.openstreetmap.org 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://embed-cdn.surveyhero.com 'unsafe-inline';"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "max-age=0, no-cache, no-store"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"errors\": [\n        {\n            \"fieldNames\": [],\n            \"message\": \"Stock ID Prefix allows letters and numbers with a maximum length of 15 characters, and It must end with a letter.\"\n        }\n    ]\n}"
+								}
+							]
 						},
 						{
 							"name": "Verify response code and body when entered notes > 255 characters",
@@ -7154,7 +7279,7 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Stock ID Prefix must end with a letter\");\r",
+											"    pm.expect(error).to.eql(\"Stock ID Prefix allows letters and numbers with a maximum length of 15 characters, and It must end with a letter.\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17432,7 +17557,7 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Stock ID Prefix must end with a letter\");\r",
+											"    pm.expect(error).to.eql(\"Stock ID Prefix allows letters and numbers with a maximum length of 15 characters, and It must end with a letter.\");\r",
 											"});"
 										],
 										"type": "text/javascript"
