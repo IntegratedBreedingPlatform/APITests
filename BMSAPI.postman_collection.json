@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "ad426c2c-1a9e-44c3-88f0-69cbaff4ef4c",
+		"_postman_id": "3dc6298a-02a6-472f-a27d-5e05cefed678",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "5151467",
-		"_collection_link": "https://bmsapi-leafnode.postman.co/workspace/fix-failing-test-20240818~44ea5a41-5eb4-4d57-97d1-6ca9a8a53b01/collection/5151467-ad426c2c-1a9e-44c3-88f0-69cbaff4ef4c?action=share&source=collection_link&creator=5151467"
+		"_collection_link": "https://bmsapi-leafnode.postman.co/workspace/v28~6c7c4c75-b03e-4e1b-8896-f9010b4720d9/collection/5151467-3dc6298a-02a6-472f-a27d-5e05cefed678?action=share&source=collection_link&creator=5151467"
 	},
 	"item": [
 		{
@@ -4277,13 +4277,14 @@
 											"",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check error message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Variable (18110) with same property (Grain size), scale (g) and method (Weigh 1000 dry grains) already exists in the database.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});",
 											"",
 											"    ",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -4334,7 +4335,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -12052,10 +12054,11 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -12106,7 +12109,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -12923,10 +12927,11 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -12977,7 +12982,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14086,16 +14092,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
+											"pm.test(\"Status code is 500\", function () {\r",
 											"    pm.response.to.have.status(500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -14146,7 +14153,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14734,10 +14742,11 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -14788,7 +14797,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -19658,10 +19668,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -19712,7 +19723,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -20643,10 +20655,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -20697,7 +20710,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -21858,10 +21872,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -21912,7 +21927,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -26842,10 +26858,11 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -26896,7 +26913,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -27627,10 +27645,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -27681,7 +27700,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -28621,10 +28641,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -28675,7 +28696,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -29049,10 +29071,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -29103,7 +29126,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -29709,10 +29733,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -29763,7 +29788,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -35997,10 +36023,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -36051,7 +36078,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
