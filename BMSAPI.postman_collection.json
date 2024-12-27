@@ -13559,7 +13559,7 @@
 					"name": "POST ​/crops​/{cropName}​/lots​/generation",
 					"item": [
 						{
-							"name": "Verify response code and body when entered valid GID",
+							"name": "Verify response code and body when entered valid inputs",
 							"event": [
 								{
 									"listen": "test",
@@ -45493,10 +45493,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -45547,7 +45548,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
