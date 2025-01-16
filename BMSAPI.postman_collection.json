@@ -25795,13 +25795,14 @@
 											"            pm.expect(jsonData[i].amount).to.eql(100.0);\r",
 											"            pm.expect(jsonData[i].notes).to.eql(\"From List Import\");\r",
 											"            pm.expect(jsonData[i].createdDate).to.eql(\"2018-10-25\");\r",
-											"            pm.expect(jsonData[i].lot.lotId).to.eql(21);\r",
+											"            pm.expect(jsonData[i].lot.lotId).to.eql(30);\r",
 											"            console.log(\"index:\" + i + \"Found! \");\r",
 											"        }\r",
 											"    }\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -25852,7 +25853,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -33029,7 +33031,8 @@
 											"});",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -33080,7 +33083,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -33094,7 +33098,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{study_env_id}}/instances/generation?numberOfInstancesToGenerate=1",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/99999/instances/generation?numberOfInstancesToGenerate=1",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -33104,7 +33108,7 @@
 										"programs",
 										"{{api_program_id}}",
 										"studies",
-										"{{study_env_id}}",
+										"99999",
 										"instances",
 										"generation"
 									],
@@ -36234,18 +36238,19 @@
 											"});",
 											"pm.test(\"Check env dataset id\", function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData[0].datasetId).to.equal(parseInt(pm.environment.get(\"study_env_id\")));",
+											"    pm.expect(jsonData[1].datasetId).to.equal(parseInt(pm.environment.get(\"study_env_id\")));",
 											"});",
 											"pm.test(\"Check env plot dataset id\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData[1].datasetId).to.eql(parseInt(pm.environment.get(\"study_plot_datasetId\")));",
+											"    pm.expect(jsonData[2].datasetId).to.eql(parseInt(pm.environment.get(\"study_plot_datasetId\")));",
 											"});",
 											"pm.test(\"Check subobs dataset id\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData[2].datasetId).to.eql(parseInt(pm.environment.get(\"study_subobs_datasetId\")));",
+											"    pm.expect(jsonData[3].datasetId).to.eql(parseInt(pm.environment.get(\"study_subobs_datasetId\")));",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -36296,7 +36301,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
