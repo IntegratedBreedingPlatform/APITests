@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "ad426c2c-1a9e-44c3-88f0-69cbaff4ef4c",
+		"_postman_id": "3dc6298a-02a6-472f-a27d-5e05cefed678",
 		"name": "BMSAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "5151467",
-		"_collection_link": "https://bmsapi-leafnode.postman.co/workspace/fix-failing-test-20240818~44ea5a41-5eb4-4d57-97d1-6ca9a8a53b01/collection/5151467-ad426c2c-1a9e-44c3-88f0-69cbaff4ef4c?action=share&source=collection_link&creator=5151467"
+		"_collection_link": "https://bmsapi-leafnode.postman.co/workspace/v28~6c7c4c75-b03e-4e1b-8896-f9010b4720d9/collection/5151467-3dc6298a-02a6-472f-a27d-5e05cefed678?action=share&source=collection_link&creator=5151467"
 	},
 	"item": [
 		{
@@ -4277,13 +4277,14 @@
 											"",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check error message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Variable (18110) with same property (Grain size), scale (g) and method (Weigh 1000 dry grains) already exists in the database.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});",
 											"",
 											"    ",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -4334,7 +4335,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -12052,10 +12054,11 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -12106,7 +12109,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -12387,10 +12391,11 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -12441,7 +12446,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -12923,10 +12929,11 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -12977,7 +12984,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -13551,7 +13559,7 @@
 					"name": "POST ​/crops​/{cropName}​/lots​/generation",
 					"item": [
 						{
-							"name": "Verify response code and body when entered valid GID",
+							"name": "Verify response code and body when entered valid inputs",
 							"event": [
 								{
 									"listen": "test",
@@ -13742,108 +13750,6 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n  \"lotGeneratorInput\": {\r\n    \"generateStock\": true,\r\n    \"locationId\": 6000,\r\n    \"notes\": \"lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet\",\r\n    \"unitId\": 8264\r\n  },\r\n  \"searchComposite\": {\r\n    \"itemIds\": [\r\n      22\r\n    ]\r\n  },\r\n  \"studyId\": \"3031\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/lots/generation",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"crops",
-										"{{crop}}",
-										"lots",
-										"generation"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Verify response code and body when entered valid searchRequestId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Auth-Token",
-										"value": "{{masterToken}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"lotGeneratorInput\": {\r\n    \"generateStock\": true,\r\n    \"locationId\": 6000,\r\n    \"notes\": \"Created by Postman\",\r\n    \"unitId\": 8264\r\n  },\r\n  \"searchComposite\": {\r\n    \"searchRequest\": {\r\n      \"searchOrigin\": \"MANAGE_STUDY_SOURCE\",\r\n      \"searchRequestId\": {{searchbygid}}\r\n    }\r\n  }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -14086,16 +13992,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
+											"pm.test(\"Status code is 500\", function () {\r",
 											"    pm.response.to.have.status(500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -14146,7 +14053,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14734,10 +14642,11 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -14788,7 +14697,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -19658,10 +19568,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -19712,7 +19623,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -20643,10 +20555,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -20697,7 +20610,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -21858,10 +21772,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -21912,7 +21827,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -25777,13 +25693,14 @@
 											"            pm.expect(jsonData[i].amount).to.eql(100.0);\r",
 											"            pm.expect(jsonData[i].notes).to.eql(\"From List Import\");\r",
 											"            pm.expect(jsonData[i].createdDate).to.eql(\"2018-10-25\");\r",
-											"            pm.expect(jsonData[i].lot.lotId).to.eql(21);\r",
+											"            pm.expect(jsonData[i].lot.lotId).to.eql(30);\r",
 											"            console.log(\"index:\" + i + \"Found! \");\r",
 											"        }\r",
 											"    }\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -25834,7 +25751,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -26842,10 +26760,11 @@
 											"\r",
 											"pm.test(\"Verify error message\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -26896,7 +26815,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -27627,10 +27547,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -27681,7 +27602,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -28621,10 +28543,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -28675,7 +28598,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -29049,10 +28973,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -29103,7 +29028,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -29709,10 +29635,11 @@
 											"\r",
 											"pm.test(\"Verify error message is correct\", function () {\r",
 											"    var error = pm.response.json().errors[0].message;\r",
-											"    pm.expect(error).to.eql(\"Error when trying to get the search request. Id is null or does not exist\");\r",
+											"    pm.expect(error).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -29763,7 +29690,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -33001,7 +32929,8 @@
 											"});",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -33052,7 +32981,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -33066,7 +32996,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{study_env_id}}/instances/generation?numberOfInstancesToGenerate=1",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/99999/instances/generation?numberOfInstancesToGenerate=1",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -33076,7 +33006,7 @@
 										"programs",
 										"{{api_program_id}}",
 										"studies",
-										"{{study_env_id}}",
+										"99999",
 										"instances",
 										"generation"
 									],
@@ -35997,10 +35927,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -36051,7 +35982,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -36097,10 +36029,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -36151,7 +36084,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -36202,18 +36136,19 @@
 											"});",
 											"pm.test(\"Check env dataset id\", function() {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData[0].datasetId).to.equal(parseInt(pm.environment.get(\"study_env_id\")));",
+											"    pm.expect(jsonData[1].datasetId).to.equal(parseInt(pm.environment.get(\"study_env_id\")));",
 											"});",
 											"pm.test(\"Check env plot dataset id\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData[1].datasetId).to.eql(parseInt(pm.environment.get(\"study_plot_datasetId\")));",
+											"    pm.expect(jsonData[2].datasetId).to.eql(parseInt(pm.environment.get(\"study_plot_datasetId\")));",
 											"});",
 											"pm.test(\"Check subobs dataset id\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData[2].datasetId).to.eql(parseInt(pm.environment.get(\"study_subobs_datasetId\")));",
+											"    pm.expect(jsonData[3].datasetId).to.eql(parseInt(pm.environment.get(\"study_subobs_datasetId\")));",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -36264,7 +36199,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -37130,10 +37066,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -37184,7 +37121,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -37228,10 +37166,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -37282,7 +37221,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -38354,10 +38294,11 @@
 											"pm.test(\"Verify returned studyId\", function () {",
 											"    var jsonData = pm.response.json();",
 											"//    var studyId = Number(pm.environment.get(\"studyId\"));",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -38408,7 +38349,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -38453,11 +38395,11 @@
 											"});",
 											"pm.test(\"Verify returned studyId\", function () {",
 											"    var jsonData = pm.response.json();",
-											"//    var studyId = Number(pm.environment.get(\"studyId\"));",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -38508,7 +38450,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -39427,7 +39370,8 @@
 											"});",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -39478,7 +39422,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -39492,7 +39437,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/{{studyId}}/observationUnits/{{study_instanceId}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/programs/{{api_program_id}}/studies/{{studyId}}/datasets/100000/observationUnits/{{study_instanceId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -39504,7 +39449,7 @@
 										"studies",
 										"{{studyId}}",
 										"datasets",
-										"{{studyId}}",
+										"100000",
 										"observationUnits",
 										"{{study_instanceId}}"
 									]
@@ -40580,10 +40525,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -40634,7 +40580,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -40682,10 +40629,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -40736,7 +40684,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -41845,10 +41794,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -41899,7 +41849,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -41946,10 +41897,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -42000,7 +41952,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -42047,10 +42000,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -42101,7 +42055,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -45442,10 +45397,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -45496,7 +45452,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -45553,10 +45510,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -45607,7 +45565,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -45664,10 +45623,11 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -45718,7 +45678,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -47082,10 +47043,11 @@
 											"});",
 											"pm.test(\"Verify response message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -47136,7 +47098,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -47192,10 +47155,11 @@
 											"});",
 											"pm.test(\"Verify response message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -47246,7 +47210,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -47302,10 +47267,11 @@
 											"});",
 											"pm.test(\"Verify response message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"For input string: \\\"asd\\\"\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -47356,7 +47322,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -52187,9 +52154,9 @@
 											"observationIds = JSON.parse(pm.environment.get(\"observationIds\"));",
 											"",
 											"if(observationUnitIds.length && observationIds.length > 0){",
-											"postman.setNextRequest(\"Delete observation\");",
+											"pm.execution.setNextRequest(\"Delete observation\");",
 											"}else{",
-											"    postman.setNextRequest(null);",
+											"    pm.execution.setNextRequest(null);",
 											"}"
 										],
 										"type": "text/javascript"
@@ -54649,9 +54616,9 @@
 											"observationIds = JSON.parse(pm.environment.get(\"observationIds\"));",
 											"",
 											"if(observationUnitIds.length && observationIds.length > 0){",
-											"postman.setNextRequest(\"Delete observation\");",
+											"pm.execution.setNextRequest(\"Delete observation\");",
 											"}else{",
-											"    postman.setNextRequest(null);",
+											"    pm.execution.setNextRequest(null);",
 											"}"
 										],
 										"type": "text/javascript"
@@ -54916,9 +54883,9 @@
 											"observationIds = JSON.parse(pm.environment.get(\"observationIds\"));",
 											"",
 											"if(observationUnitIds.length && observationIds.length > 0){",
-											"postman.setNextRequest(\"Delete observation of catgorical variable in subobs\");",
+											"pm.execution.setNextRequest(\"Delete observation of catgorical variable in subobs\");",
 											"}else{",
-											"    postman.setNextRequest(null);",
+											"    pm.execution.setNextRequest(null);",
 											"}"
 										],
 										"type": "text/javascript"
@@ -56871,9 +56838,9 @@
 											"observationIds = JSON.parse(pm.environment.get(\"observationIds\"));",
 											"",
 											"if(observationUnitIds.length && observationIds.length > 0){",
-											"postman.setNextRequest(\"Delete observation of catgorical variable in subobs\");",
+											"pm.execution.setNextRequest(\"Delete observation of catgorical variable in subobs\");",
 											"}else{",
-											"    postman.setNextRequest(null);",
+											"    pm.execution.setNextRequest(null);",
 											"}"
 										],
 										"type": "text/javascript"
@@ -57907,9 +57874,9 @@
 											"observationIds = JSON.parse(pm.environment.get(\"observationIds\"));",
 											"",
 											"if(observationUnitIds.length && observationIds.length > 0){",
-											"postman.setNextRequest(\"Delete observation of catgorical variable with missing values\");",
+											"pm.execution.setNextRequest(\"Delete observation of catgorical variable with missing values\");",
 											"}else{",
-											"    postman.setNextRequest(null);",
+											"    pm.execution.setNextRequest(null);",
 											"}"
 										],
 										"type": "text/javascript"
