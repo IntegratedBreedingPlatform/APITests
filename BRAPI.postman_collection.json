@@ -124360,7 +124360,7 @@
 					]
 				},
 				{
-					"name": "GET ​/{crop}​/brapi​/v2​/search​/attribute​/{searchResultsDbId}",
+					"name": "GET ​/{crop}​/brapi​/v2​/search​/attributes​/{searchResultsDbId}",
 					"item": [
 						{
 							"name": "Verify response code and body when entered valid attributeDbIds",
@@ -126782,10 +126782,11 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalid for URL:/invalid/brapi/v2/search/attribute/1\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalid for URL:/invalid/brapi/v2/search/attributes/1\");",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -126836,7 +126837,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -126854,7 +126856,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/invalid/brapi/v2/search/attribute/1",
+									"raw": "{{BMSurl}}/invalid/brapi/v2/search/attributes/1",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -126863,7 +126865,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"1"
 									]
 								},
@@ -126886,7 +126888,8 @@
 											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"no search request found\");",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -126937,7 +126940,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -126955,7 +126959,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/1",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/1",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -126964,7 +126968,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"1"
 									]
 								},
@@ -126984,10 +126988,11 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid program: invalid for crop: testdata for service with path /testdata/brapi/v2/search/attributevalues/1\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid program: invalid for crop: testdata for service with path /testdata/brapi/v2/search/attributes/1\");",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -127038,7 +127043,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -127056,7 +127062,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributevalues/1?programUUID=invalid",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/1?programUUID=invalid",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -127065,7 +127071,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attributevalues",
+										"attributes",
 										"1"
 									],
 									"query": [
@@ -127279,7 +127285,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_multiples}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_multiples}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -127288,7 +127294,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_multiples}}"
 									]
 								},
