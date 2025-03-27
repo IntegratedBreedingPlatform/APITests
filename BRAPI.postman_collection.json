@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "7dcf4598-9c64-47ef-a889-da42eeadc89d",
+		"_postman_id": "00fd13cf-220f-45a0-b4c4-08c028911772",
 		"name": "BRAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "5151467",
-		"_collection_link": "https://bmsapi-leafnode.postman.co/workspace/v28~6c7c4c75-b03e-4e1b-8896-f9010b4720d9/collection/5151467-7dcf4598-9c64-47ef-a889-da42eeadc89d?action=share&source=collection_link&creator=5151467"
+		"_exporter_id": "5151467"
 	},
 	"item": [
 		{
@@ -77661,7 +77660,7 @@
 											"//Check details of result",
 											"var index = 0;",
 											"pm.test(\"Check additionalInfo\", function () {",
-											"    pm.expect(jsonData.result.data[index].additionalInfo).to.eql({ENTRY_NO: '2', datasetId: '3123'});",
+											"    pm.expect(jsonData.result.data[index].additionalInfo).to.eql({ENTRY_NO: '1', datasetId: '3123'});",
 											"});",
 											"",
 											"pm.test(\"Check externalReferences referenceID\", function () {",
@@ -77751,7 +77750,8 @@
 											"    pm.expect(jsonData.result.data[index].trialName).to.eql(\"Study w complete details\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -77802,7 +77802,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -81225,7 +81226,7 @@
 											"    pm.expect(jsonData.result.scale.scaleName).to.eql(\"Score\");\r",
 											"});\r",
 											"pm.test(\"Check scale validValues categories\", function () {\r",
-											"    pm.expect(jsonData.result.scale.validValues.categories).to.eql([ \"0\",\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"]);\r",
+											"    pm.expect(jsonData.result.scale.validValues.categories).to.eql([{\"label\":\"No disease\",\"value\":\"0\"},{\"label\":\"10 percent of plants affected\",\"value\":\"1\"},{\"label\":\"20 percent of plants affected\",\"value\":\"2\"},{\"label\":\"30 percent of plants affected\",\"value\":\"3\"},{\"label\":\"40 percent of plants affected\",\"value\":\"4\"},{\"label\":\"50 percent of plants affected\",\"value\":\"5\"},{\"label\":\"60 percent of plants affected\",\"value\":\"6\"},{\"label\":\"70 percent of plants affected\",\"value\":\"7\"},{\"label\":\"80 percent of plants affected\",\"value\":\"8\"},{\"label\":\"All plants affected\",\"value\":\"9\"}]);\r",
 											"});\r",
 											"pm.test(\"Check scale validValues max\", function () {\r",
 											"    pm.expect(jsonData.result.scale.validValues.max).to.eql(null);\r",
@@ -81251,7 +81252,8 @@
 											"    pm.expect(jsonData.result.studyDbIds).to.not.be.null;\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -81302,7 +81304,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -107432,9 +107435,28 @@
 											" }",
 											"",
 											"});",
+											"",
+											"pm.test(\"Check for Selection_Trait category labels\", function () {",
+											"    var labels = [\"Drought and heat tolerance\",\"Drought tolerance\",\"Heat tolerance\",\"Nitrogen use efficiency\",\"Rust resistance\"]",
+											" for (var i = 0; i < jsonData.result.data[0].scale.validValues.categories.length; i++) { ",
+											"         pm.expect(jsonData.result.data[0].scale.validValues.categories[i].label).to.be.eql(labels[i]);",
+											"    }",
+											"",
+											"});",
+											"",
+											"pm.test(\"Check for Selection_Trait category values\", function () {",
+											"    var values = [\"DH\",\"DT\",\"HT\",\"NU\",\"RR\"]",
+											" for (var i = 0; i < jsonData.result.data[0].scale.validValues.categories.length; i++) { ",
+											"         pm.expect(jsonData.result.data[0].scale.validValues.categories[i].value).to.be.eql(values[i]);",
+											"    }",
+											"",
+											"});",
+											"",
+											"",
 											"   "
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -107485,7 +107507,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -124029,118 +124052,6 @@
 							"response": []
 						},
 						{
-							"name": "Verify response code and body when searched by valid studyDbId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"    var jsonData = pm.response.json();",
-											"    pm.environment.unset(\"searchResultDbId_v1_studyDbId\");",
-											"    pm.environment.set(\"searchResultDbId_v1_studyDbId\", jsonData.result.searchResultsDbId);"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"studyDbIds\": [\r\n    \"1\"\r\n  ]\r\n}"
-								},
-								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"{{crop}}",
-										"brapi",
-										"v2",
-										"search",
-										"attributes"
-									]
-								},
-								"description": "POST /{crop}/brapi/v1/search/germplasm"
-							},
-							"response": []
-						},
-						{
 							"name": "Verify response code and body when searched by valid traitClasses",
 							"event": [
 								{
@@ -124473,7 +124384,7 @@
 					]
 				},
 				{
-					"name": "GET ​/{crop}​/brapi​/v2​/search​/attribute​/{searchResultsDbId}",
+					"name": "GET ​/{crop}​/brapi​/v2​/search​/attributes​/{searchResultsDbId}",
 					"item": [
 						{
 							"name": "Verify response code and body when entered valid attributeDbIds",
@@ -124675,7 +124586,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_attributeDbIds}}?page=0&pageSize=1000",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_attributeDbIds}}?page=0&pageSize=1000",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -124684,7 +124595,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_attributeDbIds}}"
 									],
 									"query": [
@@ -124788,7 +124699,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_attributeDbIds}}?page=20&pageSize=1000",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_attributeDbIds}}?page=20&pageSize=1000",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -124797,7 +124708,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_attributeDbIds}}"
 									],
 									"query": [
@@ -124901,7 +124812,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_attributeDbIds}}?page=0&pageSize=1000000",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_attributeDbIds}}?page=0&pageSize=1000000",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -124910,7 +124821,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_attributeDbIds}}"
 									],
 									"query": [
@@ -125128,7 +125039,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_attributeNames}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_attributeNames}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -125137,7 +125048,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_attributeNames}}"
 									]
 								},
@@ -125346,7 +125257,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_refId}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_refId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -125355,7 +125266,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_refId}}"
 									]
 								},
@@ -125564,7 +125475,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_refsource}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_refsource}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -125573,7 +125484,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_refsource}}"
 									]
 								},
@@ -125781,7 +125692,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_dataTypes}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_dataTypes}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -125790,7 +125701,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_dataTypes}}"
 									]
 								},
@@ -125998,7 +125909,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_methodDbid}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_methodDbid}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -126007,7 +125918,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_methodDbid}}"
 									]
 								},
@@ -126215,7 +126126,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_ontologyDbId}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_ontologyDbId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -126224,7 +126135,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_ontologyDbId}}"
 									]
 								},
@@ -126432,7 +126343,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_scaleId}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_scaleId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -126441,225 +126352,8 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_scaleId}}"
-									]
-								},
-								"description": "GET ​/{crop}​/brapi​/v1​/studies​/{studyDbId}​/observationunits"
-							},
-							"response": []
-						},
-						{
-							"name": "Verify response code and body when entered valid studyDbId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"//var data = jsonData.result.data[0];",
-											"pm.test(\"Verify returned metadata\", function () {",
-											"",
-											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
-											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(12);",
-											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
-											"    pm.expect(jsonData.metadata.status).to.eql([]);",
-											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
-											"});",
-											"var index = 0;",
-											"//Verify returned data of the first attribute record",
-											"pm.test(\"Verify returned additionalInfo \", function () {",
-											"     pm.expect(jsonData.result.data[index].additionalInfo).to.eql({});     ",
-											"});",
-											"pm.test(\"Verify returned attributeCategory\", function () {",
-											"     pm.expect(jsonData.result.data[index].attributeCategory).to.eql(\"Passport\");",
-											"     ",
-											"});",
-											"pm.test(\"Verify returned attributeDbId\", function () {",
-											"     pm.expect(jsonData.result.data[index].attributeDbId).to.eql(\"100643\");",
-											"});",
-											"pm.test(\"Verify returned attributeDescription\", function () {",
-											"     pm.expect(jsonData.result.data[index].attributeDescription).to.eql(\"Additional details about germplasm\");",
-											"});",
-											"pm.test(\"Verify returned attributeName\", function () {",
-											"     pm.expect(jsonData.result.data[index].attributeName).to.eql(\"INSTCODE_AP_text\");     ",
-											"});",
-											"pm.test(\"Verify returned commonCropName\", function () {",
-											"     pm.expect(jsonData.result.data[index].commonCropName).to.eql(\"testdata\");",
-											"});",
-											"pm.test(\"Verify returned contextOfUse\", function () {",
-											"     pm.expect(jsonData.result.data[index].contextOfUse).to.eql([\"PLOT\"]);     ",
-											"});",
-											"pm.test(\"Verify returned defaultValue\", function () {",
-											"     pm.expect(jsonData.result.data[index].defaultValue).to.eql(\"\");   ",
-											"});",
-											"pm.test(\"Verify returned documentationURL\", function () {",
-											"     pm.expect(jsonData.result.data[index].documentationURL).to.eql(null);",
-											"});",
-											"pm.test(\"Verify returned externalReferences\", function () {",
-											"     pm.expect(jsonData.result.data[index].externalReferences).to.eql(null);",
-											"});",
-											"pm.test(\"Verify returned growthStage\", function () {",
-											"     pm.expect(jsonData.result.data[index].growthStage).to.eql(null);     ",
-											"});",
-											"pm.test(\"Verify returned institution\", function () {",
-											"     pm.expect(jsonData.result.data[index].institution).to.eql(null);     ",
-											"});",
-											"pm.test(\"Verify returned language\", function () {",
-											"     pm.expect(jsonData.result.data[index].language).to.eql(null);     ",
-											"});",
-											"pm.test(\"Verify returned method description\", function () {",
-											"     pm.expect(jsonData.result.data[index].method.description).to.eql(\"Standard method for assigned attribute\");     ",
-											"});",
-											"pm.test(\"Verify returned method id\", function () {",
-											"     pm.expect(jsonData.result.data[index].method.methodDbId).to.eql(\"4031\");     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned method name\", function () {",
-											"     pm.expect(jsonData.result.data[index].method.methodName).to.eql(\"Assigned Attribute\");     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned method ontology id\", function () {",
-											"     pm.expect(jsonData.result.data[index].method.ontologyReferenceObject.ontologyDbId).to.eql(null);     ",
-											"});",
-											"pm.test(\"Verify returned method ontology name\", function () {",
-											"     pm.expect(jsonData.result.data[index].method.ontologyReferenceObject.ontologyName).to.eql(\"Assigned Attribute\");     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned scale datatype\", function () {",
-											"     pm.expect(jsonData.result.data[index].scale.dataType).to.eql(\"Text\");     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned scale datatype\", function () {",
-											"     pm.expect(jsonData.result.data[index].scale.dataType).to.eql(\"Text\");     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned scale ontologyDbId\", function () {",
-											"     pm.expect(jsonData.result.data[index].scale.ontologyReference.ontologyDbId).to.eql(null);     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned scale ontologyName\", function () {",
-											"     pm.expect(jsonData.result.data[index].scale.ontologyReference.ontologyName).to.eql(\"Text\");     ",
-											"});",
-											"pm.test(\"Verify returned scaleDbId\", function () {",
-											"     pm.expect(jsonData.result.data[index].scale.scaleDbId).to.eql(\"6020\");     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned scaleName\", function () {",
-											"     pm.expect(jsonData.result.data[index].scale.scaleName).to.eql(\"Text\");     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned traitClass\", function () {",
-											"     pm.expect(jsonData.result.data[index].trait.traitClass).to.eql(\"Passport\");     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned traitDescription\", function () {",
-											"     pm.expect(jsonData.result.data[index].trait.traitDescription).to.eql(\"Additional details about germplasm\");     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned traitName\", function () {",
-											"     pm.expect(jsonData.result.data[index].trait.name).to.eql(\"Additional details about germplasm\");     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned trait status\", function () {",
-											"     pm.expect(jsonData.result.data[index].trait.status).to.eql(\"Active\");     ",
-											"});",
-											"pm.test(\"Verify returned traitDbId\", function () {",
-											"     pm.expect(jsonData.result.data[index].trait.traitDbId).to.eql(\"100516\");     ",
-											"});",
-											"",
-											"pm.test(\"Verify returned trait ontologyName\", function () {",
-											"     pm.expect(jsonData.result.data[index].trait.ontologyReference.ontologyName).to.eql(\"Additional details about germplasm\");     ",
-											"});",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const echoPostRequest = {\r",
-											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
-											"  method: 'POST',\r",
-											"  header: 'Content-Type:application/json',\r",
-											"  body: {\r",
-											"    mode: 'application/json',\r",
-											"    raw: JSON.stringify({\r",
-											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
-											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
-											"        \t\"grant_type\": \"\",\r",
-											"            \"client_id\": \"\"\r",
-											"        })\r",
-											"  }\r",
-											"};\r",
-											"\r",
-											"var getToken = true;\r",
-											"\r",
-											"if (!pm.environment.get('masterTokenExpiry') || \r",
-											"    !pm.environment.get('masterToken')) {\r",
-											"    console.log('Token or expiry date are missing')\r",
-											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
-											"    console.log('Token is expired')\r",
-											"} else {\r",
-											"    getToken = false;\r",
-											"    console.log('Token and expiry date are all good');\r",
-											"}\r",
-											"\r",
-											"if (getToken === true) {\r",
-											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
-											"    console.log(err ? err : res.json());\r",
-											"        if (err === null) {\r",
-											"            console.log('Saving the token and expiry date')\r",
-											"            var responseJson = res.json();\r",
-											"            pm.environment.set('masterToken', responseJson.access_token)\r",
-											"    \r",
-											"            var expiryDate = new Date();\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"pm.globals.get(\"variable_key\");\r",
-											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
-											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
-											"        }\r",
-											"    });\r",
-											"}"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{masterToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_studyDbId}}",
-									"host": [
-										"{{BMSurl}}"
-									],
-									"path": [
-										"{{crop}}",
-										"brapi",
-										"v2",
-										"search",
-										"attribute",
-										"{{searchResultDbId_v1_studyDbId}}"
 									]
 								},
 								"description": "GET ​/{crop}​/brapi​/v1​/studies​/{studyDbId}​/observationunits"
@@ -126866,7 +126560,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_traitClasses}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_traitClasses}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -126875,7 +126569,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_traitClasses}}"
 									]
 								},
@@ -127083,7 +126777,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_traitDbId}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_traitDbId}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -127092,7 +126786,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_traitDbId}}"
 									]
 								},
@@ -127112,10 +126806,11 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalid for URL:/invalid/brapi/v2/search/attribute/1\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid crop invalid for URL:/invalid/brapi/v2/search/attributes/1\");",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -127166,7 +126861,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -127184,7 +126880,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/invalid/brapi/v2/search/attribute/1",
+									"raw": "{{BMSurl}}/invalid/brapi/v2/search/attributes/1",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -127193,7 +126889,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"1"
 									]
 								},
@@ -127216,7 +126912,8 @@
 											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"no search request found\");",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -127267,7 +126964,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -127285,7 +126983,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/1",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/1",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -127294,7 +126992,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"1"
 									]
 								},
@@ -127314,10 +127012,11 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid program: invalid for crop: testdata for service with path /testdata/brapi/v2/search/attributevalues/1\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Invalid program: invalid for crop: testdata for service with path /testdata/brapi/v2/search/attributes/1\");",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -127368,7 +127067,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -127386,7 +127086,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributevalues/1?programUUID=invalid",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/1?programUUID=invalid",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -127395,7 +127095,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attributevalues",
+										"attributes",
 										"1"
 									],
 									"query": [
@@ -127609,7 +127309,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attribute/{{searchResultDbId_v1_multiples}}",
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_multiples}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -127618,7 +127318,7 @@
 										"brapi",
 										"v2",
 										"search",
-										"attribute",
+										"attributes",
 										"{{searchResultDbId_v1_multiples}}"
 									]
 								},
@@ -137664,10 +137364,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check returned pedigreeString\", function () {\r",
-											"    pm.expect(jsonData.result.data[0].pedigreeString).to.be.eql(\"A/B\");\r",
+											"    pm.expect(jsonData.result.data[0].pedigreeString).to.be.eql(\"C\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -137718,7 +137419,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -137813,13 +137515,14 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check returned pedigreeString\", function () {\r",
-											"    var pedigreeStrings = [\"Unknown/Unknown\",\"A/B\",\"A/B\",\"A/B\",\"Unknown/Unknown\"];\r",
+											"    var pedigreeStrings = [\"Unknown/Unknown\",\"C\",\"C\",\"A/B\",\"Unknown/Unknown\"];\r",
 											"    for (var i = 0; i < jsonData.result.data.length; i++) { \r",
 											"        pm.expect(jsonData.result.data[i].pedigreeString).to.be.eql(pedigreeStrings[i]);\r",
 											"    }\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -137870,7 +137573,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -137949,10 +137653,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check returned pedigreeString\", function () {\r",
-											"    pm.expect(jsonData.result.data[0].pedigreeString).to.be.eql(\"A/B\");\r",
+											"    pm.expect(jsonData.result.data[0].pedigreeString).to.be.eql(\"C\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -138003,7 +137708,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -138082,7 +137788,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check returned pedigreeString\", function () {\r",
-											"    pm.expect(jsonData.result.data[0].pedigreeString).to.be.eql(\"A/B\");\r",
+											"    pm.expect(jsonData.result.data[0].pedigreeString).to.be.eql(\"C\");\r",
 											"});\r",
 											"\r",
 											"//Check parent details\r",
@@ -138108,7 +137814,8 @@
 											"    }\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -138159,7 +137866,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -138706,7 +138414,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check returned pedigreeString\", function () {\r",
-											"    pm.expect(jsonData.result.data[0].pedigreeString).to.be.eql(\"A/B\");\r",
+											"    pm.expect(jsonData.result.data[0].pedigreeString).to.be.eql(\"C\");\r",
 											"});\r",
 											"\r",
 											"//Check parent details\r",
@@ -138732,7 +138440,8 @@
 											"    }\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -138783,7 +138492,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -139911,10 +139621,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Check returned pedigreeString\", function () {\r",
-											"    pm.expect(jsonData.result.data[0].pedigreeString).to.be.eql(\"A/B\");\r",
+											"    pm.expect(jsonData.result.data[0].pedigreeString).to.be.eql(\"C\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -139965,7 +139676,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
