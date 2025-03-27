@@ -107431,9 +107431,28 @@
 											" }",
 											"",
 											"});",
+											"",
+											"pm.test(\"Check for Selection_Trait category labels\", function () {",
+											"    var labels = [\"Drought and heat tolerance\",\"Drought tolerance\",\"Heat tolerance\",\"Nitrogen use efficiency\",\"Rust resistance\"]",
+											" for (var i = 0; i < jsonData.result.data[0].scale.validValues.categories.length; i++) { ",
+											"         pm.expect(jsonData.result.data[0].scale.validValues.categories[i].label).to.be.eql(labels[i]);",
+											"    }",
+											"",
+											"});",
+											"",
+											"pm.test(\"Check for Selection_Trait category values\", function () {",
+											"    var values = [\"DH\",\"DT\",\"HT\",\"NU\",\"RR\"]",
+											" for (var i = 0; i < jsonData.result.data[0].scale.validValues.categories.length; i++) { ",
+											"         pm.expect(jsonData.result.data[0].scale.validValues.categories[i].value).to.be.eql(values[i]);",
+											"    }",
+											"",
+											"});",
+											"",
+											"",
 											"   "
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -107484,7 +107503,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
