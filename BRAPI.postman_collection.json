@@ -77500,9 +77500,9 @@
 											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelName).to.eql(levelNames[i]);",
 											"    }",
 											"});",
-											"pm.test(\"Check if observationLevelRelationships levelOrder is null\", function () {",
+											"pm.test(\"Check observationLevelRelationships levelOrder\", function () {",
 											"     for (var i = 0; i < jsonData.result.data[index].observationUnitPosition.observationLevelRelationships.length; i++) {   ",
-											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelOrder).to.be.null;",
+											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelOrder).to.eql(\"6\");",
 											"    }",
 											"});",
 											"",
@@ -77541,7 +77541,8 @@
 											"pm.environment.unset(\"createdObservationUnitDbId2\");",
 											"pm.environment.set(\"createdObservationUnitDbId2\", jsonData.result.data[1].observationUnitDbId);"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -77592,7 +77593,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
