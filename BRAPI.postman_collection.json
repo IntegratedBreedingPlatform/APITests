@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "00fd13cf-220f-45a0-b4c4-08c028911772",
+		"_postman_id": "bb5912b2-b0e2-4cbb-96d0-13ebdd41cf08",
 		"name": "BRAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "5151467"
+		"_exporter_id": "5151467",
+		"_collection_link": "https://bmsapi-leafnode.postman.co/workspace/v28_bug_fixing~b182d787-6b2e-403b-bd28-efad5c8c9a33/collection/5151467-bb5912b2-b0e2-4cbb-96d0-13ebdd41cf08?action=share&source=collection_link&creator=5151467"
 	},
 	"item": [
 		{
@@ -77499,9 +77500,10 @@
 											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelName).to.eql(levelNames[i]);",
 											"    }",
 											"});",
-											"pm.test(\"Check if observationLevelRelationships levelOrder is null\", function () {",
+											"pm.test(\"Check observationLevelRelationships levelOrder\", function () {",
+											"    var levelOrder = [6,5,4];",
 											"     for (var i = 0; i < jsonData.result.data[index].observationUnitPosition.observationLevelRelationships.length; i++) {   ",
-											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelOrder).to.be.null;",
+											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelOrder).to.eql(levelOrder[i]);",
 											"    }",
 											"});",
 											"",
@@ -77540,7 +77542,8 @@
 											"pm.environment.unset(\"createdObservationUnitDbId2\");",
 											"pm.environment.set(\"createdObservationUnitDbId2\", jsonData.result.data[1].observationUnitDbId);"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -77591,7 +77594,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -111983,9 +111987,10 @@
 											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelName).to.eql(levelNames[i]);",
 											"    }",
 											"});",
-											"pm.test(\"Check if observationLevelRelationships levelOrder is null\", function () {",
+											"pm.test(\"Check observationLevelRelationships levelOrder\", function () {",
+											"    var levelOrders = [6,5,4]",
 											"     for (var i = 0; i < jsonData.result.data[index].observationUnitPosition.observationLevelRelationships.length; i++) {   ",
-											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelOrder).to.be.null;",
+											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelOrder).to.be.eql(levelOrders[i]);",
 											"    }",
 											"});",
 											"",
@@ -112020,7 +112025,8 @@
 											"",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -112071,7 +112077,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -112438,9 +112445,9 @@
 											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelName).to.eql(levelNames[i]);",
 											"    }",
 											"});",
-											"pm.test(\"Check if observationLevelRelationships levelOrder is null\", function () {",
+											"pm.test(\"Check observationLevelRelationships levelOrder\", function () {",
 											"     for (var i = 0; i < jsonData.result.data[index].observationUnitPosition.observationLevelRelationships.length; i++) {   ",
-											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelOrder).to.be.null;",
+											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelOrder).to.be.eql(6);",
 											"    }",
 											"});",
 											"",
@@ -114167,9 +114174,10 @@
 											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelName).to.eql(levelNames[i]);",
 											"    }",
 											"});",
-											"pm.test(\"Check if observationLevelRelationships levelOrder is null\", function () {",
+											"pm.test(\"Check observationLevelRelationships levelOrder\", function () {",
+											"    var levelOrders = [6,5,4]",
 											"     for (var i = 0; i < jsonData.result.data[index].observationUnitPosition.observationLevelRelationships.length; i++) {   ",
-											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelOrder).to.be.null;",
+											"    pm.expect(jsonData.result.data[index].observationUnitPosition.observationLevelRelationships[i].levelOrder).to.be.eql(levelOrders[i]);",
 											"    }",
 											"});",
 											"",
@@ -114204,7 +114212,8 @@
 											"",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -114255,7 +114264,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -114800,9 +114810,6 @@
 											"pm.test(\"Check observationUnitPosition observationLevel levelName\", function () {\r",
 											"    pm.expect(data.observationUnitPosition.observationLevel.levelName).to.eql(\"PLOT\");\r",
 											"});\r",
-											"pm.test(\"Check observationUnitPosition observationLevel levelName\", function () {\r",
-											"    pm.expect(data.observationUnitPosition.observationLevel.levelOrder).to.eql(null);\r",
-											"});\r",
 											"pm.test(\"Check observationUnitPosition observationLevelRelationships levelCode\", function () {\r",
 											"    for ( i=0; i< data.observationUnitPosition.observationLevelRelationships.length;i++){\r",
 											"         pm.expect(data.observationUnitPosition.observationLevelRelationships[i].levelCode).to.eql(\"1\")\r",
@@ -114815,8 +114822,9 @@
 											"    }\r",
 											"});\r",
 											"pm.test(\"Check observationUnitPosition observationLevelRelationships levelOrder\", function () {\r",
+											"    var levelOrders = [6,5,4]\r",
 											"    for ( i=0; i< data.observationUnitPosition.observationLevelRelationships.length;i++){\r",
-											"        pm.expect(data.observationUnitPosition.observationLevelRelationships[i].levelOrder).to.eql(null);\r",
+											"        pm.expect(data.observationUnitPosition.observationLevelRelationships[i].levelOrder).to.eql(levelOrders[i]);\r",
 											"    }\r",
 											"});\r",
 											"pm.test(\"Check observationUnitPosition positionCoordinateX\", function () {\r",
@@ -114847,7 +114855,8 @@
 											"    pm.expect(data.trialName).to.eql(\"Study w complete details\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -114898,7 +114907,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -124380,6 +124390,118 @@
 								"description": "POST /{crop}/brapi/v1/search/germplasm"
 							},
 							"response": []
+						},
+						{
+							"name": "Verify response code and body when searched by valid studyDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"    var jsonData = pm.response.json();",
+											"    pm.environment.unset(\"searchResultDbId_v1_studyDbId\");",
+											"    pm.environment.set(\"searchResultDbId_v1_studyDbId\", jsonData.result.searchResultsDbId);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"studyDbId\": [\r\n    \"1\"\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"search",
+										"attributes"
+									]
+								},
+								"description": "POST /{crop}/brapi/v1/search/germplasm"
+							},
+							"response": []
 						}
 					]
 				},
@@ -127320,6 +127442,223 @@
 										"search",
 										"attributes",
 										"{{searchResultDbId_v1_multiples}}"
+									]
+								},
+								"description": "GET ​/{crop}​/brapi​/v1​/studies​/{studyDbId}​/observationunits"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify response code and body when entered valid studyDbId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"//var data = jsonData.result.data[0];",
+											"pm.test(\"Verify returned metadata\", function () {",
+											"",
+											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
+											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
+											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(12);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
+											"    pm.expect(jsonData.metadata.status).to.eql([]);",
+											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
+											"});",
+											"var index = 0;",
+											"//Verify returned data of the first attribute record",
+											"pm.test(\"Verify returned additionalInfo \", function () {",
+											"     pm.expect(jsonData.result.data[index].additionalInfo).to.eql({});     ",
+											"});",
+											"pm.test(\"Verify returned attributeCategory\", function () {",
+											"     pm.expect(jsonData.result.data[index].attributeCategory).to.eql(\"Passport\");",
+											"     ",
+											"});",
+											"pm.test(\"Verify returned attributeDbId\", function () {",
+											"     pm.expect(jsonData.result.data[index].attributeDbId).to.eql(\"100643\");",
+											"});",
+											"pm.test(\"Verify returned attributeDescription\", function () {",
+											"     pm.expect(jsonData.result.data[index].attributeDescription).to.eql(\"Additional details about germplasm\");",
+											"});",
+											"pm.test(\"Verify returned attributeName\", function () {",
+											"     pm.expect(jsonData.result.data[index].attributeName).to.eql(\"INSTCODE_AP_text\");     ",
+											"});",
+											"pm.test(\"Verify returned commonCropName\", function () {",
+											"     pm.expect(jsonData.result.data[index].commonCropName).to.eql(\"testdata\");",
+											"});",
+											"pm.test(\"Verify returned contextOfUse\", function () {",
+											"     pm.expect(jsonData.result.data[index].contextOfUse).to.eql([\"PLOT\"]);     ",
+											"});",
+											"pm.test(\"Verify returned defaultValue\", function () {",
+											"     pm.expect(jsonData.result.data[index].defaultValue).to.eql(\"\");   ",
+											"});",
+											"pm.test(\"Verify returned documentationURL\", function () {",
+											"     pm.expect(jsonData.result.data[index].documentationURL).to.eql(null);",
+											"});",
+											"pm.test(\"Verify returned externalReferences\", function () {",
+											"     pm.expect(jsonData.result.data[index].externalReferences).to.eql(null);",
+											"});",
+											"pm.test(\"Verify returned growthStage\", function () {",
+											"     pm.expect(jsonData.result.data[index].growthStage).to.eql(null);     ",
+											"});",
+											"pm.test(\"Verify returned institution\", function () {",
+											"     pm.expect(jsonData.result.data[index].institution).to.eql(null);     ",
+											"});",
+											"pm.test(\"Verify returned language\", function () {",
+											"     pm.expect(jsonData.result.data[index].language).to.eql(null);     ",
+											"});",
+											"pm.test(\"Verify returned method description\", function () {",
+											"     pm.expect(jsonData.result.data[index].method.description).to.eql(\"Standard method for assigned attribute\");     ",
+											"});",
+											"pm.test(\"Verify returned method id\", function () {",
+											"     pm.expect(jsonData.result.data[index].method.methodDbId).to.eql(\"4031\");     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned method name\", function () {",
+											"     pm.expect(jsonData.result.data[index].method.methodName).to.eql(\"Assigned Attribute\");     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned method ontology id\", function () {",
+											"     pm.expect(jsonData.result.data[index].method.ontologyReferenceObject.ontologyDbId).to.eql(null);     ",
+											"});",
+											"pm.test(\"Verify returned method ontology name\", function () {",
+											"     pm.expect(jsonData.result.data[index].method.ontologyReferenceObject.ontologyName).to.eql(\"Assigned Attribute\");     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned scale datatype\", function () {",
+											"     pm.expect(jsonData.result.data[index].scale.dataType).to.eql(\"Text\");     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned scale datatype\", function () {",
+											"     pm.expect(jsonData.result.data[index].scale.dataType).to.eql(\"Text\");     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned scale ontologyDbId\", function () {",
+											"     pm.expect(jsonData.result.data[index].scale.ontologyReference.ontologyDbId).to.eql(null);     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned scale ontologyName\", function () {",
+											"     pm.expect(jsonData.result.data[index].scale.ontologyReference.ontologyName).to.eql(\"Text\");     ",
+											"});",
+											"pm.test(\"Verify returned scaleDbId\", function () {",
+											"     pm.expect(jsonData.result.data[index].scale.scaleDbId).to.eql(\"6020\");     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned scaleName\", function () {",
+											"     pm.expect(jsonData.result.data[index].scale.scaleName).to.eql(\"Text\");     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned traitClass\", function () {",
+											"     pm.expect(jsonData.result.data[index].trait.traitClass).to.eql(\"Passport\");     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned traitDescription\", function () {",
+											"     pm.expect(jsonData.result.data[index].trait.traitDescription).to.eql(\"Additional details about germplasm\");     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned traitName\", function () {",
+											"     pm.expect(jsonData.result.data[index].trait.name).to.eql(\"Additional details about germplasm\");     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned trait status\", function () {",
+											"     pm.expect(jsonData.result.data[index].trait.status).to.eql(\"Active\");     ",
+											"});",
+											"pm.test(\"Verify returned traitDbId\", function () {",
+											"     pm.expect(jsonData.result.data[index].trait.traitDbId).to.eql(\"100516\");     ",
+											"});",
+											"",
+											"pm.test(\"Verify returned trait ontologyName\", function () {",
+											"     pm.expect(jsonData.result.data[index].trait.ontologyReference.ontologyName).to.eql(\"Additional details about germplasm\");     ",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const echoPostRequest = {\r",
+											"  url: pm.environment.get(\"BMSurl\")+\"/brapi/v1/token\",\r",
+											"  method: 'POST',\r",
+											"  header: 'Content-Type:application/json',\r",
+											"  body: {\r",
+											"    mode: 'application/json',\r",
+											"    raw: JSON.stringify({\r",
+											"        \t\"username\": pm.environment.get(\"bms_user\"),\r",
+											"        \t\"password\": pm.environment.get(\"bms_password\"),\r",
+											"        \t\"grant_type\": \"\",\r",
+											"            \"client_id\": \"\"\r",
+											"        })\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"var getToken = true;\r",
+											"\r",
+											"if (!pm.environment.get('masterTokenExpiry') || \r",
+											"    !pm.environment.get('masterToken')) {\r",
+											"    console.log('Token or expiry date are missing')\r",
+											"} else if (pm.environment.get('masterTokenExpiry') <= (new Date()).getTime()) {\r",
+											"    console.log('Token is expired')\r",
+											"} else {\r",
+											"    getToken = false;\r",
+											"    console.log('Token and expiry date are all good');\r",
+											"}\r",
+											"\r",
+											"if (getToken === true) {\r",
+											"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+											"    console.log(err ? err : res.json());\r",
+											"        if (err === null) {\r",
+											"            console.log('Saving the token and expiry date')\r",
+											"            var responseJson = res.json();\r",
+											"            pm.environment.set('masterToken', responseJson.access_token)\r",
+											"    \r",
+											"            var expiryDate = new Date();\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"pm.globals.get(\"variable_key\");\r",
+											"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+											"            pm.environment.set('masterTokenExpiry', expiryDate.getTime());\r",
+											"        }\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{masterToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BMSurl}}/{{crop}}/brapi/v2/search/attributes/{{searchResultDbId_v1_studyDbId}}",
+									"host": [
+										"{{BMSurl}}"
+									],
+									"path": [
+										"{{crop}}",
+										"brapi",
+										"v2",
+										"search",
+										"attributes",
+										"{{searchResultDbId_v1_studyDbId}}"
 									]
 								},
 								"description": "GET ​/{crop}​/brapi​/v1​/studies​/{studyDbId}​/observationunits"
