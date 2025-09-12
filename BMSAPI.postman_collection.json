@@ -18041,7 +18041,7 @@
 					]
 				},
 				{
-					"name": "GET /crops/{cropName}/lot-lists/template/xls",
+					"name": "GET /crops/{cropName}/lot-lists/template/xlsx",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -18091,7 +18091,8 @@
 									"    });\r",
 									"}"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
@@ -18103,10 +18104,14 @@
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -18119,8 +18124,17 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{BMSurl}}/crops/{{crop}}/lot-lists/templates/xls?lotExcelTemplateExportType=LOT_CREATION",
+							"raw": "{{BMSurl}}/crops/{{crop}}/lot-lists/templates/xlsx?programUUID={{api_program_id}}&lotExcelTemplateExportType=LOT_CREATION",
 							"host": [
 								"{{BMSurl}}"
 							],
@@ -18129,9 +18143,13 @@
 								"{{crop}}",
 								"lot-lists",
 								"templates",
-								"xls"
+								"xlsx"
 							],
 							"query": [
+								{
+									"key": "programUUID",
+									"value": "{{api_program_id}}"
+								},
 								{
 									"key": "lotExcelTemplateExportType",
 									"value": "LOT_CREATION"
@@ -30963,7 +30981,8 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -30974,7 +30993,8 @@
 											"    pm.response.to.have.status(200);\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -30991,7 +31011,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{BMSurl}}/crops/{{crop}}/transactions/xls?programUUID={{programDbId}}&searchRequestId={{createdByUsername}}",
+									"raw": "{{BMSurl}}/crops/{{crop}}/transactions/xlsx?programUUID={{programDbId}}&searchRequestId={{createdByUsername}}",
 									"host": [
 										"{{BMSurl}}"
 									],
@@ -30999,7 +31019,7 @@
 										"crops",
 										"{{crop}}",
 										"transactions",
-										"xls"
+										"xlsx"
 									],
 									"query": [
 										{
