@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "2e1e38bb-3cbd-4d40-b01f-c229aa3c4f19",
+		"_postman_id": "c1833fb1-e51a-4faf-ba3f-8d2483b13df2",
 		"name": "BRAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "5151467",
-		"_collection_link": "https://bmsapi-leafnode.postman.co/workspace/v30-fix-failing-tests~72d1a281-f440-4cb4-8477-4ed9931671d4/collection/5151467-2e1e38bb-3cbd-4d40-b01f-c229aa3c4f19?action=share&source=collection_link&creator=5151467"
+		"_exporter_id": "5565742",
+		"_collection_link": "https://bmsapi-leafnode.postman.co/workspace/BMS~b08b8476-b809-40ca-837d-01c0efce7c37/collection/5565742-c1833fb1-e51a-4faf-ba3f-8d2483b13df2?action=share&source=collection_link&creator=5565742"
 	},
 	"item": [
 		{
@@ -213,11 +213,12 @@
 											"",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check error message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -268,9 +269,15 @@
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
 											"});",
-											""
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check error message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
+											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -439,11 +446,12 @@
 											"",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check error message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -492,9 +500,14 @@
 											"pm.test(\"Status code is 500\", function () {",
 											"    pm.response.to.have.status(500);",
 											"});",
-											""
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Check error message\", function () {",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
+											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -3642,7 +3655,9 @@
 											"});",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -3693,7 +3708,9 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -4140,7 +4157,7 @@
 											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(2);",
 											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(5);",
 											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(98);",
-											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(20);",
+											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(21);",
 											"    pm.expect(jsonData.metadata.status).to.eql([]);",
 											"    pm.expect(jsonData.metadata.datafiles).to.eql([]);",
 											"});",
@@ -4151,7 +4168,9 @@
 											"});",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -4202,7 +4221,9 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -4258,11 +4279,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -4314,7 +4336,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -4370,11 +4393,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -4426,7 +4450,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -7200,11 +7225,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -7256,7 +7282,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -7312,11 +7339,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -7368,7 +7396,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -17121,11 +17150,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -17177,7 +17207,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -25507,11 +25538,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -25563,7 +25595,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -25619,11 +25652,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -25675,7 +25709,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -26441,11 +26476,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -26497,7 +26533,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -26553,11 +26590,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -26609,7 +26647,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -31097,12 +31136,13 @@
 											"",
 											"pm.test(\"Verify returned error message\",function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -31154,7 +31194,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -31823,12 +31864,13 @@
 											"",
 											"pm.test(\"Verify returned error message\",function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -31880,7 +31922,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -31936,12 +31979,13 @@
 											"",
 											"pm.test(\"Verify returned error message\",function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -31993,7 +32037,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -34276,12 +34321,13 @@
 											"\r",
 											"pm.test(\"Check error message\", function () {\r",
 											"  var jsonData = pm.response.json();\r",
-											"  pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");\r",
+											"  pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");\r",
 											"});    \r",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -34336,12 +34382,13 @@
 											"",
 											"pm.test(\"Check error message\", function () {",
 											"  var jsonData = pm.response.json();",
-											"  pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"  pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});    ",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -34393,7 +34440,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -38649,11 +38697,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -38705,7 +38754,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -38894,11 +38944,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -38950,7 +39001,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -39006,11 +39058,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -39062,7 +39115,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -43162,11 +43216,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -43218,7 +43273,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -43274,11 +43330,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -43330,7 +43387,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -45592,11 +45650,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -45648,7 +45707,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -47880,11 +47940,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -47936,7 +47997,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -48794,12 +48856,13 @@
 											"",
 											"pm.test(\"Error message is correct\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -48851,7 +48914,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -49295,7 +49359,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -49308,11 +49373,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -49407,7 +49473,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -49419,11 +49486,12 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -49518,7 +49586,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -49530,11 +49599,12 @@
 											"});",
 											"pm.test(\"Verify error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -49602,7 +49672,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(44);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(42);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -49850,7 +49920,8 @@
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -49902,7 +49973,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -49956,7 +50028,7 @@
 											"pm.test(\"Verify returned metadata\", function () {",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(1);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(5);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(44);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(42);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(9);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -50171,7 +50243,8 @@
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -50223,7 +50296,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -50391,11 +50465,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -50447,7 +50522,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -50509,11 +50585,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -50565,7 +50642,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -50634,7 +50712,7 @@
 											"    var jsonData = pm.response.json();",
 											" pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
 											" pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1000);",
-											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(44);",
+											" pm.expect(jsonData.metadata.pagination.totalCount).to.eql(42);",
 											" pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
 											" pm.expect(jsonData.metadata.status).to.eql([]);",
 											" pm.expect(jsonData.metadata.datafiles).to.eql([]);",
@@ -50875,7 +50953,8 @@
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -50927,7 +51006,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -53182,14 +53262,15 @@
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check if result is empty\", function () {",
 											" ",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"",
 											"",
 											"});",
 											"   "
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -53241,7 +53322,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -53304,14 +53386,15 @@
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check if result is empty\", function () {",
 											" ",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"",
 											"",
 											"});",
 											"   "
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -53363,7 +53446,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -53784,42 +53868,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
+											"pm.test(\"Status code is 500\", function () {",
+											"    pm.response.to.have.status(500);",
 											"});",
-											"var jsonData = pm.response.json();",
-											"",
-											"//Check pagination",
-											"pm.test(\"Check currentPage\", function () {",
-											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
-											"});",
-											"pm.test(\"Check pageSize\", function () {",
-											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1);",
-											"});",
-											"pm.test(\"Check totalCount\", function () {",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
-											"});",
-											"pm.test(\"Check totalPages\", function () {",
-											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
-											"});",
-											"",
-											"//Check info status",
-											"pm.test(\"Check messageType\", function () {",
-											"  pm.expect(jsonData.metadata.status[0].messageType).to.eql(\"INFO\");",
-											"});",
-											"pm.test(\"Check returned message\", function () {",
-											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"0 out of 1 variable created successfully.\");",
-											"});",
-											"",
-											"//Check error status",
-											"pm.test(\"Check messageType\", function () {",
-											"    pm.expect(jsonData.metadata.status[1].messageType).to.eql(\"ERROR\");",
-											"});",
-											"pm.test(\"Check returned message\", function () {",
-											"    pm.expect(jsonData.metadata.status[1].message).to.eql(\"ERROR1 ObservationVariableName is required.\");",
+											"pm.test(\"Verify error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -53870,7 +53929,9 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -54355,16 +54416,16 @@
 											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"0 out of 1 variable created successfully.\");",
 											"});",
 											"",
-											"//Check error status",
 											"pm.test(\"Check messageType\", function () {",
 											"    pm.expect(jsonData.metadata.status[1].messageType).to.eql(\"ERROR\");",
 											"});",
 											"pm.test(\"Check returned message\", function () {",
-											"    pm.expect(jsonData.metadata.status[1].message).to.eql(\"ERROR1 No Method with ID 401011 exists.\");",
-											"});",
-											""
+											"    pm.expect(jsonData.metadata.status[1].message).to.eql(\"ERROR1 Variable name PH_M_cm_BLUEs already exists.\");",
+											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -54415,7 +54476,9 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -54465,43 +54528,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
+											"pm.test(\"Status code is 500\", function () {",
+											"    pm.response.to.have.status(500);",
 											"});",
-											"var jsonData = pm.response.json();",
-											"",
-											"//Check pagination",
-											"pm.test(\"Check currentPage\", function () {",
-											"    pm.expect(jsonData.metadata.pagination.currentPage).to.eql(0);",
-											"});",
-											"pm.test(\"Check pageSize\", function () {",
-											"    pm.expect(jsonData.metadata.pagination.pageSize).to.eql(1);",
-											"});",
-											"pm.test(\"Check totalCount\", function () {",
-											"    pm.expect(jsonData.metadata.pagination.totalCount).to.eql(0);",
-											"});",
-											"pm.test(\"Check totalPages\", function () {",
-											"    pm.expect(jsonData.metadata.pagination.totalPages).to.eql(1);",
-											"});",
-											"",
-											"//Check info status",
-											"pm.test(\"Check messageType\", function () {",
-											"  pm.expect(jsonData.metadata.status[0].messageType).to.eql(\"INFO\");",
-											"});",
-											"pm.test(\"Check returned message\", function () {",
-											"    pm.expect(jsonData.metadata.status[0].message).to.eql(\"0 out of 1 variable created successfully.\");",
-											"});",
-											"",
-											"//Check error status",
-											"pm.test(\"Check messageType\", function () {",
-											"    pm.expect(jsonData.metadata.status[1].messageType).to.eql(\"ERROR\");",
-											"});",
-											"pm.test(\"Check returned message\", function () {",
-											"    pm.expect(jsonData.metadata.status[1].message).to.eql(\"ERROR1 No SCALE with ID 17266111 exists.\");",
-											"});",
-											""
+											"pm.test(\"Verify error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
+											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -54552,7 +54589,9 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -54776,7 +54815,7 @@
 											"    pm.expect(jsonData.result.data[0].growthStage).to.eql(null);",
 											"    pm.expect(jsonData.result.data[0].institution).to.eql(null);",
 											"    pm.expect(jsonData.result.data[0].language).to.eql(null);",
-											"    pm.expect(jsonData.result.data[0].observationVariableDbId).to.eql(\"100911\");",
+											"    pm.expect(jsonData.result.data[0].observationVariableDbId).to.eql(\"100903\");",
 											"    pm.expect(jsonData.result.data[0].observationVariableName).to.eql(\"Grain_sizes\");",
 											"    pm.expect(jsonData.result.data[0].ontologyReference.documentationLinks).to.eql([]);",
 											"    pm.expect(jsonData.result.data[0].ontologyReference.ontologyDbId).to.eql(null);",
@@ -54847,7 +54886,8 @@
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -54899,7 +54939,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -55049,7 +55090,8 @@
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -55101,7 +55143,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -55186,7 +55229,9 @@
 											"    pm.expect(jsonData.metadata.status[1].message).to.eql(\"ERROR1 A variable with this trait (2040), scale (6180) and method (4010) combination already exists.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -55237,7 +55282,9 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -55321,7 +55368,9 @@
 											"    pm.expect(jsonData.metadata.status[1].message).to.eql(\"ERROR1 Variable name PH_M_cm_BLUEs already exists.\");",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -55372,7 +55421,9 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -56885,11 +56936,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -56941,7 +56993,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -56997,11 +57050,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -57053,7 +57107,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -57971,12 +58026,12 @@
 											"});",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check error message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
-											"});",
-											""
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
+											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -58028,7 +58083,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -60193,12 +60249,13 @@
 											"",
 											"pm.test(\"Check response message when exceeded max page size\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -60250,7 +60307,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -62722,11 +62780,12 @@
 											"var jsonData = pm.response.json();",
 											"",
 											"pm.test(\"Check error message\", function () {",
-											"  pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"  pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -62778,7 +62837,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -62834,11 +62894,12 @@
 											"var jsonData = pm.response.json();",
 											"",
 											"pm.test(\"Check error message\", function () {",
-											"  pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"  pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -62890,7 +62951,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -65599,11 +65661,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -65655,7 +65718,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -65711,11 +65775,12 @@
 											"var jsonData = pm.response.json();",
 											"",
 											"pm.test(\"Check error message\", function () {",
-											"  pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"  pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -65767,7 +65832,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -91310,7 +91376,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -91323,11 +91390,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -91422,7 +91490,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -91435,11 +91504,12 @@
 											"",
 											"pm.test(\"Verify returned error message\", function () {",
 											"    var jsonData = pm.response.json();",
-											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											" pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -97881,7 +97951,9 @@
 											"    pm.expect(jsonData.result.data[index].value).to.eql(null);",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -97932,7 +98004,9 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -119263,13 +119337,14 @@
 											"});",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check error message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});",
 											"",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -119321,7 +119396,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -119389,13 +119465,14 @@
 											"});",
 											"var jsonData = pm.response.json();",
 											"pm.test(\"Check error message\", function () {",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											"});",
 											"",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -119447,7 +119524,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -121252,11 +121330,12 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -121308,7 +121387,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -121365,11 +121445,12 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -121421,7 +121502,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -124747,11 +124829,12 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -124803,7 +124886,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -124860,11 +124944,12 @@
 											"});",
 											"",
 											"var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, you can find more details in the server logs.\");",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");",
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -124916,7 +125001,8 @@
 											"}"
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -131174,9 +131260,19 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"pm.test(\"Status code is 500\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Check error message\", function () {\r",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"The server was unable to complete your request. Please try again later. If this problem persists, contact <a href=\\\"mailto:support@integratedbreeding.net\\\">support@integratedbreeding.net</a>\");\r",
+											"});\r",
+											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -131227,7 +131323,9 @@
 											"    });\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
